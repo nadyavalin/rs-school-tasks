@@ -128,6 +128,7 @@ h1 > span {
     justify-content: center;
     align-items: center;
     gap: 8px;
+    border: none;
     border-radius: 100px;
     background-color: #E1D4C9;
     cursor: pointer;
