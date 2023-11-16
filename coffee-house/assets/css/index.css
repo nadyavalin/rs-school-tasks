@@ -6,4 +6,129 @@
 
 body {
     background-color: #E1D4C9;
+    color: #403F3D;
+    width: 1440px;
+    margin: 0 auto;
+    font-family: 'Inter';
+    font-size: 16px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+    transition: color 0.5s ease;
+}
+
+a:hover {
+    color:#B0907A;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+nav > ul {
+    display: flex;
+    gap: 40px;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+}
+
+nav > ul > li > a:after, .menu > a:after {
+	content: "";
+    display: block;
+    right: 0;
+    bottom: -5px;
+    width: 0;
+    height: 1px;
+    background-color:#E1D4C9;
+    transition: width 0.5s;
+}
+
+nav > ul > li > a:hover:after, .menu > a:hover:after {
+	content: "";
+    width: 100%;
+    display: block;
+    left: 0;
+    bottom: -5px;
+    height: 1px;
+    background-color:#B0907A;
+    transition: width 0.5s;
+}
+
+.menu > a > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.menu > a {
+    font-weight: 600;
+    stroke: #403F3D;
+    transition: stroke 0.5s;
+}
+
+.menu > a:hover {
+    stroke: #B0907A;
+}
+
+.menu-line {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.img-container {
+    background: url(../img/index-page/container.jpg), lightgray 50% / cover no-repeat;
+    display: flex;
+    max-width: 100%;
+    max-height: auto;
+    padding: 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+    border-radius: 40px;
+    color: #E1D4C9;
+}
+
+.img-container__content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 530px;
+}
+
+h1 {
+    font-size: 72px;
+    font-weight: 600;
+    line-height: 105%; /* 75.6px */
+}
+
+h1 > span {
+    color: #B0907A;
+    font-style: italic;
+}
+
+.img-container__content > span {
+    line-height: 150%; /* 24px */
+}
+
+.img-container__content > button {
+    width: 200px;
+    padding: 20px 78px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background-color: #E1D4C9;
+    cursor: pointer;
 }
