@@ -1,0 +1,87 @@
+footer {
+    width: 100%;
+    background-color: #665F55;
+    display: flex;
+    padding: 100px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 100px;
+    border-radius: 40px;
+    margin: 100px 0 40px 0;
+}
+
+.footer__left-side {
+    width: 530px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer__socials {
+    display: flex;
+    gap: 12px;
+}
+
+.footer__socials > button {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #C1B6AD;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    stroke: #E1D4C9
+}
+
+.footer__socials > button:hover {
+    background-color: #E1D4C9;
+    stroke: #403F3D;
+}
+
+.footer__right-side {
+    color: #E1D4C9;
+}
+
+.footer__contacts {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer__contacts > div {
+    display: flex;
+    gap: 8px;
+}
+
+.footer__contacts > div > a {
+    color:#E1D4C9;
+    position: relative;
+}
+
+.footer__contacts > div > a::after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color:#E1D4C9;
+    transition: width 0.5s;
+}
+
+.footer__contacts > div > a:hover::after {
+	content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 2px;
+    background-color:#E1D4C9;
+    transition: width 0.5s;
+}
