@@ -48,26 +48,31 @@ nav > ul {
     line-height: 150%; /* 24px */
 }
 
-nav > ul > li > a:after, .menu > a:after {
+nav > ul > li > a {
+    position: relative;
+}
+
+nav > ul > li > a:after, .menu > a::after {
 	content: "";
     display: block;
+    position: absolute;
     right: 0;
     bottom: -5px;
     width: 0;
-    height: 1px;
+    height: 2px;
     background-color:#E1D4C9;
     transition: width 0.5s;
 }
 
-nav > ul > li > a:hover:after, .menu > a:hover:after {
+nav > ul > li > a:hover::after, .menu > a:hover::after {
 	content: "";
     width: 100%;
     display: block;
+    position: absolute;
     left: 0;
     bottom: -5px;
-    height: 1px;
+    height: 2px;
     background-color:#B0907A;
-    transition: width 0.5s;
 }
 
 .menu > a > svg {
@@ -78,7 +83,8 @@ nav > ul > li > a:hover:after, .menu > a:hover:after {
 .menu > a {
     font-weight: 600;
     stroke: #403F3D;
-    transition: stroke 0.5s;
+    transition: all 0.5s;
+    position: relative;
 }
 
 .menu > a:hover {
@@ -115,8 +121,22 @@ h2 > span {
     font-style: italic;
 }
 
+.h2__start {
+    text-align: start;
+}
+
+.h2__light {
+    color: #E1D4C9;
+}
+
 h3 {
     text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%; /* 30px */
+}
+
+h4 {
     font-size: 24px;
     font-weight: 600;
     line-height: 125%; /* 30px */
@@ -233,4 +253,159 @@ h3 {
 
 .gallery__images > img {
     border-radius: 20px;
+}
+
+.download-app {
+    display: flex;
+    justify-content: space-between;
+}
+
+.download-app__left-side {
+    width: 630px;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    gap: 40px;
+}
+
+.download-app__left-side > p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+}
+
+.download-app__buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.download-app__buttons > button {
+    display: flex;
+    width: 200px;
+    padding: 12px 20px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    border: 1px solid #676056;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.download-app__buttons > button:hover {
+    background-color: #665F55;
+    color: #E1D4C9;
+}
+
+.download-app__buttons > button > svg {
+    fill: #403F3D;
+    transition: fill 0.5s ease-in-out;
+}
+
+.download-app__buttons > button:hover > svg {
+    fill: #E1D4C9;
+}
+
+.download-app__button_text {
+    text-align: start;    
+}
+
+.download-app__button_text > p {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 140%; /* 14px */
+}
+
+.download-app__button_text > span {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+}
+
+footer {
+    width: 100%;
+    background-color: #665F55;
+    display: flex;
+    padding: 100px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 100px;
+    border-radius: 40px;
+    margin: 100px 0 40px 0;
+}
+
+.footer__left-side {
+    width: 530px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer__socials {
+    display: flex;
+    gap: 12px;
+}
+
+.footer__socials > button {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #C1B6AD;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    stroke: #E1D4C9
+}
+
+.footer__socials > button:hover {
+    background-color: #E1D4C9;
+    stroke: #403F3D;
+}
+
+.footer__right-side {
+    color: #E1D4C9;
+}
+
+.footer__contacts {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer__contacts > div {
+    display: flex;
+    gap: 8px;
+}
+
+.footer__contacts > div > a {
+    color:#E1D4C9;
+    position: relative;
+}
+
+.footer__contacts > div > a::after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color:#E1D4C9;
+    transition: width 0.5s;
+}
+
+.footer__contacts > div > a:hover::after {
+	content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 2px;
+    background-color:#E1D4C9;
+    transition: width 0.5s;
 }
