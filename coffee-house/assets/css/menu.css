@@ -91,15 +91,31 @@
     height: 506px;
     width: 310px;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     border-radius: 40px;
     border: 1px solid #C1B6AD;
 }
 
-.menu__card > img {
+.menu__card_container {
+    border-radius: 40px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.menu__card_container img {
     width: 310px;
     height: 310px;
     border-radius: 40px;
+
+    display: block;
+    transform: scale(1.1);
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.menu__card_container:hover img {
+    transform: scale(1.0);
+    transform-origin: 50% 50%;
 }
 
 .menu__card_text {
@@ -124,4 +140,12 @@
     font-size: 24px;
     font-weight: 600;
     line-height: 125%; /* 30px */
+}
+
+.menu__card_text-description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
 }

@@ -53,6 +53,14 @@ h2 > span {
     font-style: italic;
 }
 
+.h2__start {
+    text-align: start;
+}
+
+.h2__light {
+    color: #E1D4C9;
+}
+
 h3 {
     text-align: center;
     font-size: 24px;
