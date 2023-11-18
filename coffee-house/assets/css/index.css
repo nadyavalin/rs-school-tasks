@@ -134,9 +134,50 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.gallery__images > img {
+.gallery__image_container {
+    display: inline-block;
+    gap: 40px;
     border-radius: 20px;
+    overflow: hidden;
 }
+
+.gallery__image_container img {
+    display: block;
+    transform: scale(1.3);
+    transition: transform 0.5s;
+    cursor: pointer;
+}
+
+.gallery__image_container_short img {
+    position: relative;
+    top: -155px;
+}
+
+.gallery__image_container:hover img {
+    transform: scale(1.0);
+    transform-origin: 50% 50%;
+}
+
+.gallery__image_container:nth-child(1) {
+    width: 660px;
+    height: 590px;
+}
+
+.gallery__image_container:nth-child(2) {
+    width: 660px;
+    height: 430px;
+}
+
+.gallery__image_container:nth-child(3) {
+    width: 660px;
+    height: 430px;
+}
+
+.gallery__image_container:nth-child(4) {
+    width: 660px;
+    height: 590px;
+}
+
 
 .download-app {
     display: flex;
