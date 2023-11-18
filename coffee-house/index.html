@@ -22,10 +22,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Favorite coffee</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Mobile app</a></li>
-                <li><a href="#">Contact us</a></li>
+                <li><a href="#favorite">Favorite coffee</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#download-app">Mobile app</a></li>
+                <li><a href="#footer">Contact us</a></li>
             </ul>
         </nav>
         <div class="menu">
@@ -50,9 +50,8 @@
                             class="button__svg-coffee-cup"></button>
                 </form>
             </div>
-            </div>
         </section>
-        <section class="coffee-slider">
+        <section class="coffee-slider" id="favorite">
             <h2>Choose your <span>favorite</span> coffee</h2>
             <div class="slider__container">
                 <button class="slider__arrow-left">
@@ -82,7 +81,7 @@
                 <label></label>
             </div>
         </section>
-        <section class="gallery">
+        <section class="gallery" id="about">
             <h2>
                 Resource is <span>the perfect and cozy place</span> where you can enjoy a variety of hot beverages,
                 relax, catch up
@@ -90,20 +89,20 @@
             </h2>
             <div class="gallery__images">
                 <div class="gallery__image_container">
-                    <img src="assets/img/index-page/image-1.jpg">
+                    <img src="assets/img/index-page/image-1.jpg" alt="">
                 </div>
                 <div class="gallery__image_container gallery__image_container_short">
-                    <img src="assets/img/index-page/image-2.jpg">
+                    <img src="assets/img/index-page/image-2.jpg" alt="">
                 </div>
                 <div class="gallery__image_container gallery__image_container_short">
-                    <img src="assets/img/index-page/image-3.jpg">
+                    <img src="assets/img/index-page/image-3.jpg" alt="">
                 </div>
                 <div class="gallery__image_container">
-                    <img src="assets/img/index-page/image-4.jpg">
+                    <img src="assets/img/index-page/image-4.jpg" alt="">
                 </div>
             </div>
         </section>
-        <section class="download-app">
+        <section class="download-app" id="download-app">
             <div class="download-app__left-side">
                 <h2 class="h2__start"><span>Download</span> our apps to start ordering</h2>
                 <p>Download the Resource app today and experience the comfort of ordering your favorite coffee from
@@ -116,10 +115,10 @@
                             <path
                                 d="M22.6357 6.87268C23.7477 5.51675 24.5086 3.67205 24.2974 1.80005C22.6879 1.86952 20.675 2.88554 19.5159 4.21169C18.4903 5.38029 17.5742 7.29571 17.8109 9.097C19.6189 9.2285 21.4753 8.20752 22.6357 6.87268Z" />
                         </svg>
-                        <div class="download-app__button_text">
-                            <p>Available on the</p>
-                            <span>App Store</span>
-                        </div>
+                        <span class="download-app__button_text">
+                            <span>Available on the</span>
+                            <span class="app">App Store</span>
+                        </span>
                     </button>
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -132,18 +131,18 @@
                             <path
                                 d="M25.2733 12.1876L7.24807 2.20103C6.18695 1.62058 5.25384 1.69125 4.68164 2.27772L20.0617 17.2688L25.2733 12.1876Z" />
                         </svg>
-                        <div class="download-app__button_text">
-                            <p>Available on</p>
-                            <span>Google Play</span>
-                        </div>
+                        <span class="download-app__button_text">
+                            <span>Available on</span>
+                            <span class="app">Google Play</span>
+                        </span>
                     </button>
                 </div>
             </div>
-            <img src="assets/img/index-page/mobile-screens.png">
+            <img src="assets/img/index-page/mobile-screens.png" alt="">
         </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="footer">
         <div class="footer__left-side">
             <h2 class="h2__start h2__light">Sip, Savor, Smile. <span>It’s coffee time!</span></h2>
             <div class="footer__socials">
@@ -176,8 +175,8 @@
         <div class="footer__right-side">
             <h4>Contact us</h4>
             <div class="footer__contacts">
-                <div><a href="#"><img src="assets/svg/pin-alt.svg" alt=""> 8558 Green Rd., LA</a></div>
-                <div><a href="#"><img src="assets/svg/phone.svg" alt=""> +1 (603) 555-0123</a></div>
+                <div><a href="https://maps.app.goo.gl/SgEd8up39jqyMyYN7" target="_blank"><img src="assets/svg/pin-alt.svg" alt=""> 8558 Green Rd., LA</a></div>
+                <div><a href="tel:+16035550123"><img src="assets/svg/phone.svg" alt=""> +1 (603) 555-0123</a></div>
                 <div><a href="#"><img src="assets/svg/clock.svg" alt=""> Mon-Sat: 9:00 AM – 23:00 PM</a></div>
             </div>
         </div>

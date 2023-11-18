@@ -1,3 +1,36 @@
+nav > ul {
+    display: flex;
+    gap: 40px;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+}
+
+nav > ul > li > a {
+    position: relative;
+}
+
+nav > ul > li > a:after, .menu > a::after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    transition: width 0.5s;
+}
+
+nav > ul > li > a:hover::after, .menu > a:hover::after {
+	content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 2px;
+    background-color:#403F3D;
+}
+
 .img-container {
     background: url(../img/index-page/container.jpg), #d3d3d3 50% / cover no-repeat;
     display: flex;
@@ -226,16 +259,19 @@
 }
 
 .download-app__button_text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
     text-align: start;    
 }
 
-.download-app__button_text > p {
+.download-app__button_text > span {
     font-size: 10px;
     font-weight: 600;
     line-height: 140%; /* 14px */
 }
 
-.download-app__button_text > span {
+.download-app__button_text > .app {
     font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
