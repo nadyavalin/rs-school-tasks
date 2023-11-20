@@ -5,13 +5,13 @@ header {
     margin: 20px 0;
 }
 
-.menu > a {
+.menu-button > a {
     font-weight: 600;
     transition: all 0.5s;
     position: relative;
 }
 
-.menu > a > svg {
+.menu-button > a > svg {
     width: 20px;
     height: 20px;
 }
