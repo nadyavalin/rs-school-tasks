@@ -7,7 +7,7 @@ footer {
     align-items: center;
     gap: 100px;
     border-radius: 40px;
-    margin: 100px 0 40px 0;
+    margin-top: 100px;
 }
 
 .footer__left-side {
@@ -28,7 +28,7 @@ footer {
     height: 60px;
     justify-content: center;
     align-items: center;
-    border-radius: 100px;
+    border-radius: 50%;
     border: 1px solid #C1B6AD;
     background-color: transparent;
     cursor: pointer;
