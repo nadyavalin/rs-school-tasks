@@ -7,9 +7,7 @@ footer {
     align-items: center;
     gap: 100px;
     border-radius: 40px;
-    margin-top: 100px;
 }
-
 .footer__left-side {
     width: 49%;
     display: flex;

@@ -130,7 +130,7 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     justify-content: center;
     gap: 40px;
     grid-template-columns: repeat(2, 660px);
-    /* grid-template-rows: 430px 120px; */
+    grid-template-rows: 430px 120px 430px;
     grid-template-areas:  
             "a b"
             "a d"
@@ -163,27 +163,19 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
 
 .gallery__container:nth-child(1)  {
     grid-area: a;
-    width: 660px;
-    height: 590px;
 }
 
 .gallery__container:nth-child(2) {
     grid-area: b;
-    width: 660px;
-    height: 430px;
 }
 
 .gallery__container:nth-child(3) {
     grid-area: c;
-    width: 660px;
-    height: 430px;
     /* grid-row: 3; */
 }
 
 .gallery__container:nth-child(4) {
     grid-area: d;
-    width: 660px;
-    height: 590px;
     /* grid-row: 2 / span 2; */
 }
 
