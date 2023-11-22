@@ -1,7 +1,15 @@
+nav > ul > li > a:hover::after, .menu-line:hover::after {
+	content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color:#403F3D;
+}
+
 h1 {
     font-size: 72px;
     font-weight: 600;
-    line-height: 125%; /* 75px */
+    line-height: 105%; /* 75.6px */
 }
 
 h1 > span {
@@ -10,7 +18,6 @@ h1 > span {
 }
 
 h2 {
-    text-align: center;
     font-size: 60px;
     font-weight: 600;
     line-height: 125%; /* 75px */
@@ -19,17 +26,6 @@ h2 {
 h2 > span {
     color: #B0907A;
     font-style: italic;
-}
-
-nav > ul > li > a:hover::after, .menu-button > a:hover::after {
-	content: "";
-    width: 100%;
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    height: 2px;
-    background-color:#403F3D;
 }
 
 .img-container {
@@ -109,11 +105,11 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     align-items: center;
     border-radius: 100px;
     border: 1px solid #665F55;
-    cursor: pointer;
     stroke: #403F3D;
     background-color: transparent;
     transition: all 0.5s ease-in-out;
     margin-bottom: -40px;
+    cursor: pointer;
 }
 
 .slider__arrow-left:hover, .slider__arrow-right:hover {
@@ -236,10 +232,6 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
 .gallery__container:nth-child(4) {
     grid-area: d;
     /* grid-row: 2 / span 2; */
-}
-
-.title_width {
-    max-width: 600px;
 }
 
 .download-app {

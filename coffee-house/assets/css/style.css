@@ -35,20 +35,12 @@ a {
     color: inherit;
 }
 
-h2 {
+.title_width {
+    max-width: 600px;
+}
+
+.title_center {
     text-align: center;
-    font-size: 60px;
-    font-weight: 600;
-    line-height: 125%; /* 75px */
-}
-
-h2 > span {
-    color: #B0907A;
-    font-style: italic;
-}
-
-.title_start {
-    text-align: start;
 }
 
 .title_light {
@@ -66,4 +58,8 @@ h4 {
     font-size: 24px;
     font-weight: 600;
     line-height: 125%; /* 30px */
+}
+
+.cursor-default {
+    cursor: default;
 }

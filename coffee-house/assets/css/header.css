@@ -16,26 +16,26 @@ nav > ul > li > a {
     position: relative;
 }
 
-nav > ul > li > a:after, .menu-button > a::after {
-	content: "";
-    display: block;
+.menu-button > a {
+    position: relative;
+    font-weight: 600;
+}
+
+.menu-button > a > img {
+    width: 20px;
+    height: 20px;
+}
+
+nav > ul > li > a::after, .menu-line::after {
     position: absolute;
-    right: 0;
+    content: '';
+    display: block;
     bottom: -5px;
     width: 0;
     height: 2px;
+    left: 50%;
+    transform: translateX(-50%);
     transition: width 0.5s;
-}
-
-.menu-button > a {
-    font-weight: 600;
-    transition: all 0.5s;
-    position: relative;
-}
-
-.menu-button > a > svg {
-    width: 20px;
-    height: 20px;
 }
 
 .menu-line {
@@ -43,8 +43,4 @@ nav > ul > li > a:after, .menu-button > a::after {
     justify-content: center;
     align-items: flex-end;
     gap: 8px;
-}
-
-.cursor-default {
-    cursor: default;
 }

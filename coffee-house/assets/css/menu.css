@@ -1,3 +1,19 @@
+nav > ul > li > a:hover::after {
+	content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color:#403F3D;
+}
+
+.menu-line::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color:#403F3D;
+}
+
 h1 {
     text-align: center;
     font-size: 60px;
@@ -12,28 +28,6 @@ h1 > span {
 
 .title_width {
     max-width: 800px;
-}
-
-nav > ul > li > a:hover::after, .menu-button > a:hover::after {
-	content: "";
-    width: 100%;
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    height: 2px;
-    background-color:#403F3D;
-}
-
-.menu-button > a::after {
-	content: "";
-    width: 100%;
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    height: 2px;
-    background-color:#403F3D;
 }
 
 .menu {
@@ -65,34 +59,25 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     line-height: 150%; /* 24px */
     transition: all 0.5s ease-in-out;
     cursor: pointer;
-
-    .menu__button-circle {
-        display: flex;
-        padding: 7px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100px;
-        background-color: #C1B6AD;
-        transition: background-color 0.5s ease-in-out;
-    }
 }
 
 .menu__button:hover {
     background-color: #665F55;
     color: #E1D4C9;
-
-    .menu__button_circle {
-        background-color: #E1D4C9;
-    }
 }
 
-.menu__button:active {
-    background-color: #665F55;
-    color: #E1D4C9;
+.menu__button-circle {
+    display: flex;
+    padding: 7px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: #C1B6AD;
+    transition: background-color 0.5s ease-in-out;
+}
 
-    .button__circle {
-        background-color: #E1D4C9;
-    }
+.menu__button:hover .menu__button-circle {
+    background-color: #E1D4C9;
 }
 
 .menu__button_checked {
@@ -101,8 +86,7 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     cursor: default;
 }
 
-.menu__button-circle,
-.menu__button-circle_checked:hover {
+.menu__button-circle_checked {
     background-color: #E1D4C9;
 }
 
