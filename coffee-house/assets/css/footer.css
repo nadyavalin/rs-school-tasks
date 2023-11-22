@@ -83,3 +83,7 @@
 .footer__contacts-img {
     padding-right: 8px;
 }
+
+.footer__clock {
+    cursor: default;
+}

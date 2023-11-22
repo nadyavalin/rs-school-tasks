@@ -44,3 +44,7 @@ nav > ul > li > a:after, .menu-button > a::after {
     align-items: flex-end;
     gap: 8px;
 }
+
+.cursor-default {
+    cursor: default;
+}
