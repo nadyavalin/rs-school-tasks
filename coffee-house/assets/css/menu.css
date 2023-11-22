@@ -31,7 +31,7 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
 }
 
 .menu__buttons {
-    margin: 40px 0;
+    margin: 36px 30px 40px 36px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,7 +43,7 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     padding: 8px 16px 8px 8px;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     border-radius: 100px;
     background-color: transparent;
     border: 1px solid #C1B6AD;
@@ -161,6 +161,12 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 16px;
+
+}
+
+.menu-card__description > p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
 }

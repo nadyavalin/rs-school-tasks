@@ -79,3 +79,7 @@ footer {
     background-color:#E1D4C9;
     transition: width 0.5s;
 }
+
+.footer__contacts-img {
+    padding-right: 8px;
+}

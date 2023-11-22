@@ -165,7 +165,7 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     gap: 40px;
     grid-template-columns: repeat(2, 660px);
     grid-template-rows: 430px 120px 430px;
-    grid-template-areas:  
+    grid-template-areas:
             "a b"
             "a d"
             "c d";
@@ -176,13 +176,13 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     gap: 40px;
     border-radius: 20px;
     overflow: hidden;
+    object-fit: cover;
 }
 
 .gallery__container img {
     display: block;
     transform: scale(1.1);
     transition: transform 0.5s;
-    cursor: pointer;
     position: relative;
     top: -35px;
 }
@@ -217,10 +217,6 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
 
 .title_width {
     max-width: 600px;
-}
-
-.footer__contacts-img {
-    padding-right: 8px;
 }
 
 .download-app {
@@ -279,7 +275,7 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    text-align: start;    
+    text-align: start;
 }
 
 .download-app__button-text > span:first-child {
