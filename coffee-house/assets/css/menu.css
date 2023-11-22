@@ -1,3 +1,19 @@
+h1 {
+    text-align: center;
+    font-size: 60px;
+    font-weight: 600;
+    line-height: 125%; /* 75px */
+}
+
+h1 > span {
+    color: #B0907A;
+    font-style: italic;
+}
+
+.title_width {
+    max-width: 800px;
+}
+
 nav > ul > li > a:hover::after, .menu-button > a:hover::after {
 	content: "";
     width: 100%;
@@ -24,10 +40,6 @@ nav > ul > li > a:hover::after, .menu-button > a:hover::after {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.title_width {
-    max-width: 800px;
 }
 
 .menu__buttons {

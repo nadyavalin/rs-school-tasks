@@ -35,17 +35,6 @@ a {
     color: inherit;
 }
 
-h1 {
-    font-size: 72px;
-    font-weight: 600;
-    line-height: 105%; /* 75.6px */
-}
-
-h1 > span {
-    color: #B0907A;
-    font-style: italic;
-}
-
 h2 {
     text-align: center;
     font-size: 60px;
