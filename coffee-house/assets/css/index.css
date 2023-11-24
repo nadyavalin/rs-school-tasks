@@ -29,7 +29,10 @@ h2 > span {
 }
 
 .img-container {
-    background: url(../img/index-page/container.jpg), #d3d3d3 50% / cover no-repeat;
+    background-image: url(../img/index-page/container.jpg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     max-width: 100%;
     padding: 100px;
