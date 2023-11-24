@@ -21,7 +21,7 @@
     gap: 12px;
 }
 
-.footer__socials > button {
+.footer__socials > a {
     display: flex;
     width: 60px;
     height: 60px;
@@ -35,7 +35,7 @@
     stroke: #E1D4C9
 }
 
-.footer__socials > button:hover {
+.footer__socials > a:hover {
     background-color: #E1D4C9;
     stroke: #403F3D;
 }

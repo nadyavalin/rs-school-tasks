@@ -6,9 +6,15 @@ nav > ul > li > a:hover::after {
     background-color:#403F3D;
 }
 
-.menu-line::after {
+.menu-text {
+    font-weight: 600;
+    cursor: default;
+}
+
+.menu-button::after {
     content: "";
     display: block;
+    margin-top: 4px;
     height: 2px;
     width: 100%;
     background-color:#403F3D;
