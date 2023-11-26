@@ -35,11 +35,6 @@
     stroke: #E1D4C9
 }
 
-.footer__socials > a:hover {
-    background-color: #E1D4C9;
-    stroke: #403F3D;
-}
-
 .footer__right-side {
     color: #E1D4C9;
 }
@@ -86,4 +81,25 @@
 
 .footer__clock {
     cursor: default;
+}
+
+
+@media (hover: hover) {
+    .footer__socials > a:hover {
+        background-color: #E1D4C9;
+        stroke: #403F3D;
+    }
+}
+
+@media (max-width: 815px) {
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 100px;
+        padding: 100px 60px;
+    }
+
+    .footer__left-side {
+        width: 100%;
+    }
 }

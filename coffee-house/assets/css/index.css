@@ -83,17 +83,6 @@ h2 > span {
     }
 }
 
-.img-container__content > a:hover {
-    .button__menu {
-        position: relative;
-        right: 0px;
-    }
-
-    .button__svg-coffee-cup {
-        opacity: 1;
-    }
-}
-
 .favourites-coffee {
     width: 100%;
 }
@@ -117,11 +106,6 @@ h2 > span {
     transition: all 0.5s ease-in-out;
     margin-bottom: -40px;
     cursor: pointer;
-}
-
-.slider__arrow-left:hover, .slider__arrow-right:hover {
-    stroke: #E1D4C9;
-    background-color: #665F55;
 }
 
 .slider__container-block {
@@ -174,12 +158,6 @@ h2 > span {
     cursor: pointer;
 }
 
-.pagination__container:hover {
-    .pagination__item {
-        background-color: #665F55;
-    }
-}
-
 .pagination__item_checked {
     background-color: #665F55;
 }
@@ -214,13 +192,9 @@ h2 > span {
 }
 
 .gallery__container_short img {
+    display: block;
     position: relative;
     top: -116px;
-}
-
-.gallery__container:hover img {
-    transform: scale(1.0);
-    transform-origin: 50% 50%;
 }
 
 .gallery__container:nth-child(1)  {
@@ -279,18 +253,9 @@ h2 > span {
     transition: all 0.5s ease-in-out;
 }
 
-.download-app__buttons > a:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-}
-
 .download-app__buttons > a > svg {
     fill: #403F3D;
     transition: fill 0.5s ease-in-out;
-}
-
-.download-app__buttons > a:hover > svg {
-    fill: #E1D4C9;
 }
 
 .download-app__button-text {
@@ -310,4 +275,69 @@ h2 > span {
     font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
+}
+
+@media (hover: hover) {
+    .img-container__content > a:hover {
+        .button__menu {
+            position: relative;
+            right: 0px;
+        }
+    
+        .button__svg-coffee-cup {
+            opacity: 1;
+        }
+    }
+
+    .slider__arrow-left:hover, .slider__arrow-right:hover {
+        stroke: #E1D4C9;
+        background-color: #665F55;
+    }
+
+    .pagination__container:hover {
+        .pagination__item {
+            background-color: #665F55;
+        }
+    }
+
+    .gallery__container:hover img {
+        transform: scale(1.0);
+        transform-origin: 50% 50%;
+    }
+
+    .download-app__buttons > a:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+    
+    .download-app__buttons > a:hover > svg {
+        fill: #E1D4C9;
+    }
+}
+
+@media (max-width: 815px) {
+    .img-container {
+        padding: 100px 60px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(1, 688px);
+        grid-template-rows: 590px 590px;
+        grid-template-areas:
+                "a"
+                "d";
+    }
+
+    .gallery__container_short {
+        display: none;
+    }
+
+    .download-app {
+        flex-direction: column;
+    }
+
+    .download-app__left-side {
+        width: 100%;
+        margin-bottom: 100px;
+    }
 }
