@@ -196,7 +196,21 @@ h2 > span {
 }
 
 @media (max-width: 815px) {
+    .title_width {
+        max-width: 80%;
+    }
+
     .menu-card_hidden {
         display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    h1, h2 {
+        font-size: 32px;
+    }
+
+    .menu__buttons {
+        gap: 8px;
     }
 }
