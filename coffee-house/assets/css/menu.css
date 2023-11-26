@@ -179,6 +179,17 @@ h2 > span {
     line-height: 150%; /* 24px */
 }
 
+.menu__refresh-button {
+    display: none;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+    margin-top: 40px;
+}
+
 @media (hover: hover) {
     .menu__button label:hover {
         background-color: #665F55;
@@ -202,6 +213,10 @@ h2 > span {
 
     .menu-card_hidden {
         display: none;
+    }
+
+    .menu__refresh-button {
+        display: flex;
     }
 }
 

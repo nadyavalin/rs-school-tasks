@@ -67,7 +67,6 @@ h2 > span {
     cursor: pointer;
     height: 64px;
     color: #403F3D;
-    font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
 
@@ -318,6 +317,16 @@ h2 > span {
 @media (max-width: 815px) {
     .img-container {
         padding: 100px 60px;
+    }
+
+    .img-container__content > a .button__menu {
+        right: 0;
+        transition: none;
+    }
+
+    .img-container__content > a .button__svg-coffee-cup {
+        opacity: 1;
+        transition: none;
     }
 
     .gallery {
