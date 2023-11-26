@@ -86,3 +86,7 @@ nav > ul > li > a::after, .menu-line::after {
         display: flex;
     }
 }
+
+@media (max-width: 400px) {
+
+}

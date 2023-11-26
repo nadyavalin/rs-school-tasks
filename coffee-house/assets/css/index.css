@@ -341,3 +341,51 @@ h2 > span {
         margin-bottom: 100px;
     }
 }
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 40px;
+        line-height: 115%; /* 48.3px */
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    .img-container {
+        padding: 60px 0 60px 16px;
+    }
+
+    .slider__arrow-left, .slider__arrow-right {
+        display: none;
+    }
+
+    .slider__container-block img {
+        max-width: 348px;
+        max-height: 348px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(1, auto);
+        grid-template-rows: 590px 590px;
+        align-self: stretch;
+    }
+
+    .gallery__container img {
+        transform: scale(1.0);
+        left: -60%;
+    }
+
+    .download-app__left-side {
+        margin-bottom: 40px;
+    }
+
+    .download-app__buttons {
+        flex-direction: column;
+    }
+    
+    .download-app img {
+        width: 348px;
+        height: 348px;
+    }
+}
