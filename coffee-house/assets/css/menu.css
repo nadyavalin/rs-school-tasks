@@ -96,10 +96,6 @@ h2 > span {
     transition: background-color 0.5s ease-in-out;
 }
 
-.menu__button-circle {
-    background-color: #E1D4C9;
-}
-
 .menu__button input[type="radio"]:checked + label {
     background-color: #665F55;
     color: #E1D4C9;
@@ -189,12 +185,18 @@ h2 > span {
         color: #E1D4C9;
     }
 
-    .menu__button:hover {
+    .menu__button:hover .menu__button-circle  {
         background-color: #E1D4C9;
     }
 
     .menu-card:hover img {
         transform: scale(1.0);
         transform-origin: 50% 50%;
+    }
+}
+
+@media (max-width: 815px) {
+    .menu-card_hidden {
+        display: none;
     }
 }
