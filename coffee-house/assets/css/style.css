@@ -59,3 +59,15 @@ h4 {
     font-weight: 600;
     line-height: 125%; /* 30px */
 }
+
+@media (max-width: 815px) {
+    .title_width {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 20px 16px 36px 16px;
+    }
+}

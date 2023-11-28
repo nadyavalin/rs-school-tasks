@@ -234,6 +234,12 @@ h2 > span {
     line-height: 150%; /* 24px */
 }
 
+.download-app > img {
+    align-self: center;
+    width: 630px;
+    height: 630px;
+}
+
 .download-app__buttons {
     display: flex;
     gap: 20px;
@@ -341,6 +347,10 @@ h2 > span {
         display: none;
     }
 
+    .gallery__container img {
+        right: -14px;
+    }
+
     .download-app {
         flex-direction: column;
     }
@@ -362,7 +372,7 @@ h2 > span {
     }
 
     .img-container {
-        padding: 60px 0 60px 16px;
+        padding: 60px 16px 60px 16px;
     }
 
     .slider__arrow-left, .slider__arrow-right {
@@ -370,8 +380,7 @@ h2 > span {
     }
 
     .slider__container-block img {
-        max-width: 348px;
-        max-height: 348px;
+        width: 348px;
     }
 
     .gallery {
@@ -381,8 +390,8 @@ h2 > span {
     }
 
     .gallery__container img {
-        transform: scale(1.0);
-        left: -60%;
+        left: -157px;
+        top: -35px;
     }
 
     .download-app__left-side {

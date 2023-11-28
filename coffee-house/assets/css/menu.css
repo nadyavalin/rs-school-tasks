@@ -207,10 +207,6 @@ h2 > span {
 }
 
 @media (max-width: 815px) {
-    .title_width {
-        max-width: 80%;
-    }
-
     .menu-card_hidden {
         display: none;
     }
@@ -221,6 +217,10 @@ h2 > span {
 }
 
 @media (max-width: 400px) {
+    .title_width {
+        max-width: 80%;
+    }
+
     h1, h2 {
         font-size: 32px;
     }
