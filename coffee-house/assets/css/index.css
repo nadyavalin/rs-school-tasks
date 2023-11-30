@@ -67,7 +67,6 @@ h2 > span {
     cursor: pointer;
     height: 64px;
     color: #403F3D;
-    font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
 
@@ -80,17 +79,6 @@ h2 > span {
     .button__svg-coffee-cup {
         opacity: 0;
         transition: opacity 0.2s ease-in-out;
-    }
-}
-
-.img-container__content > a:hover {
-    .button__menu {
-        position: relative;
-        right: 0px;
-    }
-
-    .button__svg-coffee-cup {
-        opacity: 1;
     }
 }
 
@@ -117,11 +105,6 @@ h2 > span {
     transition: all 0.5s ease-in-out;
     margin-bottom: -40px;
     cursor: pointer;
-}
-
-.slider__arrow-left:hover, .slider__arrow-right:hover {
-    stroke: #E1D4C9;
-    background-color: #665F55;
 }
 
 .slider__container-block {
@@ -174,12 +157,6 @@ h2 > span {
     cursor: pointer;
 }
 
-.pagination__container:hover {
-    .pagination__item {
-        background-color: #665F55;
-    }
-}
-
 .pagination__item_checked {
     background-color: #665F55;
 }
@@ -214,13 +191,9 @@ h2 > span {
 }
 
 .gallery__container_short img {
+    display: block;
     position: relative;
     top: -116px;
-}
-
-.gallery__container:hover img {
-    transform: scale(1.0);
-    transform-origin: 50% 50%;
 }
 
 .gallery__container:nth-child(1)  {
@@ -261,6 +234,12 @@ h2 > span {
     line-height: 150%; /* 24px */
 }
 
+.download-app > img {
+    align-self: center;
+    width: 630px;
+    height: 630px;
+}
+
 .download-app__buttons {
     display: flex;
     gap: 20px;
@@ -279,18 +258,9 @@ h2 > span {
     transition: all 0.5s ease-in-out;
 }
 
-.download-app__buttons > a:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-}
-
 .download-app__buttons > a > svg {
     fill: #403F3D;
     transition: fill 0.5s ease-in-out;
-}
-
-.download-app__buttons > a:hover > svg {
-    fill: #E1D4C9;
 }
 
 .download-app__button-text {
@@ -310,4 +280,130 @@ h2 > span {
     font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
+}
+
+@media (hover: hover) {
+    .img-container__content > a:hover {
+        .button__menu {
+            position: relative;
+            right: 0px;
+        }
+    
+        .button__svg-coffee-cup {
+            opacity: 1;
+        }
+    }
+
+    .slider__arrow-left:hover, .slider__arrow-right:hover {
+        stroke: #E1D4C9;
+        background-color: #665F55;
+    }
+
+    .pagination__container:hover {
+        .pagination__item {
+            background-color: #665F55;
+        }
+    }
+
+    .gallery__container:hover img {
+        transform: scale(1.0);
+        transform-origin: 50% 50%;
+    }
+
+    .download-app__buttons > a:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+    
+    .download-app__buttons > a:hover > svg {
+        fill: #E1D4C9;
+    }
+}
+
+@media (max-width: 815px) {
+    .img-container {
+        padding: 100px 60px;
+    }
+
+    .img-container__content > a .button__menu {
+        right: 0;
+        transition: none;
+    }
+
+    .img-container__content > a .button__svg-coffee-cup {
+        opacity: 1;
+        transition: none;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(1, 688px);
+        grid-template-rows: 590px 590px;
+        grid-template-areas:
+                "a"
+                "d";
+    }
+
+    .gallery__container_short {
+        display: none;
+    }
+
+    .gallery__container img {
+        right: -14px;
+    }
+
+    .download-app {
+        flex-direction: column;
+    }
+
+    .download-app__left-side {
+        width: 100%;
+        margin-bottom: 100px;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 40px;
+        line-height: 115%; /* 48.3px */
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    .img-container {
+        padding: 60px 16px 60px 16px;
+    }
+
+    .slider__arrow-left, .slider__arrow-right {
+        display: none;
+    }
+
+    .slider__container-block img {
+        width: 348px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(1, auto);
+        grid-template-rows: 590px 590px;
+        align-self: stretch;
+    }
+
+    .gallery__container img {
+        left: -157px;
+        top: -35px;
+    }
+
+    .download-app__left-side {
+        margin-bottom: 40px;
+    }
+
+    .download-app__buttons {
+        flex-direction: column;
+    }
+    
+    .download-app img {
+        width: 348px;
+        height: 348px;
+    }
 }

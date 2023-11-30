@@ -11,11 +11,11 @@ html {
 body {
     background-color: #E1D4C9;
     color: #403F3D;
-    width: 1360px;
+    max-width: 1440px;
     margin: 0 auto;
     font-family: 'Inter';
     font-size: 16px;
-    padding: 20px 0 36px 0;
+    padding: 20px 40px 36px 40px;
 }
 
 main {
@@ -58,4 +58,16 @@ h4 {
     font-size: 24px;
     font-weight: 600;
     line-height: 125%; /* 30px */
+}
+
+@media (max-width: 815px) {
+    .title_width {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 20px 16px 36px 16px;
+    }
 }
