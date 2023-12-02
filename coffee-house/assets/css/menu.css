@@ -54,7 +54,7 @@ h2 > span {
 }
 
 .menu__buttons {
-    margin: 36px 30px 40px 36px;
+    margin: 36px 16px 40px 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -216,13 +216,15 @@ h2 > span {
     }
 }
 
+@media (max-width: 500px) {
+    h1, h2 {
+        font-size: 32px;
+    }
+}
+
 @media (max-width: 400px) {
     .title_width {
         max-width: 80%;
-    }
-
-    h1, h2 {
-        font-size: 32px;
     }
 
     .menu__buttons {
