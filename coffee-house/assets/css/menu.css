@@ -207,12 +207,14 @@ h2 > span {
 }
 
 @media (max-width: 815px) {
-    .menu-card_hidden {
-        display: none;
-    }
-
     .menu__refresh-button {
         display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-card_hidden {
+        display: none;
     }
 }
 
