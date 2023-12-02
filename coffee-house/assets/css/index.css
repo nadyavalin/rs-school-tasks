@@ -352,6 +352,12 @@ h2 > span {
 }
 
 @media (max-width: 815px) {
+    .gallery__container img {
+        right: 160px;
+    }
+}
+
+@media (max-width: 768px) {
     .img-container {
         padding: 100px 60px;
     }
