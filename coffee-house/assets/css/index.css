@@ -373,8 +373,8 @@ h2 > span {
     }
 
     .gallery {
-        grid-template-columns: repeat(1, 100%);
-        grid-template-rows: 590px 590px;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 590px);
         grid-template-areas:
                 "a"
                 "d";
@@ -453,12 +453,6 @@ h2 > span {
 
     .slider__container-block img {
         width: 348px;
-    }
-
-    .gallery {
-        grid-template-columns: repeat(1, auto);
-        grid-template-rows: 590px 590px;
-        align-self: stretch;
     }
 
     .gallery__container img {
