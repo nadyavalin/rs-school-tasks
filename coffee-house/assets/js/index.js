@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let offset = 0; 
 let activeImageIndex = 0;
 const imageWidth = 480;
+// let timer;
 const sliderLine = document.querySelector(".slider__line");
 const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
@@ -59,8 +60,8 @@ function updatePaginationItems() {
 // Switch slider
 function switchSlide(newOffset) {
   offset = newOffset;
-  sliderLine.style.left = `${-offset}px`;
   activeImageIndex = newOffset / imageWidth;
+  sliderLine.style.left = `${-offset}px`;
   updatePaginationItems();
 }
 
@@ -72,19 +73,31 @@ paginationItems.forEach((item, index) => {
 });
 
 // Slider arrows for Prev
-arrowPrev.addEventListener("click", () => {
+function sliderRight() {
   offset -= 480;
   if (offset < 0) {
     offset = 960;
   }
+}
+arrowPrev.addEventListener("click", () => {
+  sliderRight();
   switchSlide(offset);
 });
 
 // Slider arrows for Next
-arrowNext.addEventListener("click", () => {
+function sliderLeft() {
   offset += 480;
   if (offset > 960) {
     offset = 0;
   }
+}
+arrowNext.addEventListener("click", () => {
+  sliderLeft();
   switchSlide(offset);
 });
+
+// Slider show
+// function autoSlider() {
+//   timer = setTimeout(sliderLeft(), 5000);
+// }
+// autoSlider();
