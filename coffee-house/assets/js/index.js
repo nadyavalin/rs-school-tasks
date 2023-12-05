@@ -37,10 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Slider
-let offset = 0; 
+let offset = 0;
 let activeImageIndex = 0;
 const imageWidth = 480;
-// let timer;
 const sliderLine = document.querySelector(".slider__line");
 const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
@@ -73,31 +72,64 @@ paginationItems.forEach((item, index) => {
 });
 
 // Slider arrows for Prev
-function sliderRight() {
+function moveSliderPrevImage() {
   offset -= 480;
   if (offset < 0) {
     offset = 960;
   }
 }
 arrowPrev.addEventListener("click", () => {
-  sliderRight();
+  moveSliderPrevImage();
   switchSlide(offset);
 });
 
 // Slider arrows for Next
-function sliderLeft() {
+function moveSliderNextImage() {
   offset += 480;
   if (offset > 960) {
     offset = 0;
   }
 }
 arrowNext.addEventListener("click", () => {
-  sliderLeft();
+  moveSliderNextImage();
   switchSlide(offset);
 });
 
-// Slider show
-// function autoSlider() {
-//   timer = setTimeout(sliderLeft(), 5000);
-// }
-// autoSlider();
+// Touch moves
+let x1 = null;
+let y1 = null;
+
+function touchHandler(event) {
+  const firstTouch = event.touches[0];
+  x1 = firstTouch.clientX;
+  y1 = firstTouch.clientY;
+}
+
+function moveHandler(event) {
+  if (!x1 || !y1) {
+    return false;
+  }
+
+  const x2 = event.touches[0].clientX;
+  const y2 = event.touches[0].clientY;
+  const xDifferent = x2 - x1;
+  const yDifferent = y2 - y1;
+
+  if (Math.abs(xDifferent) > Math.abs(yDifferent)) {
+    if (xDifferent > 0) {
+      moveSliderPrevImage();
+      switchSlide(offset);
+      console.log("right");
+    } else {
+      moveSliderNextImage();
+      switchSlide(offset);
+      console.log("left");
+    }
+  }
+  x1 = null;
+  y1 = null;
+  return console.log(x1, x2);
+}
+
+document.addEventListener("touchstart", touchHandler, false);
+document.addEventListener("touchmove", moveHandler, false);
