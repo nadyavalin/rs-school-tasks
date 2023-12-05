@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/header.css">
     <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/modal.css">
     <link rel="stylesheet" type="text/css" href="assets/css/footer.css">
     <title>Coffee House > Menu</title>
 </head>
@@ -82,6 +83,86 @@
                         <span class="menu__button-circle"><img src="assets/img/menu-page/desserts.png" alt=""></span>
                         Dessert
                     </label>
+                </div>
+            </div>
+
+            <div class="modal-window">
+                <div class="modal">
+                    <div class="modal__img">
+                        <img src="./assets/img/menu-page/coffee/coffee-1.jpg" alt="Irish coffee">
+                    </div>
+                    <div class="modal__content">
+                        <div class="modal__text">
+                            <h4>Irish coffee</h4>
+                            <p>Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+                        </div>
+                        <div class="modal__size">
+                            <p>Size</p>
+                            <div class="size__buttons">
+                                <div class="size__button">
+                                    <input type="radio" id="size-1" name="size" value="coffee" checked>
+                                    <label for="size-1">
+                                        <span class="size__button-circle">S</span>
+                                        200 ml
+                                    </label>
+                                </div>
+                                <div class="size__button">
+                                    <input type="radio" id="size-2" name="size" value="tea">
+                                    <label for="size-2">
+                                        <span class="size__button-circle">M</span>
+                                        300 ml
+                                    </label>
+                                </div>
+                                <div class="size__button">
+                                    <input type="radio" id="size-3" name="size" value="dessert">
+                                    <label for="size-3">
+                                        <span class="size__button-circle">L</span>
+                                        400 ml
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal__additives">
+                            <p>Additives</p>
+                            <div class="additives__buttons">
+                                <div class="additives__button">
+                                    <input type="radio" id="additives-1" name="additives" value="coffee" checked>
+                                    <label for="additives-1">
+                                        <span class="additives__button-circle">1</span>
+                                        Sugar
+                                    </label>
+                                </div>
+                                <div class="additives__button">
+                                    <input type="radio" id="additives-2" name="additives" value="tea">
+                                    <label for="additives-2">
+                                        <span class="additives__button-circle">2</span>
+                                        Cinnamon
+                                    </label>
+                                </div>
+                                <div class="additives__button">
+                                    <input type="radio" id="additives-3" name="additives" value="dessert">
+                                    <label for="additives-3">
+                                        <span class="additives__button-circle">3</span>
+                                        Syrup
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal__total">
+                            <p>Total</p>
+                            <p>$7.00</p>
+                        </div>
+                        <div class="modal__warning">
+                            <hr class="modal__hr">
+                            <div class="modal__warning_text">
+                                <img src="./assets/svg/info-empty.svg" alt="">
+                                <p>The cost is not final. Download our mobile app to see the final price and place your
+                                    order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.
+                                </p>
+                            </div>
+                        </div>
+                        <button class="modal__close_btn">Close</button>
+                    </div>
                 </div>
             </div>
 
@@ -242,7 +323,7 @@
             </div>
         </section>
     </main>
-    <script src="assets/js/index.js"></script>
+    <script src="assets/js/menu.js"></script>
 </body>
 
 </html>
