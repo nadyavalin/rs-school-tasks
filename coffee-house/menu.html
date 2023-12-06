@@ -66,210 +66,30 @@
             <div class="menu__buttons">
                 <div class="menu__button">
                     <input type="radio" id="radio-1" name="radio" value="coffee" checked>
-                    <label for="radio-1">
+                    <label for="radio-1" data-product="coffee">
                         <span class="menu__button-circle"><img src="assets/img/menu-page/coffee.png" alt=""></span>
                         Coffee
                     </label>
                 </div>
                 <div class="menu__button">
                     <input type="radio" id="radio-2" name="radio" value="tea">
-                    <label for="radio-2">
+                    <label for="radio-2" data-product="tea">
                         <span class="menu__button-circle"><img src="assets/img/menu-page/tea.png" alt=""></span> Tea
                     </label>
                 </div>
                 <div class="menu__button">
                     <input type="radio" id="radio-3" name="radio" value="dessert">
-                    <label for="radio-3">
+                    <label for="radio-3" data-product="dessert">
                         <span class="menu__button-circle"><img src="assets/img/menu-page/desserts.png" alt=""></span>
                         Dessert
                     </label>
                 </div>
             </div>
-
+            <ul class="menu-cards">
+                <!-- Java Script Code - Generate Cards -->
+            </ul>
             <div class="modal-window">
-                <div class="modal">
-                    <div class="modal__img">
-                        <img src="./assets/img/menu-page/coffee/coffee-1.jpg" alt="Irish coffee">
-                    </div>
-                    <div class="modal__content">
-                        <div class="modal__text">
-                            <h4>Irish coffee</h4>
-                            <p>Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
-                        </div>
-                        <div class="modal__size">
-                            <p>Size</p>
-                            <div class="size__buttons">
-                                <div class="size__button">
-                                    <input type="radio" id="size-1" name="size" value="coffee" checked>
-                                    <label for="size-1">
-                                        <span class="size__button-circle">S</span>
-                                        200 ml
-                                    </label>
-                                </div>
-                                <div class="size__button">
-                                    <input type="radio" id="size-2" name="size" value="tea">
-                                    <label for="size-2">
-                                        <span class="size__button-circle">M</span>
-                                        300 ml
-                                    </label>
-                                </div>
-                                <div class="size__button">
-                                    <input type="radio" id="size-3" name="size" value="dessert">
-                                    <label for="size-3">
-                                        <span class="size__button-circle">L</span>
-                                        400 ml
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal__additives">
-                            <p>Additives</p>
-                            <div class="additives__buttons">
-                                <div class="additives__button">
-                                    <input type="radio" id="additives-1" name="additives" value="coffee" checked>
-                                    <label for="additives-1">
-                                        <span class="additives__button-circle">1</span>
-                                        Sugar
-                                    </label>
-                                </div>
-                                <div class="additives__button">
-                                    <input type="radio" id="additives-2" name="additives" value="tea">
-                                    <label for="additives-2">
-                                        <span class="additives__button-circle">2</span>
-                                        Cinnamon
-                                    </label>
-                                </div>
-                                <div class="additives__button">
-                                    <input type="radio" id="additives-3" name="additives" value="dessert">
-                                    <label for="additives-3">
-                                        <span class="additives__button-circle">3</span>
-                                        Syrup
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal__total">
-                            <p>Total</p>
-                            <p>$7.00</p>
-                        </div>
-                        <div class="modal__warning">
-                            <hr class="modal__hr">
-                            <div class="modal__warning_text">
-                                <img src="./assets/svg/info-empty.svg" alt="">
-                                <p>The cost is not final. Download our mobile app to see the final price and place your
-                                    order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.
-                                </p>
-                            </div>
-                        </div>
-                        <button class="modal__close_btn">Close</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-cards">
-                <div class="menu-card">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-1.jpg" alt="Irish coffee">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Irish coffee</h3>
-                            <p>Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
-                        </div>
-                        <span>$7.00</span>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-2.jpg" alt="Kahlua coffee">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Kahlua coffee</h3>
-                            <p>Classic coffee with milk and Kahlua liqueur under a cap of frothed milk</p>
-                        </div>
-                        <span>$7.00</span>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-3.jpg" alt="Honey raf">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Honey raf</h3>
-                            <p>Espresso with frothed milk, cream and aromatic honey</p>
-                        </div>
-                        <span>$5.50</span>
-                    </div>
-                </div>
-
-                <div class="menu-card">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-4.jpg" alt="Ice cappuccino">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Ice cappuccino</h3>
-                            <p>Cappuccino with soft thick foam in summer version with ice</p>
-                        </div>
-                        <span>$5.00</span>
-                    </div>
-                </div>
-
-                <div class="menu-card menu-card_hidden">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-5.jpg" alt="Espresso">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Espresso</h3>
-                            <p>Classic black coffee</p>
-                        </div>
-                        <span>$4.50</span>
-                    </div>
-                </div>
-
-                <div class="menu-card menu-card_hidden">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-6.jpg" alt="Latte">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Latte</h3>
-                            <p>Espresso coffee with the addition of steamed milk and dense milk foam</p>
-                        </div>
-                        <span>$5.50</span>
-                    </div>
-                </div>
-
-                <div class="menu-card menu-card_hidden">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-7.jpg" alt="Latte macchiato">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Latte macchiato</h3>
-                            <p>Espresso with frothed milk and chocolate</p>
-                        </div>
-                        <span>$5.50</span>
-                    </div>
-                </div>
-
-                <div class="menu-card menu-card_hidden">
-                    <div class="menu-card__container">
-                        <img src="assets/img/menu-page/coffee/coffee-8.jpg" alt="Coffee with cognac">
-                    </div>
-                    <div class="menu-card__text">
-                        <div class="menu-card__description">
-                            <h3>Coffee with cognac</h3>
-                            <p>Fragrant black coffee with cognac and whipped cream</p>
-                        </div>
-                        <span>$6.50</span>
-                    </div>
-                </div>
+                <!-- Java Script Code - Generate Modals -->
             </div>
             <div class="menu__refresh-button">
                 <img src="assets/svg/refresh.svg" alt="">
@@ -323,7 +143,7 @@
             </div>
         </section>
     </main>
-    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/menu.js" type="module"></script>
 </body>
 
 </html>
