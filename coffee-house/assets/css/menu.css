@@ -54,7 +54,7 @@ h2 > span {
 }
 
 .menu__buttons {
-    margin: 36px 30px 40px 36px;
+    margin: 36px 16px 40px 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,11 +86,6 @@ h2 > span {
     cursor: pointer;
 }
 
-.menu__button label:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-}
-
 .menu__button-circle {
     display: flex;
     padding: 7px;
@@ -99,10 +94,6 @@ h2 > span {
     border-radius: 100px;
     background-color: #C1B6AD;
     transition: background-color 0.5s ease-in-out;
-}
-
-.menu__button:hover .menu__button-circle {
-    background-color: #E1D4C9;
 }
 
 .menu__button input[type="radio"]:checked + label {
@@ -150,11 +141,6 @@ h2 > span {
     transition: transform 0.5s;
 }
 
-.menu-card:hover img {
-    transform: scale(1.0);
-    transform-origin: 50% 50%;
-}
-
 .menu-card__text {
     display: flex;
     padding: 20px;
@@ -191,4 +177,59 @@ h2 > span {
     font-size: 16px;
     font-weight: 400;
     line-height: 150%; /* 24px */
+}
+
+.menu__refresh-button {
+    display: none;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+    margin-top: 40px;
+}
+
+@media (hover: hover) {
+    .menu__button label:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+
+    .menu__button:hover .menu__button-circle  {
+        background-color: #E1D4C9;
+    }
+
+    .menu-card:hover img {
+        transform: scale(1.0);
+        transform-origin: 50% 50%;
+    }
+}
+
+@media (max-width: 815px) {
+    .menu__refresh-button {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-card_hidden {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    h1, h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 400px) {
+    .title_width {
+        max-width: 80%;
+    }
+
+    .menu__buttons {
+        gap: 8px;
+    }
 }

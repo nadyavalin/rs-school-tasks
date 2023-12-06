@@ -28,6 +28,10 @@ h2 > span {
     font-style: italic;
 }
 
+.about > h2 > b {
+    font-size: 59px;
+}
+
 .img-container {
     background-image: url(../img/index-page/container.jpg);
     background-position: 50%;
@@ -67,7 +71,6 @@ h2 > span {
     cursor: pointer;
     height: 64px;
     color: #403F3D;
-    font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
 
@@ -80,17 +83,6 @@ h2 > span {
     .button__svg-coffee-cup {
         opacity: 0;
         transition: opacity 0.2s ease-in-out;
-    }
-}
-
-.img-container__content > a:hover {
-    .button__menu {
-        position: relative;
-        right: 0px;
-    }
-
-    .button__svg-coffee-cup {
-        opacity: 1;
     }
 }
 
@@ -117,11 +109,6 @@ h2 > span {
     transition: all 0.5s ease-in-out;
     margin-bottom: -40px;
     cursor: pointer;
-}
-
-.slider__arrow-left:hover, .slider__arrow-right:hover {
-    stroke: #E1D4C9;
-    background-color: #665F55;
 }
 
 .slider__container-block {
@@ -174,12 +161,6 @@ h2 > span {
     cursor: pointer;
 }
 
-.pagination__container:hover {
-    .pagination__item {
-        background-color: #665F55;
-    }
-}
-
 .pagination__item_checked {
     background-color: #665F55;
 }
@@ -189,7 +170,7 @@ h2 > span {
     display: grid;
     justify-content: center;
     gap: 40px;
-    grid-template-columns: repeat(2, 660px);
+    grid-template-columns: repeat(2, 48.5%);
     grid-template-rows: 430px 120px 430px;
     grid-template-areas:
             "a b"
@@ -214,13 +195,9 @@ h2 > span {
 }
 
 .gallery__container_short img {
+    display: block;
     position: relative;
     top: -116px;
-}
-
-.gallery__container:hover img {
-    transform: scale(1.0);
-    transform-origin: 50% 50%;
 }
 
 .gallery__container:nth-child(1)  {
@@ -244,10 +221,11 @@ h2 > span {
 .download-app {
     display: flex;
     justify-content: space-between;
+    gap: 100px;
 }
 
 .download-app__left-side {
-    width: 50%;
+    width: 46%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -259,6 +237,12 @@ h2 > span {
     font-size: 16px;
     font-weight: 400;
     line-height: 150%; /* 24px */
+}
+
+.download-app__img img {
+    align-self: center;
+    max-width: 100%;
+    height: auto;
 }
 
 .download-app__buttons {
@@ -279,18 +263,9 @@ h2 > span {
     transition: all 0.5s ease-in-out;
 }
 
-.download-app__buttons > a:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-}
-
 .download-app__buttons > a > svg {
     fill: #403F3D;
     transition: fill 0.5s ease-in-out;
-}
-
-.download-app__buttons > a:hover > svg {
-    fill: #E1D4C9;
 }
 
 .download-app__button-text {
@@ -310,4 +285,195 @@ h2 > span {
     font-size: 16px;
     font-weight: 600;
     line-height: 150%; /* 24px */
+}
+
+@media (hover: hover) {
+    .img-container__content > a:hover {
+        .button__menu {
+            position: relative;
+            right: 0px;
+        }
+    
+        .button__svg-coffee-cup {
+            opacity: 1;
+        }
+    }
+
+    .slider__arrow-left:hover, .slider__arrow-right:hover {
+        stroke: #E1D4C9;
+        background-color: #665F55;
+    }
+
+    .pagination__container:hover {
+        .pagination__item {
+            background-color: #665F55;
+        }
+    }
+
+    .gallery__container:hover img {
+        transform: scale(1.0);
+        transform-origin: 50% 50%;
+    }
+
+    .download-app__buttons > a:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+    
+    .download-app__buttons > a:hover > svg {
+        fill: #E1D4C9;
+    }
+}
+
+@media (max-width: 1200px) {
+    .gallery__container img {
+     right: 130px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .download-app {
+        flex-direction: column;
+    }
+
+    .download-app__img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .download-app__img > img {
+        max-width: 100%;
+    }
+
+    .download-app__left-side {
+        width: 100%;
+    }
+}
+
+@media (max-width: 815px) {
+    .gallery__container img {
+        right: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .img-container {
+        padding: 100px 60px;
+    }
+
+    .img-container__content > a .button__menu {
+        right: 0;
+        transition: none;
+    }
+
+    .img-container__content > a .button__svg-coffee-cup {
+        opacity: 1;
+        transition: none;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 590px);
+        grid-template-areas:
+                "a"
+                "d";
+    }
+
+    .gallery__container_short {
+        display: none;
+    }
+
+    .gallery__container img {
+        right: -14px;
+    }
+}
+
+@media (max-width: 700px) {
+    h1 {
+        font-size: 60px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    .about > h2 > b {
+        font-size: 40px;
+    }
+
+    .slider__container {
+        justify-content: center;
+    }
+
+    .slider__arrow-left, .slider__arrow-right {
+        display: none;
+    }
+
+    .gallery__container img {
+        left: -80px;
+    }
+
+    .download-app {
+        gap: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .slider__container-block {
+        max-width: 375px;
+    }
+
+    .gallery__container img {
+        left: -160px;
+    }
+
+    .download-app__buttons {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 40px;
+        line-height: 115%; /* 48.3px */
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    .about > h2 > b {
+        font-size: 32px;
+    }
+
+    .img-container {
+        padding: 60px 16px 60px 16px;
+    }
+
+    .slider__container-block img {
+        width: 348px;
+    }
+
+    .gallery__container img {
+        left: -157px;
+        top: -35px;
+    }
+
+    .download-app {
+        gap: 40px;
+    }
+
+    .download-app__buttons {
+        flex-direction: column;
+    }
+    
+    .download-app__img img {
+        width: 348px;
+        height: 348px;
+    }
+
+    .download-app__buttons {
+        gap: 20px;
+    }
 }
