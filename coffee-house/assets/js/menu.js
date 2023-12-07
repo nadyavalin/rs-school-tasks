@@ -1,8 +1,10 @@
 import products from "./products.js";
 
+const menuCards = document.querySelector(".menu-cards");
+const menuCard = Array.from(document.querySelectorAll(".menu-card"));
+
 // Get cards from Array of Objects
 function renderProductCards(category) {
-  const menuCards = document.querySelector(".menu-cards");
   const filteredProducts = products.filter(
     (product) => product.category === category
   );
@@ -42,8 +44,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+/* КОД НЕ РАБОТАЕТ */
+// Price counter
+function calculateTotalPrice(startPrice, selectedSize, checkedAdditives) {
+  let totalPrice = startPrice + selectedSize + checkedAdditives;
+
+  const radios = document.querySelectorAll('input[type="radio"]:checked');
+  if (radios.length > 0) {
+    const radioPrices = Array.from(radios).map((radio) => radio.value);
+    radioPrices.forEach((price) => {
+      totalPrice += price;
+    });
+  }
+
+  const checkboxes = document.querySelectorAll(
+    'input[type="ckeckbox"]:checked'
+  );
+  if (checkboxes.length > 0) {
+    const checkboxPrices = Array.from(checkboxes).map(
+      (checkbox) => checkbox.value
+    );
+    checkboxPrices.forEach((price) => {
+      totalPrice += price;
+    });
+  }
+
+  return totalPrice;
+}
+/* КОД НЕ РАБОТАЕТ */
+
 // Get modals from Array of Objects
-const cards = document.querySelector(".menu-cards");
 const modal = document.querySelector(".modal-window");
 
 function showModal(product) {
@@ -60,21 +90,27 @@ function showModal(product) {
               <p>Size</p>
               <div class="size__buttons">
                   <div class="size__button">
-                      <input type="radio" id="size-1" name="size" value="${product.category}" checked>
+                      <input type="radio" id="size-1" name="size" value="${
+                        product.sizes.s.addPrice
+                      }" checked>
                       <label for="size-1">
                           <span class="size__button-circle">S</span>
                           ${product.sizes.s.size}
                       </label>
                   </div>
                   <div class="size__button">
-                      <input type="radio" id="size-2" name="size" value="${product.category}">
+                      <input type="radio" id="size-2" name="size" value="${
+                        product.sizes.m.addPrice
+                      }">
                       <label for="size-2">
                           <span class="size__button-circle">M</span>
                           ${product.sizes.m.size}
                       </label>
                   </div>
                   <div class="size__button">
-                      <input type="radio" id="size-3" name="size" value="${product.category}">
+                      <input type="radio" id="size-3" name="size" value="${
+                        product.sizes.l.addPrice
+                      }">
                       <label for="size-3">
                           <span class="size__button-circle">L</span>
                           ${product.sizes.l.size}
@@ -86,21 +122,27 @@ function showModal(product) {
               <p>Additives</p>
               <div class="additives__buttons">
                   <div class="additives__button">
-                      <input type="radio" id="additives-1" name="additives" value="${product.category}" checked>
+                      <input type="checkbox" id="additives-1" name="sugar" value="${
+                        product.additives[0].addPrice
+                      }">
                       <label for="additives-1">
                           <span class="additives__button-circle">1</span>
                           ${product.additives[0].name}
                       </label>
                   </div>
                   <div class="additives__button">
-                      <input type="radio" id="additives-2" name="additives" value="${product.category}">
+                      <input type="checkbox" id="additives-2" name="cinnamon" value="${
+                        product.additives[1].addPrice
+                      }">
                       <label for="additives-2">
                           <span class="additives__button-circle">2</span>
                           ${product.additives[1].name}
                       </label>
                   </div>
                   <div class="additives__button">
-                      <input type="radio" id="additives-3" name="additives" value="${product.category}">
+                      <input type="checkbox" id="additives-3" name="syrup" value="${
+                        product.additives[1].addPrice
+                      }">
                       <label for="additives-3">
                           <span class="additives__button-circle">3</span>
                           ${product.additives[2].name}
@@ -110,7 +152,11 @@ function showModal(product) {
           </div>
           <div class="modal__total">
               <p>Total</p>
-              <p>$${product.price}</p>
+              <p>$${calculateTotalPrice(
+                product.price,
+                product.sizes,
+                product.additives
+              )}</p>
           </div>
           <div class="modal__warning">
               <hr class="modal__hr">
@@ -129,8 +175,12 @@ function showModal(product) {
   modal.classList.add("open");
 }
 
-cards.addEventListener("click", (event) => {
+// Show modal
+menuCards.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".menu-card");
+  modal.style.display = 'flex';
+  document.querySelector("body").style.overflow = 'hidden';
+
   if (clickedCard) {
     const { productId } = clickedCard.dataset;
     if (productId) {
@@ -142,8 +192,48 @@ cards.addEventListener("click", (event) => {
   }
 });
 
+// Close modal
 modal.addEventListener("click", (event) => {
+  modal.style.display = 'none';
+  document.querySelector("body").style.overflow = 'visible';
+
   if (event.target.closest(".modal__close_btn")) {
     modal.classList.remove("open");
   }
 });
+
+/* КОД НЕ РАБОТАЕТ */
+// Hide cards
+function hideCards() {
+  menuCard.forEach((card, index) => {
+    if (index < 4) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+// Show the rest Cards
+function showRestCards(event) {
+  if (event && event.target) {
+    if (menuCard) {
+      menuCard.style.display = "block";
+    }
+  }
+}
+
+function checkScreenSize() {
+  if (window.innerWidth <= 768) {
+    hideCards();
+  } else {
+    showRestCards();
+  }
+}
+
+window.onload = checkScreenSize;
+window.addEventListener("resize", checkScreenSize);
+
+const refreshButton = document.querySelector(".menu__refresh-button img");
+refreshButton.addEventListener("click", showRestCards);
+/* КОД НЕ РАБОТАЕТ */

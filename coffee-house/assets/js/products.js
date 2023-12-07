@@ -9,29 +9,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -46,29 +46,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -83,29 +83,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -120,29 +120,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -157,29 +157,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -194,29 +194,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -231,29 +231,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -268,29 +268,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Cinnamon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -305,29 +305,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Lemon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -342,29 +342,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Lemon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -379,29 +379,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Lemon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -416,29 +416,29 @@ export default [
     "sizes": {
       "s": {
         "size": "200 ml",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "300 ml",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "400 ml",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Sugar",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Lemon",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Syrup",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -453,29 +453,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -490,29 +490,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -527,29 +527,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -564,29 +564,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -601,29 +601,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -638,29 +638,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -675,29 +675,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   },
@@ -712,29 +712,29 @@ export default [
     "sizes": {
       "s": {
         "size": "50 g",
-        "add-price": "0.00"
+        "addPrice": "0.00"
       },
       "m": {
         "size": "100 g",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       "l": {
         "size": "200 g",
-        "add-price": "1.00"
+        "addPrice": "1.00"
       }
     },
     "additives": [
       {
         "name": "Berries",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Nuts",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       },
       {
         "name": "Jam",
-        "add-price": "0.50"
+        "addPrice": "0.50"
       }
     ]
   }

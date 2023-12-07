@@ -12,8 +12,9 @@
 }
 
 .modal-window.open {
-    display: flex;
+    display: flex;   
 }
+
 
 .modal {
     display: flex;
@@ -72,7 +73,7 @@ h4 {
     display: inline-block;
 }
 
-.size__button input[type="radio"], .additives__button input[type="radio"] {
+.size__button input[type="radio"], .additives__button input[type="checkbox"] {
     display: none;
 }
 
@@ -107,13 +108,19 @@ h4 {
     transition: background-color 0.5s ease-in-out;
 }
 
-.size__button input[type="radio"]:checked + label, .additives__button input[type="radio"]:checked + label{
+.size__button input[type="radio"]:checked + label {
     background-color: #665F55;
     color: #E1D4C9;
     cursor: default;
 }
 
-.size__button input[type="radio"]:checked + label > span, .additives__button input[type="radio"]:checked + label > span {
+.additives__button input[type="checkbox"]:checked + label {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: pointer;
+}
+
+.size__button input[type="radio"]:checked + label > span, .additives__button input[type="checkbox"]:checked + label > span {
     background-color: #E1D4C9;
 }
 
