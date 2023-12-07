@@ -64,17 +64,6 @@
     transition: width 0.5s;
 }
 
-.footer__contacts > div > a:hover::after {
-	content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    bottom: -5px;
-    height: 2px;
-    background-color:#E1D4C9;
-    transition: width 0.5s;
-}
-
 .footer__contacts-img {
     padding-right: 8px;
 }
@@ -88,6 +77,17 @@
     .footer__socials > a:hover {
         background-color: #E1D4C9;
         stroke: #403F3D;
+    }
+
+    .footer__contacts > div > a:hover::after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        bottom: -5px;
+        height: 2px;
+        background-color:#E1D4C9;
+        transition: width 0.5s;
     }
 }
 
