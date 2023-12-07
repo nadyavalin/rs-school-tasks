@@ -135,7 +135,6 @@ cards.addEventListener("click", (event) => {
     const { productId } = clickedCard.dataset;
     if (productId) {
       const product = products.find((card) => card.id === productId);
-      console.log(product); // сюда приходит почему-то undefined?
       if (product) {
         showModal(product);
       }
