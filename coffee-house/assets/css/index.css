@@ -83,7 +83,6 @@ h2>span {
     border: none;
     border-radius: 100px;
     background-color: #E1D4C9;
-    cursor: pointer;
     height: 64px;
     color: #403F3D;
     font-weight: 600;
@@ -501,7 +500,7 @@ h2>span {
         width: 348px;
         height: 552px;
     }
-    
+
 
     .slider__image img {
         width: 348px;

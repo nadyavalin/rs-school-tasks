@@ -44,35 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* КОД НЕ РАБОТАЕТ */
-// Price counter
-function calculateTotalPrice(startPrice, selectedSize, checkedAdditives) {
-  let totalPrice = startPrice + selectedSize + checkedAdditives;
-
-  const radios = document.querySelectorAll('input[type="radio"]:checked');
-  if (radios.length > 0) {
-    const radioPrices = Array.from(radios).map((radio) => radio.value);
-    radioPrices.forEach((price) => {
-      totalPrice += price;
-    });
-  }
-
-  const checkboxes = document.querySelectorAll(
-    'input[type="ckeckbox"]:checked'
-  );
-  if (checkboxes.length > 0) {
-    const checkboxPrices = Array.from(checkboxes).map(
-      (checkbox) => checkbox.value
-    );
-    checkboxPrices.forEach((price) => {
-      totalPrice += price;
-    });
-  }
-
-  return totalPrice;
-}
-/* КОД НЕ РАБОТАЕТ */
-
 // Get modals from Array of Objects
 const modal = document.querySelector(".modal-window");
 
@@ -90,27 +61,21 @@ function showModal(product) {
               <p>Size</p>
               <div class="size__buttons">
                   <div class="size__button">
-                      <input type="radio" id="size-1" name="size" value="${
-                        product.sizes.s.addPrice
-                      }" checked>
+                      <input type="radio" id="size-1" name="size" value="${product.sizes.s.addPrice}" checked>
                       <label for="size-1">
                           <span class="size__button-circle">S</span>
                           ${product.sizes.s.size}
                       </label>
                   </div>
                   <div class="size__button">
-                      <input type="radio" id="size-2" name="size" value="${
-                        product.sizes.m.addPrice
-                      }">
+                      <input type="radio" id="size-2" name="size" value="${product.sizes.m.addPrice}">
                       <label for="size-2">
                           <span class="size__button-circle">M</span>
                           ${product.sizes.m.size}
                       </label>
                   </div>
                   <div class="size__button">
-                      <input type="radio" id="size-3" name="size" value="${
-                        product.sizes.l.addPrice
-                      }">
+                      <input type="radio" id="size-3" name="size" value="${product.sizes.l.addPrice}">
                       <label for="size-3">
                           <span class="size__button-circle">L</span>
                           ${product.sizes.l.size}
@@ -122,27 +87,21 @@ function showModal(product) {
               <p>Additives</p>
               <div class="additives__buttons">
                   <div class="additives__button">
-                      <input type="checkbox" id="additives-1" name="sugar" value="${
-                        product.additives[0].addPrice
-                      }">
+                      <input type="checkbox" id="additives-1" name="sugar" value="${product.additives[0].addPrice}">
                       <label for="additives-1">
                           <span class="additives__button-circle">1</span>
                           ${product.additives[0].name}
                       </label>
                   </div>
                   <div class="additives__button">
-                      <input type="checkbox" id="additives-2" name="cinnamon" value="${
-                        product.additives[1].addPrice
-                      }">
+                      <input type="checkbox" id="additives-2" name="cinnamon" value="${product.additives[1].addPrice}">
                       <label for="additives-2">
                           <span class="additives__button-circle">2</span>
                           ${product.additives[1].name}
                       </label>
                   </div>
                   <div class="additives__button">
-                      <input type="checkbox" id="additives-3" name="syrup" value="${
-                        product.additives[1].addPrice
-                      }">
+                      <input type="checkbox" id="additives-3" name="syrup" value="${product.additives[2].addPrice}">
                       <label for="additives-3">
                           <span class="additives__button-circle">3</span>
                           ${product.additives[2].name}
@@ -152,11 +111,7 @@ function showModal(product) {
           </div>
           <div class="modal__total">
               <p>Total</p>
-              <p>$${calculateTotalPrice(
-                product.price,
-                product.sizes,
-                product.additives
-              )}</p>
+              <p class="total-price" data-start-price="${product.price}">$${product.price}</p>
           </div>
           <div class="modal__warning">
               <hr class="modal__hr">
@@ -175,11 +130,43 @@ function showModal(product) {
   modal.classList.add("open");
 }
 
+// Price counter
+function calculateTotalPrice() {
+  const radios = document.querySelectorAll('input[name="size"]');
+  const radioChecked = document.querySelector('input[name="size"]:checked');
+  const checkboxes = document.querySelectorAll('input[type="ckeckbox"]');
+  const checkboxesChecked = document.querySelectorAll('input[type="ckeckbox"]:checked');
+  const totalPriceElement = document.querySelector(".total-price");
+  
+  if (totalPriceElement) {
+    const { startPrice } = totalPriceElement.dataset;
+    console.log(startPrice);
+  }
+
+  // if (radios) {
+  //   const radioPrices = Array.from(radioChecked).map((radio) => radio.value);
+  //   radioPrices.forEach((price) => {
+  //   });
+  // }
+
+  // if (checkboxes.length > 0) {
+  //   const checkboxPrices = Array.from(checkboxes).reduce(
+  //     (checkbox) => checkbox.value
+  //   );
+  //   checkboxPrices.forEach((price) => {
+
+  //   });
+  // }
+
+  // return totalPriceElement.textContent;
+
+}
+
 // Show modal
 menuCards.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".menu-card");
   modal.style.display = 'flex';
-  document.querySelector("body").style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
 
   if (clickedCard) {
     const { productId } = clickedCard.dataset;
@@ -192,48 +179,51 @@ menuCards.addEventListener("click", (event) => {
   }
 });
 
-// Close modal
+// Check and close modal
 modal.addEventListener("click", (event) => {
-  modal.style.display = 'none';
-  document.querySelector("body").style.overflow = 'visible';
-
+  document.body.style.overflow = 'visible';
   if (event.target.closest(".modal__close_btn")) {
+    modal.style.display = 'none';
     modal.classList.remove("open");
+  }
+
+  if (event.target.closest('input[name="size"]:checked') || event.target.closest('input[type="ckeckbox"]:checked')) {
+    calculateTotalPrice();
   }
 });
 
 /* КОД НЕ РАБОТАЕТ */
 // Hide cards
-function hideCards() {
-  menuCard.forEach((card, index) => {
-    if (index < 4) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
+// function hideCards() {
+//   menuCard.forEach((card, index) => {
+//     if (index < 4) {
+//       card.style.display = "block";
+//     } else {
+//       card.style.display = "none";
+//     }
+//   });
+// }
 
-// Show the rest Cards
-function showRestCards(event) {
-  if (event && event.target) {
-    if (menuCard) {
-      menuCard.style.display = "block";
-    }
-  }
-}
+// // Show the rest Cards
+// function showRestCards(event) {
+//   if (event && event.target) {
+//     if (menuCard) {
+//       menuCard.style.display = "block";
+//     }
+//   }
+// }
 
-function checkScreenSize() {
-  if (window.innerWidth <= 768) {
-    hideCards();
-  } else {
-    showRestCards();
-  }
-}
+// function checkScreenSize() {
+//   if (window.innerWidth <= 768) {
+//     hideCards();
+//   } else {
+//     showRestCards();
+//   }
+// }
 
-window.onload = checkScreenSize;
-window.addEventListener("resize", checkScreenSize);
+// window.onload = checkScreenSize;
+// window.addEventListener("resize", checkScreenSize);
 
-const refreshButton = document.querySelector(".menu__refresh-button img");
-refreshButton.addEventListener("click", showRestCards);
+// const refreshButton = document.querySelector(".menu__refresh-button img");
+// refreshButton.addEventListener("click", showRestCards);
 /* КОД НЕ РАБОТАЕТ */
