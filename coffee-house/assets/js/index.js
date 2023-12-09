@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Slider
 let offset = 0;
 let activeImageIndex = 0;
+let timer;
 const imageWidth = 480;
 const sliderLine = document.querySelector(".slider__line");
 const arrowPrev = document.querySelector(".slider__arrow-left");
@@ -62,6 +63,26 @@ function switchSlide(newOffset) {
   activeImageIndex = newOffset / imageWidth;
   sliderLine.style.left = `${-offset}px`;
   updatePaginationItems();
+
+  if (timer) {
+    clearTimeout(timer);
+  }
+  timer = setTimeout(() => moveSlider('next'), 5000);
+}
+
+function moveSlider(direction) {
+  if (direction === 'prev') {
+    offset -= 480;
+    if (offset < 0) {
+      offset = 960;
+    }
+  } else if (direction === 'next') {
+    offset += 480;
+    if (offset > 960) {
+      offset = 0;
+    }
+  }
+  switchSlide(offset);
 }
 
 // Slider desktop pagination
@@ -72,28 +93,18 @@ paginationItems.forEach((item, index) => {
 });
 
 // Slider arrows for Prev
-function moveSliderPrevImage() {
-  offset -= 480;
-  if (offset < 0) {
-    offset = 960;
-  }
-}
 arrowPrev.addEventListener("click", () => {
-  moveSliderPrevImage();
+  moveSlider('prev');
   switchSlide(offset);
 });
 
 // Slider arrows for Next
-function moveSliderNextImage() {
-  offset += 480;
-  if (offset > 960) {
-    offset = 0;
-  }
-}
 arrowNext.addEventListener("click", () => {
-  moveSliderNextImage();
+  moveSlider('next');
   switchSlide(offset);
 });
+
+timer = setTimeout(() => moveSlider('next'), 5000);
 
 // Touch moves
 let x1 = null;
@@ -117,13 +128,11 @@ function moveHandler(event) {
 
   if (Math.abs(xDifferent) > Math.abs(yDifferent)) {
     if (xDifferent > 0) {
-      moveSliderPrevImage();
+      moveSlider('prev');
       switchSlide(offset);
-      console.log("right");
     } else {
-      moveSliderNextImage();
+      moveSlider('next');
       switchSlide(offset);
-      console.log("left");
     }
   }
   x1 = null;
