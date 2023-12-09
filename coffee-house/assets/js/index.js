@@ -67,16 +67,16 @@ function switchSlide(newOffset) {
   if (timer) {
     clearTimeout(timer);
   }
-  timer = setTimeout(() => moveSlider('next'), 5000);
+  timer = setTimeout(() => moveSlider("next"), 5000);
 }
 
 function moveSlider(direction) {
-  if (direction === 'prev') {
+  if (direction === "prev") {
     offset -= 480;
     if (offset < 0) {
       offset = 960;
     }
-  } else if (direction === 'next') {
+  } else if (direction === "next") {
     offset += 480;
     if (offset > 960) {
       offset = 0;
@@ -85,31 +85,37 @@ function moveSlider(direction) {
   switchSlide(offset);
 }
 
+/* КОД НЕ РАБОТАЕТ */
+function animatePagination() {
+  const activeDot = document.querySelector(".pagination__item_filled");
+  activeDot.classList.add("pagination__item_filled-active");
+  activeDot.onanimationend = () => {
+    moveSlider("next");
+  };
+}
+animatePagination();
+/* КОД НЕ РАБОТАЕТ */
+
 // Slider desktop pagination
 paginationItems.forEach((item, index) => {
   item.addEventListener("click", () => {
     switchSlide(index * imageWidth);
-    /* КОД НЕ РАБОТАЕТ */
-    item.onanimationend = () => {
-      moveSlider('next');
-    }
-    /* КОД НЕ РАБОТАЕТ */
   });
 });
 
 // Slider arrows for Prev
 arrowPrev.addEventListener("click", () => {
-  moveSlider('prev');
+  moveSlider("prev");
   switchSlide(offset);
 });
 
 // Slider arrows for Next
 arrowNext.addEventListener("click", () => {
-  moveSlider('next');
+  moveSlider("next");
   switchSlide(offset);
 });
 
-timer = setTimeout(() => moveSlider('next'), 5000);
+timer = setTimeout(() => moveSlider("next"), 5000);
 
 // Touch moves
 let x1 = null;
@@ -133,10 +139,10 @@ function moveHandler(event) {
 
   if (Math.abs(xDifferent) > Math.abs(yDifferent)) {
     if (xDifferent > 0) {
-      moveSlider('prev');
+      moveSlider("prev");
       switchSlide(offset);
     } else {
-      moveSlider('next');
+      moveSlider("next");
       switchSlide(offset);
     }
   }

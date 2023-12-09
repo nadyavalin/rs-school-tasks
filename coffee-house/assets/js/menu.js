@@ -189,7 +189,7 @@ menuCards.addEventListener("click", (event) => {
 
 // Check and close modal
 modal.addEventListener("click", (event) => {
-  if (event.target.closest(".modal__close_btn")) {
+  if (event.target.closest(".modal__close_btn") || event.target === modal) {
     modal.style.display = "none";
     modal.classList.remove("open");
     document.body.style.overflow = "visible";
