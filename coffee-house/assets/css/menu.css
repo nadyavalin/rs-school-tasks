@@ -188,6 +188,7 @@ h2 > span {
     border-radius: 100px;
     border: 1px solid #665F55;
     margin-top: 40px;
+    cursor: pointer;
 }
 
 @media (hover: hover) {
@@ -206,14 +207,17 @@ h2 > span {
     }
 }
 
-@media (max-width: 815px) {
+
+@media (max-width: 768px) {
+    .menu-cards_hidden > .menu-card:nth-child(n+5) {
+        display: none;
+    }
+
     .menu__refresh-button {
         display: flex;
     }
-}
 
-@media (max-width: 768px) {
-    .menu-card_hidden {
+    .menu__refresh-button_hidden {
         display: none;
     }
 }

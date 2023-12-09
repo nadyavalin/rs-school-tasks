@@ -1,8 +1,9 @@
 import products from "./products.js";
 
+const menuCards = document.querySelector(".menu-cards");
+const refreshButton = document.querySelector(".menu__refresh-button");
 // Get cards from Array of Objects
 function renderProductCards(category) {
-  const menuCards = document.querySelector(".menu-cards");
   const filteredProducts = products.filter(
     (product) => product.category === category
   );
@@ -36,12 +37,18 @@ document.addEventListener("DOMContentLoaded", () => {
   menuButtons.addEventListener("click", (event) => {
     const menuButton = event.target.closest(".menu__button input");
 
-    if(!menuButton) {
+    if (!menuButton) {
       return;
     }
 
     const category = menuButton.value;
     renderProductCards(category);
+
+    if (category === "tea") {
+      refreshButton.classList.add("menu__refresh-button_hidden");
+    } else {
+      refreshButton.classList.remove("menu__refresh-button_hidden");
+    }
   });
 });
 
@@ -162,14 +169,13 @@ function calculateTotalPrice() {
 }
 
 // Show modal
-const menuCards = document.querySelector(".menu-cards");
 menuCards.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".menu-card");
 
   if (!clickedCard) {
     return;
   }
-  
+
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 
@@ -197,39 +203,18 @@ modal.addEventListener("click", (event) => {
   }
 });
 
-/* КОД НЕ РАБОТАЕТ */
-// Hide cards
-const menuCard = Array.from(document.querySelectorAll(".menu-card"));
-function hideCards() {
-  menuCard.forEach((card, index) => {
-    if (index < 4) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
-
-// Show the rest Cards
-function showRestCards(event) {
-  if (event && event.target) {
-    if (menuCard) {
-      menuCard.style.display = "block";
-    }
-  }
-}
+// Show cards
+refreshButton.addEventListener("click", () => {
+  menuCards.classList.remove("menu-cards_hidden");
+  refreshButton.classList.add("menu__refresh-button_hidden");
+});
 
 function checkScreenSize() {
-  if (window.innerWidth <= 768) {
-    hideCards();
-  } else {
-    showRestCards();
+  if (window.innerWidth < 768) {
+    menuCards.classList.add("menu-cards_hidden");
+    refreshButton.classList.remove("menu__refresh-button_hidden");
   }
 }
 
 window.onload = checkScreenSize;
 window.addEventListener("resize", checkScreenSize);
-
-const refreshButton = document.querySelector(".menu__refresh-button img");
-refreshButton.addEventListener("click", showRestCards);
-/* КОД НЕ РАБОТАЕТ */
