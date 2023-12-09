@@ -151,7 +151,7 @@ h4 {
 .modal__warning_text {
     display: flex;
     gap: 8px;
-    margin: 12px 0 12px 0;
+    margin: 12px 0;
 }
 
 .modal__warning img {

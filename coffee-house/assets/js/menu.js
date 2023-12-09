@@ -1,10 +1,8 @@
 import products from "./products.js";
 
-const menuCards = document.querySelector(".menu-cards");
-// const menuCard = Array.from(document.querySelectorAll(".menu-card"));
-
 // Get cards from Array of Objects
 function renderProductCards(category) {
+  const menuCards = document.querySelector(".menu-cards");
   const filteredProducts = products.filter(
     (product) => product.category === category
   );
@@ -41,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(!menuButton) {
       return;
     }
-    
+
     const category = menuButton.value;
     renderProductCards(category);
   });
@@ -164,15 +162,16 @@ function calculateTotalPrice() {
 }
 
 // Show modal
+const menuCards = document.querySelector(".menu-cards");
 menuCards.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".menu-card");
-
-  modal.style.display = "flex";
-  document.body.style.overflow = "hidden";
 
   if (!clickedCard) {
     return;
   }
+  
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
 
   const { productId } = clickedCard.dataset;
   const product = products.find((card) => card.id === productId);
@@ -200,36 +199,37 @@ modal.addEventListener("click", (event) => {
 
 /* КОД НЕ РАБОТАЕТ */
 // Hide cards
-// function hideCards() {
-//   menuCard.forEach((card, index) => {
-//     if (index < 4) {
-//       card.style.display = "block";
-//     } else {
-//       card.style.display = "none";
-//     }
-//   });
-// }
+const menuCard = Array.from(document.querySelectorAll(".menu-card"));
+function hideCards() {
+  menuCard.forEach((card, index) => {
+    if (index < 4) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
 
-// // Show the rest Cards
-// function showRestCards(event) {
-//   if (event && event.target) {
-//     if (menuCard) {
-//       menuCard.style.display = "block";
-//     }
-//   }
-// }
+// Show the rest Cards
+function showRestCards(event) {
+  if (event && event.target) {
+    if (menuCard) {
+      menuCard.style.display = "block";
+    }
+  }
+}
 
-// function checkScreenSize() {
-//   if (window.innerWidth <= 768) {
-//     hideCards();
-//   } else {
-//     showRestCards();
-//   }
-// }
+function checkScreenSize() {
+  if (window.innerWidth <= 768) {
+    hideCards();
+  } else {
+    showRestCards();
+  }
+}
 
-// window.onload = checkScreenSize;
-// window.addEventListener("resize", checkScreenSize);
+window.onload = checkScreenSize;
+window.addEventListener("resize", checkScreenSize);
 
-// const refreshButton = document.querySelector(".menu__refresh-button img");
-// refreshButton.addEventListener("click", showRestCards);
+const refreshButton = document.querySelector(".menu__refresh-button img");
+refreshButton.addEventListener("click", showRestCards);
 /* КОД НЕ РАБОТАЕТ */
