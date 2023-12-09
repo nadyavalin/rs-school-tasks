@@ -1,7 +1,7 @@
 import products from "./products.js";
 
 const menuCards = document.querySelector(".menu-cards");
-const menuCard = Array.from(document.querySelectorAll(".menu-card"));
+// const menuCard = Array.from(document.querySelectorAll(".menu-card"));
 
 // Get cards from Array of Objects
 function renderProductCards(category) {
@@ -87,21 +87,21 @@ function showModal(product) {
               <p>Additives</p>
               <div class="additives__buttons">
                   <div class="additives__button">
-                      <input type="checkbox" id="additives-1" name="sugar" value="${product.additives[0].addPrice}">
+                      <input type="checkbox" id="additives-1" name="additives" value="${product.additives[0].addPrice}">
                       <label for="additives-1">
                           <span class="additives__button-circle">1</span>
                           ${product.additives[0].name}
                       </label>
                   </div>
                   <div class="additives__button">
-                      <input type="checkbox" id="additives-2" name="cinnamon" value="${product.additives[1].addPrice}">
+                      <input type="checkbox" id="additives-2" name="additives" value="${product.additives[1].addPrice}">
                       <label for="additives-2">
                           <span class="additives__button-circle">2</span>
                           ${product.additives[1].name}
                       </label>
                   </div>
                   <div class="additives__button">
-                      <input type="checkbox" id="additives-3" name="syrup" value="${product.additives[2].addPrice}">
+                      <input type="checkbox" id="additives-3" name="additives" value="${product.additives[2].addPrice}">
                       <label for="additives-3">
                           <span class="additives__button-circle">3</span>
                           ${product.additives[2].name}
@@ -132,41 +132,40 @@ function showModal(product) {
 
 // Price counter
 function calculateTotalPrice() {
-  const radios = document.querySelectorAll('input[name="size"]');
   const radioChecked = document.querySelector('input[name="size"]:checked');
-  const checkboxes = document.querySelectorAll('input[type="ckeckbox"]');
-  const checkboxesChecked = document.querySelectorAll('input[type="ckeckbox"]:checked');
+  // const checkboxes = document.querySelectorAll('input[name="additives"]');
+  const checkboxesChecked = document.querySelectorAll(
+    'input[name="additives"]:checked'
+  );
   const totalPriceElement = document.querySelector(".total-price");
-  
-  if (totalPriceElement) {
-    const { startPrice } = totalPriceElement.dataset;
-    console.log(startPrice);
+  const startPrice = parseFloat(totalPriceElement.dataset.startPrice);
+
+  let totalPrice;
+
+  if (!totalPriceElement) {
+    return;
   }
 
-  // if (radios) {
-  //   const radioPrices = Array.from(radioChecked).map((radio) => radio.value);
-  //   radioPrices.forEach((price) => {
-  //   });
-  // }
+  if (radioChecked) {
+    const radioPrice = parseFloat(radioChecked.value);
+    totalPrice = startPrice + radioPrice;
+  }
 
-  // if (checkboxes.length > 0) {
-  //   const checkboxPrices = Array.from(checkboxes).reduce(
-  //     (checkbox) => checkbox.value
-  //   );
-  //   checkboxPrices.forEach((price) => {
-
-  //   });
-  // }
-
-  // return totalPriceElement.textContent;
-
+  if (checkboxesChecked) {
+    const checkboxTotalPrice = Array.from(checkboxesChecked).reduce(
+      (total, checkbox) => total + parseFloat(checkbox.value),
+      0
+    );
+    totalPrice += checkboxTotalPrice;
+  }
+  totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
 }
 
 // Show modal
 menuCards.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".menu-card");
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
 
   if (clickedCard) {
     const { productId } = clickedCard.dataset;
@@ -181,13 +180,16 @@ menuCards.addEventListener("click", (event) => {
 
 // Check and close modal
 modal.addEventListener("click", (event) => {
-  document.body.style.overflow = 'visible';
   if (event.target.closest(".modal__close_btn")) {
-    modal.style.display = 'none';
+    modal.style.display = "none";
     modal.classList.remove("open");
+    document.body.style.overflow = "visible";
   }
 
-  if (event.target.closest('input[name="size"]:checked') || event.target.closest('input[type="ckeckbox"]:checked')) {
+  if (
+    event.target.closest('input[name="size"]:checked') ||
+    event.target.closest('input[name="additives"]:checked')
+  ) {
     calculateTotalPrice();
   }
 });
