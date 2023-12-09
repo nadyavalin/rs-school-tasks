@@ -30,17 +30,20 @@ function renderProductCards(category) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const menuButtons = document.querySelector(".menu__buttons");
   const coffeeInput = document.querySelector('input[value="coffee"]');
   coffeeInput.checked = true;
-
   renderProductCards("coffee");
 
-  const radioInputs = document.querySelectorAll('input[type="radio"]');
-  radioInputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      const category = input.value;
-      renderProductCards(category);
-    });
+  menuButtons.addEventListener("click", (event) => {
+    const menuButton = event.target.closest(".menu__button input");
+
+    if(!menuButton) {
+      return;
+    }
+    
+    const category = menuButton.value;
+    renderProductCards(category);
   });
 });
 
@@ -133,18 +136,17 @@ function showModal(product) {
 // Price counter
 function calculateTotalPrice() {
   const radioChecked = document.querySelector('input[name="size"]:checked');
-  // const checkboxes = document.querySelectorAll('input[name="additives"]');
+
   const checkboxesChecked = document.querySelectorAll(
     'input[name="additives"]:checked'
   );
   const totalPriceElement = document.querySelector(".total-price");
-  const startPrice = parseFloat(totalPriceElement.dataset.startPrice);
-
   let totalPrice;
 
   if (!totalPriceElement) {
     return;
   }
+  const startPrice = parseFloat(totalPriceElement.dataset.startPrice);
 
   if (radioChecked) {
     const radioPrice = parseFloat(radioChecked.value);
@@ -164,17 +166,19 @@ function calculateTotalPrice() {
 // Show modal
 menuCards.addEventListener("click", (event) => {
   const clickedCard = event.target.closest(".menu-card");
+
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  if (clickedCard) {
-    const { productId } = clickedCard.dataset;
-    if (productId) {
-      const product = products.find((card) => card.id === productId);
-      if (product) {
-        showModal(product);
-      }
-    }
+  if (!clickedCard) {
+    return;
+  }
+
+  const { productId } = clickedCard.dataset;
+  const product = products.find((card) => card.id === productId);
+
+  if (product) {
+    showModal(product);
   }
 });
 
@@ -187,8 +191,8 @@ modal.addEventListener("click", (event) => {
   }
 
   if (
-    event.target.closest('input[name="size"]:checked') ||
-    event.target.closest('input[name="additives"]:checked')
+    event.target.closest('input[name="size"]') ||
+    event.target.closest('input[name="additives"]')
   ) {
     calculateTotalPrice();
   }
