@@ -89,6 +89,11 @@ function moveSlider(direction) {
 paginationItems.forEach((item, index) => {
   item.addEventListener("click", () => {
     switchSlide(index * imageWidth);
+    /* КОД НЕ РАБОТАЕТ */
+    item.onanimationend = () => {
+      moveSlider('next');
+    }
+    /* КОД НЕ РАБОТАЕТ */
   });
 });
 
