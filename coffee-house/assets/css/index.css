@@ -172,6 +172,11 @@ h2>span {
     margin: 35px 0 -7px 0;
 }
 
+.pagination__container {
+    padding: 5px;
+    cursor: pointer;
+}
+
 .pagination__item {
     position: relative;
     width: 40px;
@@ -182,7 +187,8 @@ h2>span {
     overflow: hidden;
 }
 
-.pagination__item_filled-active {
+.pagination__item::before {
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
@@ -199,15 +205,6 @@ h2>span {
     100% {
         width: 100%;
     }
-}
-
-.pagination__container {
-    padding: 6px;
-    cursor: pointer;
-}
-
-.pagination__item_checked {
-    background-color: #665F55;
 }
 
 .gallery {

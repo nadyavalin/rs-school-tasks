@@ -46,13 +46,13 @@ const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
 
 // Slider desktop pagination update
-const paginationItems = document.querySelectorAll(".pagination__item");
+const paginationItems = document.querySelectorAll(".pagination__container");
 function updatePaginationItems() {
   paginationItems.forEach((item, index) => {
     if (index === activeImageIndex) {
-      item.classList.add("pagination__item_checked");
+      item.classList.add("pagination__container_checked");
     } else {
-      item.classList.remove("pagination__item_checked");
+      item.classList.remove("pagination__container_checked");
     }
   });
 }
@@ -84,17 +84,6 @@ function moveSlider(direction) {
   }
   switchSlide(offset);
 }
-
-/* КОД НЕ РАБОТАЕТ */
-function animatePagination() {
-  const activeDot = document.querySelector(".pagination__item_filled");
-  activeDot.classList.add("pagination__item_filled-active");
-  activeDot.onanimationend = () => {
-    moveSlider("next");
-  };
-}
-animatePagination();
-/* КОД НЕ РАБОТАЕТ */
 
 // Slider desktop pagination
 paginationItems.forEach((item, index) => {
