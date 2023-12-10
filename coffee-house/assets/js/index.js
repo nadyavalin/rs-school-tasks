@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let timer;
 const imageWidth = 480;
 let activeImageIndex = 0;
-const sliderLine = document.querySelector(".slider__line");
+const sliderLine = document.querySelector(".slider");
 const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
 
@@ -50,10 +50,8 @@ function updatePaginationItems() {
   paginationItems.forEach((item, index) => {
     if (index === activeImageIndex) {
       item.classList.add("pagination__container_checked");
-      item.style.animationPlayState = "paused"; // не работает
     } else {
       item.classList.remove("pagination__container_checked");
-      item.style.animationPlayState = "running"; // не работает
     }
   });
 }
@@ -69,6 +67,16 @@ function switchSlide(index) {
   }
   timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 5000);
 }
+
+sliderLine.addEventListener("mousedown", () => {
+  clearTimeout(timer);
+  document.querySelector(".pagination__container_checked").classList.add("paused");
+});
+
+sliderLine.addEventListener("mouseup", () => {
+  timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 2500);
+  document.querySelector(".pagination__container_checked").classList.remove("paused");
+});
 
 // Slider desktop pagination
 paginationItems.forEach((item, index) => {

@@ -108,7 +108,7 @@ h2>span {
     overflow: hidden;
 }
 
-.slider__line {
+.slider {
     width: 1440px;
     display: flex;
     align-items: center;
@@ -199,6 +199,10 @@ h2>span {
 .pagination__container_checked .pagination__item::before {
     background-color: #665F55;
     animation: fillDotsPagination 5s linear forwards;
+}
+
+.pagination__container_checked.paused .pagination_item::before {
+    animation-play-state: paused;
 }
 
 @keyframes fillDotsPagination {
