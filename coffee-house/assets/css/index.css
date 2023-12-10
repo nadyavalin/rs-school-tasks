@@ -1,4 +1,4 @@
-nav>ul>li>a:hover::after,
+nav > ul > li > a:hover::after,
 .menu-line:hover::after {
     content: "";
     display: block;
@@ -14,7 +14,7 @@ h1 {
     /* 75.6px */
 }
 
-h1>span {
+h1 > span {
     color: #B0907A;
     font-style: italic;
 }
@@ -26,12 +26,12 @@ h2 {
     /* 75px */
 }
 
-h2>span {
+h2 > span {
     color: #B0907A;
     font-style: italic;
 }
 
-.about>h2>b {
+.about > h2 > b {
     font-size: 59px;
 }
 
@@ -66,7 +66,7 @@ h2>span {
     line-height: 150%; /* 24px */
 }
 
-.enjoy__content>a {
+.enjoy__content > a {
     width: 200px;
     display: flex;
     justify-content: center;
@@ -157,7 +157,7 @@ h2>span {
     /* 24px */
 }
 
-.slider__text>span {
+.slider__text > span {
     text-align: center;
     font-size: 24px;
     font-weight: 600;
@@ -201,7 +201,7 @@ h2>span {
     animation: fillDotsPagination 5s linear forwards;
 }
 
-.pagination__container_checked.paused .pagination_item::before {
+.pagination__container_checked.paused .pagination__item::before {
     animation-play-state: paused;
 }
 
@@ -282,7 +282,7 @@ h2>span {
     gap: 40px;
 }
 
-.download-app__left-side>p {
+.download-app__left-side > p {
     font-size: 16px;
     font-weight: 400;
     line-height: 150%;
@@ -300,7 +300,7 @@ h2>span {
     gap: 20px;
 }
 
-.download-app__buttons>a {
+.download-app__buttons > a {
     display: flex;
     width: 200px;
     padding: 12px 20px;
@@ -313,7 +313,7 @@ h2>span {
     transition: all 0.5s ease-in-out;
 }
 
-.download-app__buttons>a>svg {
+.download-app__buttons > a > svg {
     fill: #403F3D;
     transition: fill 0.5s ease-in-out;
 }
@@ -325,7 +325,7 @@ h2>span {
     text-align: start;
 }
 
-.download-app__button-text>span:first-child {
+.download-app__button-text > span:first-child {
     font-size: 10px;
     font-weight: 600;
     line-height: 140%;
@@ -421,7 +421,7 @@ h2>span {
         height: 644px;
     }
 
-    .enjoy__content>a .button__menu {
+    .enjoy__content > a .button__menu {
         right: 0;
         transition: none;
     }
@@ -457,7 +457,7 @@ h2>span {
         font-size: 40px;
     }
 
-    .about>h2>b {
+    .about > h2 > b {
         font-size: 40px;
     }
 
@@ -504,7 +504,7 @@ h2>span {
         font-size: 32px;
     }
 
-    .about>h2>b {
+    .about > h2 > b {
         font-size: 32px;
     }
 

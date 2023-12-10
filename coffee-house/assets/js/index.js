@@ -38,16 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Slider
 let timer;
-const imageWidth = 480;
 let activeImageIndex = 0;
+const imageWidth = 480;
 const sliderLine = document.querySelector(".slider");
 const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
 
 // Slider desktop pagination update
-const paginationItems = document.querySelectorAll(".pagination__container");
+const paginationContainer = document.querySelectorAll(".pagination__container");
 function updatePaginationItems() {
-  paginationItems.forEach((item, index) => {
+  paginationContainer.forEach((item, index) => {
     if (index === activeImageIndex) {
       item.classList.add("pagination__container_checked");
     } else {
@@ -58,46 +58,69 @@ function updatePaginationItems() {
 
 // Switch slide
 function switchSlide(index) {
-  activeImageIndex = index;
+  if (index > 2) {
+    activeImageIndex = 0;
+  } else if (index < 0) {
+    activeImageIndex = 2;
+  } else {
+    activeImageIndex = index;
+  }
+
   sliderLine.style.left = `${-activeImageIndex * imageWidth}px`;
   updatePaginationItems();
 
   if (timer) {
     clearTimeout(timer);
   }
-  timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 5000);
+  timer = setTimeout(() => switchSlide(activeImageIndex + 1), 5000);
+}
+timer = setTimeout(() => switchSlide(activeImageIndex + 1), 5000);
+
+function pauseAnimation() {
+  clearTimeout(timer);
+  document
+    .querySelector(".pagination__container_checked")
+    .classList.add("paused");
 }
 
-sliderLine.addEventListener("mousedown", () => {
-  clearTimeout(timer);
-  document.querySelector(".pagination__container_checked").classList.add("paused");
-});
+function startAnimation() {
+  document
+    .querySelector(".pagination__container_checked")
+    .classList.remove("paused");
+}
 
-sliderLine.addEventListener("mouseup", () => {
-  timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 2500);
-  document.querySelector(".pagination__container_checked").classList.remove("paused");
-});
+sliderLine.addEventListener("mouseenter", pauseAnimation);
+sliderLine.addEventListener("mousedown", pauseAnimation);
+sliderLine.addEventListener("touchstart", pauseAnimation);
+// Turn off the context menu on slider
+// document.addEventListener("contextmenu", (e) => {
+//   e.preventDefault();
+// });
+
+sliderLine.addEventListener("mouseleave", startAnimation);
+sliderLine.addEventListener("mouseup", startAnimation);
+sliderLine.addEventListener("touchend", startAnimation);
+
 
 // Slider desktop pagination
-paginationItems.forEach((item, index) => {
+paginationContainer.forEach((item, index) => {
   item.addEventListener("click", () => {
     switchSlide(index);
+  });
+  item.addEventListener("animationend", () => {
+    switchSlide(activeImageIndex + 1);
   });
 });
 
 // Slider arrows for Prev
 arrowPrev.addEventListener("click", () => {
-  const prevIndex = (activeImageIndex - 1 + 3) % 3;
-  switchSlide(prevIndex);
+  switchSlide(activeImageIndex - 1);
 });
 
 // Slider arrows for Next
 arrowNext.addEventListener("click", () => {
-  const nextIndex = (activeImageIndex + 1) % 3;
-  switchSlide(nextIndex);
+  switchSlide(activeImageIndex + 1);
 });
-
-timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 5000);
 
 // Touch moves
 let x1 = null;
@@ -121,11 +144,9 @@ function moveHandler(event) {
 
   if (Math.abs(xDifferent) > Math.abs(yDifferent)) {
     if (xDifferent > 0) {
-      const prevIndex = (activeImageIndex - 1 + 3) % 3;
-      switchSlide(prevIndex);
+      switchSlide(activeImageIndex - 1);
     } else {
-      const nextIndex = (activeImageIndex + 1) % 3;
-      switchSlide(nextIndex);
+      switchSlide(activeImageIndex + 1);
     }
   }
   x1 = null;
