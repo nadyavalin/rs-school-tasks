@@ -1,4 +1,4 @@
-nav > ul > li > a:hover::after,
+nav > ul > li > a:hover::after,header
 .menu-line:hover::after {
     content: "";
     display: block;
@@ -415,12 +415,6 @@ h2 > span {
         padding: 100px 60px;
     }
 
-    /* не работает */
-    .enjoy__video-container {
-        width: 688px;
-        height: 644px;
-    }
-
     .enjoy__content > a .button__menu {
         right: 0;
         transition: none;
@@ -512,13 +506,6 @@ h2 > span {
         padding: 60px 16px 60px 16px;
     }
 
-    /* не работает */
-    .enjoy__video-container {
-        width: 348px;
-        height: 552px;
-    }
-
-
     .slider__image img {
         width: 348px;
     }
@@ -543,5 +530,15 @@ h2 > span {
 
     .download-app__buttons {
         gap: 20px;
+    }
+}
+
+@media (max-width: 380px) {
+    .slider__container {
+        max-width: 348px;
+    }
+
+    .slider {
+        width: 1044px;
     }
 }

@@ -1,48 +1,22 @@
-// Burger-menu
-function addListenersForBurgerMenu() {
-  const header = document.querySelector(".header");
-  const body = document.querySelector(".body");
-
-  document.querySelector(".burger-menu__btn").addEventListener("click", () => {
-    setTimeout(() => {
-      header.classList.toggle("open");
-      if (header.classList.contains("open")) {
-        body.style.overflow = "hidden";
-      } else {
-        body.style.overflow = "auto";
-      }
-    }, 0);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      header.classList.remove("open");
-    }
-  });
-
-  document.body.addEventListener("click", (event) => {
-    if (
-      !event.target.classList.contains("nav") &&
-      !event.target.closest(".burger-menu__btn") &&
-      header.classList.contains("open")
-    ) {
-      body.style.overflow = "auto";
-      header.classList.remove("open");
-    }
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  addListenersForBurgerMenu();
-});
-
 // Slider
 let timer;
 let activeImageIndex = 0;
-const imageWidth = 480;
+let imageWidth = 480;
 const sliderLine = document.querySelector(".slider");
 const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
+
+// Update the width of the slider
+function updateImageWidth() {
+  if (window.innerWidth <= 380) {
+    imageWidth = 348;
+  } else {
+    imageWidth = 480;
+  }
+}
+
+updateImageWidth();
+window.addEventListener("resize", updateImageWidth);
 
 // Slider desktop pagination update
 const paginationContainer = document.querySelectorAll(".pagination__container");
@@ -92,15 +66,15 @@ function startAnimation() {
 sliderLine.addEventListener("mouseenter", pauseAnimation);
 sliderLine.addEventListener("mousedown", pauseAnimation);
 sliderLine.addEventListener("touchstart", pauseAnimation);
-// Turn off the context menu on slider
-// document.addEventListener("contextmenu", (e) => {
-//   e.preventDefault();
-// });
+
+// Turn off the context menu for slider
+sliderLine.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+});
 
 sliderLine.addEventListener("mouseleave", startAnimation);
 sliderLine.addEventListener("mouseup", startAnimation);
 sliderLine.addEventListener("touchend", startAnimation);
-
 
 // Slider desktop pagination
 paginationContainer.forEach((item, index) => {

@@ -19,8 +19,8 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 800px;
-    height: 504px;
+    max-width: 800px;
+    max-height: 504px;
     background-color: #E1D4C9;
     padding: 16px;
     border-radius: 40px;
@@ -199,8 +199,8 @@ h4 {
 
 @media (max-width: 768px) {
     .modal {
-        width: 690px;
-        height: 630px;
+        max-width: 690px;
+        max-height: 660px;
     }
 
     .size__buttons, .additives__buttons {
@@ -215,8 +215,8 @@ h4 {
 
 @media (max-width: 380px) {
     .modal {
-        width: 342px;
-        height: 630px;
+        max-width: 342px;
+        max-height: 660px;
         gap: 0;
     }
 

@@ -2,6 +2,7 @@ import products from "./products.js";
 
 const menuCards = document.querySelector(".menu-cards");
 const refreshButton = document.querySelector(".menu__refresh-button");
+
 // Get cards from Array of Objects
 function renderProductCards(category) {
   const filteredProducts = products.filter(
@@ -213,6 +214,11 @@ function checkScreenSize() {
   if (window.innerWidth < 768) {
     menuCards.classList.add("menu-cards_hidden");
     refreshButton.classList.remove("menu__refresh-button_hidden");
+
+    const menuButtons = document.querySelector(".menu__buttons");
+    menuButtons.addEventListener("click", () => {
+      menuCards.classList.add("menu-cards_hidden");
+    });
   }
 }
 

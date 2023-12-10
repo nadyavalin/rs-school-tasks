@@ -64,10 +64,6 @@ nav > ul > li > a::after, .menu-line::after {
     cursor: pointer;
 }
 
-.header.open .burger-menu__btn {
-    background-color: transparent;
-}
-
 .burger-menu__btn span {
     position: absolute;
     width: 16px;
