@@ -37,10 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Slider
-let offset = 0;
-let activeImageIndex = 0;
 let timer;
 const imageWidth = 480;
+let activeImageIndex = 0;
 const sliderLine = document.querySelector(".slider__line");
 const arrowPrev = document.querySelector(".slider__arrow-left");
 const arrowNext = document.querySelector(".slider__arrow-right");
@@ -51,60 +50,46 @@ function updatePaginationItems() {
   paginationItems.forEach((item, index) => {
     if (index === activeImageIndex) {
       item.classList.add("pagination__container_checked");
+      item.style.animationPlayState = "paused"; // не работает
     } else {
       item.classList.remove("pagination__container_checked");
+      item.style.animationPlayState = "running"; // не работает
     }
   });
 }
 
-// Switch slider
-function switchSlide(newOffset) {
-  offset = newOffset;
-  activeImageIndex = newOffset / imageWidth;
-  sliderLine.style.left = `${-offset}px`;
+// Switch slide
+function switchSlide(index) {
+  activeImageIndex = index;
+  sliderLine.style.left = `${-activeImageIndex * imageWidth}px`;
   updatePaginationItems();
 
   if (timer) {
     clearTimeout(timer);
   }
-  timer = setTimeout(() => moveSlider("next"), 5000);
-}
-
-function moveSlider(direction) {
-  if (direction === "prev") {
-    offset -= 480;
-    if (offset < 0) {
-      offset = 960;
-    }
-  } else if (direction === "next") {
-    offset += 480;
-    if (offset > 960) {
-      offset = 0;
-    }
-  }
-  switchSlide(offset);
+  timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 5000);
 }
 
 // Slider desktop pagination
 paginationItems.forEach((item, index) => {
   item.addEventListener("click", () => {
-    switchSlide(index * imageWidth);
+    switchSlide(index);
   });
 });
 
 // Slider arrows for Prev
 arrowPrev.addEventListener("click", () => {
-  moveSlider("prev");
-  switchSlide(offset);
+  const prevIndex = (activeImageIndex - 1 + 3) % 3;
+  switchSlide(prevIndex);
 });
 
 // Slider arrows for Next
 arrowNext.addEventListener("click", () => {
-  moveSlider("next");
-  switchSlide(offset);
+  const nextIndex = (activeImageIndex + 1) % 3;
+  switchSlide(nextIndex);
 });
 
-timer = setTimeout(() => moveSlider("next"), 5000);
+timer = setTimeout(() => switchSlide((activeImageIndex + 1) % 3), 5000);
 
 // Touch moves
 let x1 = null;
@@ -128,11 +113,11 @@ function moveHandler(event) {
 
   if (Math.abs(xDifferent) > Math.abs(yDifferent)) {
     if (xDifferent > 0) {
-      moveSlider("prev");
-      switchSlide(offset);
+      const prevIndex = (activeImageIndex - 1 + 3) % 3;
+      switchSlide(prevIndex);
     } else {
-      moveSlider("next");
-      switchSlide(offset);
+      const nextIndex = (activeImageIndex + 1) % 3;
+      switchSlide(nextIndex);
     }
   }
   x1 = null;
