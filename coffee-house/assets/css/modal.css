@@ -12,7 +12,7 @@
 }
 
 .modal-window.open {
-    display: flex;   
+    display: flex;
 }
 
 .modal {
@@ -95,7 +95,7 @@ h4 {
 
 .size__button label span, .additives__button label span {
     color:#403F3D;
-} 
+}
 
 .size__button-circle, .additives__button-circle {
     display: flex;
@@ -181,11 +181,6 @@ h4 {
     line-height: 150%; /* 24px */
 }
 
-.modal__close_btn:hover {
-    background-color: #665F55;
-    color: #E1D4C9;
-}
-
 @media (hover: hover) {
     .size__button label:hover, .additives__button label:hover {
         background-color: #665F55;
@@ -194,6 +189,11 @@ h4 {
 
     .size__button:hover .size__button-circle, .additives__button:hover .additives__button-circle  {
         background-color: #E1D4C9;
+    }
+
+    .modal__close_btn:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
     }
 }
 
@@ -213,7 +213,7 @@ h4 {
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
     .modal {
         max-width: 342px;
         max-height: 660px;
