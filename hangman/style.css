@@ -1,0 +1,125 @@
+*,
+*::after,
+*::before {
+  outline: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #4576eb;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+ul {
+  list-style: none;
+}
+
+.main {
+  background-color: #eaecf3;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin: 40px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px 1px rgba(63, 63, 213, 0.3);
+}
+
+.gallows-container {
+  margin: 50px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallows-img {
+  width: 75%;
+}
+
+.ground {
+  width: 300px;
+  height: 25px;
+  background-color: #000000;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.words-guessing-container {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.word {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.letter {
+  width: 30px;
+  border-bottom: 4px solid #000000;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 32px;
+}
+
+.letter.guessed {
+  border-bottom: transparent;
+}
+
+.text {
+  font-weight: 700;
+}
+.text span {
+  color: #ff0000;
+}
+
+.keyboard {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.keyboard button {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  width: calc(100% / 9 - 5px);
+  background-color: #4576eb;
+  box-shadow: 1px 1px 1px 1px rgba(63, 63, 213, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  border: none;
+}
+
+.keyboard button:hover {
+  background-color: #6d91e5;
+}
+
+.keyboard button:active {
+  background-color: #1a56e2;
+}
