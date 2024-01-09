@@ -1,46 +1,42 @@
 const words = [
   {
     word: "computer",
-    hint: "",
+    hint: "An electronic device for storing and processing data, typically in binary form.",
   },
   {
     word: "script",
-    hint: "",
+    hint: "A literary work with a detailed description of the action, on the basis of which a film is created.",
   },
   {
     word: "test",
-    hint: "",
+    hint: "A procedure intended to establish the quality, performance, or reliability of something.",
   },
   {
     word: "printer",
-    hint: "",
-  },
-  {
-    word: "script",
-    hint: "",
+    hint: "A device connected to a computer",
   },
   {
     word: "Friday",
-    hint: "",
+    hint: "The day of the week before Saturday and following Thursday.",
   },
   {
     word: "deadline",
-    hint: "",
+    hint: "The latest time or date by which something should be completed.",
   },
   {
     word: "English",
-    hint: "",
+    hint: "The language of England, widely used in many varieties throughout the world.",
   },
   {
     word: "husband",
-    hint: "",
+    hint: "A married man considered in relation to his spouse.",
   },
   {
     word: "family",
-    hint: "",
+    hint: "A group of one or more parents and their children living together as a unit.",
   },
   {
     word: "dinner",
-    hint: "",
+    hint: "The main meal of the day, taken either around midday or in the evening.",
   },
 ];
