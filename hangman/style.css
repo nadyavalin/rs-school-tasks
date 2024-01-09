@@ -88,6 +88,7 @@ ul {
 
 .text {
   font-weight: 700;
+  text-align: center;
 }
 .text span {
   color: #ff0000;
@@ -181,4 +182,67 @@ ul {
 
 .modal__button-play-again:active {
   background-color: #1a56e2;
+}
+
+@media (max-width: 850px) {
+  .main {
+    gap: 10px;
+  }
+
+  .gallows-container {
+    margin: 10px;
+  }
+
+  .words-guessing-container {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    gap: 0px;
+    margin: 20px;
+  }
+  
+  .gallows-container h1 {
+    text-align: center;
+  }
+
+  .ground {
+    width: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  .gallows-container {
+    margin-bottom: 50px;
+  }
+
+  .ground {
+    width: 400px;
+    height: 30px;
+  }
+
+  .keyboard {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .ground {
+    width: 350px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .ground {
+    width: 300px;
+    height: 20px;
+  }
 }
