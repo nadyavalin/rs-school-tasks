@@ -1,4 +1,4 @@
-const words = [
+export const words = [
   {
     word: "computer",
     hint: "An electronic device for storing and processing data, typically in binary form.",
@@ -40,3 +40,5 @@ const words = [
     hint: "The main meal of the day, taken either around midday or in the evening.",
   },
 ];
+
+// export default { words };

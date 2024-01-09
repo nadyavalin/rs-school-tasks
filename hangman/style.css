@@ -86,10 +86,13 @@ ul {
   border-bottom: transparent;
 }
 
+.hint-text,
 .text {
   font-weight: 700;
   text-align: center;
+  max-width: 500px;
 }
+
 .text span {
   color: #ff0000;
 }
