@@ -1,4 +1,4 @@
-export const words = [
+export default [
   {
     word: "computer",
     hint: "An electronic device for storing and processing data, typically in binary form.",
@@ -16,7 +16,7 @@ export const words = [
     hint: "A device connected to a computer",
   },
   {
-    word: "Friday",
+    word: "friday",
     hint: "The day of the week before Saturday and following Thursday.",
   },
   {
@@ -24,7 +24,7 @@ export const words = [
     hint: "The latest time or date by which something should be completed.",
   },
   {
-    word: "English",
+    word: "english",
     hint: "The language of England, widely used in many varieties throughout the world.",
   },
   {

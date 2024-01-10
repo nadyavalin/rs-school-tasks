@@ -87,13 +87,13 @@ ul {
 }
 
 .hint-text,
-.text {
+.incorrect-guesses-text {
   font-weight: 700;
   text-align: center;
   max-width: 500px;
 }
 
-.text span {
+.incorrect-guesses-text span {
   color: #ff0000;
 }
 
