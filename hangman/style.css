@@ -187,6 +187,52 @@ ul {
   background-color: #1a56e2;
 }
 
+.gallows-container__hangman {
+  position: absolute;
+  margin-left: 190px;
+  display: flex;
+  flex-direction: column;
+  vertical-align: flex-start;
+  align-items: center;
+}
+
+.gallows-container__hangman_body-arms,
+.gallows-container__hangman_legs {
+  display: flex;
+}
+
+.hangman-head {
+  width: 80px;
+  height: 80px;
+  display: none;
+}
+
+.hangman-body {
+  display: none;
+}
+
+.hangman-arm-one {
+  display: none;
+}
+
+.hangman-arm-two {
+  display: none;
+}
+
+.hangman-leg-one {
+  display: none;
+}
+
+.hangman-leg-two {
+  display: none;
+}
+
+@media (max-width: 1320px) {
+  .gallows-container__hangman {
+    margin-left: 170px;
+  }
+}
+
 @media (max-width: 850px) {
   .main {
     gap: 10px;
@@ -198,6 +244,10 @@ ul {
 
   .words-guessing-container {
     margin: 10px;
+  }
+
+  .gallows-container__hangman {
+    margin-left: 150px;
   }
 }
 

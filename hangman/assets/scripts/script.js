@@ -10,13 +10,19 @@ const wordText = document.querySelector(".word"); // temporary
 const incorrectGuessesText = document.querySelector(
   ".incorrect-guesses-text span",
 ); // temporary
+const hangmanHead = document.querySelector(".hangman-head"); // temporary
+const hangmanBody = document.querySelector(".hangman-body"); // temporary
+const hangmanArmOne = document.querySelector(".hangman-arm-one"); // temporary
+const hangmanArmTwo = document.querySelector(".hangman-arm-two"); // temporary
+const hangmanLegOne = document.querySelector(".hangman-leg-one"); // temporary
+const hangmanLegTwo = document.querySelector(".hangman-leg-two"); // temporary
 
 let currentWord;
 let wrongAttemptsCounter = 0;
 const maxAttempts = 6;
 
 // Game
-function startGame(clickedLetter) {
+function startGame(button, clickedLetter) {
   if (wrongAttemptsCounter >= maxAttempts) {
     return;
   }
@@ -29,8 +35,30 @@ function startGame(clickedLetter) {
     });
   } else {
     wrongAttemptsCounter += 1;
+    incorrectGuessesText.innerText = `${wrongAttemptsCounter} / ${maxAttempts}`;
+
+    switch (wrongAttemptsCounter) {
+      case 1:
+        hangmanHead.style.display = "grid";
+        break;
+      case 2:
+        hangmanBody.style.display = "grid";
+        break;
+      case 3:
+        hangmanArmOne.style.display = "grid";
+        break;
+      case 4:
+        hangmanArmTwo.style.display = "grid";
+        break;
+      case 5:
+        hangmanLegOne.style.display = "grid";
+        break;
+      case 6:
+        hangmanLegTwo.style.display = "grid";
+        break;
+      default:
+    }
   }
-  incorrectGuessesText.innerText = `${wrongAttemptsCounter} / ${maxAttempts}`;
 }
 
 // Keyboard
