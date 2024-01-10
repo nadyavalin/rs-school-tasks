@@ -120,6 +120,11 @@ ul {
   border: none;
 }
 
+.keyboard button[disabled] {
+  background-color: #99b4f3;
+  pointer-events: none;
+}
+
 .keyboard button:hover {
   background-color: #6d91e5;
 }

@@ -59,6 +59,7 @@ function startGame(button, clickedLetter) {
       default:
     }
   }
+  button.disabled = true;
 }
 
 // Keyboard
