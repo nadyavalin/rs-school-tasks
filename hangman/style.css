@@ -212,7 +212,6 @@ ul {
   margin-left: 190px;
   display: flex;
   flex-direction: column;
-  vertical-align: flex-start;
   align-items: center;
 }
 
@@ -276,7 +275,7 @@ ul {
     gap: 0px;
     margin: 20px;
   }
-  
+
   .gallows-container h1 {
     text-align: center;
   }

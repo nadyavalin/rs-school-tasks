@@ -163,7 +163,7 @@ function gameOver(win) {
 }
 
 // Game start
-function startGame(button, clickedLetter) {
+function guessTheLetter(button, clickedLetter) {
   if (wrongAttemptsCounter >= maxAttempts) {
     return;
   }
@@ -177,7 +177,7 @@ function startGame(button, clickedLetter) {
     });
   } else {
     wrongAttemptsCounter += 1;
-    incorrectGuessesText.innerText = `Incorrect guesses: ${wrongAttemptsCounter} / ${maxAttempts}`;
+    incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
 
     switch (wrongAttemptsCounter) {
       case 1:
@@ -213,14 +213,41 @@ function startGame(button, clickedLetter) {
 }
 
 // Keyboard
+const buttons = [];
+
 for (let i = 97; i <= 122; i += 1) {
+  const button = document.createElement("button");
+  button.innerText = String.fromCharCode(i);
+  button.tabIndex = i - 96;
+  buttons.push(button);
+  keyboard.appendChild(button);
+}
+
+keyboard.addEventListener("click", (e) => {
+  const button = e.target.closest("button");
+  if (button) {
+    const letter = button.innerText;
+    guessTheLetter(button, letter);
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  const key = e.key.toLowerCase();
+  const button = buttons.find((btn) => btn.innerText === key);
+  if (button) {
+    guessTheLetter(button, key);
+  }
+});
+
+// Keyboard 1st version
+/* for (let i = 97; i <= 122; i += 1) {
   const button = document.createElement("button");
   button.innerText = String.fromCharCode(i);
   keyboard.appendChild(button);
   button.addEventListener("click", (e) =>
-    startGame(e.target, String.fromCharCode(i)),
+    guessTheLetter(e.target, String.fromCharCode(i)),
   );
-}
+} */
 
 function resetGame() {
   correctLetters = [];
