@@ -1,6 +1,31 @@
 /* global document */
 import words from "./words.js";
 
+// Modal
+/* <div class="modal">
+  <div class="modal__content">
+    <h2 class="modal__lose-title"></h2>
+    <p></p>
+    <button class="modal__button-play-again">Play again!</button>
+  </div>
+</div> */
+
+const modal = document.createElement("div");
+modal.classList.add("modal");
+document.body.append(modal);
+
+const modalContent = document.createElement("div");
+modalContent.classList.add("modal__content");
+modal.append(modalContent);
+
+const h2 = document.createElement("h2");
+h2.classList.add("modal__lose-title");
+const p = document.createElement("p");
+const buttonPlayAgain = document.createElement("button");
+buttonPlayAgain.classList.add("modal__button-play-again");
+buttonPlayAgain.innerText = "Play again!";
+modalContent.append(h2, p, buttonPlayAgain);
+
 // Main container
 const main = document.createElement("main");
 main.classList.add("main");
@@ -116,9 +141,6 @@ hangmanLegOne.alt = "Hangman leg one";
 hangmanLegTwo.alt = "Hangman leg two";
 
 hangmanLegsDiv.append(hangmanLegOne, hangmanLegTwo);
-
-const modal = document.querySelector(".modal"); // temporary
-const buttonPlayAgain = document.querySelector(".modal__button-play-again"); // temporary
 
 const wordText = document.querySelector(".word");
 let currentWord;
