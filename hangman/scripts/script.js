@@ -51,7 +51,7 @@ ground.classList.add("ground");
 
 // <h1>Hangman game</h1>
 const h1 = document.createElement("h1");
-h1.innerText = "Hangman game"
+h1.innerText = "Hangman game";
 gallowsSection.append(gallowsImage, ground, h1);
 
 // Words Guessing Sections
@@ -75,15 +75,15 @@ wordsGuessingSection.append(ul, hintText, incorrectGuessesText, keyboard);
 // Hangman
 // Temporary remainder */
 /* <div class="gallows-container__hangman">
-  <div class="gallows-container__hangman_head">
+  <div class="gallows-container__hangman-head">
     <img src="./assets/svg/1-head.svg" class="hangman-head" alt="Hangman head">
   </div>
-  <div class="gallows-container__hangman_body-arms">
+  <div class="gallows-container__hangman-body-arms">
     <img src="./assets/svg/3-arm-one.svg" class="hangman-arm-one" alt="Hangman arm one">
     <img src="./assets/svg/2-body.svg" class="hangman-body" alt="Hangman body">
     <img src="./assets/svg/4-arm-two.svg" class="hangman-arm-two" alt="Hangman arm two">
   </div>
-  <div class="gallows-container__hangman_legs">
+  <div class="gallows-container__hangman-legs">
     <img src="./assets/svg/5-leg-one.svg" class="hangman-leg-one" alt="Hangman leg one">
     <img src="./assets/svg/6-leg-two.svg" class="hangman-leg-two" alt="Hangman leg two">
   </div>
@@ -96,9 +96,9 @@ gallowsSection.append(hangmanDiv);
 const hangmanHeadDiv = document.createElement("div");
 const hangmanBodyAndArmsDiv = document.createElement("div");
 const hangmanLegsDiv = document.createElement("div");
-hangmanHeadDiv.classList.add("gallows-container__hangman_head");
-hangmanBodyAndArmsDiv.classList.add("gallows-container__hangman_body-arms");
-hangmanLegsDiv.classList.add("gallows-container__hangman_legs");
+hangmanHeadDiv.classList.add("gallows-container__hangman-head");
+hangmanBodyAndArmsDiv.classList.add("gallows-container__hangman-body-arms");
+hangmanLegsDiv.classList.add("gallows-container__hangman-legs");
 hangmanDiv.append(hangmanHeadDiv, hangmanBodyAndArmsDiv, hangmanLegsDiv);
 
 // Hangman head
@@ -152,9 +152,9 @@ const maxAttempts = 6;
 function gameOver(win) {
   setTimeout(() => {
     const modalText = win ? "You found the word:" : "The correct word is:";
-    modal.querySelector(".modal__lose-title").innerText = `${
-      win ? "Congratulations!" : "Game over!"
-    }`;
+    modal.querySelector(".modal__lose-title").innerText = win
+      ? "Congratulations!"
+      : "Game over!";
     modal.querySelector(
       "p",
     ).innerHTML = `${modalText} <span>${currentWord}</span>`;
@@ -163,18 +163,18 @@ function gameOver(win) {
 }
 
 // Game start
-function guessTheLetter(button, clickedLetter) {
+const buttons = [];
+
+function guessTheLetter(clickedLetter) {
   if (wrongAttemptsCounter >= maxAttempts) {
     return;
   }
-  if (currentWord.includes(clickedLetter)) {
-    [...currentWord].forEach((letter, index) => {
-      if (letter === clickedLetter) {
-        correctLetters.push(letter);
-        wordText.querySelectorAll("li")[index].innerText = letter;
-        wordText.querySelectorAll("li")[index].classList.add("guessed");
-      }
-    });
+  const index = currentWord.indexOf(clickedLetter);
+  if (index !== -1) {
+    const wordTextLi = wordText.querySelectorAll("li")[index];
+    correctLetters.push(currentWord[index]);
+    wordTextLi.innerText = currentWord[index];
+    wordTextLi.classList.add("guessed");
   } else {
     wrongAttemptsCounter += 1;
     incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
@@ -199,25 +199,31 @@ function guessTheLetter(button, clickedLetter) {
         hangmanLegTwo.style.display = "grid";
         break;
       default:
+        break;
     }
   }
-  button.disabled = true;
+
+  const targetButton = buttons.find(
+    (button) => button.textContent === clickedLetter,
+  );
+
+  if (targetButton) {
+    targetButton.disabled = true;
+  }
 
   if (wrongAttemptsCounter === maxAttempts) {
-    return gameOver(false);
+    gameOver(false);
   }
 
   if (correctLetters.length === currentWord.length) {
-    return gameOver(true);
+    gameOver(true);
   }
 }
 
 // Keyboard
-const buttons = [];
-
 for (let i = 97; i <= 122; i += 1) {
   const button = document.createElement("button");
-  button.innerText = String.fromCharCode(i);
+  button.textContent = String.fromCharCode(i).toLowerCase();
   button.tabIndex = i - 96;
   buttons.push(button);
   keyboard.appendChild(button);
@@ -226,34 +232,21 @@ for (let i = 97; i <= 122; i += 1) {
 keyboard.addEventListener("click", (e) => {
   const button = e.target.closest("button");
   if (button) {
-    const letter = button.innerText;
-    guessTheLetter(button, letter);
+    const letter = button.textContent;
+    guessTheLetter(letter);
   }
 });
 
 document.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
-  const button = buttons.find((btn) => btn.innerText === key);
-  if (button) {
-    guessTheLetter(button, key);
-  }
+  guessTheLetter(key);
 });
-
-// Keyboard 1st version
-/* for (let i = 97; i <= 122; i += 1) {
-  const button = document.createElement("button");
-  button.innerText = String.fromCharCode(i);
-  keyboard.appendChild(button);
-  button.addEventListener("click", (e) =>
-    guessTheLetter(e.target, String.fromCharCode(i)),
-  );
-} */
 
 function resetGame() {
   correctLetters = [];
   wrongAttemptsCounter = 0;
   incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
-  keyboard.querySelectorAll("button").forEach((btn) => btn.disabled = false);
+  keyboard.querySelectorAll("button").forEach((btn) => (btn.disabled = false));
   wordText.innerHTML = currentWord
     .split("")
     .map(() => `<li class="letter"></li>`)
@@ -271,7 +264,7 @@ function resetGame() {
 function getRundomWordAndHint() {
   const { word, hint } = words[Math.floor(Math.random() * words.length)];
   currentWord = word;
-  console.log = word;
+  console.log(word);
   hintText.innerHTML = `Hint: ${hint}`;
   resetGame();
 }

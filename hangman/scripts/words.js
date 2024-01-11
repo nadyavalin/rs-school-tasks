@@ -40,5 +40,3 @@ export default [
     hint: "The main meal of the day, taken either around midday or in the evening.",
   },
 ];
-
-// export default { words };

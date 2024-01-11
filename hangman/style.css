@@ -215,8 +215,8 @@ ul {
   align-items: center;
 }
 
-.gallows-container__hangman_body-arms,
-.gallows-container__hangman_legs {
+.gallows-container__hangman-body-arms,
+.gallows-container__hangman-legs {
   display: flex;
 }
 
