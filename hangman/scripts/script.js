@@ -169,12 +169,16 @@ function guessTheLetter(clickedLetter) {
   if (wrongAttemptsCounter >= maxAttempts) {
     return;
   }
-  const index = currentWord.indexOf(clickedLetter);
-  if (index !== -1) {
-    const wordTextLi = wordText.querySelectorAll("li")[index];
-    correctLetters.push(currentWord[index]);
-    wordTextLi.innerText = currentWord[index];
-    wordTextLi.classList.add("guessed");
+
+  if (currentWord.includes(clickedLetter)) {
+    [...currentWord].forEach((letter, index) => {
+      if (letter === clickedLetter) {
+        const wordTextLi = wordText.querySelectorAll("li")[index];
+        correctLetters.push(letter);
+        wordTextLi.innerText = letter;
+        wordTextLi.classList.add("guessed");
+      }
+    });
   } else {
     wrongAttemptsCounter += 1;
     incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
@@ -247,7 +251,7 @@ function resetGame() {
   wrongAttemptsCounter = 0;
   incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
   keyboard.querySelectorAll("button").forEach((btn) => {
-    btn.disabled = false;
+    btn.removeAttribute("disabled");
   });
   wordText.innerHTML = currentWord
     .split("")
@@ -279,5 +283,6 @@ buttonPlayAgain.addEventListener("click", getRundomWordAndHint);
 buttonPlayAgain.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     getRundomWordAndHint();
+    modal.classList.remove("visible");
   }
 });
