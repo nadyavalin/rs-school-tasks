@@ -47,12 +47,76 @@ const keyboard = document.createElement("div");
 keyboard.classList.add("keyboard");
 wordsGuessingSection.append(ul, hintText, incorrectGuessesText, keyboard);
 
-const hangmanHead = document.querySelector(".hangman-head"); // temporary
-const hangmanBody = document.querySelector(".hangman-body"); // temporary
-const hangmanArmOne = document.querySelector(".hangman-arm-one"); // temporary
-const hangmanArmTwo = document.querySelector(".hangman-arm-two"); // temporary
-const hangmanLegOne = document.querySelector(".hangman-leg-one"); // temporary
-const hangmanLegTwo = document.querySelector(".hangman-leg-two"); // temporary
+// Hangman
+// Temporary remainder */
+/* <div class="gallows-container__hangman">
+  <div class="gallows-container__hangman_head">
+    <img src="./assets/svg/1-head.svg" class="hangman-head" alt="Hangman head">
+  </div>
+  <div class="gallows-container__hangman_body-arms">
+    <img src="./assets/svg/3-arm-one.svg" class="hangman-arm-one" alt="Hangman arm one">
+    <img src="./assets/svg/2-body.svg" class="hangman-body" alt="Hangman body">
+    <img src="./assets/svg/4-arm-two.svg" class="hangman-arm-two" alt="Hangman arm two">
+  </div>
+  <div class="gallows-container__hangman_legs">
+    <img src="./assets/svg/5-leg-one.svg" class="hangman-leg-one" alt="Hangman leg one">
+    <img src="./assets/svg/6-leg-two.svg" class="hangman-leg-two" alt="Hangman leg two">
+  </div>
+</div> */
+
+const hangmanDiv = document.createElement("div");
+hangmanDiv.classList.add("gallows-container__hangman");
+gallowsSection.append(hangmanDiv);
+
+const hangmanHeadDiv = document.createElement("div");
+const hangmanBodyAndArmsDiv = document.createElement("div");
+const hangmanLegsDiv = document.createElement("div");
+hangmanHeadDiv.classList.add("gallows-container__hangman_head");
+hangmanBodyAndArmsDiv.classList.add("gallows-container__hangman_body-arms");
+hangmanLegsDiv.classList.add("gallows-container__hangman_legs");
+hangmanDiv.append(hangmanHeadDiv, hangmanBodyAndArmsDiv, hangmanLegsDiv);
+
+// Hangman head
+const hangmanHead = document.createElement("img");
+hangmanHead.src = "./assets/svg/1-head.svg";
+hangmanHead.classList.add("hangman-head");
+hangmanHead.alt = "Hangman head";
+hangmanHeadDiv.append(hangmanHead);
+
+// Hangman body and arms
+const hangmanBody = document.createElement("img");
+const hangmanArmOne = document.createElement("img");
+const hangmanArmTwo = document.createElement("img");
+
+hangmanBody.src = "./assets/svg/2-body.svg";
+hangmanArmOne.src = "./assets/svg/3-arm-one.svg";
+hangmanArmTwo.src = "./assets/svg/4-arm-two.svg";
+
+hangmanBody.classList.add("hangman-body");
+hangmanArmOne.classList.add("hangman-arm-one");
+hangmanArmTwo.classList.add("hangman-arm-two");
+
+hangmanBody.alt = "Hangman body";
+hangmanArmOne.alt = "Hangman arm one";
+hangmanArmTwo.alt = "Hangman arm two";
+
+hangmanBodyAndArmsDiv.append(hangmanArmOne, hangmanBody, hangmanArmTwo);
+
+// Hangman legs
+const hangmanLegOne = document.createElement("img");
+const hangmanLegTwo = document.createElement("img");
+
+hangmanLegOne.src = "./assets/svg/5-leg-one.svg";
+hangmanLegTwo.src = "./assets/svg/6-leg-two.svg";
+
+hangmanLegOne.classList.add("hangman-leg-one");
+hangmanLegTwo.classList.add("hangman-leg-two");
+
+hangmanLegOne.alt = "Hangman leg one";
+hangmanLegTwo.alt = "Hangman leg two";
+
+hangmanLegsDiv.append(hangmanLegOne, hangmanLegTwo);
+
 const modal = document.querySelector(".modal"); // temporary
 const buttonPlayAgain = document.querySelector(".modal__button-play-again"); // temporary
 
