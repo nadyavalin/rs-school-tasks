@@ -181,22 +181,22 @@ function guessTheLetter(clickedLetter) {
 
     switch (wrongAttemptsCounter) {
       case 1:
-        hangmanHead.style.display = "grid";
+        hangmanHead.style.display = "block";
         break;
       case 2:
-        hangmanBody.style.display = "grid";
+        hangmanBody.style.display = "block";
         break;
       case 3:
-        hangmanArmOne.style.display = "grid";
+        hangmanArmOne.style.display = "block";
         break;
       case 4:
-        hangmanArmTwo.style.display = "grid";
+        hangmanArmTwo.style.display = "block";
         break;
       case 5:
-        hangmanLegOne.style.display = "grid";
+        hangmanLegOne.style.display = "block";
         break;
       case 6:
-        hangmanLegTwo.style.display = "grid";
+        hangmanLegTwo.style.display = "block";
         break;
       default:
         break;
@@ -246,7 +246,9 @@ function resetGame() {
   correctLetters = [];
   wrongAttemptsCounter = 0;
   incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
-  keyboard.querySelectorAll("button").forEach((btn) => (btn.disabled = false));
+  keyboard.querySelectorAll("button").forEach((btn) => {
+    btn.disabled = false;
+  });
   wordText.innerHTML = currentWord
     .split("")
     .map(() => `<li class="letter"></li>`)
@@ -272,3 +274,10 @@ function getRundomWordAndHint() {
 getRundomWordAndHint();
 
 buttonPlayAgain.addEventListener("click", getRundomWordAndHint);
+
+// TODO, пока не работает
+buttonPlayAgain.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    getRundomWordAndHint();
+  }
+});
