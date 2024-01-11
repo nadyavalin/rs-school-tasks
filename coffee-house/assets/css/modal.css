@@ -1,0 +1,234 @@
+.modal-window {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #403F3DCC;
+    z-index: 10;
+}
+
+.modal-window.open {
+    display: flex;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 800px;
+    max-height: 504px;
+    background-color: #E1D4C9;
+    padding: 16px;
+    border-radius: 40px;
+    gap: 20px;
+}
+
+.modal__img img {
+    width: 310px;
+    height: 310px;
+    border-radius: 40px;
+    object-fit: contain;
+}
+
+.modal__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal__text {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%; /* 30px */
+}
+
+.modal__text p {
+    line-height: 150%; /* 24px */
+}
+
+.modal__size p, .modal__additives p {
+    line-height: 150%; /* 24px */
+    margin-bottom: 8px;
+}
+
+.size__buttons, .additives__buttons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
+
+.size__button, .additives__button {
+    display: inline-block;
+}
+
+.size__button input[type="radio"], .additives__button input[type="checkbox"] {
+    display: none;
+}
+
+.size__button label, .additives__button label {
+    display: flex;
+    padding: 8px 16px 8px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    background-color: transparent;
+    border: 1px solid #C1B6AD;
+    color:#403F3D;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.size__button label span, .additives__button label span {
+    color:#403F3D;
+}
+
+.size__button-circle, .additives__button-circle {
+    display: flex;
+    padding: 3px 9px 3px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background-color: #C1B6AD;
+    transition: background-color 0.5s ease-in-out;
+}
+
+.size__button input[type="radio"]:checked + label {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: default;
+}
+
+.additives__button input[type="checkbox"]:checked + label {
+    background-color: #665F55;
+    color: #E1D4C9;
+    cursor: pointer;
+}
+
+.size__button input[type="radio"]:checked + label > span, .additives__button input[type="checkbox"]:checked + label > span {
+    background-color: #E1D4C9;
+}
+
+.modal__total {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.modal__total p {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 125%; /* 30px */
+}
+
+.modal__hr {
+    border: none;
+    height: 1px;
+    width: 438px;
+    background-color: #C1B6AD;
+}
+
+.modal__warning {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__warning_text {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.modal__warning img {
+    width: 16px;
+    height: 16px;
+}
+
+.modal__warning p {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 140%; /* 14px */
+}
+
+.modal__close_btn {
+    display: flex;
+    padding: 10px 78px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+}
+
+@media (hover: hover) {
+    .size__button label:hover, .additives__button label:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+
+    .size__button:hover .size__button-circle, .additives__button:hover .additives__button-circle  {
+        background-color: #E1D4C9;
+    }
+
+    .modal__close_btn:hover {
+        background-color: #665F55;
+        color: #E1D4C9;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal {
+        max-width: 690px;
+        max-height: 660px;
+    }
+
+    .size__buttons, .additives__buttons {
+        width: 326px;
+        flex-wrap: wrap;
+    }
+
+    .modal__hr {
+        width: 326px;
+    }
+}
+
+@media (max-width: 400px) {
+    .modal {
+        max-width: 342px;
+        max-height: 660px;
+        gap: 0;
+    }
+
+    .modal__img img {
+        display: none;
+    }
+
+    .size__buttons, .additives__buttons {
+        width: 310px;
+    }
+
+    .modal__hr {
+        width: 310px;
+    }
+}
