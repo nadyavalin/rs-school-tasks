@@ -260,11 +260,25 @@ function resetGame() {
 }
 
 // Word and Hint
+let previousWord = null;
+
 function getRandomWordAndHint() {
-  const { word, hint } = words[Math.floor(Math.random() * words.length)];
-  currentWord = word;
-  hintText.innerHTML = `Hint: ${hint}`;
-  resetGame();
+  let randomWord = Math.floor(Math.random() * words.length);
+  const { word, hint } = words[randomWord];
+
+  if (word === previousWord) {
+    randomWord = (randomWord + 1) % words.lengtth;
+    const { word: newWord, hint: newHint } = words[randomWord];
+    currentWord = newWord;
+    hintText.innerHTML = `Hint: ${newHint}`;
+    resetGame();
+    previousWord = newWord;
+  } else {
+    currentWord = word;
+    hintText.innerHTML = `Hint: ${hint}`;
+    resetGame();
+    previousWord = word;
+  }
 }
 
 getRandomWordAndHint();

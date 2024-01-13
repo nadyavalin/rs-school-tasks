@@ -64,10 +64,6 @@ export default [
     hint: "A very large solitary cat with a yellow-brown coat striped with black.",
   },
   {
-    word: "lamp",
-    hint: "A very large solitary cat with a yellow-brown coat striped with black.",
-  },
-  {
     word: "carpet",
     hint: "A floor or stair covering made from thick woven fabric.",
   },
@@ -78,5 +74,49 @@ export default [
   {
     word: "table",
     hint: "A piece of furniture with a flat top and for legs.",
+  },
+  {
+    word: "sun",
+    hint: "The star around which the earth orbits.",
+  },
+  {
+    word: "sea",
+    hint: "The expanse of salt water that covers most of the earth's surface.",
+  },
+  {
+    word: "mentor",
+    hint: "An experienced and trusted adviser.",
+  },
+  {
+    word: "translator",
+    hint: "A person who translates from one language into another.",
+  },
+  {
+    word: "laptop",
+    hint: "A computer that is portable and suitable for use while traveling.",
+  },
+  {
+    word: "tablet",
+    hint: "A small portable computer that accepts input directly on to its screen rather than via a keyboard or mouse.",
+  },
+  {
+    word: "blanket",
+    hint: "A large piece of woolen or similar material used as a bed covering or other covering for warmth.",
+  },
+  {
+    word: "chair",
+    hint: "A separate seat for one person, typically with a back and four legs.",
+  },
+  {
+    word: "armchair",
+    hint: "A comfortable chair, typically upholstered, with side supports for a person's arms.",
+  },
+  {
+    word: "clock",
+    hint: "A mechanical or electrical device for measuring time.",
+  },
+  {
+    word: "headphones",
+    hint: "A pair of earphones joined by a band placed over the head, for listening to audio signals such as music or speech.",
   },
 ];
