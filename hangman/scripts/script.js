@@ -235,11 +235,6 @@ keyboard.addEventListener("click", (e) => {
   }
 });
 
-document.addEventListener("keydown", (e) => {
-  const key = e.key.toLowerCase();
-  guessTheLetter(key);
-});
-
 function resetGame() {
   correctLetters = [];
   wrongAttemptsCounter = 0;
@@ -261,22 +256,36 @@ function resetGame() {
 }
 
 // Word and Hint
-function getRundomWordAndHint() {
+function getRandomWordAndHint() {
   const { word, hint } = words[Math.floor(Math.random() * words.length)];
   currentWord = word;
-  console.log(word);
   hintText.innerHTML = `Hint: ${hint}`;
   resetGame();
 }
 
-getRundomWordAndHint();
+getRandomWordAndHint();
 
-buttonPlayAgain.addEventListener("click", getRundomWordAndHint);
+buttonPlayAgain.addEventListener("click", getRandomWordAndHint);
 
-// TODO, пока не работает
-buttonPlayAgain.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    getRundomWordAndHint();
-    modal.classList.remove("visible");
+let guessedLetters = [];
+
+document.addEventListener("keydown", (e) => {
+  if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
+    const key = e.key.toLowerCase();
+    if (!guessedLetters.includes(key)) {
+      guessedLetters.push(key);
+      guessTheLetter(key);
+    } else {
+      alert("This letter has already been used! Эта буква уже использовалась!");
+    }
+  }
+
+  if (e.key === "Enter" && modal.classList.contains("visible")) {
+    guessedLetters = [];
+    getRandomWordAndHint();
+  }
+
+  if (e.key.length === 1 && e.key.match(/[а-яё]/i)) {
+    alert("Please switch the language to English! Пожалуйста, переключите язык на английский!");
   }
 });
