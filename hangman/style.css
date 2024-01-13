@@ -18,6 +18,7 @@ body {
   color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
+  padding: 40px;
 }
 
 h1 {
@@ -32,15 +33,14 @@ ul {
   background-color: #eaecf3;
   display: flex;
   justify-content: center;
-  gap: 50px;
-  margin: 40px;
+  gap: 100px;
   border-radius: 10px;
   box-shadow: 10px 10px 5px 1px rgba(63, 63, 213, 0.3);
+  padding: 50px;
 }
 
 .gallows-container {
-  margin: 50px;
-
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,7 +48,7 @@ ul {
 }
 
 .gallows-img {
-  width: 75%;
+  max-width: 300px;
 }
 
 .ground {
@@ -60,7 +60,6 @@ ul {
 }
 
 .words-guessing-container {
-  margin: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -209,119 +208,124 @@ ul {
 
 .gallows-container__hangman {
   position: relative;
-  left: 95px;
-  top: -415px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.gallows-container__hangman-body-arms,
+.gallows-container__hangman-head {
+  position: absolute;
+  left: 218px;
+  top: 123px;
+}
+
+.gallows-container__hangman-body-arms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 188px;
+  top: 202px;
+}
+
 .gallows-container__hangman-legs {
   display: flex;
+  position: absolute;
+  left: 189px;
+  top: 325px;
 }
 
 .hangman-head {
-  width: 80px;
-  height: 80px;
   display: none;
+  max-width: 80px;
 }
 
 .hangman-body {
   position: absolute;
+  left: 66px;
+  top: -2px;
   display: none;
 }
 
 .hangman-arm-one {
-  position: absolute;
   display: none;
-  left: -25px;
 }
 
 .hangman-arm-two {
-  position: absolute;
   display: none;
 }
 
 .hangman-leg-one {
-  position: absolute;
   display: none;
-  left: -25px;
-  top: 208px;
 }
 
 .hangman-leg-two {
-  position: absolute;
   display: none;
-  top: 208px;
 }
 
-@media (max-width: 1440px) {
-  .gallows-container__hangman {
-    left: 83px;
-    top: -376px;
-  }
-}
-
-@media (max-width: 850px) {
+@media (max-width: 800px) {
   .main {
-    gap: 10px;
-  }
-
-  .gallows-container {
-    margin: 10px;
-  }
-
-  .words-guessing-container {
-    margin: 10px;
+    gap: 30px;
   }
 }
 
 @media (max-width: 768px) {
   .main {
     gap: 0px;
-    margin: 20px;
+    flex-direction: column;
   }
 
   .gallows-container h1 {
     text-align: center;
-  }
-
-  .ground {
-    width: 250px;
-  }
-}
-
-@media (max-width: 600px) {
-  .main {
-    flex-direction: column;
-    margin: 10px;
-  }
-
-  .gallows-container {
     margin-bottom: 50px;
   }
 
   .ground {
-    width: 400px;
-    height: 30px;
+    width: 300px;
   }
 
   .keyboard {
     margin-top: 10px;
   }
+
+  .gallows-container {
+    position: relative;
+  }
+
+  .gallows-container__hangman-head {
+    left: 360px;
+  }
+
+  .gallows-container__hangman-body-arms {
+    left: 333px;
+  }
+
+  .gallows-container__hangman-legs {
+    left: 336px;
+  }  
+}
+
+@media (max-width: 600px) {
+  .ground {
+    max-width: 400px;
+    height: 30px;
+  }
 }
 
 @media (max-width: 450px) {
+  .gallows-img {
+    max-width: 150px;
+  }
+
   .ground {
-    width: 350px;
+    max-width: 250px;
     height: 20px;
   }
 }
 
 @media (max-width: 400px) {
   .ground {
-    width: 300px;
+    max-width: 300px;
     height: 20px;
   }
 }
