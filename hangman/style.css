@@ -265,6 +265,16 @@ ul {
   display: none;
 }
 
+@media (max-width: 900px) {
+  body {
+    padding: 40px;
+  }
+
+  .main {
+    gap: 30px;
+  }
+}
+
 @media (max-width: 800px) {
   body {
     padding: 10px;
@@ -346,5 +356,8 @@ ul {
   .hangman-leg-two {
     height: 60px;
   }
-  
+
+  .letter {
+    width: 20px;
+  }
 }
