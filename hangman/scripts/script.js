@@ -162,8 +162,10 @@ function gameOver(win) {
 
 // Game start
 const buttons = [];
+let guessedLetters = [];
 
 function guessTheLetter(clickedLetter) {
+  guessedLetters.push(clickedLetter);
   if (wrongAttemptsCounter >= maxAttempts) {
     return;
   }
@@ -257,6 +259,7 @@ function resetGame() {
   hangmanArmTwo.style.display = "none";
   hangmanLegOne.style.display = "none";
   hangmanLegTwo.style.display = "none";
+  guessedLetters = [];
 }
 
 // Word and Hint
@@ -285,21 +288,15 @@ getRandomWordAndHint();
 
 buttonPlayAgain.addEventListener("click", getRandomWordAndHint);
 
-let guessedLetters = [];
-
 document.addEventListener("keydown", (e) => {
   if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
     const key = e.key.toLowerCase();
     if (!guessedLetters.includes(key)) {
-      guessedLetters.push(key);
       guessTheLetter(key);
-    } else {
-      alert("This letter has already been used! Эта буква уже использовалась!");
     }
   }
 
   if (e.key === "Enter" && modal.classList.contains("visible")) {
-    guessedLetters = [];
     getRandomWordAndHint();
   }
 

@@ -13,7 +13,7 @@ export default [
   },
   {
     word: "printer",
-    hint: "A device connected to a computer",
+    hint: "A device connected to a computer.",
   },
   {
     word: "friday",
