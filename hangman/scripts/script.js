@@ -74,8 +74,7 @@ wordsGuessingSection.append(ul, hintText, incorrectGuessesText, keyboard);
 
 // Hangman
 // Temporary remainder */
-/* <div class="gallows-container__hangman">
-  <div class="gallows-container__hangman-head">
+/* <div class="gallows-container__hangman-head">
     <img src="./assets/svg/1-head.svg" class="hangman-head" alt="Hangman head">
   </div>
   <div class="gallows-container__hangman-body-arms">
@@ -86,12 +85,7 @@ wordsGuessingSection.append(ul, hintText, incorrectGuessesText, keyboard);
   <div class="gallows-container__hangman-legs">
     <img src="./assets/svg/5-leg-one.svg" class="hangman-leg-one" alt="Hangman leg one">
     <img src="./assets/svg/6-leg-two.svg" class="hangman-leg-two" alt="Hangman leg two">
-  </div>
-</div> */
-
-const hangmanDiv = document.createElement("div");
-hangmanDiv.classList.add("gallows-container__hangman");
-gallowsSection.append(hangmanDiv);
+  </div> */
 
 const hangmanHeadDiv = document.createElement("div");
 const hangmanBodyAndArmsDiv = document.createElement("div");
@@ -99,7 +93,7 @@ const hangmanLegsDiv = document.createElement("div");
 hangmanHeadDiv.classList.add("gallows-container__hangman-head");
 hangmanBodyAndArmsDiv.classList.add("gallows-container__hangman-body-arms");
 hangmanLegsDiv.classList.add("gallows-container__hangman-legs");
-hangmanDiv.append(hangmanHeadDiv, hangmanBodyAndArmsDiv, hangmanLegsDiv);
+gallowsSection.append(hangmanHeadDiv, hangmanBodyAndArmsDiv, hangmanLegsDiv);
 
 // Hangman head
 const hangmanHead = document.createElement("img");
@@ -171,12 +165,12 @@ function guessTheLetter(clickedLetter) {
   }
 
   if (currentWord.includes(clickedLetter)) {
+    const wordTextLi = wordText.querySelectorAll("li");
     [...currentWord].forEach((letter, index) => {
       if (letter === clickedLetter) {
-        const wordTextLi = wordText.querySelectorAll("li")[index];
         correctLetters.push(letter);
-        wordTextLi.innerText = letter;
-        wordTextLi.classList.add("guessed");
+        wordTextLi[index].innerText = letter;
+        wordTextLi[index].classList.add("guessed");
       }
     });
   } else {
