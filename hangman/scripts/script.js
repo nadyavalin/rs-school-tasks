@@ -63,9 +63,13 @@ ul.classList.add("word");
 const hintText = document.createElement("div");
 hintText.classList.add("hint-text");
 
-// <p class="incorrect-guesses-text">Incorrect guesses: </p>
+// <p class="incorrect-guesses-text">Incorrect guesses: <span>0/6</span></p>
 const incorrectGuessesText = document.createElement("p");
 incorrectGuessesText.classList.add("incorrect-guesses-text");
+
+const incorrectGuessesTextSpan = document.createElement("span");
+incorrectGuessesText.innerText = "Incorrect guesses: ";
+incorrectGuessesText.append(incorrectGuessesTextSpan);
 
 // <div class="keyboard"></div>
 const keyboard = document.createElement("div");
@@ -175,7 +179,7 @@ function guessTheLetter(clickedLetter) {
     });
   } else {
     wrongAttemptsCounter += 1;
-    incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
+    incorrectGuessesTextSpan.innerHTML = `${wrongAttemptsCounter} / ${maxAttempts}`;
 
     switch (wrongAttemptsCounter) {
       case 1:
@@ -238,7 +242,7 @@ keyboard.addEventListener("click", (e) => {
 function resetGame() {
   correctLetters = [];
   wrongAttemptsCounter = 0;
-  incorrectGuessesText.innerHTML = `Incorrect guesses: <span>${wrongAttemptsCounter} / ${maxAttempts}</span>`;
+  incorrectGuessesTextSpan.innerHTML = `${wrongAttemptsCounter} / ${maxAttempts}`;
   keyboard.querySelectorAll("button").forEach((btn) => {
     btn.removeAttribute("disabled");
   });
