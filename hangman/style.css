@@ -128,10 +128,6 @@ ul {
   pointer-events: none;
 }
 
-.keyboard button:hover {
-  background-color: #6d91e5;
-}
-
 .keyboard button:active {
   background-color: #1a56e2;
 }
@@ -202,10 +198,6 @@ ul {
   border: none;
 }
 
-.modal__button-play-again:hover {
-  background-color: #6d91e5;
-}
-
 .modal__button-play-again:active {
   background-color: #1a56e2;
 }
@@ -265,6 +257,16 @@ ul {
 
 .hangman-leg-two {
   display: none;
+}
+
+@media (hover: hover) {
+  .keyboard button:hover {
+    background-color: #6d91e5;
+  }
+
+  .modal__button-play-again:hover {
+    background-color: #6d91e5;
+  }
 }
 
 @media (max-width: 900px) {
@@ -337,11 +339,11 @@ ul {
     top: 0;
     height: 80px;
   }
-  
+
   .hangman-arm-one {
     height: 60px;
   }
-  
+
   .hangman-arm-two {
     height: 60px;
   }
@@ -350,11 +352,11 @@ ul {
     left: 151px;
     top: 220px;
   }
-  
+
   .hangman-leg-one {
     height: 60px;
   }
-  
+
   .hangman-leg-two {
     height: 60px;
   }
