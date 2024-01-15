@@ -1,0 +1,365 @@
+*,
+*::after,
+*::before {
+  outline: none;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #4576eb;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  padding: 40px;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+ul {
+  list-style: none;
+}
+
+.main {
+  background-color: #eaecf3;
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px 1px rgba(63, 63, 213, 0.3);
+  padding: 50px;
+}
+
+.gallows-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  align-self: center;
+}
+
+.gallows-img {
+  width: 300px;
+}
+
+.ground {
+  width: 300px;
+  height: 25px;
+  background-color: #000000;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.words-guessing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.word {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  height: 36px;
+  align-items: flex-end;
+}
+
+.letter {
+  width: 30px;
+  border-bottom: 4px solid #000000;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 32px;
+}
+
+.letter.guessed {
+  border-bottom: transparent;
+}
+
+.hint-text,
+.incorrect-guesses-text {
+  font-weight: 700;
+  text-align: center;
+  max-width: 500px;
+}
+
+.incorrect-guesses-text span {
+  color: #ff0000;
+}
+
+.keyboard {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.keyboard button {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  width: calc(100% / 9 - 5px);
+  background-color: #4576eb;
+  box-shadow: 1px 1px 1px 1px rgba(63, 63, 213, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  border: none;
+}
+
+.keyboard button[disabled] {
+  background-color: #99b4f3;
+  pointer-events: none;
+}
+
+.keyboard button:hover {
+  background-color: #6d91e5;
+}
+
+.keyboard button:active {
+  background-color: #1a56e2;
+}
+
+.modal {
+  position: fixed;
+  background-color: rgba(63, 63, 213, 0.8);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal__content {
+  background-color: #ffffff;
+  max-width: 500px;
+  max-height: 500px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin: 10px;
+}
+
+.modal h2 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.modal p {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.modal p span {
+  font-weight: 600;
+  color: #1a56e2;
+}
+
+.modal__button-play-again {
+  padding: 15px 20px;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: #4576eb;
+  box-shadow: 1px 1px 1px 1px rgba(63, 63, 213, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+.modal__button-play-again:hover {
+  background-color: #6d91e5;
+}
+
+.modal__button-play-again:active {
+  background-color: #1a56e2;
+}
+
+.gallows-container__hangman {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallows-container__hangman-head {
+  position: absolute;
+  left: 218px;
+  top: 123px;
+}
+
+.gallows-container__hangman-body-arms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 188px;
+  top: 202px;
+}
+
+.gallows-container__hangman-legs {
+  display: flex;
+  position: absolute;
+  left: 189px;
+  top: 325px;
+}
+
+.hangman-head {
+  display: none;
+  max-width: 80px;
+}
+
+.hangman-body {
+  position: absolute;
+  left: 66px;
+  top: -2px;
+  display: none;
+}
+
+.hangman-arm-one {
+  display: none;
+}
+
+.hangman-arm-two {
+  display: none;
+}
+
+.hangman-leg-one {
+  display: none;
+}
+
+.hangman-leg-two {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  body {
+    padding: 40px;
+  }
+
+  .main {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    padding: 10px;
+  }
+
+  .main {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    gap: 0px;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .gallows-container h1 {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .ground {
+    width: 300px;
+  }
+
+  .keyboard {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 460px) {
+  .gallows-img {
+    max-width: 200px;
+  }
+
+  .ground {
+    max-width: 200px;
+    height: 20px;
+  }
+
+  .gallows-container__hangman-head {
+    top: 83px;
+    left: 169px;
+  }
+
+  .hangman-head {
+    max-width: 60px;
+  }
+
+  .gallows-container__hangman-body-arms {
+    top: 142px;
+    left: 150px;
+  }
+
+  .hangman-body {
+    left: 49px;
+    top: 0;
+    height: 80px;
+  }
+  
+  .hangman-arm-one {
+    height: 60px;
+  }
+  
+  .hangman-arm-two {
+    height: 60px;
+  }
+
+  .gallows-container__hangman-legs {
+    left: 151px;
+    top: 220px;
+  }
+  
+  .hangman-leg-one {
+    height: 60px;
+  }
+  
+  .hangman-leg-two {
+    height: 60px;
+  }
+
+  .letter {
+    width: 20px;
+  }
+}
