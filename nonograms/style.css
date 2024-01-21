@@ -14,9 +14,37 @@ html {
 }
 
 body {
-  background-color: #69d88c;
+  background-color: #8aeca9;
   color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #333333;
+  border-top: 5px solid #333333;
+  border-left: 5px solid #333333;
+}
+
+.grid-row {
+  display: flex;
+  height: 99px;
+}
+
+.grid-cell {
+  background-color: #ececec;
+  display: flex;
+  border: 1px solid #333333;
+  width: 100px;
+  cursor: pointer;
+}
+
+.grid-cell.checked {
+  background-color: #333333;
 }
