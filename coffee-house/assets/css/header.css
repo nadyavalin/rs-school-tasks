@@ -1,0 +1,46 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+nav > ul {
+    display: flex;
+    gap: 40px;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+}
+
+nav > ul > li > a {
+    position: relative;
+}
+
+nav > ul > li > a:after, .menu-button > a::after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    transition: width 0.5s;
+}
+
+.menu-button > a {
+    font-weight: 600;
+    transition: all 0.5s;
+    position: relative;
+}
+
+.menu-button > a > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.menu-line {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+}
