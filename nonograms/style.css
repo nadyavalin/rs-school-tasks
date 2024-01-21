@@ -45,6 +45,14 @@ body {
   cursor: pointer;
 }
 
-.grid-cell.checked {
+.grid-cell.crossed {
+  background-color: #c9f3a7;
+}
+
+.hidden {
+  background-color: #ececec;
+}
+
+.guessed {
   background-color: #333333;
 }
