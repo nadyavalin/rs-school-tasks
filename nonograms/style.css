@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  background-color: #8aeca9;
+  background-image: linear-gradient(to left, #20d258, #83f7a2);
   color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -24,20 +24,55 @@ body {
   align-items: center;
 }
 
-.grid-container {
+.container {
+  position: relative;
+}
+
+.hints-container-horizontal {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+
+.hints {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 25px;
+  font-weight: 700;
+  color: #636ddd;
+}
+
+.hints-container-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  position: absolute;
+  left: -70px;
+  top: 70px;
+  gap: 70px;
+}
+
+.hint {
+  font-size: 25px;
+  font-weight: 700;
+  color: #636ddd;
+}
+
+.playing-area {
   width: 500px;
   height: 500px;
-  border: 1px solid #333333;
   border-top: 5px solid #333333;
   border-left: 5px solid #333333;
 }
 
-.grid-row {
+.row {
   display: flex;
   height: 99px;
 }
 
-.grid-cell {
+.cell {
   background-color: #ececec;
   display: flex;
   border: 1px solid #333333;
@@ -45,7 +80,7 @@ body {
   cursor: pointer;
 }
 
-.grid-cell.crossed {
+.cell.crossed {
   background-color: #c9f3a7;
 }
 
