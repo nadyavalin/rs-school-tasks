@@ -8,18 +8,18 @@ container.classList.add("container");
 document.body.append(container);
 
 // Выбор шаблона
-const currentTemplate = templates[4];
+const currentTemplate = templates[2];
 
 // Генерация игрового поля c шаблоном
 function generatePlayingFieldWithHints(template) {
   const playingField = document.createElement("div");
   playingField.classList.add("playing-area");
 
-  const hintsContainerHorizontal = document.createElement("div");
-  hintsContainerHorizontal.classList.add("hints-container-horizontal");
+  const hintsContainerTop = document.createElement("div");
+  hintsContainerTop.classList.add("hints-container-top");
 
-  const hintContainerVertical = document.createElement("div");
-  hintContainerVertical.classList.add("hints-container-vertical");
+  const hintsContainerLeft = document.createElement("div");
+  hintsContainerLeft.classList.add("hints-container-left");
 
   for (let i = 0; i < template.length; i += 1) {
     let count = 0;
@@ -46,19 +46,31 @@ function generatePlayingFieldWithHints(template) {
 
     playingField.appendChild(row);
 
-    const hints = document.createElement("div");
-    hints.classList.add("hints");
-    hints.textContent = hintValue;
-    hintsContainerHorizontal.append(hints);
+    // подсказки сверху
+    const hintsTop = document.createElement("div");
+    hintsTop.classList.add("hints-top");
+    hintsContainerTop.append(hintsTop);
 
-    const hint = document.createElement("div");
-    hint.classList.add("hint");
-    hint.textContent = hintValue;
-    hintContainerVertical.append(hint);
+    // верхние подсказки для отображения цифр в столбик
+    const hintTop = document.createElement("div");
+    hintTop.classList.add("hint-top");
+
+    for (let k = 0; k < hintValue.length; k++) {
+      const hintDigit = document.createElement("div");
+      hintDigit.textContent = hintValue[k];
+      hintTop.appendChild(hintDigit);
+    }
+    hintsTop.append(hintTop);
+
+    // подсказки слева
+    const hintsLeft = document.createElement("div");
+    hintsLeft.classList.add("hints-left");
+    hintsLeft.textContent = hintValue;
+    hintsContainerLeft.append(hintsLeft);
   }
+  container.appendChild(hintsContainerTop);
   container.appendChild(playingField);
-  container.appendChild(hintsContainerHorizontal);
-  container.appendChild(hintContainerVertical);
+  container.appendChild(hintsContainerLeft);
 }
 
 // Состояние ячеек
