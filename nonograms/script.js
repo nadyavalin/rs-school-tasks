@@ -1,5 +1,3 @@
-/* global document */
-// eslint-disable-next-line import/extensions
 import templates from "./templates.js";
 
 // Общий контейнер
@@ -13,7 +11,7 @@ containerWithLeftHints.classList.add("container-with-left-hints");
 container.append(containerWithLeftHints);
 
 // Выбор шаблона
-const currentTemplate = templates[4];
+const currentTemplate = templates[6];
 
 // Генерация игрового поля c шаблоном
 function generatePlayingFieldWithHints(template) {
@@ -27,29 +25,32 @@ function generatePlayingFieldWithHints(template) {
   hintsContainerLeft.classList.add("hints-container-left");
 
   for (let i = 0; i < template.length; i += 1) {
-    let count = 0;
-    let hintValue = "";
+    let countLeft = 0;
+    let countTop = 0;
+    let hintValueLeft = "";
+    let hintValueTop = "";
+
     const row = document.createElement("div");
     row.classList.add("row");
 
     for (let j = 0; j < template[i].length; j += 1) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
-      row.appendChild(cell);
+      row.append(cell);
+      cell.classList.add("hidden");
 
       if (template[i][j] === 1) {
-        cell.classList.add("hidden");
-        count += 1;
-      } else if (count > 0) {
-        hintValue += `${count} `;
-        count = 0;
+        countLeft += 1;
+      } else if (countLeft > 0) {
+        hintValueLeft += `${countLeft} `;
+        countLeft = 0;
       }
     }
-    if (count > 0) {
-      hintValue += count;
+    if (countLeft > 0) {
+      hintValueLeft += countLeft;
     }
 
-    playingField.appendChild(row);
+    playingField.append(row);
 
     // подсказки сверху
     const hintsTop = document.createElement("div");
@@ -60,24 +61,33 @@ function generatePlayingFieldWithHints(template) {
     const hintTop = document.createElement("div");
     hintTop.classList.add("hint-top");
 
-    for (let k = 0; k < hintValue.length; k++) {
+    for (let k = 0; k < hintValueTop.length; k += 1) {
       const hintDigit = document.createElement("div");
-      hintDigit.textContent = hintValue[k];
-      hintTop.appendChild(hintDigit);
+      hintDigit.textContent = hintValueTop[k];
+      hintTop.append(hintDigit);
+
+      // TODO попытка сделать правильными подсказки сверху
+      if (template[k] === 1) {
+        countTop += 1;
+      } else if (countTop > 0) {
+        hintValueTop += `${countTop} `;
+        countTop = 0;
+      }
+    }
+    if (countTop > 0) {
+      hintValueTop += countTop;
     }
     hintsTop.append(hintTop);
 
     // Подсказки слева
     const hintsLeft = document.createElement("div");
     hintsLeft.classList.add("hints-left");
-    hintsLeft.textContent = hintValue;
+    hintsLeft.textContent = hintValueLeft;
     hintsContainerLeft.append(hintsLeft);
   }
   container.append(hintsContainerTop, containerWithLeftHints);
   containerWithLeftHints.append(playingField, hintsContainerLeft);
 }
-
-
 
 // Состояние ячеек
 function toggleCellState(cell) {
