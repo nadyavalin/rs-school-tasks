@@ -7,8 +7,13 @@ const container = document.createElement("div");
 container.classList.add("container");
 document.body.append(container);
 
+// Контейнер с подсказками слева
+const containerWithLeftHints = document.createElement("div");
+containerWithLeftHints.classList.add("container-with-left-hints");
+container.append(containerWithLeftHints);
+
 // Выбор шаблона
-const currentTemplate = templates[2];
+const currentTemplate = templates[4];
 
 // Генерация игрового поля c шаблоном
 function generatePlayingFieldWithHints(template) {
@@ -62,16 +67,17 @@ function generatePlayingFieldWithHints(template) {
     }
     hintsTop.append(hintTop);
 
-    // подсказки слева
+    // Подсказки слева
     const hintsLeft = document.createElement("div");
     hintsLeft.classList.add("hints-left");
     hintsLeft.textContent = hintValue;
     hintsContainerLeft.append(hintsLeft);
   }
-  container.appendChild(hintsContainerTop);
-  container.appendChild(playingField);
-  container.appendChild(hintsContainerLeft);
+  container.append(hintsContainerTop, containerWithLeftHints);
+  containerWithLeftHints.append(playingField, hintsContainerLeft);
 }
+
+
 
 // Состояние ячеек
 function toggleCellState(cell) {
