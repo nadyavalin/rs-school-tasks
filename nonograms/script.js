@@ -11,7 +11,7 @@ containerWithLeftHints.classList.add("container-with-left-hints");
 container.append(containerWithLeftHints);
 
 // Выбор шаблона
-const currentTemplate = templates[6];
+const currentTemplate = templates[4];
 
 // Генерация игрового поля c шаблоном
 function generatePlayingFieldWithHints(template) {
@@ -24,9 +24,10 @@ function generatePlayingFieldWithHints(template) {
   const hintsContainerLeft = document.createElement("div");
   hintsContainerLeft.classList.add("hints-container-left");
 
+  const columnCounter = {}
+
   for (let i = 0; i < template.length; i += 1) {
-    let countLeft = 0;
-    let countTop = 0;
+    let hintCountLeft = 0;
     let hintValueLeft = "";
     let hintValueTop = "";
 
@@ -36,20 +37,25 @@ function generatePlayingFieldWithHints(template) {
     for (let j = 0; j < template[i].length; j += 1) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
-      row.append(cell);
       cell.classList.add("hidden");
+      row.append(cell);
 
       if (template[i][j] === 1) {
-        countLeft += 1;
-      } else if (countLeft > 0) {
-        hintValueLeft += `${countLeft} `;
-        countLeft = 0;
+        hintCountLeft += 1;
+        columnCounter[j] = (columnCounter[j] ?? 0) + 1;
+
+      } else if (hintCountLeft > 0) {
+        hintValueLeft += `${hintCountLeft} `;
+        hintCountLeft = 0;
+
+      } else if (columnCounter[j] > 0) {
+        hintValueTop += `${columnCounter[j]} `;
+        columnCounter[j] = 0;
       }
     }
-    if (countLeft > 0) {
-      hintValueLeft += countLeft;
+    if (hintCountLeft > 0) {
+      hintValueLeft += hintCountLeft;
     }
-
     playingField.append(row);
 
     // подсказки сверху
@@ -65,17 +71,6 @@ function generatePlayingFieldWithHints(template) {
       const hintDigit = document.createElement("div");
       hintDigit.textContent = hintValueTop[k];
       hintTop.append(hintDigit);
-
-      // TODO попытка сделать правильными подсказки сверху
-      if (template[k] === 1) {
-        countTop += 1;
-      } else if (countTop > 0) {
-        hintValueTop += `${countTop} `;
-        countTop = 0;
-      }
-    }
-    if (countTop > 0) {
-      hintValueTop += countTop;
     }
     hintsTop.append(hintTop);
 
@@ -87,6 +82,7 @@ function generatePlayingFieldWithHints(template) {
   }
   container.append(hintsContainerTop, containerWithLeftHints);
   containerWithLeftHints.append(playingField, hintsContainerLeft);
+  console.log(columnCounter);
 }
 
 // Состояние ячеек
