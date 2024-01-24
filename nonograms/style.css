@@ -81,8 +81,14 @@ body {
   cursor: pointer;
 }
 
+.cell.blacked {
+  background-color: #333333;
+}
+
 .cell.crossed {
-  background-color: #c9f3a7;
+  background-image: url('cross.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .hidden {

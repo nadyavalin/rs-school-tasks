@@ -24,7 +24,7 @@ function generatePlayingFieldWithHints(template) {
   const hintsContainerLeft = document.createElement("div");
   hintsContainerLeft.classList.add("hints-container-left");
 
-  const columnCounter = {}
+  const columnCounter = {};
 
   for (let i = 0; i < template.length; i += 1) {
     let hintCountLeft = 0;
@@ -43,11 +43,9 @@ function generatePlayingFieldWithHints(template) {
       if (template[i][j] === 1) {
         hintCountLeft += 1;
         columnCounter[j] = (columnCounter[j] ?? 0) + 1;
-
       } else if (hintCountLeft > 0) {
         hintValueLeft += `${hintCountLeft} `;
         hintCountLeft = 0;
-
       } else if (columnCounter[j] > 0) {
         hintValueTop += `${columnCounter[j]} `;
         columnCounter[j] = 0;
@@ -79,28 +77,30 @@ function generatePlayingFieldWithHints(template) {
     hintsLeft.classList.add("hints-left");
     hintsLeft.textContent = hintValueLeft;
     hintsContainerLeft.append(hintsLeft);
+
+    // Изменение цвета ячейки на черный
+    row.addEventListener("click", (event) => {
+      const cell = event.target.closest('.cell');
+      if (cell) {
+        cell.classList.toggle("blacked");
+        cell.classList.remove("crossed");
+      }
+    });
+
+    // Изменение содержимого ячейки на крест
+    row.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+      const cell = event.target.closest('.cell');
+      if (cell) {
+        cell.classList.toggle("crossed");
+        cell.classList.remove("blacked");
+      }
+    });
   }
   container.append(hintsContainerTop, containerWithLeftHints);
   containerWithLeftHints.append(playingField, hintsContainerLeft);
   console.log(columnCounter);
 }
-
-// Состояние ячеек
-function toggleCellState(cell) {
-  if (!cell.classList.contains("hidden")) {
-    cell.classList.toggle("crossed");
-  }
-  if (cell.classList.contains("hidden")) {
-    cell.classList.toggle("guessed");
-  }
-}
-
-// Клик мышкой
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("cell")) {
-    toggleCellState(event.target);
-  }
-});
 
 document.addEventListener("DOMContentLoaded", () => {
   generatePlayingFieldWithHints(currentTemplate);
