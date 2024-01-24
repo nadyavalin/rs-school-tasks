@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  background-image: linear-gradient(to left, #20d258, #83f7a2);
+  background-image: linear-gradient(to left, #2ef16c, #83f7a2);
   color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -22,6 +22,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.container {
+  font-size: 20px;
+  font-weight: 600;
+  color: #222227;
 }
 
 .container-with-left-hints {
@@ -39,9 +45,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  font-size: 25px;
-  font-weight: 700;
-  color: #636ddd;
 }
 
 .hints-container-left {
@@ -52,13 +55,7 @@ body {
   width: 70px;
   left: -90px;
   top: 30px;
-  gap: 50px;
-}
-
-.hints-left {
-  font-size: 25px;
-  font-weight: 700;
-  color: #636ddd;
+  gap: 56px;
 }
 
 .playing-area {
@@ -66,6 +63,7 @@ body {
   height: 400px;
   border-top: 5px solid #333333;
   border-left: 5px solid #333333;
+  border-radius: 10px;
 }
 
 .row {
@@ -74,11 +72,11 @@ body {
 }
 
 .cell {
-  background-color: #ececec;
   display: flex;
   border: 1px solid #333333;
   width: 100px;
   cursor: pointer;
+  border-radius: 3px;
 }
 
 .cell.blacked {
@@ -92,9 +90,5 @@ body {
 }
 
 .hidden {
-  background-color: #ececec;
-}
-
-.guessed {
-  background-color: #333333;
+  background-color: #eeeeee;
 }
