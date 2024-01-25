@@ -50,11 +50,13 @@ body {
 .top-hints {
   display: flex;
   flex-direction: column;
+  width: 30px;
 }
 
 .hint {
   background-color: #eeeeee;
   border: 1px solid #333333;
+  box-sizing: border-box;
   height: 30px;
   width: 30px;
 
@@ -62,6 +64,17 @@ body {
   justify-content: center;
   align-items: center;
 
+  position: relative;
+  float: left;
+}
+
+.hintl::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #333333;
 }
 
 .container__left-hints {
