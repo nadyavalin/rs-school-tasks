@@ -6,7 +6,14 @@ container.classList.add("container");
 document.body.append(container);
 
 // Выбор шаблона
-const currentTemplate = templates[4];
+const currentTemplate = templates[7];
+
+function createHintElement(hintsContainer, counter) {
+  const hint = document.createElement("div");
+  hint.classList.add("hint");
+  hint.textContent = counter;
+  hintsContainer.append(hint);
+}
 
 // Генерация игрового поля c шаблоном с подсказками в одной ячейке
 function generatePlayingFieldWithHints(template) {
@@ -20,7 +27,10 @@ function generatePlayingFieldWithHints(template) {
   hintsContainerLeft.classList.add("container__left-hints");
 
   const columnCounter = {};
-  const hintsArray = [];
+  const topHintsArray = [];
+
+  // const rowCounter = {};
+  // const leftHintsArray = [];
 
   for (let i = 0; i < template.length; i += 1) {
     const leftHints = document.createElement("div");
@@ -35,24 +45,23 @@ function generatePlayingFieldWithHints(template) {
       row.append(cell);
 
       if (template[i][j] === 1) {
+        // rowCounter[j] += 1;
         columnCounter[j] = (columnCounter[j] ?? 0) + 1;
         if (template.length - 1 === i) {
-          const hint = document.createElement("div");
-          hint.classList.add("hint");
-          hint.textContent = columnCounter[j];
-          hintsArray[j].append(hint);
+          createHintElement(topHintsArray[j], columnCounter[j]);
         }
+        // if (rowCounter > 0) {
+        //   createHintElement(leftHintsArray[j], rowCounter[j]);
+        // }
       } else if (columnCounter[j] > 0) {
-        const hint = document.createElement("div");
-        hint.classList.add("hint");
-        hint.textContent = columnCounter[j];
-        hintsArray[j].append(hint);
+        createHintElement(topHintsArray[j], columnCounter[j]);
+        // createHintElement(leftHintsArray[j], rowCounter[j]);
         columnCounter[j] = 0;
       }
       if (i === 0) {
         const topHints = document.createElement("div");
         topHints.classList.add("top-hints");
-        hintsArray.push(topHints);
+        topHintsArray.push(topHints);
         hintsContainerTop.append(topHints);
       }
     }
@@ -60,13 +69,11 @@ function generatePlayingFieldWithHints(template) {
     playingField.append(row);
   }
   container.append(hintsContainerTop, hintsContainerLeft, playingField);
-  console.log(hintsArray);
-  console.log(columnCounter);
 }
 
 // Изменение цвета ячейки на черный
 container.addEventListener("click", (event) => {
-  const cell = event.target.closest('.cell');
+  const cell = event.target.closest(".cell");
   if (cell) {
     cell.classList.toggle("blacked");
     cell.classList.remove("crossed");
@@ -76,7 +83,7 @@ container.addEventListener("click", (event) => {
 // Изменение содержимого ячейки на крест
 container.addEventListener("contextmenu", (event) => {
   event.preventDefault();
-  const cell = event.target.closest('.cell');
+  const cell = event.target.closest(".cell");
   if (cell) {
     cell.classList.toggle("crossed");
     cell.classList.remove("blacked");
