@@ -5,31 +5,26 @@ const container = document.createElement("div");
 container.classList.add("container");
 document.body.append(container);
 
-// Контейнер с подсказками слева
-const containerWithLeftHints = document.createElement("div");
-containerWithLeftHints.classList.add("container-with-left-hints");
-container.append(containerWithLeftHints);
-
 // Выбор шаблона
 const currentTemplate = templates[4];
 
-// Генерация игрового поля c шаблоном
+// Генерация игрового поля c шаблоном с подсказками в одной ячейке
 function generatePlayingFieldWithHints(template) {
   const playingField = document.createElement("div");
   playingField.classList.add("playing-area");
 
   const hintsContainerTop = document.createElement("div");
-  hintsContainerTop.classList.add("hints-container-top");
+  hintsContainerTop.classList.add("container__top-hints");
 
   const hintsContainerLeft = document.createElement("div");
-  hintsContainerLeft.classList.add("hints-container-left");
+  hintsContainerLeft.classList.add("container__left-hints");
 
   const columnCounter = {};
+  const hintsArray = [];
 
   for (let i = 0; i < template.length; i += 1) {
-    let hintCountLeft = 0;
-    let hintValueLeft = "";
-    let hintValueTop = "";
+    const leftHints = document.createElement("div");
+    leftHints.classList.add("left-hints");
 
     const row = document.createElement("div");
     row.classList.add("row");
@@ -37,52 +32,35 @@ function generatePlayingFieldWithHints(template) {
     for (let j = 0; j < template[i].length; j += 1) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
-      cell.classList.add("hidden");
       row.append(cell);
 
       if (template[i][j] === 1) {
-        hintCountLeft += 1;
         columnCounter[j] = (columnCounter[j] ?? 0) + 1;
-      } else {
-        if (hintCountLeft > 0) {
-          hintValueLeft += `${hintCountLeft} `;
-          hintCountLeft = 0;
+        if (template.length - 1 === i) {
+          const hint = document.createElement("div");
+          hint.classList.add("hint");
+          hint.textContent = columnCounter[j];
+          hintsArray[j].append(hint);
         }
-        if (columnCounter[j] > 0) {
-          hintValueTop += `${columnCounter[j]} `;
-          columnCounter[j] = 0;
-        }
+      } else if (columnCounter[j] > 0) {
+        const hint = document.createElement("div");
+        hint.classList.add("hint");
+        hint.textContent = columnCounter[j];
+        hintsArray[j].append(hint);
+        columnCounter[j] = 0;
+      }
+      if (i === 0) {
+        const topHints = document.createElement("div");
+        topHints.classList.add("top-hints");
+        hintsArray.push(topHints);
+        hintsContainerTop.append(topHints);
       }
     }
-    if (hintCountLeft > 0) {
-      hintValueLeft += hintCountLeft;
-    }
+    hintsContainerLeft.append(leftHints);
     playingField.append(row);
-
-    // подсказки сверху
-    const hintsTop = document.createElement("div");
-    hintsTop.classList.add("hints-top");
-    hintsContainerTop.append(hintsTop);
-
-    // верхние подсказки для отображения цифр в столбик
-    const hintTop = document.createElement("div");
-    hintTop.classList.add("hint-top");
-
-    for (let k = 0; k < hintValueTop.length; k += 1) {
-      const hintDigit = document.createElement("div");
-      hintDigit.textContent = hintValueTop[k];
-      hintTop.append(hintDigit);
-    }
-    hintsTop.append(hintTop);
-
-    // Подсказки слева
-    const hintsLeft = document.createElement("div");
-    hintsLeft.classList.add("hints-left");
-    hintsLeft.textContent = hintValueLeft;
-    hintsContainerLeft.append(hintsLeft);
   }
-  container.append(hintsContainerTop, containerWithLeftHints);
-  containerWithLeftHints.append(playingField, hintsContainerLeft);
+  container.append(hintsContainerTop, hintsContainerLeft, playingField);
+  console.log(hintsArray);
   console.log(columnCounter);
 }
 

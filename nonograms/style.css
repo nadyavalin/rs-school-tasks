@@ -18,7 +18,7 @@ body {
   color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
-  padding: 40px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,57 +26,69 @@ body {
 
 .container {
   font-size: 20px;
+  line-height: 20px;
   font-weight: 600;
-  color: #222227;
+  color: #333333;
+  border: 1px solid #333333;
+
+  display: grid;
+  grid-template-areas:
+    "empty top-hints"
+    "left-hints game";
 }
 
-.container-with-left-hints {
-  position: relative;
-}
+.container__top-hints {
+  grid-area: top-hints;
+  background-color: #eeeeee;
+  border-left: 3px solid #333333;
 
-.hints-container-top {
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-around;
-  padding-bottom: 10px;
-}
-
-.hints-top {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.hints-container-left {
-  display: flex;
-  flex-direction: column;
   align-items: flex-end;
-  position: absolute;
-  width: 70px;
-  left: -90px;
-  top: 30px;
-  gap: 56px;
+}
+
+.top-hints {
+  display: flex;
+  flex-direction: column;
+}
+
+.hint {
+  background-color: #eeeeee;
+  border: 1px solid #333333;
+  height: 30px;
+  width: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.container__left-hints {
+  grid-area: left-hints;
 }
 
 .playing-area {
-  width: 400px;
-  height: 400px;
-  border-top: 5px solid #333333;
-  border-left: 5px solid #333333;
-  border-radius: 10px;
+  grid-area: game;
+}
+
+.playing-area {
+  border-top: 3px solid #333333;
+  border-left: 3px solid #333333;
 }
 
 .row {
   display: flex;
-  height: 79px;
+  height: 30px;
 }
 
 .cell {
   display: flex;
   border: 1px solid #333333;
-  width: 100px;
+  height: 30px;
+  width: 30px;
   cursor: pointer;
-  border-radius: 3px;
+  background-color: #eeeeee;
 }
 
 .cell.blacked {
@@ -87,8 +99,4 @@ body {
   background-image: url('cross.png');
   background-size: contain;
   background-repeat: no-repeat;
-}
-
-.hidden {
-  background-color: #eeeeee;
 }
