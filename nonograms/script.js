@@ -43,12 +43,15 @@ function generatePlayingFieldWithHints(template) {
       if (template[i][j] === 1) {
         hintCountLeft += 1;
         columnCounter[j] = (columnCounter[j] ?? 0) + 1;
-      } else if (hintCountLeft > 0) {
-        hintValueLeft += `${hintCountLeft} `;
-        hintCountLeft = 0;
-      } else if (columnCounter[j] > 0) {
-        hintValueTop += `${columnCounter[j]} `;
-        columnCounter[j] = 0;
+      } else {
+        if (hintCountLeft > 0) {
+          hintValueLeft += `${hintCountLeft} `;
+          hintCountLeft = 0;
+        }
+        if (columnCounter[j] > 0) {
+          hintValueTop += `${columnCounter[j]} `;
+          columnCounter[j] = 0;
+        }
       }
     }
     if (hintCountLeft > 0) {
@@ -77,30 +80,30 @@ function generatePlayingFieldWithHints(template) {
     hintsLeft.classList.add("hints-left");
     hintsLeft.textContent = hintValueLeft;
     hintsContainerLeft.append(hintsLeft);
-
-    // Изменение цвета ячейки на черный
-    row.addEventListener("click", (event) => {
-      const cell = event.target.closest('.cell');
-      if (cell) {
-        cell.classList.toggle("blacked");
-        cell.classList.remove("crossed");
-      }
-    });
-
-    // Изменение содержимого ячейки на крест
-    row.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-      const cell = event.target.closest('.cell');
-      if (cell) {
-        cell.classList.toggle("crossed");
-        cell.classList.remove("blacked");
-      }
-    });
   }
   container.append(hintsContainerTop, containerWithLeftHints);
   containerWithLeftHints.append(playingField, hintsContainerLeft);
   console.log(columnCounter);
 }
+
+// Изменение цвета ячейки на черный
+container.addEventListener("click", (event) => {
+  const cell = event.target.closest('.cell');
+  if (cell) {
+    cell.classList.toggle("blacked");
+    cell.classList.remove("crossed");
+  }
+});
+
+// Изменение содержимого ячейки на крест
+container.addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+  const cell = event.target.closest('.cell');
+  if (cell) {
+    cell.classList.toggle("crossed");
+    cell.classList.remove("blacked");
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   generatePlayingFieldWithHints(currentTemplate);
