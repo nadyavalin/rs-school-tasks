@@ -29,12 +29,14 @@ function generatePlayingFieldWithHints(template) {
   const columnCounter = {};
   const topHintsArray = [];
 
-  // const rowCounter = {};
-  // const leftHintsArray = [];
+  const rowCounter = {};
+  const leftHintsArray = [];
 
   for (let i = 0; i < template.length; i += 1) {
     const leftHints = document.createElement("div");
     leftHints.classList.add("left-hints");
+    leftHintsArray.push(leftHints);
+    hintsContainerLeft.append(leftHints);
 
     const row = document.createElement("div");
     row.classList.add("row");
@@ -45,18 +47,23 @@ function generatePlayingFieldWithHints(template) {
       row.append(cell);
 
       if (template[i][j] === 1) {
-        // rowCounter[j] += 1;
+        rowCounter[i] = (rowCounter[i] ?? 0) + 1;
         columnCounter[j] = (columnCounter[j] ?? 0) + 1;
         if (template.length - 1 === i) {
           createHintElement(topHintsArray[j], columnCounter[j]);
         }
-        // if (rowCounter > 0) {
-        //   createHintElement(leftHintsArray[j], rowCounter[j]);
-        // }
-      } else if (columnCounter[j] > 0) {
-        createHintElement(topHintsArray[j], columnCounter[j]);
-        // createHintElement(leftHintsArray[j], rowCounter[j]);
-        columnCounter[j] = 0;
+        if (template[i].length - 1 === j) {
+          createHintElement(leftHintsArray[i], rowCounter[i]);
+        }
+      } else {
+        if (columnCounter[j] > 0) {
+          createHintElement(topHintsArray[j], columnCounter[j]);
+          columnCounter[j] = 0;
+        }
+        if (rowCounter[i] > 0) {
+          createHintElement(leftHintsArray[i], rowCounter[i]);
+          rowCounter[i] = 0;
+        }
       }
       if (i === 0) {
         const topHints = document.createElement("div");
@@ -64,9 +71,8 @@ function generatePlayingFieldWithHints(template) {
         topHintsArray.push(topHints);
         hintsContainerTop.append(topHints);
       }
+      playingField.append(row);
     }
-    hintsContainerLeft.append(leftHints);
-    playingField.append(row);
   }
   container.append(hintsContainerTop, hintsContainerLeft, playingField);
 }
