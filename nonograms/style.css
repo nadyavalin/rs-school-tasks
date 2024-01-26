@@ -9,7 +9,6 @@
 }
 
 html {
-  box-sizing: border-box;
   scroll-behavior: smooth;
 }
 
@@ -29,7 +28,9 @@ body {
   line-height: 20px;
   font-weight: 600;
   color: #333333;
-  border: 1px solid #333333;
+  border-top: 1px solid #333333;
+  border-left: 1px solid #333333;
+  background-color: #eeeeee;
 
   display: grid;
   grid-template-areas:
@@ -39,46 +40,49 @@ body {
 
 .container__top-hints {
   grid-area: top-hints;
-  background-color: #eeeeee;
   border-left: 3px solid #333333;
+  border-right: 3px solid #333333;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-end;
+  width: 100%;
 }
 
 .top-hints {
+  width: 100%;
+}
+
+.top-hints .hint {
+  border: 1px solid #333333;
+  border-bottom: none;
+}
+
+.container__left-hints {
+  grid-area: left-hints;
+
+  border-top: 4px solid #333333;
+  border-bottom: 4px solid #333333;
+
   display: flex;
   flex-direction: column;
-  width: 30px;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.left-hints .hint {
+  border: 1px solid #333333;
+  border-right: none;
+  float: left;
 }
 
 .hint {
-  background-color: #eeeeee;
-  border: 1px solid #333333;
-  box-sizing: border-box;
   height: 30px;
   width: 30px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
-  position: relative;
-  float: left;
-}
-
-.hintl::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  border-top: 1px solid #333333;
-}
-
-.container__left-hints {
-  grid-area: left-hints;
 }
 
 .playing-area {
@@ -86,13 +90,15 @@ body {
 }
 
 .playing-area {
-  border-top: 3px solid #333333;
-  border-left: 3px solid #333333;
+  border: 4px solid #333333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .row {
   display: flex;
-  height: 30px;
 }
 
 .cell {
@@ -101,7 +107,19 @@ body {
   height: 30px;
   width: 30px;
   cursor: pointer;
-  background-color: #eeeeee;
+}
+
+.cell:nth-child(6n):not(:last-child) {
+  border-left: 3px solid #333333;
+}
+
+.left-hints:nth-child(6n),
+.row:nth-child(6n) {
+  border-top: 3px solid #333333;
+}
+
+.top-hints:nth-child(6n) {
+  border-left: 2px solid #333333;
 }
 
 .cell.blacked {
