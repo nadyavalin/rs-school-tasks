@@ -5,9 +5,20 @@ const container = document.createElement("div");
 container.classList.add("container");
 document.body.append(container);
 
-// Выбор шаблона
-const currentTemplate = templates[7];
+const currentTemplate = [
+  { name: "Игра 1", template: templates[0], size: 5 },
+  { name: "Игра 2", template: templates[1], size: 5 },
+  { name: "Игра 3", template: templates[2], size: 5 },
+  { name: "Игра 4", template: templates[3], size: 5 },
+  { name: "Игра 5", template: templates[4], size: 5 },
+  { name: "Игра 6", template: templates[5], size: 10 },
+  { name: "Игра 7", template: templates[6], size: 10 },
+  { name: "Игра 8", template: templates[7], size: 10 },
+  { name: "Игра 9", template: templates[8], size: 10 },
+  { name: "Игра 10", template: templates[9], size: 10 },
+];
 
+// Поле с выбором игры
 function createHintElement(hintsContainer, counter) {
   const hint = document.createElement("div");
   hint.classList.add("hint");
