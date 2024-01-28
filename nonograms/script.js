@@ -152,12 +152,19 @@ selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
 
   selectPicture.textContent = "";
+  gameArea.innerHTML = "";
 
   currentTemplate.filter(item => item.size === selectedSize).forEach(item => {
-    createOption(item.template, item.name, selectPicture);
-    // generatePlayingFieldWithHints(item.template);
+    createOption(item.name, item.name, selectPicture);
   });
+
+  const selectedTemplate = currentTemplate.find(item => item.size === selectedSize);
+  if (selectedTemplate) {
+    createOption(selectedTemplate.template, selectedTemplate.name, selectPicture);
+    generatePlayingFieldWithHints(selectedTemplate.template);
+  }
 });
+
 
 // Создание кнопки для сбоса текущей игры
 // const resetButton = document.createElement("button");
