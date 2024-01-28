@@ -21,13 +21,56 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.container {
+.choose-game-area {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.size-select,
+.picture-select {
+  background-color: #bcffce;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0;
+  width: 200px;
+  height: 30px;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+button {
+  background-color: #bcffce;
+  border: 1px solid #333333;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #00c43e;
+  border: 1px solid transparent;
+}
+
+.game-area {
   font-size: 20px;
   line-height: 20px;
   font-weight: 600;
   color: #333333;
+  border-radius: 5px;
   border-top: 1px solid #333333;
   border-left: 1px solid #333333;
   background-color: #eeeeee;
@@ -38,7 +81,7 @@ body {
     "left-hints game";
 }
 
-.container__top-hints {
+.game-area__top-hints {
   grid-area: top-hints;
   border-left: 3px solid #333333;
   border-right: 3px solid #333333;
@@ -58,7 +101,7 @@ body {
   border-bottom: none;
 }
 
-.container__left-hints {
+.game-area__left-hints {
   grid-area: left-hints;
 
   border-top: 4px solid #333333;
