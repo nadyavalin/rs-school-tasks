@@ -54,6 +54,7 @@ currentTemplate.filter(item => item.size === 5).forEach(item => {
   createOption(item.name, item.name, selectPicture);
 });
 
+
 [5, 10].forEach((size) => {
   createOption(size, `${size} x ${size}`, selectSize);
 });
@@ -160,7 +161,6 @@ selectSize.addEventListener("change", () => {
 
   const selectedTemplate = currentTemplate.find(item => item.size === selectedSize);
   if (selectedTemplate) {
-    createOption(selectedTemplate.template, selectedTemplate.name, selectPicture);
     generatePlayingFieldWithHints(selectedTemplate.template);
   }
 });
@@ -172,7 +172,6 @@ selectPicture.addEventListener("change", () => {
   gameArea.innerHTML = "";
 
   if (selectedPicture) {
-    createOption(selectedPicture.template, selectedPicture.name, selectPicture);
     generatePlayingFieldWithHints(selectedPicture.template);
   }
 });
