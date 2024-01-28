@@ -147,7 +147,7 @@ gameArea.addEventListener("contextmenu", (event) => {
   }
 });
 
-// Листенер смены игры
+// Листенер смены размера
 selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
 
@@ -165,6 +165,17 @@ selectSize.addEventListener("change", () => {
   }
 });
 
+// Листенер смены картинки
+selectPicture.addEventListener("change", () => {
+  const selectedPicture = currentTemplate.find(item => item.name === selectPicture.value);
+
+  gameArea.innerHTML = "";
+
+  if (selectedPicture) {
+    createOption(selectedPicture.template, selectedPicture.name, selectPicture);
+    generatePlayingFieldWithHints(selectedPicture.template);
+  }
+});
 
 // Создание кнопки для сбоса текущей игры
 // const resetButton = document.createElement("button");
