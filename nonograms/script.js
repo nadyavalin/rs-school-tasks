@@ -38,10 +38,12 @@ labelPicture.textContent = "Choose a picture:";
 const selectSize = document.createElement("select");
 selectSize.name = "size";
 selectSize.classList = "size-select";
+selectSize.id = "size-select"
 
 const selectPicture = document.createElement("select");
 selectPicture.name = "picture";
 selectPicture.classList = "picture-select";
+selectPicture.id = "picture-select"
 
 function createOption(value, text, select) {
   const option = document.createElement('option');
@@ -53,7 +55,6 @@ function createOption(value, text, select) {
 currentTemplate.filter(item => item.size === 5).forEach(item => {
   createOption(item.name, item.name, selectPicture);
 });
-
 
 [5, 10].forEach((size) => {
   createOption(size, `${size} x ${size}`, selectSize);
