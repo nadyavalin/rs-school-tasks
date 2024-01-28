@@ -83,8 +83,8 @@ button:hover {
 
 .game-area__top-hints {
   grid-area: top-hints;
-  border-left: 3px solid #333333;
-  border-right: 3px solid #333333;
+  border-left: 4px solid #333333;
+  border-right: 4px solid #333333;
 
   display: flex;
   justify-content: space-between;
