@@ -177,18 +177,25 @@ selectPicture.addEventListener("change", () => {
   }
 });
 
-// Создание кнопки для сбоса текущей игры
-// const resetButton = document.createElement("button");
-// resetButton.textContent = "Reset a game";
-// resetButton.addEventListener("click", generatePlayingFieldWithHints);
-// document.body.append(resetButton);
+// Сброс текущей игры
+function clearGameArea() {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.classList.remove("blacked");
+    cell.classList.remove("crossed");
+  });
+}
+
+const resetButton = document.createElement("button");
+resetButton.textContent = "Reset a game";
+resetButton.addEventListener("click", clearGameArea);
+document.body.append(resetButton);
 
 chooseGameArea.append(
   labelSize,
   selectSize,
   labelPicture,
   selectPicture,
-  // resetButton,
 );
 
 document.addEventListener("DOMContentLoaded", () => {
