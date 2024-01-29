@@ -32,20 +32,20 @@ sizeSelectWrap.classList = "wrapper__size-select";
 
 const labelSize = document.createElement("label");
 labelSize.htmlFor = "size-select";
-labelSize.classList = "label__size-select"
+labelSize.classList = "label__size-select";
 labelSize.innerHTML = "Choose a size:";
 
 const selectSize = document.createElement("select");
 selectSize.name = "size";
 selectSize.classList = "size-select";
-selectSize.id = "size-select"
+selectSize.id = "size-select";
 
 const pictureSelectWrap = document.createElement("div");
 pictureSelectWrap.classList = "wrapper__picture-select";
 
 const labelPicture = document.createElement("label");
 labelPicture.htmlFor = "picture-select";
-labelPicture.classList = "label__picture-select"
+labelPicture.classList = "label__picture-select";
 labelPicture.textContent = "Choose a picture:";
 
 const selectPicture = document.createElement("select");
@@ -54,15 +54,17 @@ selectPicture.classList = "picture-select";
 selectPicture.id = "picture-select";
 
 function createOption(value, text, select) {
-  const option = document.createElement('option');
+  const option = document.createElement("option");
   option.value = value;
   option.textContent = text;
   select.append(option);
 }
 
-currentTemplate.filter(item => item.size === 5).forEach(item => {
-  createOption(item.name, item.name, selectPicture);
-});
+currentTemplate
+  .filter((item) => item.size === 5)
+  .forEach((item) => {
+    createOption(item.name, item.name, selectPicture);
+  });
 
 [5, 10].forEach((size) => {
   createOption(size, `${size} x ${size}`, selectSize);
@@ -156,12 +158,59 @@ function compareArrays(firstArray, secondArray) {
   return true;
 }
 
+// Листенер смены размера
+selectSize.addEventListener("change", () => {
+  const selectedSize = parseInt(selectSize.value, 10);
+
+  selectPicture.textContent = "";
+  gameArea.innerHTML = "";
+
+  currentTemplate
+    .filter((item) => item.size === selectedSize)
+    .forEach((item) => {
+      createOption(item.name, item.name, selectPicture);
+    });
+
+  selectPicture.dispatchEvent(new Event("change"));
+});
+
+// Листенер смены картинки
+selectPicture.addEventListener("change", () => {
+  const selectedPictureTemplate = currentTemplate.find(
+    (item) => item.name === selectPicture.value
+  );
+
+  gameArea.innerHTML = "";
+
+  if (selectedPictureTemplate) {
+    generatePlayingFieldWithHints(selectedPictureTemplate.template);
+  }
+
+  /* вариант получения двумерного массива, заполненного нулями
+  gameUserArray = [];
+  for (let i = 0; i < selectedPictureTemplate.size; i += 1) {
+    const row = [];
+    for (let j = 0; j < selectedPictureTemplate.size; j += 1) {
+      row.push(0);
+    }
+    gameUserArray.push(row);
+  } */
+
+  gameUserArray = new Array(selectedPictureTemplate.size)
+    .fill(0)
+    .map(() => new Array(selectedPictureTemplate.size).fill(0));
+});
+
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
   const cell = event.target.closest(".cell");
   if (cell) {
     cell.classList.toggle("blacked");
     cell.classList.remove("crossed");
+  }
+
+  if (compareArrays(currentTemplate, gameUserArray)) {
+    console.log("Win!");
   }
 });
 
@@ -173,42 +222,6 @@ gameArea.addEventListener("contextmenu", (event) => {
     cell.classList.toggle("crossed");
     cell.classList.remove("blacked");
   }
-});
-
-// Листенер смены размера
-selectSize.addEventListener("change", () => {
-  const selectedSize = parseInt(selectSize.value, 10);
-
-  selectPicture.textContent = "";
-  gameArea.innerHTML = "";
-
-  currentTemplate.filter(item => item.size === selectedSize).forEach(item => {
-    createOption(item.name, item.name, selectPicture);
-  });
-
-  selectPicture.dispatchEvent(new Event("change"));
-});
-
-// Листенер смены картинки
-selectPicture.addEventListener("change", () => {
-  const selectedPictureTemplate = currentTemplate.find(item => item.name === selectPicture.value);
-
-  gameArea.innerHTML = "";
-
-  if (selectedPictureTemplate) {
-    generatePlayingFieldWithHints(selectedPictureTemplate.template);
-  }
-
-  // gameUserArray = [];
-  // for (let i = 0; i < selectedPictureTemplate.size; i += 1) {
-  //   const row = [];
-  //   for (let j = 0; j < selectedPictureTemplate.size; j += 1) {
-  //     row.push(0);
-  //   }
-  //   gameUserArray.push(row);
-  // }
-
-  gameUserArray = new Array(selectedPictureTemplate.size).fill(0).map(() => new Array(selectedPictureTemplate.size).fill(0));
 });
 
 // Сброс текущей игры
