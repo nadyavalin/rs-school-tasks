@@ -138,6 +138,24 @@ function generatePlayingFieldWithHints(template) {
   gameArea.append(hintsContainerTop, hintsContainerLeft, playingField);
 }
 
+// Проверка победы
+// let gameUserArray = [];
+
+// function compareArrays(firstArray, secondArray) {
+//   for (let i = 0; i < firstArray; i += 1) {
+//     if (firstArray[i] !== secondArray[i]) {
+//       return false;
+//     }
+
+//     for (let j = 0; j < firstArray[i]; j += 1) {
+//       if (firstArray[i][j] !== secondArray[i][j]) {
+//         return false;
+//       }
+//     }
+//   }
+//   return true;
+// }
+
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
   const cell = event.target.closest(".cell");
@@ -145,6 +163,7 @@ gameArea.addEventListener("click", (event) => {
     cell.classList.toggle("blacked");
     cell.classList.remove("crossed");
   }
+  // compareArrays(gameUserArray);
 });
 
 // Изменение содержимого ячейки на крест
@@ -168,20 +187,17 @@ selectSize.addEventListener("change", () => {
     createOption(item.name, item.name, selectPicture);
   });
 
-  const selectedTemplate = currentTemplate.find(item => item.size === selectedSize);
-  if (selectedTemplate) {
-    generatePlayingFieldWithHints(selectedTemplate.template);
-  }
+   selectPicture.dispatchEvent(new Event("change"));
 });
 
 // Листенер смены картинки
 selectPicture.addEventListener("change", () => {
-  const selectedPicture = currentTemplate.find(item => item.name === selectPicture.value);
+  const selectedPictureTemplate = currentTemplate.find(item => item.name === selectPicture.value);
 
   gameArea.innerHTML = "";
 
-  if (selectedPicture) {
-    generatePlayingFieldWithHints(selectedPicture.template);
+  if (selectedPictureTemplate) {
+    generatePlayingFieldWithHints(selectedPictureTemplate.template);
   }
 });
 
