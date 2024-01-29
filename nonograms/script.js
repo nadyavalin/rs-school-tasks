@@ -5,6 +5,44 @@ const chooseGameArea = document.createElement("div");
 chooseGameArea.classList.add("choose-game-area");
 document.body.append(chooseGameArea);
 
+// Таймер
+const timer = document.createElement("div");
+timer.classList.add(".timer");
+timer.innerHTML = "00:00";
+document.body.append(timer);
+
+let time = 0;
+let interval;
+
+function startTimer() {
+  console.log("Timer started!");
+  interval = setInterval(() => {
+    time += 1;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    let minutesStr = "";
+    if (minutes < 10) {
+      minutesStr = `0${  minutes}`;
+    } else {
+      minutesStr = minutes.toString();
+    }
+
+    let secondsStr = "";
+    if (seconds < 10) {
+      secondsStr = `0${  seconds}`;
+    } else {
+      secondsStr = seconds.toString();
+    }
+
+    timer.innerHTML = `${minutesStr}:${secondsStr}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(interval);
+}
+
 // Зона игры
 const gameArea = document.createElement("div");
 gameArea.classList.add("game-area");
@@ -202,7 +240,14 @@ selectPicture.addEventListener("change", () => {
 });
 
 // Изменение цвета ячейки на черный
+let isFirstClick = true;
+
 gameArea.addEventListener("click", (event) => {
+  if (isFirstClick) {
+    startTimer();
+    isFirstClick = false;
+  }
+
   const cell = event.target.closest(".cell");
   if (cell) {
     cell.classList.toggle("blacked");
@@ -210,6 +255,7 @@ gameArea.addEventListener("click", (event) => {
   }
 
   if (compareArrays(currentTemplate, gameUserArray)) {
+    stopTimer();
     console.log("Win!");
   }
 });
