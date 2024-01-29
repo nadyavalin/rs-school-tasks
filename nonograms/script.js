@@ -27,23 +27,31 @@ const currentTemplate = [
   { name: "Umbrella", template: templates[12], size: 10 },
 ];
 
+const sizeSelectWrap = document.createElement("div");
+sizeSelectWrap.classList = "wrapper__size-select";
+
 const labelSize = document.createElement("label");
 labelSize.htmlFor = "size-select";
-labelSize.textContent = "Choose a size:";
-
-const labelPicture = document.createElement("label");
-labelPicture.htmlFor = "picture-select";
-labelPicture.textContent = "Choose a picture:";
+labelSize.classList = "label__size-select"
+labelSize.innerHTML = "Choose a size:";
 
 const selectSize = document.createElement("select");
 selectSize.name = "size";
 selectSize.classList = "size-select";
 selectSize.id = "size-select"
 
+const pictureSelectWrap = document.createElement("div");
+pictureSelectWrap.classList = "wrapper__picture-select";
+
+const labelPicture = document.createElement("label");
+labelPicture.htmlFor = "picture-select";
+labelPicture.classList = "label__picture-select"
+labelPicture.textContent = "Choose a picture:";
+
 const selectPicture = document.createElement("select");
 selectPicture.name = "picture";
 selectPicture.classList = "picture-select";
-selectPicture.id = "picture-select"
+selectPicture.id = "picture-select";
 
 function createOption(value, text, select) {
   const option = document.createElement('option');
@@ -191,12 +199,9 @@ resetButton.textContent = "Reset a game";
 resetButton.addEventListener("click", clearGameArea);
 document.body.append(resetButton);
 
-chooseGameArea.append(
-  labelSize,
-  selectSize,
-  labelPicture,
-  selectPicture,
-);
+chooseGameArea.append(sizeSelectWrap, pictureSelectWrap);
+sizeSelectWrap.append(labelSize, selectSize);
+pictureSelectWrap.append(labelPicture, selectPicture);
 
 document.addEventListener("DOMContentLoaded", () => {
   generatePlayingFieldWithHints(templates[0]);

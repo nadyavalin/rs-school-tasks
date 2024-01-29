@@ -10,6 +10,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -32,6 +33,16 @@ body {
   gap: 10px;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.wrapper__size-select,
+.wrapper__picture-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .size-select,
@@ -58,11 +69,6 @@ button {
   height: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
-}
-
-button:hover {
-  background-color: #00c43e;
-  border: 1px solid transparent;
 }
 
 .game-area {
@@ -173,4 +179,71 @@ button:hover {
   background-image: url('cross.png');
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 500px) {
+  .choose-game-area {
+    width: 400px;
+  }
+
+  .size-select,
+  .picture-select {
+    width: 150px;
+    font-size: 14px;
+  }
+
+  .label__size-select,
+  .label__picture-select {
+    font-size: 14px;
+  }
+
+  .game-area {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+
+  .game-area__top-hints {
+    border-left: 3px solid #333333;
+    border-right: 3px solid #333333;
+  }
+
+  .game-area__left-hints {
+    border-top: 3px solid #333333;
+    border-bottom: 3px solid #333333;
+  }
+
+  .hint {
+    height: 20px;
+    width: 20px;
+  }
+
+  .cell {
+    height: 20px;
+    width: 20px;
+  }
+
+  .playing-area {
+    border: 3px solid #333333;
+  }
+
+  .cell:nth-child(6n):not(:last-child) {
+    border-left: 2px solid #333333;
+  }
+
+  .left-hints:nth-child(6n),
+  .row:nth-child(6n) {
+    border-top: 2px solid #333333;
+  }
+
+  .top-hints:nth-child(6n) {
+    border-left: 1px solid #333333;
+  }
+}
+
+@media (hover: hover) {
+  button:hover {
+    background-color: #00c43e;
+    border: 1px solid transparent;
+  }
 }
