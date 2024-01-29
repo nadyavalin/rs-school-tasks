@@ -139,22 +139,22 @@ function generatePlayingFieldWithHints(template) {
 }
 
 // Проверка победы
-// let gameUserArray = [];
+let gameUserArray;
 
-// function compareArrays(firstArray, secondArray) {
-//   for (let i = 0; i < firstArray; i += 1) {
-//     if (firstArray[i] !== secondArray[i]) {
-//       return false;
-//     }
+function compareArrays(firstArray, secondArray) {
+  for (let i = 0; i < firstArray; i += 1) {
+    if (firstArray[i] !== secondArray[i]) {
+      return false;
+    }
 
-//     for (let j = 0; j < firstArray[i]; j += 1) {
-//       if (firstArray[i][j] !== secondArray[i][j]) {
-//         return false;
-//       }
-//     }
-//   }
-//   return true;
-// }
+    for (let j = 0; j < firstArray[i]; j += 1) {
+      if (firstArray[i][j] !== secondArray[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
@@ -163,7 +163,6 @@ gameArea.addEventListener("click", (event) => {
     cell.classList.toggle("blacked");
     cell.classList.remove("crossed");
   }
-  // compareArrays(gameUserArray);
 });
 
 // Изменение содержимого ячейки на крест
@@ -187,7 +186,7 @@ selectSize.addEventListener("change", () => {
     createOption(item.name, item.name, selectPicture);
   });
 
-   selectPicture.dispatchEvent(new Event("change"));
+  selectPicture.dispatchEvent(new Event("change"));
 });
 
 // Листенер смены картинки
@@ -199,6 +198,17 @@ selectPicture.addEventListener("change", () => {
   if (selectedPictureTemplate) {
     generatePlayingFieldWithHints(selectedPictureTemplate.template);
   }
+
+  // gameUserArray = [];
+  // for (let i = 0; i < selectedPictureTemplate.size; i += 1) {
+  //   const row = [];
+  //   for (let j = 0; j < selectedPictureTemplate.size; j += 1) {
+  //     row.push(0);
+  //   }
+  //   gameUserArray.push(row);
+  // }
+
+  gameUserArray = new Array(selectedPictureTemplate.size).fill(0).map(() => new Array(selectedPictureTemplate.size).fill(0));
 });
 
 // Сброс текущей игры
