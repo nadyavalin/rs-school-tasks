@@ -7,7 +7,7 @@ document.body.append(chooseGameArea);
 
 // Таймер
 const timer = document.createElement("div");
-timer.classList.add(".timer");
+timer.classList.add("timer");
 timer.innerHTML = "00:00";
 document.body.append(timer);
 
@@ -15,7 +15,6 @@ let time = 0;
 let interval;
 
 function startTimer() {
-  console.log("Timer started!");
   interval = setInterval(() => {
     time += 1;
     const minutes = Math.floor(time / 60);
@@ -63,6 +62,11 @@ const currentTemplate = [
   { name: "Oblique Siral", template: templates[10], size: 10 },
   { name: "Fir-tree", template: templates[11], size: 10 },
   { name: "Umbrella", template: templates[12], size: 10 },
+  { name: "Cherry", template: templates[13], size: 15 },
+  { name: "House", template: templates[14], size: 15 },
+  { name: "Clover", template: templates[15], size: 15 },
+  { name: "Castle", template: templates[16], size: 15 },
+  { name: "Deer", template: templates[17], size: 15 },
 ];
 
 const sizeSelectWrap = document.createElement("div");
@@ -104,7 +108,7 @@ currentTemplate
     createOption(item.name, item.name, selectPicture);
   });
 
-[5, 10].forEach((size) => {
+[5, 10, 15].forEach((size) => {
   createOption(size, `${size} x ${size}`, selectSize);
 });
 
@@ -280,6 +284,7 @@ function clearGameArea() {
 }
 
 const resetButton = document.createElement("button");
+resetButton.classList.add("reset-button");
 resetButton.textContent = "Reset a game";
 resetButton.addEventListener("click", clearGameArea);
 document.body.append(resetButton);
