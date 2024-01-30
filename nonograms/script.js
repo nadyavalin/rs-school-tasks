@@ -8,13 +8,12 @@ document.body.append(chooseGameArea);
 // Таймер
 const timer = document.createElement("div");
 timer.classList.add("timer");
-timer.innerHTML = "00:00";
+timer.textContent = "00:00";
 document.body.append(timer);
 
-let time = 0;
 let interval;
-
 function startTimer() {
+  let time = 0;
   interval = setInterval(() => {
     time += 1;
     const minutes = Math.floor(time / 60);
@@ -22,19 +21,19 @@ function startTimer() {
 
     let minutesStr = "";
     if (minutes < 10) {
-      minutesStr = `0${  minutes}`;
+      minutesStr = `0${minutes}`;
     } else {
       minutesStr = minutes.toString();
     }
 
     let secondsStr = "";
     if (seconds < 10) {
-      secondsStr = `0${  seconds}`;
+      secondsStr = `0${seconds}`;
     } else {
       secondsStr = seconds.toString();
     }
 
-    timer.innerHTML = `${minutesStr}:${secondsStr}`;
+    timer.textContent = `${minutesStr}:${secondsStr}`;
   }, 1000);
 }
 
@@ -48,7 +47,7 @@ gameArea.classList.add("game-area");
 document.body.append(gameArea);
 
 // Выбор игры
-const currentTemplate = [
+const currentTemplates = [
   { name: "Cross", template: templates[0], size: 5 },
   { name: "Oblique cross", template: templates[1], size: 5 },
   { name: "Chess", template: templates[2], size: 5 },
@@ -70,29 +69,29 @@ const currentTemplate = [
 ];
 
 const sizeSelectWrap = document.createElement("div");
-sizeSelectWrap.classList = "wrapper__size-select";
+sizeSelectWrap.classList.add("wrapper__size-select");
 
 const labelSize = document.createElement("label");
 labelSize.htmlFor = "size-select";
-labelSize.classList = "label__size-select";
-labelSize.innerHTML = "Choose a size:";
+labelSize.classList.add("label__size-select");
+labelSize.textContent = "Choose a size:";
 
 const selectSize = document.createElement("select");
 selectSize.name = "size";
-selectSize.classList = "size-select";
+selectSize.classList.add("size-select");
 selectSize.id = "size-select";
 
 const pictureSelectWrap = document.createElement("div");
-pictureSelectWrap.classList = "wrapper__picture-select";
+pictureSelectWrap.classList.add("wrapper__picture-select");
 
 const labelPicture = document.createElement("label");
 labelPicture.htmlFor = "picture-select";
-labelPicture.classList = "label__picture-select";
+labelPicture.classList.add("label__picture-select");
 labelPicture.textContent = "Choose a picture:";
 
 const selectPicture = document.createElement("select");
 selectPicture.name = "picture";
-selectPicture.classList = "picture-select";
+selectPicture.classList.add("picture-select");
 selectPicture.id = "picture-select";
 
 function createOption(value, text, select) {
@@ -102,7 +101,7 @@ function createOption(value, text, select) {
   select.append(option);
 }
 
-currentTemplate
+currentTemplates
   .filter((item) => item.size === 5)
   .forEach((item) => {
     createOption(item.name, item.name, selectPicture);
@@ -187,10 +186,6 @@ let gameUserArray;
 
 function compareArrays(firstArray, secondArray) {
   for (let i = 0; i < firstArray; i += 1) {
-    if (firstArray[i] !== secondArray[i]) {
-      return false;
-    }
-
     for (let j = 0; j < firstArray[i]; j += 1) {
       if (firstArray[i][j] !== secondArray[i][j]) {
         return false;
@@ -204,10 +199,9 @@ function compareArrays(firstArray, secondArray) {
 selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
 
-  selectPicture.textContent = "";
-  gameArea.innerHTML = "";
+  selectPicture.innerHTML = "";
 
-  currentTemplate
+  currentTemplates
     .filter((item) => item.size === selectedSize)
     .forEach((item) => {
       createOption(item.name, item.name, selectPicture);
@@ -218,11 +212,11 @@ selectSize.addEventListener("change", () => {
 
 // Листенер смены картинки
 selectPicture.addEventListener("change", () => {
-  const selectedPictureTemplate = currentTemplate.find(
+  const selectedPictureTemplate = currentTemplates.find(
     (item) => item.name === selectPicture.value
   );
 
-  gameArea.innerHTML = "";
+  gameArea.textContent = "";
 
   if (selectedPictureTemplate) {
     generatePlayingFieldWithHints(selectedPictureTemplate.template);
@@ -244,12 +238,10 @@ selectPicture.addEventListener("change", () => {
 });
 
 // Изменение цвета ячейки на черный
-let isFirstClick = true;
-
 gameArea.addEventListener("click", (event) => {
-  if (isFirstClick) {
+  if (interval) {
     startTimer();
-    isFirstClick = false;
+    console.log("Win!");
   }
 
   const cell = event.target.closest(".cell");
@@ -258,7 +250,7 @@ gameArea.addEventListener("click", (event) => {
     cell.classList.remove("crossed");
   }
 
-  if (compareArrays(currentTemplate, gameUserArray)) {
+  if (compareArrays(currentTemplates.template, gameUserArray)) {
     stopTimer();
     console.log("Win!");
   }
