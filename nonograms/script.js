@@ -108,7 +108,7 @@ function filterTemplate(size) {
     .forEach((item) => {
       createOption(item.name, item.name, selectPicture);
     });
-    selectPicture.dispatchEvent(new Event("change"));
+  selectPicture.dispatchEvent(new Event("change"));
 }
 
 [5, 10, 15].forEach((size) => {
@@ -188,6 +188,7 @@ function generatePlayingFieldWithHints(template) {
 // Проверка победы
 let gameUserArray;
 
+// TODO
 function compareArrays(firstArray, secondArray) {
   for (let i = 0; i < firstArray; i += 1) {
     for (let j = 0; j < firstArray[i]; j += 1) {
@@ -207,6 +208,7 @@ selectSize.addEventListener("change", () => {
 
 let selectedPictureTemplate;
 
+// TODO
 // Листенер смены картинки
 selectPicture.addEventListener("change", () => {
   selectedPictureTemplate = currentTemplates.find(
@@ -284,11 +286,38 @@ function clearGameArea() {
   });
 }
 
+// Кнопка сброса текущей игры
 const resetButton = document.createElement("button");
-resetButton.classList.add("reset-button");
+resetButton.classList.add("button");
 resetButton.textContent = "Reset a game";
 resetButton.addEventListener("click", clearGameArea);
 document.body.append(resetButton);
+
+// TODO Смена темы
+function changeTheme() {
+  const { body } = document;
+
+  if (
+    body.style.backgroundImage === "linear-gradient(to left, #2ef16c, #83f7a2)"
+  ) {
+    body.style.backgroundImage = "linear-gradient(to left, #0d431e, #00751f)";
+  } else {
+    body.style.backgroundColor = "linear-gradient(to left, #2ef16c, #83f7a2)";
+  }
+
+  // if (body.style.backgroundColor === "#2ef16c") {
+  //   body.style.backgroundColor = "#00751f";
+  // } else {
+  //   body.style.backgroundImage = "#2ef16c";
+  // }
+}
+
+// Кнопка смены темы
+const changeThemebutton = document.createElement("button");
+changeThemebutton.classList.add("button");
+changeThemebutton.textContent = "Change theme";
+changeThemebutton.addEventListener("click", changeTheme);
+document.body.append(changeThemebutton);
 
 chooseGameArea.append(sizeSelectWrap, pictureSelectWrap);
 sizeSelectWrap.append(labelSize, selectSize);
