@@ -102,14 +102,14 @@ function createOption(value, text, select) {
 }
 
 function filterTemplate(size) {
+  selectPicture.innerHTML = "";
   currentTemplates
     .filter((item) => item.size === size)
     .forEach((item) => {
       createOption(item.name, item.name, selectPicture);
     });
+    selectPicture.dispatchEvent(new Event("change"));
 }
-
-filterTemplate(5);
 
 [5, 10, 15].forEach((size) => {
   createOption(size, `${size} x ${size}`, selectSize);
@@ -202,14 +202,14 @@ function compareArrays(firstArray, secondArray) {
 // Листенер смены размера
 selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
-  selectPicture.innerHTML = "";
   filterTemplate(selectedSize);
-  selectPicture.dispatchEvent(new Event("change"));
 });
+
+let selectedPictureTemplate;
 
 // Листенер смены картинки
 selectPicture.addEventListener("change", () => {
-  const selectedPictureTemplate = currentTemplates.find(
+  selectedPictureTemplate = currentTemplates.find(
     (item) => item.name === selectPicture.value
   );
 
@@ -219,7 +219,7 @@ selectPicture.addEventListener("change", () => {
     generatePlayingFieldWithHints(selectedPictureTemplate.template);
   }
 
-  /* вариант получения двумерного массива, заполненного нулями
+  /* вариант получения двумерного массива, заполненного нулями с помощью цыкла for
   gameUserArray = [];
   for (let i = 0; i < selectedPictureTemplate.size; i += 1) {
     const row = [];
@@ -238,18 +238,20 @@ selectPicture.addEventListener("change", () => {
 gameArea.addEventListener("click", (event) => {
   if (!interval) {
     startTimer();
-    console.log(startTimer()); // c console.log таймер почему-то запускается
   }
 
+  // звук для закрашивания ячейки черным
+  const blackCellAudio = document.createElement("audio");
+  blackCellAudio.src = "./audio/black-cell.mp3";
+  document.body.append(blackCellAudio);
+
   const cell = event.target.closest(".cell");
+
   if (cell) {
     cell.classList.toggle("blacked");
     cell.classList.remove("crossed");
+    blackCellAudio.play();
   }
-
-  const selectedPictureTemplate = currentTemplates.find(
-    (item) => item.name === selectPicture.value
-  );
 
   if (compareArrays(selectedPictureTemplate, gameUserArray)) {
     stopTimer();
@@ -265,6 +267,12 @@ gameArea.addEventListener("contextmenu", (event) => {
     cell.classList.toggle("crossed");
     cell.classList.remove("blacked");
   }
+
+  // звук для отметки ячейки крестиком
+  const crossCellAudio = document.createElement("audio");
+  crossCellAudio.src = "./audio/cross-cell.mp3";
+  document.body.append(crossCellAudio);
+  crossCellAudio.play();
 });
 
 // Сброс текущей игры
@@ -287,5 +295,5 @@ sizeSelectWrap.append(labelSize, selectSize);
 pictureSelectWrap.append(labelPicture, selectPicture);
 
 document.addEventListener("DOMContentLoaded", () => {
-  selectPicture.dispatchEvent(new Event("change"));
+  filterTemplate(5);
 });
