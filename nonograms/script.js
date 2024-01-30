@@ -101,11 +101,15 @@ function createOption(value, text, select) {
   select.append(option);
 }
 
-currentTemplates
-  .filter((item) => item.size === 5)
-  .forEach((item) => {
-    createOption(item.name, item.name, selectPicture);
-  });
+function filterTemplate(size) {
+  currentTemplates
+    .filter((item) => item.size === size)
+    .forEach((item) => {
+      createOption(item.name, item.name, selectPicture);
+    });
+}
+
+filterTemplate(5);
 
 [5, 10, 15].forEach((size) => {
   createOption(size, `${size} x ${size}`, selectSize);
@@ -198,15 +202,8 @@ function compareArrays(firstArray, secondArray) {
 // Листенер смены размера
 selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
-
   selectPicture.innerHTML = "";
-
-  currentTemplates
-    .filter((item) => item.size === selectedSize)
-    .forEach((item) => {
-      createOption(item.name, item.name, selectPicture);
-    });
-
+  filterTemplate(selectedSize);
   selectPicture.dispatchEvent(new Event("change"));
 });
 
@@ -239,9 +236,9 @@ selectPicture.addEventListener("change", () => {
 
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
-  if (interval) {
+  if (!interval) {
     startTimer();
-    console.log("Win!");
+    console.log(startTimer()); // c console.log таймер почему-то запускается
   }
 
   const cell = event.target.closest(".cell");
@@ -250,7 +247,11 @@ gameArea.addEventListener("click", (event) => {
     cell.classList.remove("crossed");
   }
 
-  if (compareArrays(currentTemplates.template, gameUserArray)) {
+  const selectedPictureTemplate = currentTemplates.find(
+    (item) => item.name === selectPicture.value
+  );
+
+  if (compareArrays(selectedPictureTemplate, gameUserArray)) {
     stopTimer();
     console.log("Win!");
   }
@@ -286,5 +287,5 @@ sizeSelectWrap.append(labelSize, selectSize);
 pictureSelectWrap.append(labelPicture, selectPicture);
 
 document.addEventListener("DOMContentLoaded", () => {
-  generatePlayingFieldWithHints(templates[0]);
+  selectPicture.dispatchEvent(new Event("change"));
 });
