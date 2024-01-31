@@ -39,6 +39,7 @@ function startTimer() {
 
 function stopTimer() {
   clearInterval(interval);
+  timer.textContent = "00:00";
 }
 
 const gameArea = document.createElement("div");
@@ -198,6 +199,7 @@ function compareArrays(firstArray, secondArray) {
 selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
   filterTemplate(selectedSize);
+  stopTimer();
 });
 
 let selectedPictureTemplate;
@@ -226,25 +228,25 @@ selectPicture.addEventListener("change", () => {
   gameUserArray = new Array(selectedPictureTemplate.size)
     .fill(0)
     .map(() => new Array(selectedPictureTemplate.size).fill(0));
+  stopTimer();
 });
+
+// звук для закрашивания ячейки черным
+const blackCellAudio = document.createElement("audio");
+blackCellAudio.src = "./audio/black-cell.mp3";
+document.body.append(blackCellAudio);
 
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
-  if (!interval) {
-    startTimer();
-  }
-
-  // звук для закрашивания ячейки черным
-  const blackCellAudio = document.createElement("audio");
-  blackCellAudio.src = "./audio/black-cell.mp3";
-  document.body.append(blackCellAudio);
-
   const cell = event.target.closest(".cell");
-
   if (cell) {
     cell.classList.toggle("blacked");
     cell.classList.remove("crossed");
     blackCellAudio.play();
+  }
+
+  if (!interval) {
+    startTimer();
   }
 
   if (compareArrays(selectedPictureTemplate, gameUserArray)) {
@@ -253,20 +255,21 @@ gameArea.addEventListener("click", (event) => {
   }
 });
 
+// звук для отметки ячейки крестом
+const crossCellAudio = document.createElement("audio");
+crossCellAudio.src = "./audio/cross-cell.mp3";
+document.body.append(crossCellAudio);
+
 // Изменение содержимого ячейки на крест
 gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
-  // звук для отметки ячейки крестом
-  const crossCellAudio = document.createElement("audio");
-  crossCellAudio.src = "./audio/cross-cell.mp3";
-  document.body.append(crossCellAudio);
-
   const cell = event.target.closest(".cell");
   if (cell) {
     cell.classList.toggle("crossed");
     cell.classList.remove("blacked");
     crossCellAudio.play();
   }
+  startTimer();
 });
 
 // Сброс текущей игры
