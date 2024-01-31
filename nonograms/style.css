@@ -14,9 +14,6 @@ html {
 }
 
 body {
-  background-image: linear-gradient(to left, #2ef16c, #83f7a2);
-  /* background-color: #83f7a2; */
-  color: #000000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   padding: 20px;
@@ -25,6 +22,159 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+
+/* Light theme */
+body.light {
+  background-image: linear-gradient(to left, #2ef16c, #83f7a2);
+  color: #000000;
+}
+
+.light .timer {
+  color: #049c04;
+}
+
+.light .size-select,
+.light .picture-select {
+  background-color: #83f7a2;
+}
+
+.light .game-area {
+  color: #333333;
+  border-top: 1px solid #333333;
+  border-left: 1px solid #333333;
+  background-color: #eeeeee;
+}
+
+.light .game-area__top-hints {
+  border-left: 4px solid #333333;
+  border-right: 4px solid #333333;
+}
+
+.light .top-hints .hint {
+  border: 1px solid #333333;
+}
+
+.light .game-area__left-hints {
+  border-top: 4px solid #333333;
+  border-bottom: 4px solid #333333;
+}
+
+.light .left-hints .hint {
+  border: 1px solid #333333;
+}
+
+.light .playing-area {
+  border: 4px solid #333333;
+}
+
+.light .cell {
+  border: 1px solid #333333;
+}
+
+.light .cell:nth-child(5n):not(:last-child) {
+  border-right: 3px solid #333333;
+}
+
+.light .left-hints:nth-child(5n):not(:last-child),
+.light .row:nth-child(5n):not(:last-child) {
+  border-bottom: 3px solid #333333;
+}
+
+.light .top-hints:nth-child(5n):not(:first-child):not(:last-child) {
+  border-right: 3px solid #333333;
+}
+
+.light .cell.blacked {
+  background-color: #333333;
+}
+
+.light .cell.crossed {
+  background-image: url('cross-black.svg');
+}
+
+.light .button {
+  background-color: #bcffce;
+  border: 1px solid #333333;
+}
+
+/* Dark theme */
+body.dark {
+  background-image: linear-gradient(to left, #0b4c1f, #007e22);
+  color: #acfdc2;
+}
+
+.dark .timer {
+  color: #84f484;
+}
+
+.dark  .size-select,
+.dark  .picture-select {
+  background-color: #83f7a2;
+}
+
+.dark .game-area {
+  color: #84f484;
+  border-top: 1px solid #000000;
+  border-left: 1px solid #000000;
+  background-color: #565656;
+}
+
+.dark .game-area__top-hints {
+  border-left: 4px solid #acfdc2;
+  border-right: 4px solid #acfdc2;
+}
+
+.dark .top-hints .hint {
+  border: 1px solid #acfdc2;
+}
+
+.dark .game-area__left-hints {
+  border-top: 4px solid #acfdc2;
+  border-bottom: 4px solid #acfdc2;
+}
+
+.dark .left-hints .hint {
+  border: 1px solid #acfdc2;
+}
+
+.dark .playing-area {
+  border: 4px solid #acfdc2;
+}
+
+.dark .cell {
+  border: 1px solid #acfdc2;
+}
+
+.dark .cell:nth-child(5n):not(:last-child) {
+  border-right: 3px solid #acfdc2;
+}
+
+.dark .left-hints:nth-child(5n):not(:last-child),
+.dark .row:nth-child(5n):not(:last-child) {
+  border-bottom: 3px solid #acfdc2;
+}
+
+.dark .top-hints:nth-child(5n):not(:first-child):not(:last-child) {
+  border-right: 3px solid #acfdc2;
+}
+
+.dark .cell.blacked {
+  background-color: #84f484;
+}
+
+.dark .cell.crossed {
+  background-image: url('cross-white.svg');
+}
+
+.dark .button {
+  background-color: #84f484;
+  border: 1px solid #333333;
+}
+
+.timer {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .choose-game-area {
@@ -46,7 +196,6 @@ body {
 
 .size-select,
 .picture-select {
-  background-color: #bcffce;
   border: 1px solid #333333;
   border-radius: 5px;
   padding: 5px;
@@ -58,21 +207,11 @@ body {
   cursor: pointer;
 }
 
-.timer {
-  font-size: 18px;
-  font-weight: 600;
-  color: #049c04;
-}
-
 .game-area {
   font-size: 20px;
   line-height: 20px;
   font-weight: 600;
-  color: #333333;
   border-radius: 5px;
-  border-top: 1px solid #333333;
-  border-left: 1px solid #333333;
-  background-color: #eeeeee;
 
   display: grid;
   grid-template-areas:
@@ -82,8 +221,6 @@ body {
 
 .game-area__top-hints {
   grid-area: top-hints;
-  border-left: 4px solid #333333;
-  border-right: 4px solid #333333;
 
   display: flex;
   justify-content: space-between;
@@ -96,15 +233,11 @@ body {
 }
 
 .top-hints .hint {
-  border: 1px solid #333333;
   border-bottom: none;
 }
 
 .game-area__left-hints {
   grid-area: left-hints;
-
-  border-top: 4px solid #333333;
-  border-bottom: 4px solid #333333;
 
   display: flex;
   flex-direction: column;
@@ -113,7 +246,6 @@ body {
 }
 
 .left-hints .hint {
-  border: 1px solid #333333;
   border-right: none;
   float: left;
 }
@@ -130,7 +262,6 @@ body {
 .playing-area {
   grid-area: game;
 
-  border: 4px solid #333333;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,31 +274,12 @@ body {
 
 .cell {
   display: flex;
-  border: 1px solid #333333;
   height: 30px;
   width: 30px;
   cursor: pointer;
 }
 
-.cell:nth-child(5n):not(:last-child) {
-  border-right: 3px solid #333333;
-}
-
-.left-hints:nth-child(5n):not(:last-child),
-.row:nth-child(5n):not(:last-child) {
-  border-bottom: 3px solid #333333;
-}
-
-.top-hints:nth-child(5n):not(:first-child):not(:last-child) {
-  border-right: 3px solid #333333;
-}
-
-.cell.blacked {
-  background-color: #333333;
-}
-
 .cell.crossed {
-  background-image: url('cross.png');
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -189,8 +301,8 @@ body {
   }
 
   .game-area {
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 14px;
     font-weight: 500;
   }
 
@@ -233,8 +345,6 @@ body {
 }
 
 .button {
-  background-color: #bcffce;
-  border: 1px solid #333333;
   border-radius: 5px;
   padding: 5px;
   margin: 0;

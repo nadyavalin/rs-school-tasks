@@ -1,5 +1,7 @@
 import templates from "./templates.js";
 
+document.body.classList.add("light");
+
 const chooseGameArea = document.createElement("div");
 chooseGameArea.classList.add("choose-game-area");
 document.body.append(chooseGameArea);
@@ -254,17 +256,17 @@ gameArea.addEventListener("click", (event) => {
 // Изменение содержимого ячейки на крест
 gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
-  const cell = event.target.closest(".cell");
-  if (cell) {
-    cell.classList.toggle("crossed");
-    cell.classList.remove("blacked");
-  }
-
   // звук для отметки ячейки крестом
   const crossCellAudio = document.createElement("audio");
   crossCellAudio.src = "./audio/cross-cell.mp3";
   document.body.append(crossCellAudio);
-  crossCellAudio.play();
+
+  const cell = event.target.closest(".cell");
+  if (cell) {
+    cell.classList.toggle("crossed");
+    cell.classList.remove("blacked");
+    crossCellAudio.play();
+  }
 });
 
 // Сброс текущей игры
@@ -283,31 +285,34 @@ resetButton.textContent = "Reset a game";
 resetButton.addEventListener("click", clearGameArea);
 document.body.append(resetButton);
 
-// TODO Смена темы
-function changeTheme() {
-  const { body } = document;
+// Смена темы
+function switchToLightMode() {
+  document.body.classList.remove("dark");
+  document.body.classList.add("light");
+}
 
-  if (
-    body.style.backgroundImage === "linear-gradient(to left, #2ef16c, #83f7a2)"
-  ) {
-    body.style.backgroundImage = "linear-gradient(to left, #0d431e, #00751f)";
-  } else {
-    body.style.backgroundColor = "linear-gradient(to left, #2ef16c, #83f7a2)";
-  }
-
-  // if (body.style.backgroundColor === "#2ef16c") {
-  //   body.style.backgroundColor = "#00751f";
-  // } else {
-  //   body.style.backgroundImage = "#2ef16c";
-  // }
+function switchToDarkMode() {
+  document.body.classList.remove("light");
+  document.body.classList.add("dark");
 }
 
 // Кнопка смены темы
 const changeThemebutton = document.createElement("button");
 changeThemebutton.classList.add("button");
 changeThemebutton.textContent = "Change theme";
-changeThemebutton.addEventListener("click", changeTheme);
 document.body.append(changeThemebutton);
+
+let isLightMode = true;
+
+changeThemebutton.addEventListener("click", () => {
+  if (isLightMode) {
+    switchToLightMode();
+    isLightMode = false;
+  } else {
+    switchToDarkMode();
+    isLightMode = true;
+  }
+});
 
 chooseGameArea.append(sizeSelectWrap, pictureSelectWrap);
 sizeSelectWrap.append(labelSize, selectSize);
