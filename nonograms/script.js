@@ -1,11 +1,5 @@
 import templates from "./templates.js";
 
-// Зона выбора игры
-const chooseGameArea = document.createElement("div");
-chooseGameArea.classList.add("choose-game-area");
-document.body.append(chooseGameArea);
-
-// Таймер
 const timer = document.createElement("div");
 timer.classList.add("timer");
 timer.textContent = "00:00";
@@ -41,12 +35,14 @@ function stopTimer() {
   clearInterval(interval);
 }
 
-// Зона игры
+const chooseGameArea = document.createElement("div");
+chooseGameArea.classList.add("choose-game-area");
+document.body.append(chooseGameArea);
+
 const gameArea = document.createElement("div");
 gameArea.classList.add("game-area");
 document.body.append(gameArea);
 
-// Выбор игры
 const currentTemplates = [
   { name: "Cross", template: templates[0], size: 5 },
   { name: "Oblique cross", template: templates[1], size: 5 },
@@ -115,7 +111,6 @@ function filterTemplate(size) {
   createOption(size, `${size} x ${size}`, selectSize);
 });
 
-// Создание ячеек с подсказками
 function createHintElement(hintsContainer, counter) {
   const hint = document.createElement("div");
   hint.classList.add("hint");
@@ -123,7 +118,6 @@ function createHintElement(hintsContainer, counter) {
   hintsContainer.append(hint);
 }
 
-// Генерация игрового поля c шаблоном с подсказками в одной ячейке
 function generatePlayingFieldWithHints(template) {
   const playingField = document.createElement("div");
   playingField.classList.add("playing-area");
@@ -188,10 +182,9 @@ function generatePlayingFieldWithHints(template) {
 // Проверка победы
 let gameUserArray;
 
-// TODO
 function compareArrays(firstArray, secondArray) {
-  for (let i = 0; i < firstArray; i += 1) {
-    for (let j = 0; j < firstArray[i]; j += 1) {
+  for (let i = 0; i < firstArray.length; i += 1) {
+    for (let j = 0; j < firstArray[i].length; j += 1) {
       if (firstArray[i][j] !== secondArray[i][j]) {
         return false;
       }
@@ -200,7 +193,6 @@ function compareArrays(firstArray, secondArray) {
   return true;
 }
 
-// Листенер смены размера
 selectSize.addEventListener("change", () => {
   const selectedSize = parseInt(selectSize.value, 10);
   filterTemplate(selectedSize);
@@ -209,7 +201,6 @@ selectSize.addEventListener("change", () => {
 let selectedPictureTemplate;
 
 // TODO
-// Листенер смены картинки
 selectPicture.addEventListener("change", () => {
   selectedPictureTemplate = currentTemplates.find(
     (item) => item.name === selectPicture.value
@@ -270,7 +261,7 @@ gameArea.addEventListener("contextmenu", (event) => {
     cell.classList.remove("blacked");
   }
 
-  // звук для отметки ячейки крестиком
+  // звук для отметки ячейки крестом
   const crossCellAudio = document.createElement("audio");
   crossCellAudio.src = "./audio/cross-cell.mp3";
   document.body.append(crossCellAudio);
