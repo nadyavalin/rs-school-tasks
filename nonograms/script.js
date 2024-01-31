@@ -216,20 +216,19 @@ selectPicture.addEventListener("change", () => {
     generatePlayingFieldWithHints(selectedPictureTemplate);
   }
 
-  /* вариант получения двумерного массива, заполненного нулями с помощью цыкла for
-  gameUserArray = [];
-  for (let i = 0; i < selectedPictureTemplate.size; i += 1) {
-    const row = [];
-    for (let j = 0; j < selectedPictureTemplate.size; j += 1) {
-      row.push(0);
-    }
-    gameUserArray.push(row);
-  } */
-
   gameUserArray = new Array(selectedPictureTemplate.size)
     .fill(0)
     .map(() => new Array(selectedPictureTemplate.size).fill(0));
   stopTimer();
+
+  // TODO додумать код для заполнения массива пользователем
+  gameArea.addEventListener("click", (event) => {
+    const blackedCell = gameArea.clientWidth / selectedPictureTemplate.value;
+    const row = Math.floor(event.offsetY / blackedCell);
+    const col = Math.floor(event.offsetX / blackedCell);
+    gameUserArray[row][col] = 1;
+    gameUserArray[row][col].push(1);
+  });
 });
 
 // звук для закрашивания ячейки черным
@@ -306,8 +305,12 @@ function clearGameArea() {
 const resetButton = document.createElement("button");
 resetButton.classList.add("button");
 resetButton.textContent = "Reset a game";
-resetButton.addEventListener("click", clearGameArea);
 document.body.append(resetButton);
+
+resetButton.addEventListener("click", () => {
+  clearGameArea();
+  stopTimer();
+});
 
 // Смена темы
 function switchToLightMode() {
