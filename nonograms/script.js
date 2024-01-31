@@ -1,5 +1,9 @@
 import templates from "./templates.js";
 
+const chooseGameArea = document.createElement("div");
+chooseGameArea.classList.add("choose-game-area");
+document.body.append(chooseGameArea);
+
 const timer = document.createElement("div");
 timer.classList.add("timer");
 timer.textContent = "00:00";
@@ -34,10 +38,6 @@ function startTimer() {
 function stopTimer() {
   clearInterval(interval);
 }
-
-const chooseGameArea = document.createElement("div");
-chooseGameArea.classList.add("choose-game-area");
-document.body.append(chooseGameArea);
 
 const gameArea = document.createElement("div");
 gameArea.classList.add("game-area");
@@ -200,16 +200,15 @@ selectSize.addEventListener("change", () => {
 
 let selectedPictureTemplate;
 
-// TODO
 selectPicture.addEventListener("change", () => {
   selectedPictureTemplate = currentTemplates.find(
     (item) => item.name === selectPicture.value
-  );
+  ).template;
 
   gameArea.textContent = "";
 
   if (selectedPictureTemplate) {
-    generatePlayingFieldWithHints(selectedPictureTemplate.template);
+    generatePlayingFieldWithHints(selectedPictureTemplate);
   }
 
   /* вариант получения двумерного массива, заполненного нулями с помощью цыкла for
