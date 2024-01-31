@@ -40,6 +40,7 @@ function startTimer() {
 function stopTimer() {
   clearInterval(interval);
   timer.textContent = "00:00";
+  interval = null;
 }
 
 const gameArea = document.createElement("div");
@@ -236,13 +237,24 @@ const blackCellAudio = document.createElement("audio");
 blackCellAudio.src = "./audio/black-cell.mp3";
 document.body.append(blackCellAudio);
 
+// звук для обнуления цвета ячейки
+const whiteCellAudio = document.createElement("audio");
+whiteCellAudio.src = "./audio/white-cell.wav";
+document.body.append(whiteCellAudio);
+
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
   const cell = event.target.closest(".cell");
   if (cell) {
-    cell.classList.toggle("blacked");
-    cell.classList.remove("crossed");
-    blackCellAudio.play();
+    if (cell.classList.contains("blacked")) {
+      cell.classList.remove("blacked");
+      cell.classList.remove("crossed");
+      whiteCellAudio.play();
+    } else {
+      cell.classList.add("blacked");
+      cell.classList.remove("crossed");
+      blackCellAudio.play();
+    }
   }
 
   if (!interval) {
@@ -265,11 +277,20 @@ gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
   const cell = event.target.closest(".cell");
   if (cell) {
-    cell.classList.toggle("crossed");
-    cell.classList.remove("blacked");
-    crossCellAudio.play();
+    if (cell.classList.contains("crossed")) {
+      cell.classList.remove("crossed");
+      cell.classList.remove("blacked");
+      whiteCellAudio.play();
+    } else {
+      cell.classList.add("crossed");
+      cell.classList.remove("blacked");
+      crossCellAudio.play();
+    }
   }
-  startTimer();
+  
+  if (!interval) {
+    startTimer();
+  }
 });
 
 // Сброс текущей игры
