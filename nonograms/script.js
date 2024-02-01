@@ -221,14 +221,8 @@ selectPicture.addEventListener("change", () => {
     .map(() => new Array(selectedPictureTemplate.size).fill(0));
   stopTimer();
 
-  // TODO додумать код для заполнения массива пользователем
-  gameArea.addEventListener("click", (event) => {
-    const blackedCell = gameArea.clientWidth / selectedPictureTemplate.value;
-    const row = Math.floor(event.offsetY / blackedCell);
-    const col = Math.floor(event.offsetX / blackedCell);
-    gameUserArray[row][col] = 1;
-    gameUserArray[row][col].push(1);
-  });
+  // TODO
+  gameUserArray[row][col] = 1;
 });
 
 // звук для закрашивания ячейки черным
@@ -286,7 +280,7 @@ gameArea.addEventListener("contextmenu", (event) => {
       crossCellAudio.play();
     }
   }
-  
+
   if (!interval) {
     startTimer();
   }
@@ -329,15 +323,11 @@ changeThemebutton.classList.add("button");
 changeThemebutton.textContent = "Change theme";
 document.body.append(changeThemebutton);
 
-let isLightMode = true;
-
 changeThemebutton.addEventListener("click", () => {
-  if (isLightMode) {
-    switchToLightMode();
-    isLightMode = false;
-  } else {
+  if (document.body.classList.contains("light")) {
     switchToDarkMode();
-    isLightMode = true;
+  } else {
+    switchToLightMode();
   }
 });
 
