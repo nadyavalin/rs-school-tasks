@@ -2,13 +2,64 @@ import templates from "./templates.js";
 
 document.body.classList.add("light");
 
-const chooseGameArea = document.createElement("div");
-chooseGameArea.classList.add("choose-game-area");
+// TODO
+// Local Storage
+function setItemToLocalStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function getItemFromLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function saveScoreToLocalStorage(score) {
+  let scores = getItemFromLocalStorage("scores") || [];
+  scores.push(score);
+  scores = scores.sort((a, b) => b - a).slice(0, 10);
+  setItemToLocalStorage("scores", scores);
+}
+saveScoreToLocalStorage();
+// Local Storage
+
+// функция создания элементов div
+function createDiv(classNames, text) {
+  const div = document.createElement("div");
+  div.classList.add(...classNames);
+  div.textContent = text;
+  return div;
+}
+
+// функция создания элементов label
+function createLabel(htmlFor, classNames, text) {
+  const label = document.createElement("label");
+  label.htmlFor = htmlFor;
+  label.classList.add(...classNames);
+  label.textContent = text;
+  return label;
+}
+
+// функция создания элементов select
+function createSelect(name, classNames, id) {
+  const select = document.createElement("select");
+  select.name = name;
+  select.classList.add(...classNames);
+  select.id = id;
+  return select;
+}
+
+// функция создания элементов button
+function createButton(type, classNames, text) {
+  const button = document.createElement("button");
+  button.setAttribute("data-type", type);
+  button.classList.add(...classNames);
+  button.textContent = text;
+  return button;
+}
+
+const chooseGameArea = createDiv(["choose-game-area"]);
 document.body.append(chooseGameArea);
 
-const timer = document.createElement("div");
-timer.classList.add("timer");
-timer.textContent = "00:00";
+const timer = createDiv(["timer"], "00:00");
 document.body.append(timer);
 
 let interval;
@@ -38,23 +89,21 @@ function startTimer() {
     timer.textContent = `${minutesStr}:${secondsStr}`;
   }, 1000);
   isTimerRunning = true;
+
+  // TODO
+  // const state = time.getState();
+  // saveScoreToLocalStorage(state.time);
 }
 
 // Модальное окно
-const modal = document.createElement("div");
-modal.classList.add("modal");
-document.body.append(modal);
+const modal = createDiv(["modal"]);
+const modalContent = createDiv(["modal__content"]);
+const closeButton = createButton("close", ["button"], "Close!");
 
-const modalContent = document.createElement("div");
-modalContent.classList.add("modal__content");
+document.body.append(modal);
 modal.append(modalContent);
 
-const buttonClose = document.createElement("button");
-buttonClose.classList.add("button");
-buttonClose.textContent = "Close!";
-
-const gameArea = document.createElement("div");
-gameArea.classList.add("game-area");
+const gameArea = createDiv(["game-area"]);
 document.body.append(gameArea);
 
 function stopTimer() {
@@ -63,7 +112,7 @@ function stopTimer() {
     const p = document.createElement("p");
     p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
     interval = null;
-    modalContent.append(p, buttonClose);
+    modalContent.append(p, closeButton);
     isTimerRunning = false;
   }
 }
@@ -89,32 +138,27 @@ const currentTemplates = [
   { name: "Deer", template: templates[17], size: 15 },
 ];
 
-const sizeSelectWrap = document.createElement("div");
-sizeSelectWrap.classList.add("wrapper__size-select");
+const sizeSelectWrap = createDiv(["wrapper__size-select"]);
+const labelSize = createLabel(
+  "size-select",
+  ["label__size-select"],
+  "Choose a size:"
+);
+const selectSize = createSelect("size", ["size-select"], "size-select");
 
-const labelSize = document.createElement("label");
-labelSize.htmlFor = "size-select";
-labelSize.classList.add("label__size-select");
-labelSize.textContent = "Choose a size:";
+const pictureSelectWrap = createDiv(["wrapper__picture-select"]);
+const labelPicture = createLabel(
+  "picture-select",
+  ["label__picture-select"],
+  "Choose a picture:"
+);
+const selectPicture = createSelect(
+  "picture",
+  ["picture-select"],
+  "picture-select"
+);
 
-const selectSize = document.createElement("select");
-selectSize.name = "size";
-selectSize.classList.add("size-select");
-selectSize.id = "size-select";
-
-const pictureSelectWrap = document.createElement("div");
-pictureSelectWrap.classList.add("wrapper__picture-select");
-
-const labelPicture = document.createElement("label");
-labelPicture.htmlFor = "picture-select";
-labelPicture.classList.add("label__picture-select");
-labelPicture.textContent = "Choose a picture:";
-
-const selectPicture = document.createElement("select");
-selectPicture.name = "picture";
-selectPicture.classList.add("picture-select");
-selectPicture.id = "picture-select";
-
+// создание элемента option
 function createOption(value, text, select) {
   const option = document.createElement("option");
   option.value = value;
@@ -144,14 +188,9 @@ function createHintElement(hintsContainer, counter) {
 }
 
 function generatePlayingFieldWithHints(template) {
-  const playingField = document.createElement("div");
-  playingField.classList.add("playing-area");
-
-  const hintsContainerTop = document.createElement("div");
-  hintsContainerTop.classList.add("game-area__top-hints");
-
-  const hintsContainerLeft = document.createElement("div");
-  hintsContainerLeft.classList.add("game-area__left-hints");
+  const playingField = createDiv(["playing-area"]);
+  const hintsContainerTop = createDiv(["game-area__top-hints"]);
+  const hintsContainerLeft = createDiv(["game-area__left-hints"]);
 
   const columnCounter = {};
   const topHintsArray = [];
@@ -160,17 +199,14 @@ function generatePlayingFieldWithHints(template) {
   const leftHintsArray = [];
 
   for (let i = 0; i < template.length; i += 1) {
-    const leftHints = document.createElement("div");
-    leftHints.classList.add("left-hints");
+    const leftHints = createDiv(["left-hints"]);
     leftHintsArray.push(leftHints);
     hintsContainerLeft.append(leftHints);
 
-    const row = document.createElement("div");
-    row.classList.add("row");
+    const row = createDiv(["row"]);
 
     for (let j = 0; j < template[i].length; j += 1) {
-      const cell = document.createElement("div");
-      cell.classList.add("cell");
+      const cell = createDiv(["cell"]);
       cell.setAttribute("data-row", i);
       cell.setAttribute("data-col", j);
       row.append(cell);
@@ -195,8 +231,7 @@ function generatePlayingFieldWithHints(template) {
         }
       }
       if (i === 0) {
-        const topHints = document.createElement("div");
-        topHints.classList.add("top-hints");
+        const topHints = createDiv(["top-hints"]);
         topHintsArray.push(topHints);
         hintsContainerTop.append(topHints);
       }
@@ -243,26 +278,31 @@ selectPicture.addEventListener("change", () => {
   stopTimer();
 });
 
-// звук для победы
-const winAudio = document.createElement("audio");
-winAudio.src = "./audio/mne-etot-mir-ponyaten.mp3";
-document.body.append(winAudio);
+// создание элемента audio
+function createAudio(src) {
+  const audio = document.createElement("audio");
+  audio.src = src;
+  document.body.append(audio);
+  return audio;
+}
+
+// звук для закрашивания ячейки черным
+const blackCellAudio = createAudio("./audio/black-cell.mp3");
+
+// звук для отметки ячейки крестом
+const crossCellAudio = createAudio("./audio/cross-cell.mp3");
+
+// звук для обнуления цвета ячейки
+const whiteCellAudio = createAudio("./audio/white-cell.wav");
+
+// звук победы
+const winAudio = createAudio("./audio/mne-etot-mir-ponyaten.mp3");
 
 // окончание игры
 function gameOver() {
   modal.classList.add("visible");
   winAudio.play();
 }
-
-// звук для закрашивания ячейки черным
-const blackCellAudio = document.createElement("audio");
-blackCellAudio.src = "./audio/black-cell.mp3";
-document.body.append(blackCellAudio);
-
-// звук для обнуления цвета ячейки
-const whiteCellAudio = document.createElement("audio");
-whiteCellAudio.src = "./audio/white-cell.wav";
-document.body.append(whiteCellAudio);
 
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
@@ -291,11 +331,6 @@ gameArea.addEventListener("click", (event) => {
     }
   }
 });
-
-// звук для отметки ячейки крестом
-const crossCellAudio = document.createElement("audio");
-crossCellAudio.src = "./audio/cross-cell.mp3";
-document.body.append(crossCellAudio);
 
 // Изменение содержимого ячейки на крест
 gameArea.addEventListener("contextmenu", (event) => {
@@ -329,7 +364,7 @@ function clearGameArea() {
   });
 }
 
-buttonClose.addEventListener("click", () => {
+closeButton.addEventListener("click", () => {
   modal.classList.remove("visible");
   timer.textContent = "00:00";
   winAudio.pause();
@@ -338,14 +373,23 @@ buttonClose.addEventListener("click", () => {
 });
 
 // Кнопка сброса текущей игры
-const resetButton = document.createElement("button");
-resetButton.classList.add("button");
-resetButton.textContent = "Reset a game";
+const resetButton = createButton("reset", ["button"], "Reset the game");
 document.body.append(resetButton);
 
 resetButton.addEventListener("click", () => {
   clearGameArea();
   stopTimer();
+});
+
+// TODO добавить функционал
+// Кнопка сохранения игры
+const saveButton = createButton("save", ["button"], "Save the game");
+document.body.append(saveButton);
+
+// TODO
+const scores = getItemFromLocalStorage("time") || [];
+scores.forEach(() => {
+  console.log(time);
 });
 
 // Смена темы
@@ -360,9 +404,7 @@ function switchToDarkMode() {
 }
 
 // Кнопка смены темы
-const changeThemebutton = document.createElement("button");
-changeThemebutton.classList.add("button");
-changeThemebutton.textContent = "Change theme";
+const changeThemebutton = createButton("change", ["button"], "Change theme");
 document.body.append(changeThemebutton);
 
 changeThemebutton.addEventListener("click", () => {
