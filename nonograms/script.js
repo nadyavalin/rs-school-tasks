@@ -381,6 +381,15 @@ resetButton.addEventListener("click", () => {
   stopTimer();
 });
 
+// Кнопка выбора рандомной игры
+const randomButtom = createButton("random", ["button"], "Random game");
+document.body.append(randomButtom);
+
+// TODO добавить функционал для случайного выбора игры
+randomButtom.addEventListener("click", () => {
+  // const randomGame = Math.round(Math.random());
+});
+
 // TODO добавить функционал
 // Кнопка сохранения игры
 const saveButton = createButton("save", ["button"], "Save the game");
