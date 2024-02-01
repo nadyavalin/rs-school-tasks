@@ -243,14 +243,16 @@ selectPicture.addEventListener("change", () => {
   stopTimer();
 });
 
+// звук для победы
+const winAudio = document.createElement("audio");
+winAudio.src = "./audio/mne-etot-mir-ponyaten.mp3";
+document.body.append(winAudio);
+
+// окончание игры
 function gameOver() {
   modal.classList.add("visible");
+  winAudio.play();
 }
-
-buttonClose.addEventListener("click", () => {
-  modal.classList.remove("visible");
-  timer.textContent = "00:00";
-});
 
 // звук для закрашивания ячейки черным
 const blackCellAudio = document.createElement("audio");
@@ -326,6 +328,14 @@ function clearGameArea() {
     cell.classList.remove("crossed");
   });
 }
+
+buttonClose.addEventListener("click", () => {
+  modal.classList.remove("visible");
+  timer.textContent = "00:00";
+  winAudio.pause();
+  winAudio.currentTime = 0;
+  clearGameArea();
+});
 
 // Кнопка сброса текущей игры
 const resetButton = document.createElement("button");
