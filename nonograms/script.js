@@ -62,7 +62,7 @@ const currentTemplates = [
   { name: "Fir-tree", template: templates[11], size: 10 },
   { name: "Umbrella", template: templates[12], size: 10 },
   { name: "Cherry", template: templates[13], size: 15 },
-  { name: "House", template: templates[14], size: 15 },
+  { name: "Big house", template: templates[14], size: 15 },
   { name: "Clover", template: templates[15], size: 15 },
   { name: "Castle", template: templates[16], size: 15 },
   { name: "Deer", template: templates[17], size: 15 },
@@ -150,6 +150,8 @@ function generatePlayingFieldWithHints(template) {
     for (let j = 0; j < template[i].length; j += 1) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
+      cell.setAttribute("data-row", i);
+      cell.setAttribute("data-col", j);
       row.append(cell);
 
       if (template[i][j] === 1) {
@@ -216,13 +218,11 @@ selectPicture.addEventListener("change", () => {
     generatePlayingFieldWithHints(selectedPictureTemplate);
   }
 
-  gameUserArray = new Array(selectedPictureTemplate.size)
+  gameUserArray = new Array(selectedPictureTemplate.length)
     .fill(0)
-    .map(() => new Array(selectedPictureTemplate.size).fill(0));
+    .map(() => new Array(selectedPictureTemplate[0].length).fill(0));
+  console.log(gameUserArray);
   stopTimer();
-
-  // TODO
-  gameUserArray[row][col] = 1;
 });
 
 // звук для закрашивания ячейки черным
@@ -238,25 +238,28 @@ document.body.append(whiteCellAudio);
 // Изменение цвета ячейки на черный
 gameArea.addEventListener("click", (event) => {
   const cell = event.target.closest(".cell");
+
   if (cell) {
+    const { row, col } = cell.dataset;
+    if (!interval) {
+      startTimer();
+    }
+
     if (cell.classList.contains("blacked")) {
       cell.classList.remove("blacked");
       cell.classList.remove("crossed");
+      gameUserArray[row][col] = 0;
       whiteCellAudio.play();
     } else {
       cell.classList.add("blacked");
       cell.classList.remove("crossed");
+      gameUserArray[row][col] = 1;
       blackCellAudio.play();
     }
-  }
-
-  if (!interval) {
-    startTimer();
-  }
-
-  if (compareArrays(selectedPictureTemplate, gameUserArray)) {
-    stopTimer();
-    console.log("Win!");
+    if (compareArrays(selectedPictureTemplate, gameUserArray)) {
+      stopTimer();
+      console.log("Win!");
+    }
   }
 });
 
@@ -270,6 +273,12 @@ gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
   const cell = event.target.closest(".cell");
   if (cell) {
+    if (!interval) {
+      startTimer();
+    }
+
+    const { row, col } = cell.dataset;
+    gameUserArray[row][col] = 0;
     if (cell.classList.contains("crossed")) {
       cell.classList.remove("crossed");
       cell.classList.remove("blacked");
@@ -279,10 +288,6 @@ gameArea.addEventListener("contextmenu", (event) => {
       cell.classList.remove("blacked");
       crossCellAudio.play();
     }
-  }
-
-  if (!interval) {
-    startTimer();
   }
 });
 

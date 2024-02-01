@@ -115,9 +115,9 @@ body.dark {
 
 .dark .game-area {
   color: #84f484;
-  border-top: 1px solid #000000;
-  border-left: 1px solid #000000;
-  background-color: #565656;
+  border-top: 1px solid #acfdc2;
+  border-left: 1px solid #acfdc2;
+  background-color: #383838;
 }
 
 .dark .game-area__top-hints {
