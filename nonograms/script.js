@@ -49,9 +49,9 @@ document.body.append(gameArea);
 
 const currentTemplates = [
   { name: "Cross", template: templates[0], size: 5 },
-  { name: "Oblique cross", template: templates[1], size: 5 },
+  { name: "Ladder", template: templates[1], size: 5 },
   { name: "Chess", template: templates[2], size: 5 },
-  { name: "Rhombus", template: templates[3], size: 5 },
+  { name: "Letter M", template: templates[3], size: 5 },
   { name: "Black hole", template: templates[4], size: 5 },
   { name: "Angle", template: templates[5], size: 5 },
   { name: "Road", template: templates[6], size: 5 },
@@ -218,9 +218,12 @@ selectPicture.addEventListener("change", () => {
     generatePlayingFieldWithHints(selectedPictureTemplate);
   }
 
-  gameUserArray = new Array(selectedPictureTemplate.length)
-    .fill(0)
-    .map(() => new Array(selectedPictureTemplate[0].length).fill(0));
+  // gameUserArray = new Array(selectedPictureTemplate.length)
+  //   .fill(0)
+  //   .map(() => new Array(selectedPictureTemplate[0].length).fill(0));
+
+  gameUserArray = selectedPictureTemplate.map(row => row.map(() => 0));
+
   console.log(gameUserArray);
   stopTimer();
 });
