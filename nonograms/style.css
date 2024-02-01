@@ -284,7 +284,54 @@ body.dark {
   background-repeat: no-repeat;
 }
 
-@media (max-width: 500px) {
+.modal {
+  position: fixed;
+  background-color: rgba(18, 97, 15, 0.7);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal__content {
+  background-color: #acfdc2;
+  max-width: 250px;
+  max-height: 250px;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.modal p {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #005800;
+}
+
+.modal p span {
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
   .choose-game-area {
     width: 400px;
   }
@@ -351,7 +398,7 @@ body.dark {
   width: 150px;
   height: 30px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.5s ease-in;
 }
 
 @media (hover: hover) {

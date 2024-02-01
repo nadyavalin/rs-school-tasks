@@ -12,8 +12,10 @@ timer.textContent = "00:00";
 document.body.append(timer);
 
 let interval;
+let time = 0;
+let isTimerRunning = false;
+
 function startTimer() {
-  let time = 0;
   interval = setInterval(() => {
     time += 1;
     const minutes = Math.floor(time / 60);
@@ -35,17 +37,36 @@ function startTimer() {
 
     timer.textContent = `${minutesStr}:${secondsStr}`;
   }, 1000);
+  isTimerRunning = true;
 }
 
-function stopTimer() {
-  clearInterval(interval);
-  timer.textContent = "00:00";
-  interval = null;
-}
+// Модальное окно
+const modal = document.createElement("div");
+modal.classList.add("modal");
+document.body.append(modal);
+
+const modalContent = document.createElement("div");
+modalContent.classList.add("modal__content");
+modal.append(modalContent);
+
+const buttonClose = document.createElement("button");
+buttonClose.classList.add("button");
+buttonClose.textContent = "Close!";
 
 const gameArea = document.createElement("div");
 gameArea.classList.add("game-area");
 document.body.append(gameArea);
+
+function stopTimer() {
+  if (isTimerRunning) {
+    clearInterval(interval);
+    const p = document.createElement("p");
+    p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+    interval = null;
+    modalContent.append(p, buttonClose);
+    isTimerRunning = false;
+  }
+}
 
 const currentTemplates = [
   { name: "Cross", template: templates[0], size: 5 },
@@ -218,14 +239,17 @@ selectPicture.addEventListener("change", () => {
     generatePlayingFieldWithHints(selectedPictureTemplate);
   }
 
-  // gameUserArray = new Array(selectedPictureTemplate.length)
-  //   .fill(0)
-  //   .map(() => new Array(selectedPictureTemplate[0].length).fill(0));
-
-  gameUserArray = selectedPictureTemplate.map(row => row.map(() => 0));
-
-  console.log(gameUserArray);
+  gameUserArray = selectedPictureTemplate.map((row) => row.map(() => 0));
   stopTimer();
+});
+
+function gameOver() {
+  modal.classList.add("visible");
+}
+
+buttonClose.addEventListener("click", () => {
+  modal.classList.remove("visible");
+  timer.textContent = "00:00";
 });
 
 // звук для закрашивания ячейки черным
@@ -261,7 +285,7 @@ gameArea.addEventListener("click", (event) => {
     }
     if (compareArrays(selectedPictureTemplate, gameUserArray)) {
       stopTimer();
-      console.log("Win!");
+      gameOver();
     }
   }
 });
