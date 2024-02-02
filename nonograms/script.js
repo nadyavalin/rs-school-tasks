@@ -2,7 +2,6 @@ import templates from "./templates.js";
 
 document.body.classList.add("light");
 
-// TODO
 // Local Storage
 function setItemToLocalStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
@@ -11,15 +10,6 @@ function setItemToLocalStorage(key, value) {
 function getItemFromLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-
-function saveScoreToLocalStorage(score) {
-  let scores = getItemFromLocalStorage("scores") || [];
-  scores.push(score);
-  scores = scores.sort((a, b) => b - a).slice(0, 10);
-  setItemToLocalStorage("scores", scores);
-}
-saveScoreToLocalStorage();
-// Local Storage
 
 // функция создания элементов div
 function createDiv(classNames, text) {
@@ -89,16 +79,31 @@ function startTimer() {
     timer.textContent = `${minutesStr}:${secondsStr}`;
   }, 1000);
   isTimerRunning = true;
+}
 
-  // TODO
-  // const state = time.getState();
-  // saveScoreToLocalStorage(state.time);
+ // Получить сохраненные секунды из localStorage
+const timeResults = getItemFromLocalStorage("time") || [];
+
+function getSeconds() {
+  const secondItems = time;
+  return secondItems;
+}
+
+function saveSeconds() {
+  if (Array.isArray(timeResults)) {
+    timeResults.push(getSeconds());
+    setItemToLocalStorage("time", timeResults);
+  } else {
+    const newTimeResults = [];
+    newTimeResults.push(getSeconds());
+    setItemToLocalStorage("time", newTimeResults);
+  }
 }
 
 // Модальное окно
 const modal = createDiv(["modal"]);
 const modalContent = createDiv(["modal__content"]);
-const closeButton = createButton("close", ["button"], "Close!");
+const closeButton = createButton("close", ["button"], "Close");
 
 document.body.append(modal);
 modal.append(modalContent);
@@ -112,6 +117,7 @@ function stopTimer() {
     const p = document.createElement("p");
     p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
     interval = null;
+    modalContent.innerHTML = "";
     modalContent.append(p, closeButton);
     isTimerRunning = false;
   }
@@ -326,8 +332,8 @@ gameArea.addEventListener("click", (event) => {
       blackCellAudio.play();
     }
     if (compareArrays(selectedPictureTemplate, gameUserArray)) {
-      stopTimer();
       gameOver();
+      stopTimer();
     }
   }
 });
@@ -362,6 +368,9 @@ function clearGameArea() {
     cell.classList.remove("blacked");
     cell.classList.remove("crossed");
   });
+  gameUserArray = gameUserArray.map(row => row.map(() => 0));
+  interval = null;
+  isTimerRunning = false;
 }
 
 closeButton.addEventListener("click", () => {
@@ -369,11 +378,13 @@ closeButton.addEventListener("click", () => {
   timer.textContent = "00:00";
   winAudio.pause();
   winAudio.currentTime = 0;
+  saveSeconds(); // сохранение секунд в localStorage
+  time = 0;
   clearGameArea();
 });
 
 // Кнопка сброса текущей игры
-const resetButton = createButton("reset", ["button"], "Reset the game");
+const resetButton = createButton("reset", ["button"], "Reset game");
 document.body.append(resetButton);
 
 resetButton.addEventListener("click", () => {
@@ -386,20 +397,14 @@ const randomButtom = createButton("random", ["button"], "Random game");
 document.body.append(randomButtom);
 
 // TODO добавить функционал для случайного выбора игры
-randomButtom.addEventListener("click", () => {
-  // const randomGame = Math.round(Math.random());
-});
+// randomButtom.addEventListener("click", () => {
+//   const randomGame = Math.round(Math.random());
+// });
 
 // TODO добавить функционал
 // Кнопка сохранения игры
-const saveButton = createButton("save", ["button"], "Save the game");
+const saveButton = createButton("save", ["button"], "Save game");
 document.body.append(saveButton);
-
-// TODO
-const scores = getItemFromLocalStorage("time") || [];
-scores.forEach(() => {
-  console.log(time);
-});
 
 // Смена темы
 function switchToLightMode() {
