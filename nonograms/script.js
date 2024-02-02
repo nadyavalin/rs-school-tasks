@@ -1,5 +1,7 @@
 import templates from "./templates.js";
 
+const MAX_RESULTS = 5;
+
 document.body.classList.add("light");
 
 // Local Storage
@@ -55,61 +57,54 @@ document.body.append(timer);
 let interval;
 let time = 0;
 let isTimerRunning = false;
+let savedTime = 0;
 
-function startTimer() {
-  interval = setInterval(() => {
-    time += 1;
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-
-    let minutesStr = "";
-    if (minutes < 10) {
-      minutesStr = `0${minutes}`;
-    } else {
-      minutesStr = minutes.toString();
-    }
-
-    let secondsStr = "";
-    if (seconds < 10) {
-      secondsStr = `0${seconds}`;
-    } else {
-      secondsStr = seconds.toString();
-    }
-
-    timer.textContent = `${minutesStr}:${secondsStr}`;
-  }, 1000);
-  isTimerRunning = true;
+if (localStorage.getItem("savedTime")) {
+  savedTime = parseInt(localStorage.getItem("savedTime"), 10);
+  time = savedTime;
 }
 
- // Получить сохраненные секунды из localStorage
-const timeResults = getItemFromLocalStorage("time") || [];
-
-function getSeconds() {
-  const secondItems = time;
-  return secondItems;
+// сохранениt значения в localStorage
+function saveTimerValue() {
+  localStorage.setItem("timerValue", timer.textContent);
+  localStorage.setItem("savedTime", time);
 }
 
-function saveSeconds() {
-  if (Array.isArray(timeResults)) {
-    timeResults.push(getSeconds());
-    setItemToLocalStorage("time", timeResults);
-  } else {
-    const newTimeResults = [];
-    newTimeResults.push(getSeconds());
-    setItemToLocalStorage("time", newTimeResults);
+// загрузка значения из localStorage
+function loadTimerValue() {
+  const savedValue = localStorage.getItem("timerValue");
+  if (savedValue) {
+    timer.textContent = savedValue;
   }
 }
 
-// Модальное окно
-const modal = createDiv(["modal"]);
-const modalContent = createDiv(["modal__content"]);
-const closeButton = createButton("close", ["button"], "Close");
+function updateTimer() {
+  time += 1;
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
 
-document.body.append(modal);
-modal.append(modalContent);
+  let minutesStr = "";
+  if (minutes < 10) {
+    minutesStr = `0${minutes}`;
+  } else {
+    minutesStr = minutes.toString();
+  }
 
-const gameArea = createDiv(["game-area"]);
-document.body.append(gameArea);
+  let secondsStr = "";
+  if (seconds < 10) {
+    secondsStr = `0${seconds}`;
+  } else {
+    secondsStr = seconds.toString();
+  }
+
+  timer.textContent = `${minutesStr}:${secondsStr}`;
+  saveTimerValue();
+}
+
+function startTimer() {
+  interval = setInterval(updateTimer, 1000);
+  isTimerRunning = true;
+}
 
 function stopTimer() {
   if (isTimerRunning) {
@@ -121,7 +116,48 @@ function stopTimer() {
     modalContent.append(p, closeButton);
     isTimerRunning = false;
   }
+  saveTimerValue();
 }
+
+loadTimerValue();
+
+function resetTimer() {
+  time = 0;
+  timer.textContent = "00:00";
+  localStorage.removeItem("savedTime");
+}
+
+resetTimer();
+
+// Получить сохраненные секунды из localStorage
+let timeResults = getItemFromLocalStorage("time") || [];
+
+function getSeconds() {
+  const secondItems = time;
+  return secondItems;
+}
+
+function saveSeconds() {
+  const seconds = getSeconds();
+  timeResults.push(seconds);
+  if (timeResults.length > MAX_RESULTS) {
+    timeResults.shift();
+  }
+  timeResults.sort((a, b) => a - b);
+  setItemToLocalStorage("time", timeResults);
+}
+timeResults = timeResults.slice(-MAX_RESULTS);
+
+// Модальное окно
+const modal = createDiv(["modal"]);
+const modalContent = createDiv(["modal__content"]);
+const closeButton = createButton("close", ["button"], "Close");
+
+document.body.append(modal);
+modal.append(modalContent);
+
+const gameArea = createDiv(["game-area"]);
+document.body.append(gameArea);
 
 const currentTemplates = [
   { name: "Cross", template: templates[0], size: 5 },
@@ -368,9 +404,10 @@ function clearGameArea() {
     cell.classList.remove("blacked");
     cell.classList.remove("crossed");
   });
-  gameUserArray = gameUserArray.map(row => row.map(() => 0));
+  time = 0;
   interval = null;
   isTimerRunning = false;
+  gameUserArray = gameUserArray.map((row) => row.map(() => 0));
 }
 
 closeButton.addEventListener("click", () => {
@@ -379,7 +416,6 @@ closeButton.addEventListener("click", () => {
   winAudio.pause();
   winAudio.currentTime = 0;
   saveSeconds(); // сохранение секунд в localStorage
-  time = 0;
   clearGameArea();
 });
 
@@ -388,8 +424,9 @@ const resetButton = createButton("reset", ["button"], "Reset game");
 document.body.append(resetButton);
 
 resetButton.addEventListener("click", () => {
-  clearGameArea();
   stopTimer();
+  timer.textContent = "00:00";
+  clearGameArea();
 });
 
 // Кнопка выбора рандомной игры
@@ -405,6 +442,11 @@ document.body.append(randomButtom);
 // Кнопка сохранения игры
 const saveButton = createButton("save", ["button"], "Save game");
 document.body.append(saveButton);
+
+// TODO добавить функционал
+// Кнопка для отображения модалки - 5 последних результатов
+const lastResultsButton = createButton("last", ["button"], "Best scores");
+document.body.append(lastResultsButton);
 
 // Смена темы
 function switchToLightMode() {
