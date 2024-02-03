@@ -54,6 +54,7 @@ const timer = createDiv(["timer"], "00:00");
 document.body.append(timer);
 
 let time = 0;
+
 function getTimerByTime(timeResult) {
   const minutes = Math.floor(timeResult / 60);
   const seconds = timeResult % 60;
@@ -76,10 +77,7 @@ function getTimerByTime(timeResult) {
 }
 
 let interval;
-let isGameStarted = false;
-
 function startTimer() {
-  isGameStarted = true;
   if (!interval) {
     interval = setInterval(() => {
       time += 1;
@@ -100,7 +98,12 @@ function stopTimer() {
   if (interval) {
     clearInterval(interval);
     interval = null;
-    timer.textContent = "00:00";
+
+    // TODO этому коду здесь не место, но за пределами функции в time 0
+    const p = document.createElement("p");
+    p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+    modalContent.innerHTML = "";
+    modalContent.append(p, closeButton);
   }
 }
 
@@ -316,7 +319,7 @@ gameArea.addEventListener("click", (event) => {
 
   if (cell) {
     const { row, col } = cell.dataset;
-    if (!interval && !isGameStarted) {
+    if (!interval) {
       startTimer();
     }
 
@@ -342,7 +345,7 @@ gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
   const cell = event.target.closest(".cell");
   if (cell) {
-    if (!interval && !isGameStarted) {
+    if (!interval) {
       startTimer();
     }
 
@@ -359,11 +362,6 @@ gameArea.addEventListener("contextmenu", (event) => {
     }
   }
 });
-
-const p = document.createElement("p");
-p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
-modalContent.innerHTML = "";
-modalContent.append(p, closeButton);
 
 // общий контейнер для кнопок
 const buttonContainer = createDiv(["button-container"]);
@@ -398,7 +396,6 @@ resetButton.addEventListener("click", () => {
   stopTimer();
   timer.textContent = "00:00";
   clearGameArea();
-  isGameStarted = false;
 });
 
 // Кнопка выбора рандомной игры
@@ -415,15 +412,42 @@ randomButtom.addEventListener("click", () => {
   pictureSelect.dispatchEvent(new Event("change"));
 });
 
-// TODO добавить функционал
-// Кнопка сохранения игры
+// кнопка сохранения игры - сохраняется промежуточный результат
 const saveButton = createButton(["button"], "Save game");
 buttonContainer.append(saveButton);
 
-// TODO добавить функционал
-// Кнопка продолжить игру
+function saveCurrentTemplateToLocalStorage() {
+  if (selectedPictureTemplate) {
+    const currentTemplateState = {
+      template: selectedPictureTemplate,
+      gameUserArray,
+    };
+    setItemToLocalStorage("currentTemplateState", currentTemplateState);
+  }
+}
+
+saveButton.addEventListener("click", () => {
+  saveCurrentTemplateToLocalStorage();
+});
+
+// TODO доработать функционал - пока появляется только нужный шаблон, но он пуст
+// кнопка продолжить игру
 const continueButton = createButton(["button"], "Continue last game");
 buttonContainer.append(continueButton);
+
+continueButton.addEventListener("click", () => {
+  const savedTemplate = getItemFromLocalStorage("currentTemplateState");
+  if (savedTemplate) {
+    selectedPictureTemplate = savedTemplate.template;
+    pictureSelect.value = selectedPictureTemplate.name;
+    gameArea.textContent = "";
+    generatePlayingFieldWithHints(selectedPictureTemplate.template);
+    selectedPictureTemplate = gameUserArray;
+    stopTimer();
+  } else {
+    alert("You haven't any saved templates yet");
+  }
+});
 
 // кнопка для отображения модалки - 5 последних результатов игры
 const lastResultsButton = createButton(["button"], "Scores");
@@ -492,6 +516,11 @@ solutionButton.addEventListener("click", () => {
         cell.classList.add("blacked");
       }
     });
+  }
+
+  // TODO таймер не должен запускаться после нажатия кнопки Solution и после еще одного клика по полю
+  if (compareArrays(selectedPictureTemplate.template, gameUserArray)) {
+    gameOver();
   }
 });
 
