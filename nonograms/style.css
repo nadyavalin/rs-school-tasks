@@ -419,6 +419,15 @@ body.dark {
   }
 }
 
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 70%;
+}
+
 .button {
   border-radius: 5px;
   padding: 5px;

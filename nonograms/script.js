@@ -301,7 +301,8 @@ const crossCellAudio = createAudio("./audio/cross-cell.mp3");
 const whiteCellAudio = createAudio("./audio/white-cell.wav");
 
 // звук победы
-const winAudio = createAudio("./audio/mne-etot-mir-ponyaten.mp3");
+// const winAudio = createAudio("./audio/mne-etot-mir-ponyaten.mp3");
+const winAudio = createAudio("./audio/win-song.mp3");
 
 // окончание игры
 function gameOver() {
@@ -360,6 +361,10 @@ gameArea.addEventListener("contextmenu", (event) => {
   }
 });
 
+// общий контейнер для кнопок
+const buttonContainer = createDiv(["button-container"]);
+document.body.append(buttonContainer);
+
 // Сброс текущей игры
 function clearGameArea() {
   const cells = document.querySelectorAll(".cell");
@@ -383,7 +388,7 @@ closeButton.addEventListener("click", () => {
 
 // Кнопка сброса текущей игры
 const resetButton = createButton(["button"], "Reset game");
-document.body.append(resetButton);
+buttonContainer.append(resetButton);
 
 resetButton.addEventListener("click", () => {
   stopTimer();
@@ -393,7 +398,7 @@ resetButton.addEventListener("click", () => {
 
 // Кнопка выбора рандомной игры
 const randomButtom = createButton(["button"], "Random game");
-document.body.append(randomButtom);
+buttonContainer.append(randomButtom);
 
 randomButtom.addEventListener("click", () => {
   clearGameArea();
@@ -408,17 +413,16 @@ randomButtom.addEventListener("click", () => {
 // TODO добавить функционал
 // Кнопка сохранения игры
 const saveButton = createButton(["button"], "Save game");
-document.body.append(saveButton);
+buttonContainer.append(saveButton);
 
 // TODO добавить функционал
 // Кнопка продолжить игру
-const continueButton = createButton(["button"], "Continue game");
-document.body.append(continueButton);
+const continueButton = createButton(["button"], "Continue last game");
+buttonContainer.append(continueButton);
 
-// TODO добавить функционал
 // кнопка для отображения модалки - 5 последних результатов игры
 const lastResultsButton = createButton(["button"], "Scores");
-document.body.append(lastResultsButton);
+buttonContainer.append(lastResultsButton);
 
 // модальное окно для вывода 5 последних результатов игры
 const modalResults = createDiv(["modal-result"]);
@@ -467,9 +471,29 @@ function switchToDarkMode() {
   document.body.classList.add("dark");
 }
 
+// TODO добавить функционал
+// кнопка Показать решение
+const solutionButton = createButton(["button"], "Solution");
+buttonContainer.append(solutionButton);
+
+solutionButton.addEventListener("click", () => {
+  if (selectedPictureTemplate) {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell, index) => {
+      const { template } = selectedPictureTemplate;
+      const row = Math.floor(index / template[0].length);
+      const col = index % template[0].length;
+
+      if (template[row][col] === 1) {
+        cell.classList.add("blacked");
+      }
+    });
+  }
+});
+
 // Кнопка смены темы
 const changeThemebutton = createButton(["button"], "Change theme");
-document.body.append(changeThemebutton);
+buttonContainer.append(changeThemebutton);
 
 changeThemebutton.addEventListener("click", () => {
   if (document.body.classList.contains("light")) {
