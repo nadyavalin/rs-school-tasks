@@ -53,13 +53,10 @@ document.body.append(chooseGameArea);
 const timer = createDiv(["timer"], "00:00");
 document.body.append(timer);
 
-let interval;
 let time = 0;
-
-function updateTimer() {
-  time += 1;
-  const minutes = Math.floor(time / 60);
-  const seconds = time % 60;
+function getTimerByTime(timeResult) {
+  const minutes = Math.floor(timeResult / 60);
+  const seconds = timeResult % 60;
 
   let minutesStr = "";
   if (minutes < 10) {
@@ -75,22 +72,16 @@ function updateTimer() {
     secondsStr = seconds.toString();
   }
 
-  timer.textContent = `${minutesStr}:${secondsStr}`;
+  return `${minutesStr}:${secondsStr}`;
 }
 
+let interval;
 function startTimer() {
   if (!interval) {
-    interval = setInterval(updateTimer, 1000);
-  }
-}
-
-const timeResults = getItemFromLocalStorage("time") || [];
-function sortSetSeconds() {
-  timeResults.push(time);
-  timeResults.sort((a, b) => a - b);
-  setItemToLocalStorage("time", timeResults.slice(-5));
-  if (timeResults.length > MAX_RESULTS) {
-    timeResults.shift();
+    interval = setInterval(() => {
+      time += 1;
+      timer.textContent = getTimerByTime(time);
+    }, 1000);
   }
 }
 
@@ -105,12 +96,13 @@ modal.append(modalContent);
 function stopTimer() {
   if (interval) {
     clearInterval(interval);
-    const p = document.createElement("p");
-    p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
     interval = null;
-    modalContent.innerHTML = "";
-    modalContent.append(p, closeButton);
+    timer.textContent = "00:00";
   }
+  const p = document.createElement("p");
+  p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+  modalContent.innerHTML = "";
+  modalContent.append(p, closeButton);
 }
 
 const gameArea = createDiv(["game-area"]);
@@ -127,14 +119,14 @@ const currentTemplates = [
   { name: "Packet", template: templates[7], size: 10 },
   { name: "House", template: templates[8], size: 10 },
   { name: "Spiral", template: templates[9], size: 10 },
-  { name: "Oblique Siral", template: templates[10], size: 10 },
+  { name: "Oblique Spiral", template: templates[10], size: 10 },
   { name: "Fir-tree", template: templates[11], size: 10 },
   { name: "Umbrella", template: templates[12], size: 10 },
-  { name: "Cherry", template: templates[13], size: 15 },
-  { name: "Big house", template: templates[14], size: 15 },
-  { name: "Clover", template: templates[15], size: 15 },
-  { name: "Castle", template: templates[16], size: 15 },
-  { name: "Deer", template: templates[17], size: 15 },
+  { name: "Big house", template: templates[13], size: 15 },
+  { name: "Clover", template: templates[14], size: 15 },
+  { name: "Castle", template: templates[15], size: 15 },
+  { name: "Deer", template: templates[16], size: 15 },
+  { name: "Skittles", template: templates[16], size: 15 },
 ];
 
 const sizeSelectWrap = createDiv(["wrapper__size-select"]);
@@ -265,17 +257,31 @@ let selectedPictureTemplate;
 selectPicture.addEventListener("change", () => {
   selectedPictureTemplate = currentTemplates.find(
     (item) => item.name === selectPicture.value
-  ).template;
+  );
 
   gameArea.textContent = "";
 
   if (selectedPictureTemplate) {
-    generatePlayingFieldWithHints(selectedPictureTemplate);
+    generatePlayingFieldWithHints(selectedPictureTemplate.template);
   }
 
-  gameUserArray = selectedPictureTemplate.map((row) => row.map(() => 0));
+  gameUserArray = selectedPictureTemplate.template.map((row) =>
+    row.map(() => 0)
+  );
   stopTimer();
 });
+
+let gameResults = getItemFromLocalStorage("gameResults") || [];
+function saveGameToLocalStorage() {
+  gameResults.push({
+    time,
+    gameName: selectedPictureTemplate.name,
+    difficulty: selectedPictureTemplate.size,
+  });
+  gameResults.sort((a, b) => a.time - b.time);
+  gameResults = gameResults.slice(-MAX_RESULTS);
+  setItemToLocalStorage("gameResults", gameResults);
+}
 
 // создание элемента audio
 function createAudio(src) {
@@ -325,7 +331,7 @@ gameArea.addEventListener("click", (event) => {
       gameUserArray[row][col] = 1;
       blackCellAudio.play();
     }
-    if (compareArrays(selectedPictureTemplate, gameUserArray)) {
+    if (compareArrays(selectedPictureTemplate.template, gameUserArray)) {
       gameOver();
     }
   }
@@ -371,7 +377,7 @@ closeButton.addEventListener("click", () => {
   timer.textContent = "00:00";
   winAudio.pause();
   winAudio.currentTime = 0;
-  sortSetSeconds();
+  saveGameToLocalStorage();
   clearGameArea();
 });
 
@@ -389,16 +395,15 @@ resetButton.addEventListener("click", () => {
 const randomButtom = createButton(["button"], "Random game");
 document.body.append(randomButtom);
 
-// TODO добавить функционал для случайного выбора игры
 randomButtom.addEventListener("click", () => {
   clearGameArea();
   const randomIndex = Math.floor(Math.random() * currentTemplates.length);
-  const selectedTemplate = currentTemplates[randomIndex].template;
-  selectSize.value = selectedTemplate.length;
-  filterTemplate(selectedTemplate.length);
-  generatePlayingFieldWithHints(selectedTemplate);
+  const selectedTemplate = currentTemplates[randomIndex];
+  selectSize.value = selectedTemplate.size;
+  selectSize.dispatchEvent(new Event("change"));
+  selectPicture.value = selectedTemplate.name;
+  selectPicture.dispatchEvent(new Event("change"));
 });
-
 
 // TODO добавить функционал
 // Кнопка сохранения игры
