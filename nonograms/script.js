@@ -57,26 +57,7 @@ document.body.append(timer);
 let interval;
 let time = 0;
 let isTimerRunning = false;
-let savedTime = 0;
-
-if (localStorage.getItem("savedTime")) {
-  savedTime = parseInt(localStorage.getItem("savedTime"), 10);
-  time = savedTime;
-}
-
-// сохранениt значения в localStorage
-function saveTimerValue() {
-  localStorage.setItem("timerValue", timer.textContent);
-  localStorage.setItem("savedTime", time);
-}
-
-// загрузка значения из localStorage
-function loadTimerValue() {
-  const savedValue = localStorage.getItem("timerValue");
-  if (savedValue) {
-    timer.textContent = savedValue;
-  }
-}
+let timerValue;
 
 function updateTimer() {
   time += 1;
@@ -98,48 +79,32 @@ function updateTimer() {
   }
 
   timer.textContent = `${minutesStr}:${secondsStr}`;
-  saveTimerValue();
+  timerValue = timer.textContent;
 }
 
 function startTimer() {
-  interval = setInterval(updateTimer, 1000);
-  isTimerRunning = true;
-}
-
-function stopTimer() {
-  if (isTimerRunning) {
-    clearInterval(interval);
-    const p = document.createElement("p");
-    p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
-    interval = null;
-    modalContent.innerHTML = "";
-    modalContent.append(p, closeButton);
-    isTimerRunning = false;
+  if (!isTimerRunning) {
+    interval = setInterval(updateTimer, 1000);
+    isTimerRunning = true;
   }
-  saveTimerValue();
 }
 
-loadTimerValue();
-
-function resetTimer() {
-  time = 0;
-  timer.textContent = "00:00";
-  localStorage.removeItem("savedTime");
+// TODO НЕ РАБОТАЕТ
+let timerValues = getItemFromLocalStorage("timerValues") || [];
+function sortSetTimerValues() {
+  timerValues.push(timerValue);
+  if (timerValues.length > MAX_RESULTS) {
+    timerValues.shift();
+  }
+  timerValues.sort((a, b) => a - b);
+  setItemToLocalStorage("timerValues", timerValues);
 }
+timerValues = timerValues.slice(-MAX_RESULTS);
 
-resetTimer();
-
-// Получить сохраненные секунды из localStorage
+// РАБОТАЕТ
 let timeResults = getItemFromLocalStorage("time") || [];
-
-function getSeconds() {
-  const secondItems = time;
-  return secondItems;
-}
-
-function saveSeconds() {
-  const seconds = getSeconds();
-  timeResults.push(seconds);
+function sortSetSeconds() {
+  timeResults.push(time);
   if (timeResults.length > MAX_RESULTS) {
     timeResults.shift();
   }
@@ -155,6 +120,19 @@ const closeButton = createButton("close", ["button"], "Close");
 
 document.body.append(modal);
 modal.append(modalContent);
+
+function stopTimer() {
+  if (isTimerRunning) {
+    clearInterval(interval);
+    const p = document.createElement("p");
+    p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+    interval = null;
+    modalContent.innerHTML = "";
+    modalContent.append(p, closeButton);
+    isTimerRunning = false;
+  }
+  sortSetTimerValues();
+}
 
 const gameArea = createDiv(["game-area"]);
 document.body.append(gameArea);
@@ -415,7 +393,8 @@ closeButton.addEventListener("click", () => {
   timer.textContent = "00:00";
   winAudio.pause();
   winAudio.currentTime = 0;
-  saveSeconds(); // сохранение секунд в localStorage
+  sortSetTimerValues();
+  sortSetSeconds();
   clearGameArea();
 });
 
