@@ -76,7 +76,10 @@ function getTimerByTime(timeResult) {
 }
 
 let interval;
+let isGameStarted = false;
+
 function startTimer() {
+  isGameStarted = true;
   if (!interval) {
     interval = setInterval(() => {
       time += 1;
@@ -99,10 +102,6 @@ function stopTimer() {
     interval = null;
     timer.textContent = "00:00";
   }
-  const p = document.createElement("p");
-  p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
-  modalContent.innerHTML = "";
-  modalContent.append(p, closeButton);
 }
 
 const gameArea = createDiv(["game-area"]);
@@ -135,7 +134,7 @@ const labelSize = createLabel(
   ["label__size-select"],
   "Choose a size:"
 );
-const selectSize = createSelect("size", ["size-select"], "size-select");
+const sizeSelect = createSelect("size", ["size-select"], "size-select");
 
 const pictureSelectWrap = createDiv(["wrapper__picture-select"]);
 const labelPicture = createLabel(
@@ -143,7 +142,7 @@ const labelPicture = createLabel(
   ["label__picture-select"],
   "Choose a picture:"
 );
-const selectPicture = createSelect(
+const pictureSelect = createSelect(
   "picture",
   ["picture-select"],
   "picture-select"
@@ -157,18 +156,18 @@ function createOption(value, text, select) {
   select.append(option);
 }
 
-function filterTemplate(size) {
-  selectPicture.innerHTML = "";
+function fillPictureSelect(size) {
+  pictureSelect.innerHTML = "";
   currentTemplates
     .filter((item) => item.size === size)
     .forEach((item) => {
-      createOption(item.name, item.name, selectPicture);
+      createOption(item.name, item.name, pictureSelect);
     });
-  selectPicture.dispatchEvent(new Event("change"));
+  pictureSelect.dispatchEvent(new Event("change"));
 }
 
 [5, 10, 15].forEach((size) => {
-  createOption(size, `${size} x ${size}`, selectSize);
+  createOption(size, `${size} x ${size}`, sizeSelect);
 });
 
 function createHintElement(hintsContainer, counter) {
@@ -246,17 +245,17 @@ function compareArrays(firstArray, secondArray) {
   return true;
 }
 
-selectSize.addEventListener("change", () => {
-  const selectedSize = parseInt(selectSize.value, 10);
-  filterTemplate(selectedSize);
+sizeSelect.addEventListener("change", () => {
+  const selectedSize = parseInt(sizeSelect.value, 10);
+  fillPictureSelect(selectedSize);
   stopTimer();
 });
 
 let selectedPictureTemplate;
 
-selectPicture.addEventListener("change", () => {
+pictureSelect.addEventListener("change", () => {
   selectedPictureTemplate = currentTemplates.find(
-    (item) => item.name === selectPicture.value
+    (item) => item.name === pictureSelect.value
   );
 
   gameArea.textContent = "";
@@ -317,7 +316,7 @@ gameArea.addEventListener("click", (event) => {
 
   if (cell) {
     const { row, col } = cell.dataset;
-    if (!interval) {
+    if (!interval && !isGameStarted) {
       startTimer();
     }
 
@@ -343,7 +342,7 @@ gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
   const cell = event.target.closest(".cell");
   if (cell) {
-    if (!interval) {
+    if (!interval && !isGameStarted) {
       startTimer();
     }
 
@@ -360,6 +359,11 @@ gameArea.addEventListener("contextmenu", (event) => {
     }
   }
 });
+
+const p = document.createElement("p");
+p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+modalContent.innerHTML = "";
+modalContent.append(p, closeButton);
 
 // общий контейнер для кнопок
 const buttonContainer = createDiv(["button-container"]);
@@ -394,6 +398,7 @@ resetButton.addEventListener("click", () => {
   stopTimer();
   timer.textContent = "00:00";
   clearGameArea();
+  isGameStarted = false;
 });
 
 // Кнопка выбора рандомной игры
@@ -404,10 +409,10 @@ randomButtom.addEventListener("click", () => {
   clearGameArea();
   const randomIndex = Math.floor(Math.random() * currentTemplates.length);
   const selectedTemplate = currentTemplates[randomIndex];
-  selectSize.value = selectedTemplate.size;
-  selectSize.dispatchEvent(new Event("change"));
-  selectPicture.value = selectedTemplate.name;
-  selectPicture.dispatchEvent(new Event("change"));
+  sizeSelect.value = selectedTemplate.size;
+  sizeSelect.dispatchEvent(new Event("change"));
+  pictureSelect.value = selectedTemplate.name;
+  pictureSelect.dispatchEvent(new Event("change"));
 });
 
 // TODO добавить функционал
@@ -471,7 +476,6 @@ function switchToDarkMode() {
   document.body.classList.add("dark");
 }
 
-// TODO добавить функционал
 // кнопка Показать решение
 const solutionButton = createButton(["button"], "Solution");
 buttonContainer.append(solutionButton);
@@ -504,9 +508,9 @@ changeThemebutton.addEventListener("click", () => {
 });
 
 chooseGameArea.append(sizeSelectWrap, pictureSelectWrap);
-sizeSelectWrap.append(labelSize, selectSize);
-pictureSelectWrap.append(labelPicture, selectPicture);
+sizeSelectWrap.append(labelSize, sizeSelect);
+pictureSelectWrap.append(labelPicture, pictureSelect);
 
 document.addEventListener("DOMContentLoaded", () => {
-  filterTemplate(5);
+  fillPictureSelect(5);
 });

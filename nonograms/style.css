@@ -69,7 +69,7 @@ body.light {
 }
 
 .light .cell {
-  border: 1px solid #333333;
+  border: 1px solid #808080;
 }
 
 .light .cell:nth-child(5n):not(:last-child) {
@@ -143,7 +143,7 @@ body.dark {
 }
 
 .dark .cell {
-  border: 1px solid #acfdc2;
+  border: 1px solid #00bc32;
 }
 
 .dark .cell:nth-child(5n):not(:last-child) {
@@ -425,7 +425,7 @@ body.dark {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 70%;
+  width: 80%;
 }
 
 .button {
