@@ -85,7 +85,7 @@ function startTimer() {
   }
 }
 
-// Модальное окно
+// Модальное окно завершения игры
 const modal = createDiv(["modal"]);
 const modalContent = createDiv(["modal__content"]);
 const closeButton = createButton(["button"], "Close");
@@ -416,9 +416,45 @@ const continueButton = createButton(["button"], "Continue game");
 document.body.append(continueButton);
 
 // TODO добавить функционал
-// Кнопка для отображения модалки - 5 последних результатов
-const lastResultsButton = createButton(["button"], "Best scores");
+// кнопка для отображения модалки - 5 последних результатов игры
+const lastResultsButton = createButton(["button"], "Scores");
 document.body.append(lastResultsButton);
+
+// модальное окно для вывода 5 последних результатов игры
+const modalResults = createDiv(["modal-result"]);
+const modalResultsContent = createDiv(["modal-result__content"]);
+const closeResultsButton = createButton(["button"], "Close");
+
+document.body.append(modalResults);
+modalResults.append(modalResultsContent);
+
+closeResultsButton.addEventListener("click", () => {
+  modalResults.classList.remove("visible");
+  modalResultsContent.innerHTML = "";
+});
+
+const lastResultsText = document.createElement("p");
+lastResultsText.textContent = `Your last best scores:`;
+
+function displayBestScores() {
+  const bestScores = getItemFromLocalStorage("gameResults") || [];
+
+  bestScores.forEach((result, index) => {
+    const timeFormatted = getTimerByTime(result.time);
+    const scoreText = document.createElement("p");
+    scoreText.textContent = `${index + 1}. Game: ${result.gameName} ||
+    Difficulty: ${result.difficulty} ||
+    Time: ${timeFormatted}`;
+    modalResultsContent.append(scoreText, closeResultsButton);
+  });
+}
+
+lastResultsButton.addEventListener("click", () => {
+  modalResults.classList.add("visible");
+  modalResultsContent.innerHTML = "";
+  modalResultsContent.append(lastResultsText);
+  displayBestScores();
+});
 
 // Смена темы
 function switchToLightMode() {

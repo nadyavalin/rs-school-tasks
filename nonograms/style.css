@@ -284,7 +284,8 @@ body.dark {
   background-repeat: no-repeat;
 }
 
-.modal {
+.modal,
+.modal-result {
   position: fixed;
   background-color: rgba(18, 97, 15, 0.7);
   left: 0;
@@ -300,7 +301,8 @@ body.dark {
   transition: opacity 0.3s ease-in-out;
 }
 
-.modal.visible {
+.modal.visible,
+.modal-result.visible {
   opacity: 1;
   pointer-events: auto;
 }
@@ -329,6 +331,28 @@ body.dark {
 
 .modal p span {
   font-weight: 600;
+}
+
+.modal-result__content {
+  background-color: #acfdc2;
+  max-width: 350px;
+  max-height: 300px;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.modal-result p {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #005800;
 }
 
 @media (max-width: 720px) {
