@@ -229,7 +229,7 @@ body.dark {
 }
 
 .top-hints {
-  width: 100%;
+  width: 30px;
 }
 
 .top-hints .hint {
@@ -351,6 +351,10 @@ body.dark {
     font-size: 14px;
     line-height: 14px;
     font-weight: 500;
+  }
+
+  .top-hints {
+    width: 20px;
   }
 
   .game-area__top-hints {
