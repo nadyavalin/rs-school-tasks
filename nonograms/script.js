@@ -390,14 +390,25 @@ const randomButtom = createButton(["button"], "Random game");
 document.body.append(randomButtom);
 
 // TODO добавить функционал для случайного выбора игры
-// randomButtom.addEventListener("click", () => {
-//   const randomGame = Math.round(Math.random());
-// });
+randomButtom.addEventListener("click", () => {
+  clearGameArea();
+  const randomIndex = Math.floor(Math.random() * currentTemplates.length);
+  const selectedTemplate = currentTemplates[randomIndex].template;
+  selectSize.value = selectedTemplate.length;
+  filterTemplate(selectedTemplate.length);
+  generatePlayingFieldWithHints(selectedTemplate);
+});
+
 
 // TODO добавить функционал
 // Кнопка сохранения игры
 const saveButton = createButton(["button"], "Save game");
 document.body.append(saveButton);
+
+// TODO добавить функционал
+// Кнопка продолжить игру
+const continueButton = createButton(["button"], "Continue game");
+document.body.append(continueButton);
 
 // TODO добавить функционал
 // Кнопка для отображения модалки - 5 последних результатов
