@@ -40,9 +40,8 @@ function createSelect(name, classNames, id) {
 }
 
 // функция создания элементов button
-function createButton(type, classNames, text) {
+function createButton(classNames, text) {
   const button = document.createElement("button");
-  button.setAttribute("data-type", type);
   button.classList.add(...classNames);
   button.textContent = text;
   return button;
@@ -56,8 +55,6 @@ document.body.append(timer);
 
 let interval;
 let time = 0;
-let isTimerRunning = false;
-let timerValue;
 
 function updateTimer() {
   time += 1;
@@ -79,59 +76,41 @@ function updateTimer() {
   }
 
   timer.textContent = `${minutesStr}:${secondsStr}`;
-  timerValue = timer.textContent;
 }
 
 function startTimer() {
-  if (!isTimerRunning) {
+  if (!interval) {
     interval = setInterval(updateTimer, 1000);
-    isTimerRunning = true;
   }
 }
 
-// TODO НЕ РАБОТАЕТ
-let timerValues = getItemFromLocalStorage("timerValues") || [];
-function sortSetTimerValues() {
-  timerValues.push(timerValue);
-  if (timerValues.length > MAX_RESULTS) {
-    timerValues.shift();
-  }
-  timerValues.sort((a, b) => a - b);
-  setItemToLocalStorage("timerValues", timerValues);
-}
-timerValues = timerValues.slice(-MAX_RESULTS);
-
-// РАБОТАЕТ
-let timeResults = getItemFromLocalStorage("time") || [];
+const timeResults = getItemFromLocalStorage("time") || [];
 function sortSetSeconds() {
   timeResults.push(time);
+  timeResults.sort((a, b) => a - b);
+  setItemToLocalStorage("time", timeResults.slice(-5));
   if (timeResults.length > MAX_RESULTS) {
     timeResults.shift();
   }
-  timeResults.sort((a, b) => a - b);
-  setItemToLocalStorage("time", timeResults);
 }
-timeResults = timeResults.slice(-MAX_RESULTS);
 
 // Модальное окно
 const modal = createDiv(["modal"]);
 const modalContent = createDiv(["modal__content"]);
-const closeButton = createButton("close", ["button"], "Close");
+const closeButton = createButton(["button"], "Close");
 
 document.body.append(modal);
 modal.append(modalContent);
 
 function stopTimer() {
-  if (isTimerRunning) {
+  if (interval) {
     clearInterval(interval);
     const p = document.createElement("p");
     p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
     interval = null;
     modalContent.innerHTML = "";
     modalContent.append(p, closeButton);
-    isTimerRunning = false;
   }
-  sortSetTimerValues();
 }
 
 const gameArea = createDiv(["game-area"]);
@@ -322,6 +301,7 @@ const winAudio = createAudio("./audio/mne-etot-mir-ponyaten.mp3");
 function gameOver() {
   modal.classList.add("visible");
   winAudio.play();
+  stopTimer();
 }
 
 // Изменение цвета ячейки на черный
@@ -347,7 +327,6 @@ gameArea.addEventListener("click", (event) => {
     }
     if (compareArrays(selectedPictureTemplate, gameUserArray)) {
       gameOver();
-      stopTimer();
     }
   }
 });
@@ -384,7 +363,6 @@ function clearGameArea() {
   });
   time = 0;
   interval = null;
-  isTimerRunning = false;
   gameUserArray = gameUserArray.map((row) => row.map(() => 0));
 }
 
@@ -393,13 +371,12 @@ closeButton.addEventListener("click", () => {
   timer.textContent = "00:00";
   winAudio.pause();
   winAudio.currentTime = 0;
-  sortSetTimerValues();
   sortSetSeconds();
   clearGameArea();
 });
 
 // Кнопка сброса текущей игры
-const resetButton = createButton("reset", ["button"], "Reset game");
+const resetButton = createButton(["button"], "Reset game");
 document.body.append(resetButton);
 
 resetButton.addEventListener("click", () => {
@@ -409,7 +386,7 @@ resetButton.addEventListener("click", () => {
 });
 
 // Кнопка выбора рандомной игры
-const randomButtom = createButton("random", ["button"], "Random game");
+const randomButtom = createButton(["button"], "Random game");
 document.body.append(randomButtom);
 
 // TODO добавить функционал для случайного выбора игры
@@ -419,12 +396,12 @@ document.body.append(randomButtom);
 
 // TODO добавить функционал
 // Кнопка сохранения игры
-const saveButton = createButton("save", ["button"], "Save game");
+const saveButton = createButton(["button"], "Save game");
 document.body.append(saveButton);
 
 // TODO добавить функционал
 // Кнопка для отображения модалки - 5 последних результатов
-const lastResultsButton = createButton("last", ["button"], "Best scores");
+const lastResultsButton = createButton(["button"], "Best scores");
 document.body.append(lastResultsButton);
 
 // Смена темы
@@ -439,7 +416,7 @@ function switchToDarkMode() {
 }
 
 // Кнопка смены темы
-const changeThemebutton = createButton("change", ["button"], "Change theme");
+const changeThemebutton = createButton(["button"], "Change theme");
 document.body.append(changeThemebutton);
 
 changeThemebutton.addEventListener("click", () => {
