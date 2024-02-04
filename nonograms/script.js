@@ -78,12 +78,21 @@ function getTimerByTime(timeResult) {
 }
 
 let interval;
+
 function startTimer() {
   if (!interval) {
     interval = setInterval(() => {
       time += 1;
       timer.textContent = getTimerByTime(time);
     }, 1000);
+  }
+}
+
+function stopTimer() {
+  if (interval) {
+    clearInterval(interval);
+    interval = null;
+    time = 0;
   }
 }
 
@@ -95,29 +104,21 @@ const closeButton = createButton(["button"], "Close");
 document.body.append(modal);
 modal.append(modalContent);
 
-function stopTimer() {
-  if (interval) {
-    clearInterval(interval);
-    interval = null;
-    time = 0;
-  }
-}
-
 const gameArea = createDiv(["game-area"]);
 document.body.append(gameArea);
 
 const currentTemplates = [
-  { name: "Cross", template: templates[0], size: 5 },
-  { name: "Ladder", template: templates[1], size: 5 },
-  { name: "Chess", template: templates[2], size: 5 },
-  { name: "Letter M", template: templates[3], size: 5 },
-  { name: "Black hole", template: templates[4], size: 5 },
-  { name: "Angle", template: templates[5], size: 5 },
+  { name: "Angle", template: templates[0], size: 5 },
+  { name: "Cross", template: templates[1], size: 5 },
+  { name: "Ladder", template: templates[2], size: 5 },
+  { name: "Chess", template: templates[3], size: 5 },
+  { name: "Letter M", template: templates[4], size: 5 },
+  { name: "Black hole", template: templates[5], size: 5 },
   { name: "Road", template: templates[6], size: 5 },
   { name: "Packet", template: templates[7], size: 10 },
   { name: "House", template: templates[8], size: 10 },
   { name: "Spiral", template: templates[9], size: 10 },
-  { name: "Oblique Spiral", template: templates[10], size: 10 },
+  { name: "Target", template: templates[10], size: 10 },
   { name: "Fir-tree", template: templates[11], size: 10 },
   { name: "Umbrella", template: templates[12], size: 10 },
   { name: "Big house", template: templates[13], size: 15 },
@@ -299,7 +300,6 @@ const crossCellAudio = createAudio("./audio/cross-cell.mp3");
 const whiteCellAudio = createAudio("./audio/white-cell.wav");
 
 // звук победы
-// const winAudio = createAudio("./audio/mne-etot-mir-ponyaten.mp3");
 const winAudio = createAudio("./audio/win-song.mp3");
 
 // окончание игры
@@ -398,18 +398,26 @@ resetButton.addEventListener("click", () => {
   clearGameArea();
 });
 
-// Кнопка выбора рандомной игры
-const randomButtom = createButton(["button"], "Random game");
-buttonContainer.append(randomButtom);
+function applyTemplateToCells(template) {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell, index) => {
+    const row = Math.floor(index / template[0].length);
+    const col = index % template[0].length;
+    if (template[row][col] === 1) {
+      cell.classList.add("blacked");
+    }
+  });
+}
 
-randomButtom.addEventListener("click", () => {
-  clearGameArea();
-  const randomIndex = Math.floor(Math.random() * currentTemplates.length);
-  const selectedTemplate = currentTemplates[randomIndex];
-  sizeSelect.value = selectedTemplate.size;
-  sizeSelect.dispatchEvent(new Event("change"));
-  pictureSelect.value = selectedTemplate.name;
-  pictureSelect.dispatchEvent(new Event("change"));
+// кнопка Показать решение
+const solutionButton = createButton(["button"], "Solution");
+buttonContainer.append(solutionButton);
+
+solutionButton.addEventListener("click", () => {
+  if (selectedPictureTemplate) {
+    const { template } = selectedPictureTemplate;
+    applyTemplateToCells(template);
+  }
 });
 
 // кнопка сохранения игры - сохраняется промежуточный результат
@@ -431,17 +439,6 @@ saveButton.addEventListener("click", () => {
   saveCurrentTemplateToLocalStorage();
 });
 
-function applyTemplateToCells(template) {
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach((cell, index) => {
-    const row = Math.floor(index / template[0].length);
-    const col = index % template[0].length;
-    if (template[row][col] === 1) {
-      cell.classList.add("blacked");
-    }
-  });
-}
-
 // кнопка продолжить игру
 const continueButton = createButton(["button"], "Continue last game");
 buttonContainer.append(continueButton);
@@ -462,6 +459,20 @@ continueButton.addEventListener("click", () => {
   }
 });
 
+// Кнопка выбора рандомной игры
+const randomButtom = createButton(["button"], "Random game");
+buttonContainer.append(randomButtom);
+
+randomButtom.addEventListener("click", () => {
+  clearGameArea();
+  const randomIndex = Math.floor(Math.random() * currentTemplates.length);
+  const selectedTemplate = currentTemplates[randomIndex];
+  sizeSelect.value = selectedTemplate.size;
+  sizeSelect.dispatchEvent(new Event("change"));
+  pictureSelect.value = selectedTemplate.name;
+  pictureSelect.dispatchEvent(new Event("change"));
+});
+
 // кнопка для отображения модалки - 5 последних результатов игры
 const lastResultsButton = createButton(["button"], "Scores");
 buttonContainer.append(lastResultsButton);
@@ -480,12 +491,11 @@ closeResultsButton.addEventListener("click", () => {
   modalResults.classList.remove("visible");
 });
 
-const lastResultsText = document.createElement("p");
+const lastResultsText = document.createElement("h5");
 lastResultsText.textContent = `Your last best scores:`;
 
 function displayBestScores() {
   const bestScores = getItemFromLocalStorage("gameResults") || [];
-
   bestScores.forEach((result, index) => {
     const timeFormatted = getTimerByTime(result.time);
     const scoreText = document.createElement("p");
@@ -498,36 +508,34 @@ function displayBestScores() {
 
 lastResultsButton.addEventListener("click", () => {
   modalResults.classList.add("visible");
+  modalResultsContentText.textContent = "";
   modalResultsContentText.append(lastResultsText);
   displayBestScores();
 });
 
-// Смена темы
+const optionButtonContainer = createDiv(["option-button-container"]);
+document.body.append(optionButtonContainer);
+
+// смена темы
+const changeThemebutton = createButton(["button"], "Dark theme");
+
 function switchToLightMode() {
   document.body.classList.remove("dark");
   document.body.classList.add("light");
+  if (changeThemebutton.textContent === "Light theme") {
+    changeThemebutton.textContent = "Dark theme";
+  }
 }
 
 function switchToDarkMode() {
   document.body.classList.remove("light");
   document.body.classList.add("dark");
+  if (changeThemebutton.textContent === "Dark theme") {
+    changeThemebutton.textContent = "Light theme";
+  }
 }
 
-// кнопка Показать решение
-const solutionButton = createButton(["button"], "Solution");
-buttonContainer.append(solutionButton);
-
-solutionButton.addEventListener("click", () => {
-  if (selectedPictureTemplate) {
-    const { template } = selectedPictureTemplate;
-    applyTemplateToCells(template);
-  }
-});
-
 // Кнопка смены темы
-const changeThemebutton = createButton(["button"], "Change theme");
-buttonContainer.append(changeThemebutton);
-
 changeThemebutton.addEventListener("click", () => {
   if (document.body.classList.contains("light")) {
     switchToDarkMode();
@@ -535,6 +543,26 @@ changeThemebutton.addEventListener("click", () => {
     switchToLightMode();
   }
 });
+
+optionButtonContainer.append(changeThemebutton);
+
+// включение/выключение звука
+const soundButton = createButton(["button"], "Off sounds");
+
+function toggleSound() {
+  blackCellAudio.muted = !blackCellAudio.muted;
+  crossCellAudio.muted = !crossCellAudio.muted;
+  whiteCellAudio.muted = !whiteCellAudio.muted;
+  winAudio.muted = !winAudio.muted;
+  if (soundButton.textContent === "On sounds") {
+    soundButton.textContent = "Off sounds";
+  } else {
+    soundButton.textContent = "On sounds";
+  }
+}
+
+soundButton.addEventListener("click", toggleSound);
+optionButtonContainer.appendChild(soundButton);
 
 chooseGameArea.append(sizeSelectWrap, pictureSelectWrap);
 sizeSelectWrap.append(labelSize, sizeSelect);
