@@ -1,6 +1,7 @@
 import templates from "./templates.js";
 
 const MAX_RESULTS = 5;
+const DEFAULT_SIZE_PICTURE = 5;
 
 document.body.classList.add("light");
 
@@ -98,12 +99,7 @@ function stopTimer() {
   if (interval) {
     clearInterval(interval);
     interval = null;
-
-    // TODO этому коду здесь не место, но за пределами функции в time 0
-    const p = document.createElement("p");
-    p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
-    modalContent.innerHTML = "";
-    modalContent.append(p, closeButton);
+    time = 0;
   }
 }
 
@@ -310,6 +306,12 @@ const winAudio = createAudio("./audio/win-song.mp3");
 function gameOver() {
   modal.classList.add("visible");
   winAudio.play();
+
+  const p = document.createElement("p");
+  p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+  modalContent.innerHTML = "";
+  modalContent.append(p, closeButton);
+  saveGameToLocalStorage();
   stopTimer();
 }
 
@@ -374,8 +376,7 @@ function clearGameArea() {
     cell.classList.remove("blacked");
     cell.classList.remove("crossed");
   });
-  time = 0;
-  interval = null;
+  stopTimer();
   gameUserArray = gameUserArray.map((row) => row.map(() => 0));
 }
 
@@ -384,7 +385,6 @@ closeButton.addEventListener("click", () => {
   timer.textContent = "00:00";
   winAudio.pause();
   winAudio.currentTime = 0;
-  saveGameToLocalStorage();
   clearGameArea();
 });
 
@@ -418,11 +418,12 @@ buttonContainer.append(saveButton);
 
 function saveCurrentTemplateToLocalStorage() {
   if (selectedPictureTemplate) {
-    const currentTemplateState = {
+    const savedGame = {
+      time,
       template: selectedPictureTemplate,
       gameUserArray,
     };
-    setItemToLocalStorage("currentTemplateState", currentTemplateState);
+    setItemToLocalStorage("savedGame", savedGame);
   }
 }
 
@@ -430,22 +431,34 @@ saveButton.addEventListener("click", () => {
   saveCurrentTemplateToLocalStorage();
 });
 
-// TODO доработать функционал - пока появляется только нужный шаблон, но он пуст
+function applyTemplateToCells(template) {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell, index) => {
+    const row = Math.floor(index / template[0].length);
+    const col = index % template[0].length;
+    if (template[row][col] === 1) {
+      cell.classList.add("blacked");
+    }
+  });
+}
+
 // кнопка продолжить игру
 const continueButton = createButton(["button"], "Continue last game");
 buttonContainer.append(continueButton);
 
 continueButton.addEventListener("click", () => {
-  const savedTemplate = getItemFromLocalStorage("currentTemplateState");
-  if (savedTemplate) {
-    selectedPictureTemplate = savedTemplate.template;
-    pictureSelect.value = selectedPictureTemplate.name;
-    gameArea.textContent = "";
-    generatePlayingFieldWithHints(selectedPictureTemplate.template);
-    selectedPictureTemplate = gameUserArray;
-    stopTimer();
+  const savedGame = getItemFromLocalStorage("savedGame");
+  if (savedGame) {
+    time = savedGame.time;
+    timer.textContent = getTimerByTime(time);
+    sizeSelect.value = savedGame.template.size;
+    sizeSelect.dispatchEvent(new Event("change"));
+    pictureSelect.value = savedGame.template.name;
+    pictureSelect.dispatchEvent(new Event("change"));
+
+    applyTemplateToCells(savedGame.gameUserArray);
   } else {
-    alert("You haven't any saved templates yet");
+    alert("You haven't saved any templates yet");
   }
 });
 
@@ -456,14 +469,15 @@ buttonContainer.append(lastResultsButton);
 // модальное окно для вывода 5 последних результатов игры
 const modalResults = createDiv(["modal-result"]);
 const modalResultsContent = createDiv(["modal-result__content"]);
+const modalResultsContentText = createDiv(["modal-result__content-text"]);
 const closeResultsButton = createButton(["button"], "Close");
 
 document.body.append(modalResults);
 modalResults.append(modalResultsContent);
+modalResultsContent.append(modalResultsContentText, closeResultsButton);
 
 closeResultsButton.addEventListener("click", () => {
   modalResults.classList.remove("visible");
-  modalResultsContent.innerHTML = "";
 });
 
 const lastResultsText = document.createElement("p");
@@ -478,14 +492,13 @@ function displayBestScores() {
     scoreText.textContent = `${index + 1}. Game: ${result.gameName} ||
     Difficulty: ${result.difficulty} ||
     Time: ${timeFormatted}`;
-    modalResultsContent.append(scoreText, closeResultsButton);
+    modalResultsContentText.append(scoreText);
   });
 }
 
 lastResultsButton.addEventListener("click", () => {
   modalResults.classList.add("visible");
-  modalResultsContent.innerHTML = "";
-  modalResultsContent.append(lastResultsText);
+  modalResultsContentText.append(lastResultsText);
   displayBestScores();
 });
 
@@ -506,21 +519,8 @@ buttonContainer.append(solutionButton);
 
 solutionButton.addEventListener("click", () => {
   if (selectedPictureTemplate) {
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach((cell, index) => {
-      const { template } = selectedPictureTemplate;
-      const row = Math.floor(index / template[0].length);
-      const col = index % template[0].length;
-
-      if (template[row][col] === 1) {
-        cell.classList.add("blacked");
-      }
-    });
-  }
-
-  // TODO таймер не должен запускаться после нажатия кнопки Solution и после еще одного клика по полю
-  if (compareArrays(selectedPictureTemplate.template, gameUserArray)) {
-    gameOver();
+    const { template } = selectedPictureTemplate;
+    applyTemplateToCells(template);
   }
 });
 
@@ -541,5 +541,5 @@ sizeSelectWrap.append(labelSize, sizeSelect);
 pictureSelectWrap.append(labelPicture, pictureSelect);
 
 document.addEventListener("DOMContentLoaded", () => {
-  fillPictureSelect(5);
+  fillPictureSelect(DEFAULT_SIZE_PICTURE);
 });
