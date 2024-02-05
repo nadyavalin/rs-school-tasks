@@ -18,7 +18,7 @@ const currentTemplates = [
   { name: "Clover", template: templates[14], size: 15 },
   { name: "Castle", template: templates[15], size: 15 },
   { name: "Deer", template: templates[16], size: 15 },
-  { name: "Skittles", template: templates[16], size: 15 },
+  { name: "Skittles", template: templates[17], size: 15 },
 ];
 
 export default currentTemplates;
