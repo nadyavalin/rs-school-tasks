@@ -19,3 +19,8 @@ export const closeResultsButton = createButton(["button"], "Close");
 document.body.append(modalResults);
 modalResults.append(modalResultsContent);
 modalResultsContent.append(modalResultsContentText, closeResultsButton);
+
+// listener для кнопки закрытия модального окна с результатами
+closeResultsButton.addEventListener("click", () => {
+  modalResults.classList.remove("visible");
+});

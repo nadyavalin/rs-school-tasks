@@ -26,8 +26,8 @@ export const lastResultsButton = createButton(["button"], "Scores");
 buttonContainer.append(lastResultsButton);
 
 // кнопка смена темы
-export const changeThemebutton = createButton(["button"], "Dark theme");
-optionButtonContainer.append(changeThemebutton);
+export const changeThemeButton = createButton(["button"], "Dark theme");
+optionButtonContainer.append(changeThemeButton);
 
 // кнопка вкл./выкл. звуков
 export const soundButton = createButton(["button"], "Off sounds");

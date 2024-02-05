@@ -1,6 +1,7 @@
 import currentTemplates from "./js/currentTemplatesArray.js";
-import toggleSound from "./js/toggleSoundfunction.js";
-import { createDiv, createOption } from "./js/createElements.js";
+import { createDiv } from "./js/createElements.js";
+import { getTimerByTime, compareArrays } from "./js/utils.js";
+import "./js/changeTheme.js";
 
 import {
   blackCellAudio,
@@ -27,16 +28,9 @@ import {
   solutionButton,
   saveButton,
   continueButton,
-  randomButtom,
+  randomButtom as randomButton,
   lastResultsButton,
-  changeThemebutton,
-  soundButton,
 } from "./js/buttons.js";
-
-import {
-  switchToLightMode,
-  switchToDarkMode,
-} from "./js/changeThemefunctions.js";
 
 import {
   modal,
@@ -45,7 +39,6 @@ import {
   closeButton,
   modalResults,
   modalResultsContentText,
-  closeResultsButton,
 } from "./js/modals.js";
 
 import {
@@ -55,34 +48,15 @@ import {
   pictureSelectWrap,
   labelPicture,
   pictureSelect,
+  fillPictureSelect,
 } from "./js/selects.js";
 
 document.body.classList.add("light");
 
 let time = 0;
-
-function getTimerByTime(timeResult) {
-  const minutes = Math.floor(timeResult / 60);
-  const seconds = timeResult % 60;
-
-  let minutesStr = "";
-  if (minutes < 10) {
-    minutesStr = `0${minutes}`;
-  } else {
-    minutesStr = minutes.toString();
-  }
-
-  let secondsStr = "";
-  if (seconds < 10) {
-    secondsStr = `0${seconds}`;
-  } else {
-    secondsStr = seconds.toString();
-  }
-
-  return `${minutesStr}:${secondsStr}`;
-}
-
 let interval;
+let selectedPictureTemplate;
+let gameUserArray;
 
 function startTimer() {
   if (
@@ -104,20 +78,6 @@ function stopTimer() {
     time = 0;
   }
 }
-
-function fillPictureSelect(size) {
-  pictureSelect.innerHTML = "";
-  currentTemplates
-    .filter((item) => item.size === size)
-    .forEach((item) => {
-      createOption(item.name, item.name, pictureSelect);
-    });
-  pictureSelect.dispatchEvent(new Event("change"));
-}
-
-[5, 10, 15].forEach((size) => {
-  createOption(size, `${size} x ${size}`, sizeSelect);
-});
 
 function createHintElement(hintsContainer, counter) {
   const hint = document.createElement("div");
@@ -180,28 +140,12 @@ function generatePlayingFieldWithHints(template) {
   gameArea.append(hintsContainerTop, hintsContainerLeft, playingField);
 }
 
-// Проверка победы
-let gameUserArray;
-
-function compareArrays(firstArray, secondArray) {
-  for (let i = 0; i < firstArray.length; i += 1) {
-    for (let j = 0; j < firstArray[i].length; j += 1) {
-      if (firstArray[i][j] !== secondArray[i][j]) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
 // listener для выбора размера
 sizeSelect.addEventListener("change", () => {
   const selectedSize = parseInt(sizeSelect.value, 10);
   fillPictureSelect(selectedSize);
   stopTimer();
 });
-
-let selectedPictureTemplate;
 
 // listener для выбора кроссворда
 pictureSelect.addEventListener("change", () => {
@@ -366,14 +310,13 @@ continueButton.addEventListener("click", () => {
     pictureSelect.value = savedGame.template.name;
     pictureSelect.dispatchEvent(new Event("change"));
     applyTemplateToCells(savedGame.gameUserArray);
-    console.log(savedGame.gameUserArray);
   } else {
     alert("You haven't saved any templates yet");
   }
 });
 
 // listener кнопки выбора рандомной игры
-randomButtom.addEventListener("click", () => {
+randomButton.addEventListener("click", () => {
   clearGameArea();
   const randomIndex = Math.floor(Math.random() * currentTemplates.length);
   const selectedTemplate = currentTemplates[randomIndex];
@@ -381,11 +324,6 @@ randomButtom.addEventListener("click", () => {
   sizeSelect.dispatchEvent(new Event("change"));
   pictureSelect.value = selectedTemplate.name;
   pictureSelect.dispatchEvent(new Event("change"));
-});
-
-// listener для кнопки закрытия модального окна с результатами
-closeResultsButton.addEventListener("click", () => {
-  modalResults.classList.remove("visible");
 });
 
 function displayBestScores() {
@@ -407,22 +345,6 @@ lastResultsButton.addEventListener("click", () => {
   modalResultsContentText.append(lastResultsText);
   displayBestScores();
 });
-
-// listener для кнопки смены темы
-changeThemebutton.addEventListener("click", () => {
-  if (document.body.classList.contains("light")) {
-    switchToDarkMode();
-  } else {
-    switchToLightMode();
-  }
-});
-
-// listener для кнопки вкл./выкл. звука
-soundButton.addEventListener("click", toggleSound);
-
-chooseGameArea.append(sizeSelectWrap, pictureSelectWrap);
-sizeSelectWrap.append(labelSize, sizeSelect);
-pictureSelectWrap.append(labelPicture, pictureSelect);
 
 document.addEventListener("DOMContentLoaded", () => {
   fillPictureSelect(PICTURE_SIZE);
