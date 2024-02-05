@@ -1,7 +1,7 @@
 import { createDiv } from "./createElements.js";
 
 export const MAX_RESULTS = 5;
-export const DEFAULT_SIZE_PICTURE = 5;
+export const PICTURE_SIZE = 5;
 
 export const chooseGameArea = createDiv(["choose-game-area"]);
 document.body.append(chooseGameArea);

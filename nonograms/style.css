@@ -321,22 +321,16 @@ body.dark {
   align-items: center;
   gap: 20px;
   margin: 20px;
-}
 
-.modal p {
-  font-size: 1.2rem;
+
   text-align: center;
   color: #005800;
-}
-
-.modal p span {
-  font-weight: 600;
 }
 
 .modal-result__content {
   color: #005800;
   background-color: #acfdc2;
-  max-width: 350px;
+  max-width: 400px;
   max-height: 300px;
   width: 100%;
   height: 100%;
@@ -387,6 +381,7 @@ body.dark {
   height: 30px;
   cursor: pointer;
   transition: background-color 0.5s ease-in;
+  font-size: 14px;
 }
 
 @media (max-width: 720px) {

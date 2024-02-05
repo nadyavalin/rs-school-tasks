@@ -16,7 +16,7 @@ import {
 
 import {
   MAX_RESULTS,
-  DEFAULT_SIZE_PICTURE,
+  PICTURE_SIZE,
   chooseGameArea,
   gameArea,
   timer,
@@ -85,7 +85,10 @@ function getTimerByTime(timeResult) {
 let interval;
 
 function startTimer() {
-  if (!interval) {
+  if (
+    !interval &&
+    !compareArrays(selectedPictureTemplate.template, gameUserArray)
+  ) {
     interval = setInterval(() => {
       time += 1;
       timer.textContent = getTimerByTime(time);
@@ -96,6 +99,7 @@ function startTimer() {
 function stopTimer() {
   if (interval) {
     clearInterval(interval);
+    timer.textContent = "00:00";
     interval = null;
     time = 0;
   }
@@ -233,11 +237,8 @@ function saveGameToLocalStorage() {
 function gameOver() {
   modal.classList.add("visible");
   winAudio.play();
-
-  const p = document.createElement("p");
-  p.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
-  modalContent.innerHTML = "";
-  modalContent.append(p, closeButton);
+  modalContent.textContent = `Great! You have solved the nonogram in ${time} seconds!`;
+  modalContent.append(closeButton);
   saveGameToLocalStorage();
   stopTimer();
 }
@@ -246,7 +247,7 @@ function gameOver() {
 gameArea.addEventListener("click", (event) => {
   const cell = event.target.closest(".cell");
 
-  if (cell) {
+  if (cell && !compareArrays(selectedPictureTemplate.template, gameUserArray)) {
     const { row, col } = cell.dataset;
     if (!interval) {
       startTimer();
@@ -273,7 +274,7 @@ gameArea.addEventListener("click", (event) => {
 gameArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
   const cell = event.target.closest(".cell");
-  if (cell) {
+  if (cell && !compareArrays(selectedPictureTemplate.template, gameUserArray)) {
     if (!interval) {
       startTimer();
     }
@@ -306,7 +307,6 @@ function clearGameArea() {
 // listener для кнопки, которая закрывает модалку победы
 closeButton.addEventListener("click", () => {
   modal.classList.remove("visible");
-  timer.textContent = "00:00";
   winAudio.pause();
   winAudio.currentTime = 0;
   clearGameArea();
@@ -314,8 +314,6 @@ closeButton.addEventListener("click", () => {
 
 // listener кнопки сброса текущей игры
 resetButton.addEventListener("click", () => {
-  stopTimer();
-  timer.textContent = "00:00";
   clearGameArea();
 });
 
@@ -326,6 +324,7 @@ function applyTemplateToCells(template) {
     const col = index % template[0].length;
     if (template[row][col] === 1) {
       cell.classList.add("blacked");
+      gameUserArray[row][col] = 1;
     }
   });
 }
@@ -367,13 +366,7 @@ continueButton.addEventListener("click", () => {
     pictureSelect.value = savedGame.template.name;
     pictureSelect.dispatchEvent(new Event("change"));
     applyTemplateToCells(savedGame.gameUserArray);
-
-    // TODO не работает вывод победы после продолжения игры
-    if (
-      compareArrays(selectedPictureTemplate.template, savedGame.gameUserArray)
-    ) {
-      gameOver();
-    }
+    console.log(savedGame.gameUserArray);
   } else {
     alert("You haven't saved any templates yet");
   }
@@ -432,5 +425,5 @@ sizeSelectWrap.append(labelSize, sizeSelect);
 pictureSelectWrap.append(labelPicture, pictureSelect);
 
 document.addEventListener("DOMContentLoaded", () => {
-  fillPictureSelect(DEFAULT_SIZE_PICTURE);
+  fillPictureSelect(PICTURE_SIZE);
 });
