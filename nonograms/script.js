@@ -18,7 +18,6 @@ import {
 import {
   MAX_RESULTS,
   PICTURE_SIZE,
-  chooseGameArea,
   gameArea,
   timer,
 } from "./js/globalVariables.js";
@@ -42,11 +41,7 @@ import {
 } from "./js/modals.js";
 
 import {
-  sizeSelectWrap,
-  labelSize,
   sizeSelect,
-  pictureSelectWrap,
-  labelPicture,
   pictureSelect,
   fillPictureSelect,
 } from "./js/selects.js";
