@@ -14,11 +14,11 @@ All these years I remembered about my lost passion and I thought it’s impossib
 ## What is my purpose of joining RS School?
 I want to realize my childhood dream of becoming a programmer. As they say, it's never too late or better late than never.
 
-So now I want to be a Front-end developer because I enjoy programming and I can read and understand documentation properly. I can even prove it to you. 
+So now I want to be a Front-end developer because I enjoy programming and I can read and understand documentation properly. I can even prove it to you.
 
 *Show Cross-Check: Submited tasks and stars*
 
-I like to do and complete tasks. I spend all my free time on programming.
+As you can see, all reviewers gave me the high marks. We didn't argue at all. I like to do and complete tasks. I spend all my free time on programming.
 
 ## Jobs experience
 So now I'm going to tell about my work. My first profession was a Leading Metrology Engineer, then a Quality Specialist and Auditor. These jobs were in Volgograd. Now I am a Senior Specialist in Auditing and Monitoring Business Processes in Saint-Petersburg.
