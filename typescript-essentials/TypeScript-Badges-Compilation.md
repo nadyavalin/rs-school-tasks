@@ -6,7 +6,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 1. **Getting Started with TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/8RG5VVUW?sharingId=C0E00C5750816ACC)
 2. **Declare Variable Types in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/9NSMVCGU?sharingId=C0E00C5750816ACC)
-3. **Implement Interfaces in TypeScript**: [Badge](badge-link)
+3. **Implement Interfaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/CWTVGNQ9?sharingId=C0E00C5750816ACC)
 4. **Develop Typed Functions in TypeScript**: [Badge](badge-link)
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](badge-link)
 6. **Generics in TypeScript**: [Badge](badge-link)
@@ -19,7 +19,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 2. *In the second module* **Declare Variable Types in TypeScript** I memorized how to declare variables using ***let*** and ***const***. I learned how to declare typed variables using primitive, object, union, intersection types in TypeScript. I memorized the subtypes ***boolean***, ***number***, ***bigInteger***, ***string***, ***array***. I learned how to create an ***enum***. Additionally, I understood the distinction between ***any*** and ***unknown*** types. I also delved into type ***assertion*** and gained knowledge about ***literal*** and ***collection*** types. I comprehended the concept of ***Tuples*** in TypeScript.
 
-*In the third module* **Implement Interfaces in TypeScript** ...
+3. *In the third module* **Implement Interfaces in TypeScript** Now I know what an interface is and reasons for using it, and how it is different from a type alias. I learned how to declare, instantiate, extend and implement an interface. Also now I can declare an interface with custom array types. Furthermore, I can create indexable types. I think this knowledge will help me with the API task.
 
 *In the forth module* **Develop Typed Functions in TypeScript** ...
 
