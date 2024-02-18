@@ -8,7 +8,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 2. **Declare Variable Types in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/9NSMVCGU?sharingId=C0E00C5750816ACC)
 3. **Implement Interfaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/CWTVGNQ9?sharingId=C0E00C5750816ACC)
 4. **Develop Typed Functions in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/9NSQ3SVU?sharingId=C0E00C5750816ACC)
-5. **Declare and Instantiate Classes in TypeScript**: [Badge](badge-link)
+5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/UF5EUNK3?sharingId=C0E00C5750816ACC)
 6. **Generics in TypeScript**: [Badge](badge-link)
 7. **Work with External Libraries in TypeScript**: [Badge](badge-link)
 8. **Organize Code with Namespaces in TypeScript**: [Badge](badge-link)
@@ -21,12 +21,12 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 3. *In the third module* **Implement Interfaces in TypeScript** Now I know what an interface is and reasons for using it, and how it is different from a type alias. I learned how to declare, instantiate, extend and implement an interface. Also now I can declare an interface with custom array types. Furthermore, I can create indexable types. I think this knowledge will help me with the API task.
 
-*In the fourth module* **Develop Typed Functions in TypeScript** I learned how to create functions in TypeScript. I remembered about the named, anonymous and arrows functions. I wrote functions that have required, optional, default, and rest parameters. Also I can write the function with deconstructed object parameters. I can define function types using type aliases or interfaces.
+4. *In the fourth module* **Develop Typed Functions in TypeScript** I learned how to create functions in TypeScript. I remembered about the named, anonymous and arrows functions. I wrote functions that have required, optional, default, and rest parameters. Also I can write the function with deconstructed object parameters. I can define function types using type aliases or interfaces.
 
-*In the fifth module* **Declare and Instantiate Classes in TypeScript** ...
+5. *In the fifth module* **Declare and Instantiate Classes in TypeScript** I learned how to use TypeScript classes describe the shape of objects. I can declare and instantiate a class and apply access modifiers to a class. I can define static properties in a class. I learned how to declare a class that extends another class. Now I know how to declare an interface to ensure class shape. I know when to use an interface or when to use a class (to define the structure of an object). I knew about classes and constructors when I learned OOP in JavaScript, but now I know how to do it using TypeScript.
 
-*In the sixth module* **Generics in TypeScript** ...
+6. *In the sixth module* **Generics in TypeScript** ...
 
-*In the seventh module* **Work with External Libraries in TypeScript** ...
+7. *In the seventh module* **Work with External Libraries in TypeScript** ...
 
-*In the eighth module* **Organize Code with Namespaces in TypeScript** ...
+8. *In the eighth module* **Organize Code with Namespaces in TypeScript** ...
