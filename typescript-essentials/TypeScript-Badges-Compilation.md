@@ -10,7 +10,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 4. **Develop Typed Functions in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/9NSQ3SVU?sharingId=C0E00C5750816ACC)
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/UF5EUNK3?sharingId=C0E00C5750816ACC)
 6. **Generics in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/EJ78YEBP?sharingId=C0E00C5750816ACC)
-7. **Work with External Libraries in TypeScript**: [Badge](badge-link)
+7. **Work with External Libraries in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/AQW6D537?sharingId=C0E00C5750816ACC)
 8. **Organize Code with Namespaces in TypeScript**: [Badge](badge-link)
 
 ## Reflections
@@ -27,6 +27,6 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 6. *In the sixth module* **Generics in TypeScript** I learned what generics are. It was difficult to understand and I need more practice of course. Now I have a kind of understanding how to identify use cases for generics. I learned how to define a generic function. I can declare a generic interface and generic class. I can implement generic constraints.
 
-7. *In the seventh module* **Work with External Libraries in TypeScript** ...
+7. *In the seventh module* **Work with External Libraries in TypeScript** I learned how to work with External Libraries in TypeScript using the example of the dotenv library. Now I know how to import an external type library and organize my code using modules. I remember how to properly import and export modules when I was learning JavaScript. I realized that in TypeScript this process is almost the same as in JavaScript.
 
 8. *In the eighth module* **Organize Code with Namespaces in TypeScript** ...
