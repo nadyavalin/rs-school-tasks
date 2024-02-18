@@ -9,7 +9,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 3. **Implement Interfaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/CWTVGNQ9?sharingId=C0E00C5750816ACC)
 4. **Develop Typed Functions in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/9NSQ3SVU?sharingId=C0E00C5750816ACC)
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/UF5EUNK3?sharingId=C0E00C5750816ACC)
-6. **Generics in TypeScript**: [Badge](badge-link)
+6. **Generics in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/EJ78YEBP?sharingId=C0E00C5750816ACC)
 7. **Work with External Libraries in TypeScript**: [Badge](badge-link)
 8. **Organize Code with Namespaces in TypeScript**: [Badge](badge-link)
 
@@ -25,7 +25,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 5. *In the fifth module* **Declare and Instantiate Classes in TypeScript** I learned how to use TypeScript classes describe the shape of objects. I can declare and instantiate a class and apply access modifiers to a class. I can define static properties in a class. I learned how to declare a class that extends another class. Now I know how to declare an interface to ensure class shape. I know when to use an interface or when to use a class (to define the structure of an object). I knew about classes and constructors when I learned OOP in JavaScript, but now I know how to do it using TypeScript.
 
-6. *In the sixth module* **Generics in TypeScript** ...
+6. *In the sixth module* **Generics in TypeScript** I learned what generics are. It was difficult to understand and I need more practice of course. Now I have a kind of understanding how to identify use cases for generics. I learned how to define a generic function. I can declare a generic interface and generic class. I can implement generic constraints.
 
 7. *In the seventh module* **Work with External Libraries in TypeScript** ...
 
