@@ -11,7 +11,7 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 5. **Declare and Instantiate Classes in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/UF5EUNK3?sharingId=C0E00C5750816ACC)
 6. **Generics in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/EJ78YEBP?sharingId=C0E00C5750816ACC)
 7. **Work with External Libraries in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/AQW6D537?sharingId=C0E00C5750816ACC)
-8. **Organize Code with Namespaces in TypeScript**: [Badge](badge-link)
+8. **Organize Code with Namespaces in TypeScript**: [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/4S2FHR3K?sharingId=C0E00C5750816ACC)
 
 ## Reflections
 
@@ -29,4 +29,6 @@ Here is a collection of badges I earned from completing Microsoft Learn's TypeSc
 
 7. *In the seventh module* **Work with External Libraries in TypeScript** I learned how to work with External Libraries in TypeScript using the example of the dotenv library. Now I know how to import an external type library and organize my code using modules. I remember how to properly import and export modules when I was learning JavaScript. I realized that in TypeScript this process is almost the same as in JavaScript.
 
-8. *In the eighth module* **Organize Code with Namespaces in TypeScript** ...
+8. *In the eighth module* **Organize Code with Namespaces in TypeScript** I learned about namespaces. I learned how to implement multi-file and single-file namespaces. Now I know the purpose of namespaces and the design considerations for using namespaces and modules. I choose modules because modules offer some additional benefits that namespaces don't.
+
+In the end of this journey I got the last [Badge](https://learn.microsoft.com/api/achievements/share/en-us/67239660/YVHLJCBR?sharingId=C0E00C5750816ACC) because now I can **Build JavaScript applications using TypeScript**.
