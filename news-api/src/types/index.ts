@@ -1,3 +1,8 @@
+export interface NestedItems {
+  id: string;
+  name: string;
+}
+
 export interface NewsItem {
   source: NestedItems;
   title: string;
@@ -8,7 +13,7 @@ export interface NewsItem {
   url: string;
 }
 
-export interface NestedItems {
+export interface NewsItemSources {
   id: string;
   name: string;
 }
