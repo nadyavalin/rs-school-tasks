@@ -1,16 +1,16 @@
 body {
-    color: #fff;
-    background: #17181c;
+    color: #ececec;
+    background: #38393c;
     font-family: sans-serif;
 }
 
 header {
-    padding: 10px 30px;
+    padding: 10px 10px;
 }
 
 header h1 {
-    font-size: 40px;
-    font-weight: 800;
+    font-size: 30px;
+    font-weight: 700;
 }
 
 footer {
@@ -21,14 +21,15 @@ footer {
 }
 footer .copyright {
     font-size: 14px;
-    color: #333;
+    color: #ececec;
     text-align: center;
 }
 footer .copyright a {
-    color: #444;
+    color: #ececec;
+    transition: 0.5s ease-in-out;
 }
 footer .copyright a:hover {
-    color: #555;
+    color: #808080;
 }
 footer .copyright:before {
     content: '©';
