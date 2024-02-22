@@ -9,13 +9,23 @@ class Sources {
     data.forEach((item) => {
       const sourceClone = sourceItemTemp.content.cloneNode(true) as HTMLElement;
 
-      sourceClone.querySelector('.source__item-name')!.textContent = item.name;
-      sourceClone.querySelector('.source__item')!.setAttribute('data-source-id', item.id);
+      const sourceItemName = sourceClone.querySelector('.source__item-name');
+      if (sourceItemName) {
+        sourceItemName.textContent = item.name;
+      }
+
+      const sourceItem = sourceClone.querySelector('.source__item');
+      if (sourceItem) {
+        sourceItem.setAttribute('data-source-id', item.id);
+      }
 
       fragment.append(sourceClone);
     });
 
-    document.querySelector('.sources')!.append(fragment);
+    const sourcesElement = document.querySelector('.sources');
+    if (sourcesElement) {
+      sourcesElement.append(fragment);
+    }
   }
 }
 
