@@ -1,36 +1,76 @@
 body {
-    color: #ececec;
-    background: #38393c;
-    font-family: sans-serif;
+  color: #ececec;
+  background: #000e35;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
 
 header {
-    padding: 10px 10px;
+  padding: 10px 10px;
 }
 
 header h1 {
-    font-size: 30px;
-    font-weight: 700;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 footer {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-footer .copyright {
-    font-size: 14px;
-    color: #ececec;
-    text-align: center;
+
+footer .copyright,
+footer .logo-github {
+  font-size: 14px;
+  color: #ececec;
+  text-align: center;
 }
-footer .copyright a {
-    color: #ececec;
-    transition: 0.5s ease-in-out;
+
+footer .copyright a,
+footer .logo-github a {
+  color: #4335ff;
+  transition: 0.5s ease-in-out;
 }
-footer .copyright a:hover {
-    color: #808080;
-}
+
 footer .copyright:before {
-    content: '©';
+  content: '©';
+}
+
+.logo-github {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  width: 10%;
+  background-color: #3ca4ff;
+  border-radius: 10px;
+  padding: 10px;
+  transition: 0.5s ease-in-out;
+}
+
+@media (hover: hover) {
+  footer .copyright a:hover,
+  footer .logo-github a:hover {
+    color: #75bfff;
+  }
+
+  .logo:hover {
+    border-color: #d527ef;
+    color: #e7a0f2;
+    box-shadow: 0 0.5em 0.5em -0.4em #ed77ff;
+    transform: translateY(-0.50em);
+  }
+}
+
+@media (max-width: 640px) {
+  .logo {
+    width: 80px;
+  }
 }
