@@ -27,3 +27,8 @@ export interface ErrorText {
 }
 
 export type CallbackText<T> = (data: T) => void;
+
+export enum HttpStatus {
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}

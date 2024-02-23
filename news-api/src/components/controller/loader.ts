@@ -1,5 +1,4 @@
-import { AddNews } from '../../types/index';
-import { ErrorText, CallbackText } from '../../types/index';
+import { AddNews, ErrorText, CallbackText, HttpStatus } from '../../types/index';
 
 class Loader {
   public baseLink: string;
@@ -21,7 +20,7 @@ class Loader {
 
   errorHandler(res: ErrorText) {
     if (!res.ok) {
-      if (res.status === 401 || res.status === 404)
+      if (res.status === HttpStatus.UNAUTHORIZED || res.status === HttpStatus.NOT_FOUND)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
       throw Error(res.statusText);
     }
