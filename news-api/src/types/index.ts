@@ -16,8 +16,14 @@ export interface NewsItems {
 
 export interface AddNews {
   articles: NewsItems[];
-}
-
-export interface AddSources {
   sources: NewsItemsSources[];
 }
+
+export interface ErrorText {
+  status: number;
+  statusText: string;
+  ok: boolean;
+  json(): Promise<AddNews>;
+}
+
+export type CallbackText<T> = (data: T) => void;
