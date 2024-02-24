@@ -1,24 +1,24 @@
-import { AddNews, ErrorText, CallbackText, HttpStatus } from '../../types/index';
+import { Callback, HttpStatus } from '../../types/index';
+
+if (!process.env.API_URL || !process.env.API_KEY) {
+  console.error('Required variable(s) is(are) missing. Please set API_URL and(or) API_KEY.');
+}
 
 class Loader {
-  public baseLink: string;
-  private options: Record<string, string>;
+  private options: Record<string, string> = {
+    apiKey: process.env.API_KEY || '',
+  };
 
-  constructor(baseLink: string, options: Record<string, string>) {
-    this.baseLink = baseLink;
-    this.options = options;
-  }
-
-  getResp(
+  getResp<T>(
     { endpoint, options = {} }: { endpoint: string; options?: Record<string, string> },
-    callback: CallbackText<AddNews> = () => {
+    callback: Callback<T> = () => {
       console.error('No callback for GET response');
     }
   ) {
     this.load('GET', endpoint, callback, options);
   }
 
-  errorHandler(res: ErrorText) {
+  errorHandler(res: Response) {
     if (!res.ok) {
       if (res.status === HttpStatus.UNAUTHORIZED || res.status === HttpStatus.NOT_FOUND)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -30,7 +30,7 @@ class Loader {
 
   makeUrl(options: Record<string, string>, endpoint: string): string {
     const urlOptions = { ...this.options, ...options };
-    let url = `${this.baseLink}${endpoint}?`;
+    let url = `${process.env.API_URL}${endpoint}?`;
 
     Object.keys(urlOptions).forEach((key) => {
       url += `${key}=${urlOptions[key]}&`;
@@ -39,7 +39,7 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(method: string, endpoint: string, callback: CallbackText<AddNews>, options: Record<string, string> = {}) {
+  load<T>(method: string, endpoint: string, callback: Callback<T>, options: Record<string, string> = {}) {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
       .then((res) => res.json())

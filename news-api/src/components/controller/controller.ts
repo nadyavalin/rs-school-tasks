@@ -1,17 +1,12 @@
-import AppLoader from './appLoader';
-import { CallbackText, AddNews } from '../../types/index';
+import Loader from './loader';
+import { Callback, DataSources, DataNews, Endpoint } from '../../types/index';
 
-class AppController extends AppLoader {
-  getSources(callback: CallbackText<AddNews>) {
-    super.getResp(
-      {
-        endpoint: 'sources',
-      },
-      callback
-    );
+class AppController extends Loader {
+  getSources(callback: Callback<DataSources>) {
+    super.load('GET', Endpoint.Sources, callback);
   }
 
-  getNews(e: Event, callback: CallbackText<AddNews>) {
+  getArticles(e: Event, callback: Callback<DataNews>) {
     let target = e.target as HTMLElement;
     const newsContainer = e.currentTarget as HTMLElement;
 
@@ -21,15 +16,9 @@ class AppController extends AppLoader {
         if (sourceId) {
           if (newsContainer.getAttribute('data-source') !== sourceId) {
             newsContainer.setAttribute('data-source', sourceId);
-            super.getResp(
-              {
-                endpoint: 'everything',
-                options: {
-                  sources: sourceId,
-                },
-              },
-              callback
-            );
+            super.load('GET', Endpoint.Everything, callback, {
+              sources: sourceId,
+            });
           }
         }
         return;
