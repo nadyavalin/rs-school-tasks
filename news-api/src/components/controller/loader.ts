@@ -3,6 +3,7 @@ import { Callback, HttpStatus } from '../../types/index';
 if (!process.env.API_URL || !process.env.API_KEY) {
   const errorMessage = document.createElement('div');
   const main = document.querySelector('main') as HTMLElement;
+  document.body.style.height = '100vh';
   errorMessage.classList.add('error-message');
   errorMessage.textContent = 'Required variable(s) is(are) missing. Please set API_URL and(or) API_KEY.';
   main.append(errorMessage);
