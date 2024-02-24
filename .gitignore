@@ -103,7 +103,4 @@ dist
 # TernJS port file
 .tern-port
 
-.eslintrc.js
-package-lock.json
-package.json
 node_modules
