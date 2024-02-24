@@ -9,12 +9,17 @@ a {
 }
 
 header {
-  padding: 10px 10px;
+  padding: 10px;
 }
 
 header h1 {
   font-size: 30px;
   font-weight: 700;
+}
+
+main {
+  display: grid;
+  gap: 15px;
 }
 
 footer {

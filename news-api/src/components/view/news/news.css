@@ -1,8 +1,14 @@
+.news {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
 .news__item {
   display: flex;
   flex-direction: column;
-  margin: 1rem auto;
-  margin-bottom: 1.6%;
   background: #fff;
   color: #333;
   line-height: 1.4;
@@ -43,7 +49,7 @@
 .news__item .news__meta-details {
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: -10px;
   left: -120%;
   margin: auto;
   transition: left 0.2s;
