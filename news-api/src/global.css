@@ -6,7 +6,6 @@ body {
   color: #ececec;
   background: #000e35;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  padding: 15px;
 }
 
 a {
@@ -20,11 +19,6 @@ header {
 header h1 {
   font-size: 30px;
   font-weight: 700;
-}
-
-main {
-  display: grid;
-  gap: 15px;
 }
 
 footer {
