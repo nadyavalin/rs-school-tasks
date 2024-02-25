@@ -1,7 +1,8 @@
 import './articles.css';
 import { DataArticle } from '../../../types/index';
+import { BaseView } from '../baseView';
 
-class Article {
+class Article extends BaseView<DataArticle[]> {
   draw(data: DataArticle[] = []) {
     const articles = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 

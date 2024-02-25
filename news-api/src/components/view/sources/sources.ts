@@ -1,7 +1,8 @@
 import './sources.css';
 import { SourceShort } from '../../../types/index';
+import { BaseView } from '../baseView';
 
-class Sources {
+class Sources extends BaseView<SourceShort[]> {
   draw(data: SourceShort[] = []) {
     const fragment = document.createDocumentFragment();
     const sourceItemTemp = document.querySelector('#sourceItemTemp') as HTMLTemplateElement;
