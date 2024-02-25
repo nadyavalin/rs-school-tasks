@@ -11,11 +11,9 @@ export interface Source {
 export interface SourceShort {
   id: string;
   name: string;
-  articles: string;
-  sources: SourceShort[];
 }
 
-export interface Article {
+export interface DataArticle {
   source: SourceShort;
   title: string;
   urlToImage: string;
@@ -26,15 +24,15 @@ export interface Article {
   content: string;
 }
 
-export interface DataNews {
+export interface DataArticles {
   status: string;
   totalResult: number;
-  articles: Article[];
+  articles: DataArticle[];
 }
 
 export interface DataSources {
   status: string;
-  sources: SourceShort[];
+  sources: Source[];
 }
 
 export type Callback<T> = (data: T) => void;

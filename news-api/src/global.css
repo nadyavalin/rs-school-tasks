@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 100vh;
 }
 
 a {
@@ -22,6 +23,10 @@ header {
 header h1 {
   font-size: 30px;
   font-weight: 700;
+}
+
+main {
+  flex-grow: 1;
 }
 
 footer {
