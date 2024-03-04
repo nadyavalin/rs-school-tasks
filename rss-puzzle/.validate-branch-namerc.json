@@ -1,0 +1,4 @@
+{
+  "pattern": "^^((chore|feat|fix|refactor|docs)/RSS-PZ-\\d{2}_[a-zA-Z]+)|(rss-puzzle)$",
+  "errorMsg": "Branch name validate failed. Please rename your current branch"
+}
