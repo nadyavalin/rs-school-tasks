@@ -1,4 +1,4 @@
 #!/bin/sh
 
-npm run lint
-cd rss-puzzle && npx validate-branch-name
+cd rss-puzzle && npm run lint
+npx validate-branch-name
