@@ -3,10 +3,10 @@ const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const DotenvWebpackPlugin = require("dotenv-webpack");
-const EslingPlugin = require("eslint-webpack-plugin");
+const { TsconfigPathsPlugin } = require("tsconfig-paths-webpack-plugin");
 
 const baseConfig = {
-  entry: path.resolve(__dirname, "./src/index"),
+  entry: { main: { import: "./src/index.ts" } },
   mode: "development",
   module: {
     rules: [
@@ -26,6 +26,7 @@ const baseConfig = {
   },
   resolve: {
     extensions: [".ts", ".js"],
+    plugins: [new TsconfigPathsPlugin()],
   },
   output: {
     filename: "index.js",
@@ -38,7 +39,6 @@ const baseConfig = {
       filename: "index.html",
     }),
     new CleanWebpackPlugin(),
-    new EslingPlugin({ extensions: "ts" }),
   ],
 };
 
