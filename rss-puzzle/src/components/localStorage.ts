@@ -2,7 +2,7 @@ function setItemToLocalStorage(key: string, value: object) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-function saveUserDatas(user: object): void {
+export function saveUserDatas(user: object): void {
   if (
     user &&
     Object.prototype.hasOwnProperty.call(user, "firstName") &&
@@ -12,4 +12,10 @@ function saveUserDatas(user: object): void {
   }
 }
 
-export default saveUserDatas;
+function removeItemFromLocalStorage(key: string) {
+  localStorage.removeItem(key);
+}
+
+export function logoutUser() {
+  removeItemFromLocalStorage("user");
+}

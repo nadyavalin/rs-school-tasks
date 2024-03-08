@@ -1,5 +1,13 @@
-import { createInput, createButton, createErrorMessage } from "./elements";
-import saveUserDatas from "./localStorage";
+import {
+  createInput,
+  createSubmitButton,
+  createErrorMessage,
+  createButton,
+} from "./elements";
+
+import { saveUserDatas, logoutUser } from "./localStorage";
+import container from "./container";
+import startScreenPage from "./startScreen";
 
 const firstNamePattern: RegExp = /^[A-Z][-a-z]{2,}$/;
 const surnamePattern: RegExp = /^[A-Z][-a-z]{3,}$/;
@@ -13,7 +21,7 @@ const inputSurname = createInput("sname", "input", "Surname");
 const errorMsgForSurname = createErrorMessage(
   "❌ Your surname must be more than 4 characters in English with a capital letter.",
 );
-const buttonLogin = createButton("Login");
+const buttonLogin = createSubmitButton("Login");
 
 form.append(
   inputFirstName,
@@ -46,6 +54,19 @@ function updateButtonLoginState(): void {
 
 form.addEventListener("change", updateButtonLoginState);
 
+export const logoutButton = createButton(
+  "log-out",
+  "log-out-button",
+  "Log out",
+);
+
+logoutButton.addEventListener("click", () => {
+  logoutUser();
+  container.innerHTML = "";
+  container.append(form);
+  logoutButton.remove();
+});
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -55,6 +76,9 @@ form.addEventListener("submit", (event) => {
   };
 
   saveUserDatas(user);
+  container.innerHTML = "";
+  container.append(startScreenPage);
+  container.append(logoutButton);
 });
 
 inputFirstName.addEventListener("blur", () => {
@@ -69,7 +93,6 @@ inputFirstName.addEventListener("blur", () => {
 inputSurname.addEventListener("blur", () => {
   if (!isValidInput(inputSurname.value, surnamePattern)) {
     inputSurname.classList.add("invalid");
-    inputSurname.classList.add("cross-icon");
   } else {
     inputSurname.classList.remove("invalid");
   }

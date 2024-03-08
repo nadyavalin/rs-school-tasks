@@ -13,7 +13,7 @@ export function createInput(
   return input;
 }
 
-export function createButton(text: string) {
+export function createSubmitButton(text: string) {
   const button = document.createElement("button");
   button.type = "submit";
   button.id = "submit";
@@ -24,9 +24,25 @@ export function createButton(text: string) {
   return button;
 }
 
+export function createButton(id: string, className: string, text: string) {
+  const button = document.createElement("button");
+  button.id = id;
+  button.name = id;
+  button.classList.add(className);
+  button.textContent = text;
+  return button;
+}
+
 export function createErrorMessage(text: string) {
   const errorMessage = document.createElement("p");
   errorMessage.classList.add("error-message");
   errorMessage.textContent = text;
   return errorMessage;
+}
+
+export function createText(className: string, text: string) {
+  const textP = document.createElement("p");
+  textP.classList.add(className);
+  textP.textContent = text;
+  return textP;
 }

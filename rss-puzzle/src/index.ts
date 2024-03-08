@@ -1,4 +1,17 @@
 import "./index.css";
-import form from "./components/loginForm";
+import container from "./components/container";
+import startScreenPage from "./components/startScreen";
+import form, { logoutButton } from "./components/loginForm";
 
-document.body.append(form);
+document.addEventListener("DOMContentLoaded", (): void => {
+  const userName = localStorage.getItem("user");
+  container.innerHTML = "";
+  if (userName) {
+    container.append(startScreenPage);
+    container.append(logoutButton);
+  } else {
+    container.append(form);
+  }
+});
+
+export default container;
