@@ -1,4 +1,5 @@
 import { createInput, createButton, createErrorMessage } from "./elements";
+import saveUserDatas from "./localStorage";
 
 const firstNamePattern: RegExp = /^[A-Z][-a-z]{2,}$/;
 const surnamePattern: RegExp = /^[A-Z][-a-z]{3,}$/;
@@ -44,6 +45,18 @@ function updateButtonLoginState(): void {
 }
 
 form.addEventListener("change", updateButtonLoginState);
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const user = {
+    firstName: inputFirstName.value,
+    surname: inputSurname.value,
+  };
+
+  saveUserDatas(user);
+});
+
 inputFirstName.addEventListener("blur", () => {
   if (!isValidInput(inputFirstName.value, firstNamePattern)) {
     inputFirstName.classList.add("invalid");
