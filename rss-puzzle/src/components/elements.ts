@@ -46,3 +46,11 @@ export function createText(className: string, text: string) {
   textP.textContent = text;
   return textP;
 }
+
+export function createImage(src: string, alt: string, className: string) {
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = alt;
+  img.classList.add(className);
+  return img;
+}
