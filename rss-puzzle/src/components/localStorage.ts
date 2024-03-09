@@ -19,3 +19,8 @@ function removeItemFromLocalStorage(key: string) {
 export function logoutUser() {
   removeItemFromLocalStorage("user");
 }
+
+export function showDataUser() {
+  const userData = localStorage.getItem("user");
+  return userData ? JSON.parse(userData) : null;
+}
