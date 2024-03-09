@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const DotenvWebpackPlugin = require("dotenv-webpack");
 const { TsconfigPathsPlugin } = require("tsconfig-paths-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const baseConfig = {
   entry: { main: { import: "./src/index.ts" } },
@@ -39,6 +40,14 @@ const baseConfig = {
       filename: "index.html",
     }),
     new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, "public/"),
+          to: path.resolve(__dirname, "dist/public/"),
+        },
+      ],
+    }),
   ],
 };
 
