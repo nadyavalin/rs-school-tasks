@@ -1,6 +1,8 @@
 import "../index.css";
+import container from "./container";
 import { createText, createImage, createButton } from "./elements";
 import { showDataUser } from "./localStorage";
+import gamePageStartText from "./gamePage";
 
 const startScreenPage = document.createElement("div");
 startScreenPage.classList.add("start-screen-page");
@@ -25,6 +27,11 @@ const description2 = createText(
   "Words can be drag and drop. Select hints in the menu.",
 );
 const startButton = createButton("start", "start-button", "Start");
+
+startButton.addEventListener("click", () => {
+  startScreenPage.remove();
+  container.append(gamePageStartText);
+});
 
 startScreenPage.append(
   greet,
