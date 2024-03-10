@@ -54,3 +54,16 @@ export function createImage(src: string, alt: string, className: string) {
   img.classList.add(className);
   return img;
 }
+
+export function createDiv(className: string) {
+  const div = document.createElement("div");
+  div.classList.add(className);
+  return div;
+}
+
+export function createSpan(className: string, text: string) {
+  const span = document.createElement("span");
+  span.classList.add(className);
+  span.textContent = text;
+  return span;
+}

@@ -2,7 +2,7 @@ import "../index.css";
 import container from "./container";
 import { createText, createImage, createButton } from "./elements";
 import { showDataUser } from "./localStorage";
-import gamePageStartText from "./gamePage";
+import gameArea from "./gamePage";
 
 const startScreenPage = document.createElement("div");
 startScreenPage.classList.add("start-screen-page");
@@ -30,7 +30,7 @@ const startButton = createButton("start", "start-button", "Start");
 
 startButton.addEventListener("click", () => {
   startScreenPage.remove();
-  container.append(gamePageStartText);
+  container.append(gameArea);
 });
 
 startScreenPage.append(
