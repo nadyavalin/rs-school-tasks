@@ -202,14 +202,9 @@ button.disabled {
   height: 36px;
 }
 
-.moveRight {
+.moveUp {
   opacity: 0;
-  transform: translateX(100px);
-}
-
-.moveLeft {
-  opacity: 1;
-  transform: translateX(100px);
+  transform: translateY(-400px);
 }
 
 @media (hover: hover) {

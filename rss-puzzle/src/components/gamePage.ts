@@ -54,10 +54,10 @@ const spannedsourceWords = sourceWords.map((word) =>
 sourceArea.addEventListener("click", (event) => {
   const span = event.target as HTMLSpanElement;
   if (span.classList.contains("puzzle-items")) {
-    span.classList.add("moveRight");
+    span.classList.add("moveUp");
     setTimeout(() => {
       resultSentences.append(span);
-      span.classList.remove("moveRight");
+      span.classList.remove("moveUp");
       span.classList.add("chosen");
       span.style.width = `${span.offsetWidth}px`;
     }, 500);
