@@ -51,16 +51,32 @@ const spannedsourceWords = sourceWords.map((word) =>
   createSpan("puzzle-items", word),
 );
 
-spannedsourceWords.forEach((span) => {
-  sourceArea.append(span);
-  span.addEventListener("click", () => {
+sourceArea.addEventListener("click", (event) => {
+  const span = event.target as HTMLSpanElement;
+  if (span.classList.contains("puzzle-items")) {
     span.classList.add("moveRight");
     setTimeout(() => {
       resultSentences.append(span);
       span.classList.remove("moveRight");
       span.classList.add("chosen");
+      span.style.width = `${span.offsetWidth}px`;
     }, 500);
-  });
+  }
+});
+
+const alphabetLength = 26;
+const totalWordWidths = spannedsourceWords.reduce(
+  (total, span) => total + (100 * span.innerText.length) / alphabetLength,
+  0,
+);
+const scale = totalWordWidths > 100 ? 100 / totalWordWidths : 1;
+
+spannedsourceWords.forEach((span) => {
+  const spanCopy = span as HTMLSpanElement;
+  const scaledWidth =
+    (scale * (100 * spanCopy.innerText.length)) / alphabetLength;
+  spanCopy.style.width = `${scaledWidth}%`;
+  sourceArea.append(spanCopy);
 });
 
 gameArea.append(resultArea, sourceArea);
