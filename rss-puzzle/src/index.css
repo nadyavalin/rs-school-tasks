@@ -178,33 +178,34 @@ button.disabled {
   border-radius: 10px;
 }
 
-.puzzle-items {
+.puzzle-item {
   display: flex;
   justify-content: center;
   align-items: center;
   color: #000000;
   border: 1px solid #000000;
   border-radius: 10px;
-  background-color: rgb(206, 255, 208);
+  background-color: #ceffd0;
   cursor: pointer;
   transition: all 0.5s ease;
 }
 
-.puzzle-items.chosen {
-  background-color: rgba(0, 196, 7, 1);
-}
-
-.puzzle-items .puzzle-items__result {
+.puzzle-item .puzzle-items__result {
   height: 37px;
 }
 
-.puzzle-items .puzzle-items__source {
+.puzzle-item .puzzle-items__source {
   height: 36px;
 }
 
-.moveUp {
+.puzzle-item_move-up {
   opacity: 0;
   transform: translateY(-400px);
+}
+
+.puzzle-item_move-down {
+  opacity: 0;
+  transform: translateY(400px);
 }
 
 @media (hover: hover) {
@@ -212,8 +213,9 @@ button.disabled {
     background-color: #009808;
   }
 
-  .puzzle-items:hover {
-    background-color: rgba(0, 196, 7, 1);
+  .puzzle-item:hover {
+    border: 1px solid #ff0000;
+    background-color: rgb(204, 255, 206, 0.5);
   }
 }
 

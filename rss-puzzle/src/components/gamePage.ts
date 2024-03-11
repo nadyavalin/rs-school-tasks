@@ -34,7 +34,7 @@ new Array(10).fill(null).forEach(() => {
   // const randomSentence = getRandomSentence();
   // const words = randomSentence.split(" ");
   // const spannedWords: HTMLSpanElement[] = words.map((word) =>
-  //   createSpan("puzzle-items", word),
+  //   createSpan("puzzle-item", word),
   // );
   // const resultSentences = createDiv("result-sentences");
   // spannedWords.forEach((span) => {
@@ -48,18 +48,29 @@ const sourceWords = sourceRandomSentence
   .split(" ")
   .sort(() => Math.random() - 0.5);
 const spannedsourceWords = sourceWords.map((word) =>
-  createSpan("puzzle-items", word),
+  createSpan("puzzle-item", word),
 );
 
 sourceArea.addEventListener("click", (event) => {
   const span = event.target as HTMLSpanElement;
-  if (span.classList.contains("puzzle-items")) {
-    span.classList.add("moveUp");
+  if (span.classList.contains("puzzle-item")) {
+    span.classList.add("puzzle-item_move-up");
+    span.classList.add("chosen");
     setTimeout(() => {
       resultSentences.append(span);
-      span.classList.remove("moveUp");
-      span.classList.add("chosen");
-      span.style.width = `${span.offsetWidth}px`;
+      span.classList.remove("puzzle-item_move-up");
+    }, 500);
+  }
+});
+
+resultArea.addEventListener("click", (event) => {
+  const span = event.target as HTMLSpanElement;
+  if (span.classList.contains("chosen")) {
+    span.classList.add("puzzle-item_move-down");
+    setTimeout(() => {
+      sourceArea.append(span);
+      span.classList.remove("puzzle-item_move-down");
+      span.classList.remove("chosen");
     }, 500);
   }
 });
