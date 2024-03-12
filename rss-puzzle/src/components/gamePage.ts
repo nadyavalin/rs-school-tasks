@@ -75,14 +75,48 @@ function createNextSentence() {
 }
 createNextSentence();
 
+const checkButton = createButton("check", "continue-button", "Check");
+checkButton.classList.add("disabled");
+const continueButton = createButton("continue", "check-button", "Continue");
+continueButton.classList.add("disabled");
+
+function highlightMistakes(allWords: string[], sourceWords: string[]) {
+  const allSpans = [...resultSentence.children] as HTMLSpanElement[];
+  allWords.forEach((word, index) => {
+    if (word !== sourceWords[index]) {
+      allSpans[index].classList.add("mistake");
+    } else {
+      allSpans[index].classList.add("correct");
+    }
+  });
+}
+
+function resetHighlights() {
+  const allSpans = [...resultSentence.children] as HTMLSpanElement[];
+  allSpans.forEach((span) => {
+    span.classList.remove("mistake");
+  });
+}
+
+let sourceWords: string[];
+
 sourceArea.addEventListener("click", (event) => {
-  const span = event.target as HTMLSpanElement;
-  if (span.classList.contains("puzzle-item")) {
+  const clickedElement = event.target as HTMLElement;
+  sourceWords = sourceSentence.split(" ");
+  if (clickedElement.classList.contains("puzzle-item")) {
+    const span = clickedElement as HTMLSpanElement;
     span.classList.add("puzzle-item_move-up");
     span.classList.add("chosen");
     setTimeout(() => {
       resultSentence.append(span);
       span.classList.remove("puzzle-item_move-up");
+
+      const allSpans = [...resultSentence.children] as HTMLSpanElement[];
+      const allWords = allSpans.map((word) => word.innerText);
+
+      if (allWords.length === sourceWords.length) {
+        checkButton.classList.remove("disabled");
+      }
     }, 500);
   }
 });
@@ -99,29 +133,34 @@ resultArea.addEventListener("click", (event) => {
   }
 });
 
-const checkButton = createButton("check", "continue-button", "Check");
-const continueButton = createButton("continue", "continue-button", "Continue");
-continueButton.classList.add("disabled");
-
 checkButton.addEventListener("click", () => {
+  resetHighlights();
   const resultWords = Array.from(resultSentence.children).map(
     (span) => (span as HTMLSpanElement).innerText,
   );
   const formedSentence = resultWords.join(" ");
   const guessedSentence = sourceSentence;
+  const allSpans = [...resultSentence.children] as HTMLSpanElement[];
+  const allWords = allSpans.map((span) => span.innerText);
 
   if (guessedSentence === formedSentence) {
+    resetHighlights();
     continueButton.classList.remove("disabled");
   }
+  highlightMistakes(allWords, sourceWords);
 });
 
 continueButton.addEventListener("click", () => {
   resultSentence.classList.add("result-sentence_done");
+  checkButton.classList.add("disabled");
   continueButton.classList.add("disabled");
   createResultSentence();
   createNextSentence();
 });
 
-gameArea.append(resultArea, sourceArea, checkButton, continueButton);
+const buttonContainer = createDiv("button-container");
+buttonContainer.append(checkButton, continueButton);
+
+gameArea.append(resultArea, sourceArea, buttonContainer);
 
 export default gameArea;
