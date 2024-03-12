@@ -3,7 +3,7 @@ import { GameData } from "src/type/interfacesAndTypes";
 export const wordsLevelTwo: GameData = {
   rounds: [
     {
-      levelData: {
+      roundData: {
         id: "2_01",
         name: "Italianate Landscape With Travellers",
         imageSrc: "level2/2_01.jpg",
@@ -100,7 +100,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_02",
         name: "Landscape with a Watermill",
         imageSrc: "level2/2_02.jpg",
@@ -197,7 +197,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_03",
         name: "Winter",
         imageSrc: "level2/2_03.jpg",
@@ -293,7 +293,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_04",
         name: "Skating at Sloten, near Amsterdam",
         imageSrc: "level2/2_04.jpg",
@@ -389,7 +389,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_05",
         name: "The Castle of Batavia, Seen from Kali Besar West",
         imageSrc: "level2/2_05.jpg",
@@ -485,7 +485,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_06",
         name: "The Hague Vegetable Market in Winter",
         imageSrc: "level2/2_06.jpg",
@@ -582,7 +582,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_07",
         name: "Seashore",
         imageSrc: "level2/2_07.jpg",
@@ -681,7 +681,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_08",
         name: "Banks of the Oise",
         imageSrc: "level2/2_08.jpg",
@@ -778,7 +778,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_09",
         name: "View of the Grand Canal at San Stae",
         imageSrc: "level2/2_09.jpg",
@@ -877,7 +877,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_10",
         name: "The Piazza della Signoria in Florence",
         imageSrc: "level2/2_10.jpg",
@@ -975,7 +975,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_11",
         name: "View of the Villa Cagnola at Gazzada near Varese",
         imageSrc: "level2/2_11.jpg",
@@ -1073,7 +1073,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_12",
         name: "The Campagna at Lungezza near Rome",
         imageSrc: "level2/2_12.jpg",
@@ -1168,7 +1168,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_13",
         name: "A Southern Harbour Scene",
         imageSrc: "level2/2_13.jpg",
@@ -1261,7 +1261,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_14",
         name: "A Harbour Scene",
         imageSrc: "level2/2_14.jpg",
@@ -1356,7 +1356,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_15",
         name: "The Invalides, Paris",
         imageSrc: "level2/2_15.jpg",
@@ -1454,7 +1454,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_16",
         name: "View of Ariccia with the Sea in the Background",
         imageSrc: "level2/2_16.jpg",
@@ -1554,7 +1554,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_17",
         name: "The Miracles of the Penitent St Mary",
         imageSrc: "level2/2_17.jpg",
@@ -1654,7 +1654,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_18",
         name: "Autumn",
         imageSrc: "level2/2_18.jpg",
@@ -1751,7 +1751,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_19",
         name: "Landscape with Merchants",
         imageSrc: "level2/2_19.jpg",
@@ -1847,7 +1847,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_20",
         name: "Landscape with Shepherds",
         imageSrc: "level2/2_20.jpg",
@@ -1944,7 +1944,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_21",
         name: "The Hay-Wain",
         imageSrc: "level2/2_21.jpg",
@@ -2043,7 +2043,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_22",
         name: "The Bridge at Mantes",
         imageSrc: "level2/2_22.jpg",
@@ -2141,7 +2141,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_23",
         name: "View of Frankfurt am Main",
         imageSrc: "level2/2_23.jpg",
@@ -2237,7 +2237,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_24",
         name: "The Cliff at Étretat after the Storm",
         imageSrc: "level2/2_24.jpg",
@@ -2334,7 +2334,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_25",
         name: "Greenwood Lake",
         imageSrc: "level2/2_25.jpg",
@@ -2429,7 +2429,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_26",
         name: "The Avenue at Meerdervoort",
         imageSrc: "level2/2_26.jpg",
@@ -2523,7 +2523,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_27",
         name: "The Valkhof at Nijmegen",
         imageSrc: "level2/2_27.jpg",
@@ -2616,7 +2616,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_28",
         name: "Morning after a Stormy Night",
         imageSrc: "level2/2_28.jpg",
@@ -2715,7 +2715,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_29",
         name: "Eruption of the Vesuvius",
         imageSrc: "level2/2_29.jpg",
@@ -2810,7 +2810,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_30",
         name: "Landscape with Shepherds",
         imageSrc: "level2/2_30.jpg",
@@ -2904,7 +2904,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_31",
         name: "The Barges",
         imageSrc: "level2/2_31.jpg",
@@ -3001,7 +3001,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_32",
         name: "The Sea from the Heights of Dieppe",
         imageSrc: "level2/2_32.jpg",
@@ -3099,7 +3099,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_33",
         name: "Architectural Capriccio with Jephthah and His Daughter",
         imageSrc: "level2/2_33.jpg",
@@ -3194,7 +3194,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_34",
         name: "The Pont Neuf and the Quai des Orfèvres, from the Place du Pont Neuf",
         imageSrc: "level2/2_34.jpg",
@@ -3289,7 +3289,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_35",
         name: "Houses at a Millrace",
         imageSrc: "level2/2_35.jpg",
@@ -3388,7 +3388,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_36",
         name: "The Forest in Fontainebleau",
         imageSrc: "level2/2_36.jpg",
@@ -3483,7 +3483,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_37",
         name: "View from the Giudecca, Venice",
         imageSrc: "level2/2_37.jpg",
@@ -3583,7 +3583,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_38",
         name: "Landscape with Ford",
         imageSrc: "level2/2_38.jpg",
@@ -3676,7 +3676,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_39",
         name: "Gorge",
         imageSrc: "level2/2_39.jpg",
@@ -3770,7 +3770,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_40",
         name: "Dolmen on Brandsø",
         imageSrc: "level2/2_40.jpg",
@@ -3869,7 +3869,7 @@ export const wordsLevelTwo: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "2_41",
         name: "Village Scene",
         imageSrc: "level2/2_41.jpg",

@@ -3,7 +3,7 @@ import { GameData } from "src/type/interfacesAndTypes";
 export const wordsLevelFive: GameData = {
   rounds: [
     {
-      levelData: {
+      roundData: {
         id: "5_01",
         name: "A Garden Party",
         imageSrc: "level5/5_01.jpg",
@@ -99,7 +99,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_02",
         name: "Family Group in a Landscape",
         imageSrc: "level5/5_02.jpg",
@@ -195,7 +195,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_03",
         name: "View of the Island of Capri",
         imageSrc: "level5/5_03.jpg",
@@ -294,7 +294,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_04",
         name: "The Return from the War",
         imageSrc: "level5/5_04.jpg",
@@ -394,7 +394,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_05",
         name: "River Landscape with a Village in the Background",
         imageSrc: "level5/5_05.jpg",
@@ -493,7 +493,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_06",
         name: "River Banks, Auvergne",
         imageSrc: "level5/5_06.jpg",
@@ -595,7 +595,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_07",
         name: "On Riviera",
         imageSrc: "level5/5_07.jpg",
@@ -695,7 +695,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_08",
         name: "The Courtyard of the Customs House",
         imageSrc: "level5/5_08.jpg",
@@ -792,7 +792,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_09",
         name: "Still-Life",
         imageSrc: "level5/5_09.jpg",
@@ -892,7 +892,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_10",
         name: "View from the Prater towards the Suburbs of Vienna",
         imageSrc: "level5/5_10.jpg",
@@ -994,7 +994,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_11",
         name: "The Bull Hunt in Campo San Polo",
         imageSrc: "level5/5_11.jpg",
@@ -1095,7 +1095,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_12",
         name: "The Steeplechase",
         imageSrc: "level5/5_12.jpg",
@@ -1193,7 +1193,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_13",
         name: "The Entry of King Othon of Greece in Athens",
         imageSrc: "level5/5_13.jpg",
@@ -1288,7 +1288,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_14",
         name: "Landscape",
         imageSrc: "level5/5_14.jpg",
@@ -1385,7 +1385,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_15",
         name: "View of the Monastery of El Escorial",
         imageSrc: "level5/5_15.jpg",
@@ -1482,7 +1482,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_16",
         name: "The Grand Odalisque",
         imageSrc: "level5/5_16.jpg",
@@ -1582,7 +1582,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_17",
         name: "After a Storm",
         imageSrc: "level5/5_17.jpg",
@@ -1679,7 +1679,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_18",
         name: "View of La Iglesia y la Plaza de San Antonio, Aranjuez",
         imageSrc: "level5/5_18.jpg",
@@ -1778,7 +1778,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_19",
         name: "Washington Crossing the Delaware",
         imageSrc: "level5/5_19.jpg",
@@ -1879,7 +1879,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_20",
         name: "The Royal Procession to the Church of Santa Maria di Piedigrotta",
         imageSrc: "level5/5_20.jpg",
@@ -1982,7 +1982,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_21",
         name: "Landscape with Cephalus and Procris",
         imageSrc: "level5/5_21.jpg",
@@ -2081,7 +2081,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_22",
         name: "Under the Birch Trees",
         imageSrc: "level5/5_22.jpg",
@@ -2182,7 +2182,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_23",
         name: "The Musicians' Brawl",
         imageSrc: "level5/5_23.jpg",
@@ -2275,7 +2275,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_24",
         name: "Engagement between Sir George Brydges Rodney and the Spanish Squadron",
         imageSrc: "level5/5_24.jpg",
@@ -2371,7 +2371,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_25",
         name: "Rinaldo's Farewell to Armida",
         imageSrc: "level5/5_25.jpg",
@@ -2471,7 +2471,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_26",
         name: "The Excommunication of Robert the Pious",
         imageSrc: "level5/5_26.jpg",
@@ -2572,7 +2572,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_27",
         name: "Bacchanal",
         imageSrc: "level5/5_27.jpg",
@@ -2669,7 +2669,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_28",
         name: "Venus and Adonis",
         imageSrc: "level5/5_28.jpg",
@@ -2768,7 +2768,7 @@ export const wordsLevelFive: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "5_29",
         name: "View of Florence from Villa San Firenze, near San Miniato",
         imageSrc: "level5/5_29.jpg",

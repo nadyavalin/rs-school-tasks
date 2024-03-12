@@ -1,55 +1,79 @@
-import { createDiv, createSpan } from "./elements";
+import { createButton, createDiv, createSpan } from "./elements";
 import { wordsLevelOne } from "../data/words/wordsLevelOne";
-// import { wordsLevelTwo } from "../data/words/wordsLevelTwo";
-// import { wordsLevelThree } from "../data/words/wordsLevelThree";
-// import { wordsLevelFour } from "../data/words/wordsLevelFour";
-// import { wordsLevelFive } from "../data/words/wordsLevelFive";
-// import { wordsLevelSix } from "../data/words/wordsLevelSix";
+import { wordsLevelTwo } from "../data/words/wordsLevelTwo";
+import { wordsLevelThree } from "../data/words/wordsLevelThree";
+import { wordsLevelFour } from "../data/words/wordsLevelFour";
+import { wordsLevelFive } from "../data/words/wordsLevelFive";
+import { wordsLevelSix } from "../data/words/wordsLevelSix";
 
-// const levels = [
-//   wordsLevelOne,
-//   wordsLevelTwo,
-//   wordsLevelThree,
-//   wordsLevelFour,
-//   wordsLevelFive,
-//   wordsLevelSix,
-// ];
-
-const getRandomSentence = () => {
-  const randomRound =
-    wordsLevelOne.rounds[
-      Math.floor(Math.random() * wordsLevelOne.rounds.length)
-    ];
-  const randomWord =
-    randomRound.words[Math.floor(Math.random() * randomRound.words.length)];
-  return randomWord.textExample;
-};
+const levels = [
+  wordsLevelOne,
+  wordsLevelTwo,
+  wordsLevelThree,
+  wordsLevelFour,
+  wordsLevelFive,
+  wordsLevelSix,
+];
 
 const gameArea = createDiv("game-area");
 const resultArea = createDiv("result-area");
 const sourceArea = createDiv("source-area");
 
-const resultSentences: HTMLDivElement = createDiv("result-sentences");
-new Array(10).fill(null).forEach(() => {
-  // const randomSentence = getRandomSentence();
-  // const words = randomSentence.split(" ");
-  // const spannedWords: HTMLSpanElement[] = words.map((word) =>
-  //   createSpan("puzzle-item", word),
-  // );
-  // const resultSentences = createDiv("result-sentences");
-  // spannedWords.forEach((span) => {
-  //   resultSentences.append(span);
-  // });
-  resultArea.append(resultSentences);
-});
+let currentLevel = 0;
+let currentRound = 0;
+let currentSentence = -1;
 
-const sourceRandomSentence = getRandomSentence();
-const sourceWords = sourceRandomSentence
-  .split(" ")
-  .sort(() => Math.random() - 0.5);
-const spannedsourceWords = sourceWords.map((word) =>
-  createSpan("puzzle-item", word),
-);
+function getNextSentence() {
+  const sentenceIndex = currentSentence % 10;
+
+  if (sentenceIndex === 9) {
+    currentRound += 1;
+    currentSentence = 0;
+    resultArea.innerHTML = "";
+    if (currentRound >= levels[currentLevel].rounds.length) {
+      currentLevel += 1;
+      currentRound = 0;
+    }
+  } else {
+    currentSentence += 1;
+  }
+
+  const round = levels[currentLevel].rounds[currentRound];
+  const sentence = round.words[currentSentence].textExample;
+  return sentence;
+}
+
+let resultSentence: HTMLDivElement;
+function createResultSentence() {
+  resultSentence = createDiv("result-sentence");
+  resultArea.append(resultSentence);
+}
+createResultSentence();
+
+let sourceSentence: string;
+function createNextSentence() {
+  sourceSentence = getNextSentence();
+  const sourceWords = sourceSentence.split(" ").sort(() => Math.random() - 0.5);
+  const spannedSourceWords: HTMLSpanElement[] = sourceWords.map((word) =>
+    createSpan("puzzle-item", word),
+  );
+  const alphabetLength = 26;
+  const totalWordWidths = spannedSourceWords.reduce(
+    (total, span) => total + (100 * span.innerText.length) / alphabetLength,
+    0,
+  );
+  const scale = totalWordWidths > 100 ? 100 / totalWordWidths : 1;
+
+  spannedSourceWords.forEach((span) => {
+    const spanCopy = span as HTMLSpanElement;
+    const scaledWidth =
+      (scale * (100 * spanCopy.innerText.length)) / alphabetLength;
+    spanCopy.style.width = `${scaledWidth}%`;
+    sourceArea.append(spanCopy);
+  });
+  sourceArea.append(...spannedSourceWords);
+}
+createNextSentence();
 
 sourceArea.addEventListener("click", (event) => {
   const span = event.target as HTMLSpanElement;
@@ -57,7 +81,7 @@ sourceArea.addEventListener("click", (event) => {
     span.classList.add("puzzle-item_move-up");
     span.classList.add("chosen");
     setTimeout(() => {
-      resultSentences.append(span);
+      resultSentence.append(span);
       span.classList.remove("puzzle-item_move-up");
     }, 500);
   }
@@ -75,21 +99,29 @@ resultArea.addEventListener("click", (event) => {
   }
 });
 
-const alphabetLength = 26;
-const totalWordWidths = spannedsourceWords.reduce(
-  (total, span) => total + (100 * span.innerText.length) / alphabetLength,
-  0,
-);
-const scale = totalWordWidths > 100 ? 100 / totalWordWidths : 1;
+const checkButton = createButton("check", "continue-button", "Check");
+const continueButton = createButton("continue", "continue-button", "Continue");
+continueButton.classList.add("disabled");
 
-spannedsourceWords.forEach((span) => {
-  const spanCopy = span as HTMLSpanElement;
-  const scaledWidth =
-    (scale * (100 * spanCopy.innerText.length)) / alphabetLength;
-  spanCopy.style.width = `${scaledWidth}%`;
-  sourceArea.append(spanCopy);
+checkButton.addEventListener("click", () => {
+  const resultWords = Array.from(resultSentence.children).map(
+    (span) => (span as HTMLSpanElement).innerText,
+  );
+  const formedSentence = resultWords.join(" ");
+  const guessedSentence = sourceSentence;
+
+  if (guessedSentence === formedSentence) {
+    continueButton.classList.remove("disabled");
+  }
 });
 
-gameArea.append(resultArea, sourceArea);
+continueButton.addEventListener("click", () => {
+  resultSentence.classList.add("result-sentence_done");
+  continueButton.classList.add("disabled");
+  createResultSentence();
+  createNextSentence();
+});
+
+gameArea.append(resultArea, sourceArea, checkButton, continueButton);
 
 export default gameArea;

@@ -1,5 +1,5 @@
 export interface Round {
-  levelData: {
+  roundData: {
     id: string;
     name: string;
     imageSrc: string;

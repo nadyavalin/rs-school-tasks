@@ -3,7 +3,7 @@ import { GameData } from "src/type/interfacesAndTypes";
 export const wordsLevelSix: GameData = {
   rounds: [
     {
-      levelData: {
+      roundData: {
         id: "6_01",
         name: "River in Winter",
         imageSrc: "level6/6_01.jpg",
@@ -105,7 +105,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_02",
         name: "Card-Sharpers",
         imageSrc: "level6/6_02.jpg",
@@ -206,7 +206,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_03",
         name: "Farmhouse",
         imageSrc: "level6/6_03.jpg",
@@ -305,7 +305,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_04",
         name: "An Elegant Company in an Interior",
         imageSrc: "level6/6_04.jpg",
@@ -400,7 +400,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_05",
         name: "View of the Forum Looking towards the Capitol",
         imageSrc: "level6/6_05.jpg",
@@ -498,7 +498,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_06",
         name: "Allegory of Life and Death",
         imageSrc: "level6/6_06.jpg",
@@ -604,7 +604,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_07",
         name: "View of a Southern Coast",
         imageSrc: "level6/6_07.jpg",
@@ -701,7 +701,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_08",
         name: "A Cowherd at Pontoise",
         imageSrc: "level6/6_08.jpg",
@@ -803,7 +803,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_09",
         name: "Lordship Lane Station, Dulwich",
         imageSrc: "level6/6_09.jpg",
@@ -903,7 +903,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_10",
         name: "Children of Frederick V Prince Elector of Pfalz and King of Bohemia",
         imageSrc: "level6/6_10.jpg",
@@ -1005,7 +1005,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_11",
         name: "Capriccio View of Rome with the Martyrdom of St Lawrence",
         imageSrc: "level6/6_11.jpg",
@@ -1098,7 +1098,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_12",
         name: "Landscape with Shepherdess and Shepherd Playing Flute",
         imageSrc: "level6/6_12.jpg",
@@ -1195,7 +1195,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_13",
         name: "Fisherwomen by the Shore",
         imageSrc: "level6/6_13.jpg",
@@ -1289,7 +1289,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_14",
         name: "Fjord in Norway",
         imageSrc: "level6/6_14.jpg",
@@ -1391,7 +1391,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_15",
         name: "The Pont des Arts, Paris",
         imageSrc: "level6/6_15.jpg",
@@ -1494,7 +1494,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_16",
         name: "A Capriccio Landscape with a Domed Church",
         imageSrc: "level6/6_16.jpg",
@@ -1592,7 +1592,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_17",
         name: "Architectural Capriccio",
         imageSrc: "level6/6_17.jpg",
@@ -1695,7 +1695,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_18",
         name: "Bridal Procession in a Spring Landscape",
         imageSrc: "level6/6_18.jpg",
@@ -1791,7 +1791,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_19",
         name: "Venice, Approach to the Grand Canal",
         imageSrc: "level6/6_19.jpg",
@@ -1895,7 +1895,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_20",
         name: "A Battle Scene",
         imageSrc: "level6/6_20.jpg",
@@ -2000,7 +2000,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_21",
         name: "Heroic Battle",
         imageSrc: "level6/6_21.jpg",
@@ -2105,7 +2105,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_22",
         name: "An Autumn Landscape with a View of Het Steen",
         imageSrc: "level6/6_22.jpg",
@@ -2207,7 +2207,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_23",
         name: "Landscape with a Rainbow",
         imageSrc: "level6/6_23.jpg",
@@ -2313,7 +2313,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_24",
         name: "View of the Town of Alkmaar",
         imageSrc: "level6/6_24.jpg",
@@ -2413,7 +2413,7 @@ export const wordsLevelSix: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "6_25",
         name: "Painter's Studio",
         imageSrc: "level6/6_25.jpg",

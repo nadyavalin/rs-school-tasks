@@ -148,13 +148,13 @@ button.disabled {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh - 100px;
+  height: 100vh;
   margin-top: 90px;
   gap: 20px;
 }
 
 .result-area {
-  height: 400px;
+  height: 415px;
   border: 3px solid #00f600;
   border-radius: 10px;
   background-color: rgb(186, 186, 186, 0.8);
@@ -171,11 +171,15 @@ button.disabled {
   background-color: rgb(186, 186, 186, 0.8);
 }
 
-.result-sentences {
+.result-sentence {
   display: flex;
   height: 40px;
   border: 1px solid #000000;
   border-radius: 10px;
+}
+
+.result-sentence_done {
+  pointer-events: none;
 }
 
 .puzzle-item {
@@ -187,7 +191,7 @@ button.disabled {
   border-radius: 10px;
   background-color: #ceffd0;
   cursor: pointer;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 
 .puzzle-item .puzzle-items__result {
@@ -200,12 +204,26 @@ button.disabled {
 
 .puzzle-item_move-up {
   opacity: 0;
-  transform: translateY(-400px);
+  transform: translateY(-250px);
 }
 
 .puzzle-item_move-down {
   opacity: 0;
-  transform: translateY(400px);
+  transform: translateY(250px);
+}
+
+.continue-button {
+  font-size: 16px;
+  width: 200px;
+  align-self: center;
+  background-color: #4caf50;
+  opacity: 1;
+}
+
+.continue-button.disabled {
+  background-color: #c0f0c2;
+  color: #adadad;
+  cursor: not-allowed;
 }
 
 @media (hover: hover) {

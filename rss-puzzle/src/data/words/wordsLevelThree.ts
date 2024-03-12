@@ -3,7 +3,7 @@ import { GameData } from "src/type/interfacesAndTypes";
 export const wordsLevelThree: GameData = {
   rounds: [
     {
-      levelData: {
+      roundData: {
         id: "3_01",
         name: "Return from the Falcon Hunt",
         imageSrc: "level3/3_01.jpg",
@@ -97,7 +97,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_02",
         name: "Rocky Landscape with Antique Ruins",
         imageSrc: "level3/3_02.jpg",
@@ -195,7 +195,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_03",
         name: "The Banks of the Manzanares River",
         imageSrc: "level3/3_03.jpg",
@@ -294,7 +294,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_04",
         name: "The Augustan Bridge",
         imageSrc: "level3/3_04.jpg",
@@ -396,7 +396,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_05",
         name: "Landscape with Sarcophagus",
         imageSrc: "level3/3_05.jpg",
@@ -492,7 +492,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_06",
         name: "Building the Devil's Bridge",
         imageSrc: "level3/3_06.jpg",
@@ -587,7 +587,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_07",
         name: "Stag Hunting in the Dunes",
         imageSrc: "level3/3_07.jpg",
@@ -683,7 +683,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_08",
         name: "Landscape with the Prophet Elijah in the Desert",
         imageSrc: "level3/3_08.jpg",
@@ -780,7 +780,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_09",
         name: "River Landscape with a Town and Fortified Tower",
         imageSrc: "level3/3_09.jpg",
@@ -876,7 +876,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_10",
         name: "The Champion Single Sculls (Max Schmitt in a Single Scull)",
         imageSrc: "level3/3_10.jpg",
@@ -975,7 +975,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_11",
         name: "A Frigate, Calm Seas",
         imageSrc: "level3/3_11.jpg",
@@ -1072,7 +1072,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_12",
         name: "A Brig under Sail in Fair Weather",
         imageSrc: "level3/3_12.jpg",
@@ -1168,7 +1168,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_13",
         name: "The Cloisters, San Lorenzo fuori le mura",
         imageSrc: "level3/3_13.jpg",
@@ -1268,7 +1268,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_14",
         name: "View of Amsterdam",
         imageSrc: "level3/3_14.jpg",
@@ -1364,7 +1364,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_15",
         name: "View of the Zuidsingel, Amersfoort",
         imageSrc: "level3/3_15.jpg",
@@ -1460,7 +1460,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_16",
         name: "Seascape",
         imageSrc: "level3/3_16.jpg",
@@ -1553,7 +1553,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_17",
         name: "Southern Pastoral",
         imageSrc: "level3/3_17.jpg",
@@ -1650,7 +1650,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_18",
         name: "Winter Landscape",
         imageSrc: "level3/3_18.jpg",
@@ -1744,7 +1744,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_19",
         name: "The Silver Seascape",
         imageSrc: "level3/3_19.jpg",
@@ -1841,7 +1841,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_20",
         name: "View of the Isle of Sora",
         imageSrc: "level3/3_20.jpg",
@@ -1940,7 +1940,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_21",
         name: "Cavalry Battle Scene",
         imageSrc: "level3/3_21.jpg",
@@ -2038,7 +2038,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_22",
         name: "Landscape with the Parable of the Tares among the Wheat",
         imageSrc: "level3/3_22.jpg",
@@ -2137,7 +2137,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_23",
         name: "A Scene in the Roman Campagna",
         imageSrc: "level3/3_23.jpg",
@@ -2235,7 +2235,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_24",
         name: "Naples, a View of Mergellina",
         imageSrc: "level3/3_24.jpg",
@@ -2328,7 +2328,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_25",
         name: "River Landscape",
         imageSrc: "level3/3_25.jpg",
@@ -2429,7 +2429,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_26",
         name: "The Seine in Paris between the Pont d'Iéna and Pont de Grenelle",
         imageSrc: "level3/3_26.jpg",
@@ -2522,7 +2522,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_27",
         name: "A Corroboree in Van Diemen's Land",
         imageSrc: "level3/3_27.jpg",
@@ -2620,7 +2620,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_28",
         name: "Beach at Scheveningen in Stormy Weather",
         imageSrc: "level3/3_28.jpg",
@@ -2717,7 +2717,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_29",
         name: "Farmhouses among Trees",
         imageSrc: "level3/3_29.jpg",
@@ -2816,7 +2816,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_30",
         name: "Two Peasant Women in the Peat Field",
         imageSrc: "level3/3_30.jpg",
@@ -2908,7 +2908,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_31",
         name: "The Parsonage Garden at Nuenen in Spring",
         imageSrc: "level3/3_31.jpg",
@@ -3004,7 +3004,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_32",
         name: "In the Jardin du Luxembourg",
         imageSrc: "level3/3_32.jpg",
@@ -3100,7 +3100,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_33",
         name: "View of Paris from Montmartre",
         imageSrc: "level3/3_33.jpg",
@@ -3198,7 +3198,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_34",
         name: "Olive Picking",
         imageSrc: "level3/3_34.jpg",
@@ -3296,7 +3296,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_35",
         name: "Landscape with Carriage and Train in the Background",
         imageSrc: "level3/3_35.jpg",
@@ -3390,7 +3390,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_36",
         name: "Wheat Field under Clouded Sky",
         imageSrc: "level3/3_36.jpg",
@@ -3490,7 +3490,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_37",
         name: "Wheat Field with Crows",
         imageSrc: "level3/3_37.jpg",
@@ -3590,7 +3590,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_38",
         name: "The Meadow of San Isidro on his Feast Day",
         imageSrc: "level3/3_38.jpg",
@@ -3689,7 +3689,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_39",
         name: "Dune Landscape",
         imageSrc: "level3/3_39.jpg",
@@ -3788,7 +3788,7 @@ export const wordsLevelThree: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "3_40",
         name: "Haymaking",
         imageSrc: "level3/3_40.jpg",

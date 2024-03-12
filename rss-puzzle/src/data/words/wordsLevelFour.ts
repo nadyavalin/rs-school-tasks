@@ -3,7 +3,7 @@ import { GameData } from "src/type/interfacesAndTypes";
 export const wordsLevelFour: GameData = {
   rounds: [
     {
-      levelData: {
+      roundData: {
         id: "4_01",
         name: "The Korte Vijverberg at The Hague Seen from the Tournooiveld",
         imageSrc: "level4/4_01.jpg",
@@ -105,7 +105,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_02",
         name: "Ideal Landscape near Rocca Canterana",
         imageSrc: "level4/4_02.jpg",
@@ -202,7 +202,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_03",
         name: "Young Woman and a Herdsman in a Landscape",
         imageSrc: "level4/4_03.jpg",
@@ -303,7 +303,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_04",
         name: "View of the Falls at Tivoli",
         imageSrc: "level4/4_04.jpg",
@@ -399,7 +399,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_05",
         name: "Village Landscape in Morning Light (The Lone Tree)",
         imageSrc: "level4/4_05.jpg",
@@ -501,7 +501,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_06",
         name: "Dolmen in the Snow",
         imageSrc: "level4/4_06.jpg",
@@ -605,7 +605,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_07",
         name: "The Liris Waterfalls near Isola di Sora",
         imageSrc: "level4/4_07.jpg",
@@ -700,7 +700,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_08",
         name: "River Landscape",
         imageSrc: "level4/4_08.jpg",
@@ -798,7 +798,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_09",
         name: "Marine View (Seascape with Porpoises)",
         imageSrc: "level4/4_09.jpg",
@@ -895,7 +895,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_10",
         name: "Country House in Rueil",
         imageSrc: "level4/4_10.jpg",
@@ -994,7 +994,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_11",
         name: "The Rialto Bridge from the Riva del Vin",
         imageSrc: "level4/4_11.jpg",
@@ -1093,7 +1093,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_12",
         name: "Santa Maria della Salute, Venice",
         imageSrc: "level4/4_12.jpg",
@@ -1194,7 +1194,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_13",
         name: "Landscape with Charcoal Burners",
         imageSrc: "level4/4_13.jpg",
@@ -1298,7 +1298,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_14",
         name: "Italian Landscape with Viaduct and Rainbow",
         imageSrc: "level4/4_14.jpg",
@@ -1401,7 +1401,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_15",
         name: "In the Vicinity of Pisa",
         imageSrc: "level4/4_15.jpg",
@@ -1503,7 +1503,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_16",
         name: "Ile de Bréhat",
         imageSrc: "level4/4_16.jpg",
@@ -1605,7 +1605,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_17",
         name: "Kilchurn Castle, Loch Awe",
         imageSrc: "level4/4_17.jpg",
@@ -1703,7 +1703,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_18",
         name: "Under the Cross",
         imageSrc: "level4/4_18.jpg",
@@ -1809,7 +1809,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_19",
         name: "Landscape Inspired by the View of Frascati",
         imageSrc: "level4/4_19.jpg",
@@ -1908,7 +1908,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_20",
         name: "The Handelskom at Bruges",
         imageSrc: "level4/4_20.jpg",
@@ -2007,7 +2007,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_21",
         name: "Extensive Rhenish Landscape",
         imageSrc: "level4/4_21.jpg",
@@ -2110,7 +2110,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_22",
         name: "River Landscape",
         imageSrc: "level4/4_22.jpg",
@@ -2209,7 +2209,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_23",
         name: "Woman in the Garden",
         imageSrc: "level4/4_23.jpg",
@@ -2310,7 +2310,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_24",
         name: "On the Bank of the Seine, Bennecourt",
         imageSrc: "level4/4_24.jpg",
@@ -2414,7 +2414,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_25",
         name: "Monet's Garden at Argenteuil",
         imageSrc: "level4/4_25.jpg",
@@ -2518,7 +2518,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_26",
         name: "Three Fishing Boats",
         imageSrc: "level4/4_26.jpg",
@@ -2620,7 +2620,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_27",
         name: "Haystacks at Giverny",
         imageSrc: "level4/4_27.jpg",
@@ -2718,7 +2718,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_28",
         name: "Water Lily Pond, Harmony in Rose",
         imageSrc: "level4/4_28.jpg",
@@ -2822,7 +2822,7 @@ export const wordsLevelFour: GameData = {
       ],
     },
     {
-      levelData: {
+      roundData: {
         id: "4_29",
         name: "Water Lilies",
         imageSrc: "level4/4_29.jpg",
