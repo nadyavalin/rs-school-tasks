@@ -72,21 +72,46 @@ button {
   opacity: 0.8;
 }
 
-.continue-button,
-.check-button {
+.continue-button {
   font-size: 16px;
   width: 200px;
   align-self: center;
   opacity: 1;
 }
 
+.check-button {
+  background-color: #767ff7;
+  font-size: 16px;
+  width: 200px;
+  align-self: center;
+  opacity: 1;
+}
+
+.check-button:hover {
+  background-color: #4751df;
+}
+
+.continue-button {
+  display: block;
+}
+
 button.disabled,
-.continue-button.disabled,
 .check-button.disabled {
   background-color: #c0f0c2;
   color: #adadad;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.check-button.disabled {
+  background-color: #cacdff;
+  color: #adadad;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.not-available {
+  display: none;
 }
 
 .button-container {

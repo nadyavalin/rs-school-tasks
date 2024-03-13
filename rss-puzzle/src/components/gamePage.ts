@@ -75,10 +75,10 @@ function createNextSentence() {
 }
 createNextSentence();
 
-const checkButton = createButton("check", "continue-button", "Check");
+const checkButton = createButton("check", "check-button", "Check");
 checkButton.classList.add("disabled");
-const continueButton = createButton("continue", "check-button", "Continue");
-continueButton.classList.add("disabled");
+const continueButton = createButton("continue", "continue-button", "Continue");
+continueButton.classList.add("not-available");
 
 function highlightMistakes(allWords: string[], sourceWords: string[]) {
   const allSpans = [...resultSentence.children] as HTMLSpanElement[];
@@ -145,7 +145,8 @@ checkButton.addEventListener("click", () => {
 
   if (guessedSentence === formedSentence) {
     resetHighlights();
-    continueButton.classList.remove("disabled");
+    continueButton.classList.remove("not-available");
+    checkButton.classList.add("not-available");
   }
   highlightMistakes(allWords, sourceWords);
 });
@@ -153,9 +154,10 @@ checkButton.addEventListener("click", () => {
 continueButton.addEventListener("click", () => {
   resultSentence.classList.add("result-sentence_done");
   checkButton.classList.add("disabled");
-  continueButton.classList.add("disabled");
-  createResultSentence();
+  checkButton.classList.remove("not-available");
+  continueButton.classList.add("not-available");
   createNextSentence();
+  createResultSentence();
 });
 
 const buttonContainer = createDiv("button-container");
