@@ -50,6 +50,22 @@ function createResultSentence() {
 }
 createResultSentence();
 
+function setCorrectWidthForCards(spannedWords: HTMLSpanElement[]) {
+  const alphabetLength = 26;
+  const totalWordWidths = spannedWords.reduce(
+    (total, span) => total + (100 * span.innerText.length) / alphabetLength,
+    0,
+  );
+  const scale = totalWordWidths > 100 ? 100 / totalWordWidths : 1;
+
+  spannedWords.forEach((span) => {
+    const spanCopy = span as HTMLSpanElement;
+    const scaledWidth =
+      (scale * (100 * spanCopy.innerText.length)) / alphabetLength;
+    spanCopy.style.width = `${scaledWidth}%`;
+  });
+}
+
 let sourceSentence: string;
 function createNextSentence() {
   sourceSentence = getNextSentence();
@@ -57,20 +73,7 @@ function createNextSentence() {
   const spannedSourceWords: HTMLSpanElement[] = sourceWords.map((word) =>
     createSpan("puzzle-item", word),
   );
-  const alphabetLength = 26;
-  const totalWordWidths = spannedSourceWords.reduce(
-    (total, span) => total + (100 * span.innerText.length) / alphabetLength,
-    0,
-  );
-  const scale = totalWordWidths > 100 ? 100 / totalWordWidths : 1;
-
-  spannedSourceWords.forEach((span) => {
-    const spanCopy = span as HTMLSpanElement;
-    const scaledWidth =
-      (scale * (100 * spanCopy.innerText.length)) / alphabetLength;
-    spanCopy.style.width = `${scaledWidth}%`;
-    sourceArea.append(spanCopy);
-  });
+  setCorrectWidthForCards(spannedSourceWords);
   sourceArea.append(...spannedSourceWords);
 }
 createNextSentence();
@@ -79,6 +82,11 @@ const checkButton = createButton("check", "check-button", "Check");
 checkButton.classList.add("disabled");
 const continueButton = createButton("continue", "continue-button", "Continue");
 continueButton.classList.add("not-available");
+const autoCompleteButton = createButton(
+  "auto-complete",
+  "auto-complete-button",
+  "I don't know",
+);
 
 function highlightMistakes(allWords: string[], sourceWords: string[]) {
   const allSpans = [...resultSentence.children] as HTMLSpanElement[];
@@ -160,8 +168,23 @@ continueButton.addEventListener("click", () => {
   createResultSentence();
 });
 
+autoCompleteButton.addEventListener("click", () => {
+  const guessedWords: string[] = sourceSentence.split(" ");
+  checkButton.classList.add("not-available");
+  continueButton.classList.remove("not-available");
+  resultSentence.innerHTML = "";
+  sourceArea.innerHTML = "";
+  const spans: HTMLSpanElement[] = [];
+  guessedWords.forEach((word) => {
+    const span: HTMLSpanElement = createSpan("puzzle-item", word);
+    spans.push(span);
+    resultSentence.append(span);
+  });
+  setCorrectWidthForCards(spans);
+});
+
 const buttonContainer = createDiv("button-container");
-buttonContainer.append(checkButton, continueButton);
+buttonContainer.append(checkButton, continueButton, autoCompleteButton);
 
 gameArea.append(resultArea, sourceArea, buttonContainer);
 
