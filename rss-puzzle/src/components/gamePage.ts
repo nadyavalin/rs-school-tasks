@@ -18,10 +18,60 @@ const levels = [
 const gameArea = createDiv("game-area");
 const resultArea = createDiv("result-area");
 const sourceArea = createDiv("source-area");
+const checkButton = createButton("check", "check-button", "Check");
+checkButton.classList.add("disabled");
+const continueButton = createButton("continue", "continue-button", "Continue");
+continueButton.classList.add("not-available");
+const autoCompleteButton = createButton(
+  "auto-complete",
+  "auto-complete-button",
+  "I don't know",
+);
 
 let currentLevel = 0;
 let currentRound = 0;
 let currentSentence = -1;
+let sourceSentence: string;
+let sourceRandomWords: string[];
+let resultSentence: HTMLDivElement;
+let draggedWord: HTMLSpanElement | undefined;
+
+function checkResultSentenceLength() {
+  const properWords = sourceSentence.split(" ");
+  if (resultSentence.children.length === properWords.length) {
+    checkButton.classList.remove("disabled");
+  } else {
+    checkButton.classList.add("disabled");
+  }
+}
+
+function resetHighlights() {
+  [...resultSentence.children].forEach((span) => {
+    span.classList.remove("mistake", "correct");
+  });
+}
+
+function dragStart(event: DragEvent) {
+  draggedWord = event.target as HTMLSpanElement;
+}
+
+function dragOver(event: DragEvent) {
+  event.preventDefault();
+}
+
+function drop(event: DragEvent) {
+  event.preventDefault();
+  const dropArea = event.target as HTMLDivElement;
+  if (
+    draggedWord &&
+    (Number(dropArea.dataset.currentSentence) === currentSentence ||
+      dropArea.classList.contains("source-area"))
+  ) {
+    dropArea.append(draggedWord);
+    resetHighlights();
+    checkResultSentenceLength();
+  }
+}
 
 function getNextSentence() {
   const sentenceIndex = currentSentence % 10;
@@ -42,145 +92,139 @@ function getNextSentence() {
   const sentence = round.words[currentSentence].textExample;
   return sentence;
 }
-
-let resultSentence: HTMLDivElement;
 function createResultSentence() {
   resultSentence = createDiv("result-sentence");
+  resultSentence.setAttribute(
+    "data-current-sentence",
+    `${currentSentence === -1 ? 0 : currentSentence}`,
+  );
+  resultSentence.addEventListener("dragover", dragOver);
+  resultSentence.addEventListener("drop", drop);
   resultArea.append(resultSentence);
 }
 createResultSentence();
 
 function setCorrectWidthForCards(spannedWords: HTMLSpanElement[]) {
-  const alphabetLength = 26;
-  const totalWordWidths = spannedWords.reduce(
-    (total, span) => total + (100 * span.innerText.length) / alphabetLength,
+  const wordWidth = 7;
+  const totalWordsWidth = spannedWords.reduce(
+    (total, span) => total + wordWidth * span.innerText.length,
     0,
   );
-  const scale = totalWordWidths > 100 ? 100 / totalWordWidths : 1;
-
   spannedWords.forEach((span) => {
     const spanCopy = span as HTMLSpanElement;
     const scaledWidth =
-      (scale * (100 * spanCopy.innerText.length)) / alphabetLength;
+      ((wordWidth * spanCopy.innerText.length) / totalWordsWidth) * 100;
     spanCopy.style.width = `${scaledWidth}%`;
   });
 }
 
-let sourceSentence: string;
 function createNextSentence() {
   sourceSentence = getNextSentence();
-  const sourceWords = sourceSentence.split(" ").sort(() => Math.random() - 0.5);
-  const spannedSourceWords: HTMLSpanElement[] = sourceWords.map((word) =>
+  sourceRandomWords = sourceSentence.split(" ").sort(() => Math.random() - 0.5);
+  const spannedSourceWords = sourceRandomWords.map((word) =>
     createSpan("puzzle-item", word),
   );
+  spannedSourceWords.forEach((span) => {
+    sourceArea.append(span);
+    span.setAttribute("draggable", "true");
+    span.addEventListener("dragstart", dragStart);
+  });
   setCorrectWidthForCards(spannedSourceWords);
   sourceArea.append(...spannedSourceWords);
 }
 createNextSentence();
 
-const checkButton = createButton("check", "check-button", "Check");
-checkButton.classList.add("disabled");
-const continueButton = createButton("continue", "continue-button", "Continue");
-continueButton.classList.add("not-available");
-const autoCompleteButton = createButton(
-  "auto-complete",
-  "auto-complete-button",
-  "I don't know",
-);
-
-function highlightMistakes(allWords: string[], sourceWords: string[]) {
-  const allSpans = [...resultSentence.children] as HTMLSpanElement[];
-  allWords.forEach((word, index) => {
-    if (word !== sourceWords[index]) {
-      allSpans[index].classList.add("mistake");
+function highlightMistakes() {
+  const properWords = sourceSentence.split(" ");
+  [...resultSentence.children].forEach((span, index) => {
+    if (span.textContent !== properWords[index]) {
+      span.classList.add("mistake");
     } else {
-      allSpans[index].classList.add("correct");
+      span.classList.add("correct");
     }
   });
 }
 
-function resetHighlights() {
-  const allSpans = [...resultSentence.children] as HTMLSpanElement[];
-  allSpans.forEach((span) => {
-    span.classList.remove("mistake");
-  });
+function moveSpanToResultArea(span: HTMLSpanElement) {
+  span.classList.add("puzzle-item_disappear");
+  setTimeout(() => {
+    resultSentence.append(span);
+    span.classList.remove("puzzle-item_disappear");
+    checkResultSentenceLength();
+  }, 300);
 }
 
-let sourceWords: string[];
+function moveSpanToSourceArea(span: HTMLSpanElement) {
+  span.classList.add("puzzle-item_disappear");
+  setTimeout(() => {
+    sourceArea.append(span);
+    span.classList.remove("puzzle-item_disappear");
+    checkButton.classList.add("disabled");
+  }, 300);
+}
 
 sourceArea.addEventListener("click", (event) => {
   const clickedElement = event.target as HTMLElement;
-  sourceWords = sourceSentence.split(" ");
   if (clickedElement.classList.contains("puzzle-item")) {
     const span = clickedElement as HTMLSpanElement;
-    span.classList.add("puzzle-item_move-up");
-    span.classList.add("chosen");
-    setTimeout(() => {
-      resultSentence.append(span);
-      span.classList.remove("puzzle-item_move-up");
-
-      const allSpans = [...resultSentence.children] as HTMLSpanElement[];
-      const allWords = allSpans.map((word) => word.innerText);
-
-      if (allWords.length === sourceWords.length) {
-        checkButton.classList.remove("disabled");
-      }
-    }, 500);
+    resetHighlights();
+    moveSpanToResultArea(span);
   }
 });
+sourceArea.addEventListener("dragover", dragOver);
+sourceArea.addEventListener("drop", drop);
 
 resultArea.addEventListener("click", (event) => {
-  const span = event.target as HTMLSpanElement;
-  if (span.classList.contains("chosen")) {
-    span.classList.add("puzzle-item_move-down");
-    setTimeout(() => {
-      sourceArea.append(span);
-      span.classList.remove("puzzle-item_move-down");
-      span.classList.remove("chosen");
-    }, 500);
+  const clickedElement = event.target as HTMLElement;
+  if (clickedElement.classList.contains("puzzle-item")) {
+    const span = clickedElement as HTMLSpanElement;
+    resetHighlights();
+    moveSpanToSourceArea(span);
   }
 });
 
 checkButton.addEventListener("click", () => {
   resetHighlights();
-  const resultWords = Array.from(resultSentence.children).map(
-    (span) => (span as HTMLSpanElement).innerText,
-  );
-  const formedSentence = resultWords.join(" ");
-  const guessedSentence = sourceSentence;
-  const allSpans = [...resultSentence.children] as HTMLSpanElement[];
-  const allWords = allSpans.map((span) => span.innerText);
-
-  if (guessedSentence === formedSentence) {
+  const resultText = [...resultSentence.children].reduce((acc, span, index) => {
+    if (!span.textContent) {
+      return acc;
+    }
+    return index === 0 ? span.textContent : `${acc} ${span.textContent}`;
+  }, "");
+  if (resultText === sourceSentence) {
     resetHighlights();
     continueButton.classList.remove("not-available");
     checkButton.classList.add("not-available");
+    resultSentence.classList.add("result-sentence_done");
+    autoCompleteButton.classList.add("disabled");
   }
-  highlightMistakes(allWords, sourceWords);
+  highlightMistakes();
 });
 
 continueButton.addEventListener("click", () => {
-  resultSentence.classList.add("result-sentence_done");
   checkButton.classList.add("disabled");
   checkButton.classList.remove("not-available");
   continueButton.classList.add("not-available");
+  autoCompleteButton.classList.remove("disabled");
+  resetHighlights();
   createNextSentence();
   createResultSentence();
 });
 
 autoCompleteButton.addEventListener("click", () => {
-  const guessedWords: string[] = sourceSentence.split(" ");
+  const guessedWords = sourceSentence.split(" ");
   checkButton.classList.add("not-available");
   continueButton.classList.remove("not-available");
+  resultSentence.classList.add("result-sentence_done");
   resultSentence.innerHTML = "";
   sourceArea.innerHTML = "";
-  const spans: HTMLSpanElement[] = [];
-  guessedWords.forEach((word) => {
-    const span: HTMLSpanElement = createSpan("puzzle-item", word);
-    spans.push(span);
-    resultSentence.append(span);
-  });
-  setCorrectWidthForCards(spans);
+  setCorrectWidthForCards(
+    guessedWords.map((word) => {
+      const span = createSpan("puzzle-item", word);
+      resultSentence.append(span);
+      return span;
+    }),
+  );
 });
 
 const buttonContainer = createDiv("button-container");

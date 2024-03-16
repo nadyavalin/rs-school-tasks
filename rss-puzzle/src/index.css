@@ -9,6 +9,7 @@ body {
   background-color: #4b7246;
   background-image: url("../public/img/first_screen.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
@@ -21,7 +22,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
 }
 
 form {
@@ -138,24 +138,13 @@ button.disabled,
   padding: 5px;
   border-radius: 5px;
   position: relative;
-  animation-name: example;
+  animation-name: appear;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
   opacity: 1;
 
   display: flex;
   align-items: center;
-}
-
-@keyframes example {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
 }
 
 .title {
@@ -187,11 +176,11 @@ button.disabled,
 }
 
 .game-area {
+  width: 728px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 100%;
-  height: 100vh - 50px;
+  height: calc(100% - 50px);
   margin-top: 90px;
   gap: 20px;
 }
@@ -237,6 +226,10 @@ button.disabled,
   background-color: #ceffd0;
   cursor: pointer;
   transition: all 0.2s ease;
+  animation-name: appear;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  font-family: "Roboto Mono", monospace;
 }
 
 .puzzle-item .puzzle-items__result {
@@ -247,22 +240,38 @@ button.disabled,
   height: 36px;
 }
 
-.puzzle-item_move-up {
-  opacity: 0;
-  transform: translateY(-250px);
-}
-
-.puzzle-item_move-down {
-  opacity: 0;
-  transform: translateY(250px);
+.puzzle-item_disappear {
+  animation-name: disappear;
 }
 
 .correct {
-  border: 2px solid #009808;
+  background-color: #26d12e;
 }
 
 .mistake {
-  border: 2px solid #ff0000;
+  background-color: #e88888;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
 }
 
 @media (hover: hover) {
@@ -272,12 +281,5 @@ button.disabled,
 
   .puzzle-item:hover {
     border: 1px solid #ff0000;
-    background-color: rgb(204, 255, 206, 0.5);
-  }
-}
-
-@media (max-width: 1200px) {
-  .container {
-    width: 80%;
   }
 }
