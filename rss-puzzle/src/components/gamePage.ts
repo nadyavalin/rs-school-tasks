@@ -1,4 +1,4 @@
-import { createButton, createDiv, createSpan } from "./elements";
+import { createButton, createImage, createDiv, createSpan } from "./elements";
 import { wordsLevelOne } from "../data/words/wordsLevelOne";
 import { wordsLevelTwo } from "../data/words/wordsLevelTwo";
 import { wordsLevelThree } from "../data/words/wordsLevelThree";
@@ -27,7 +27,14 @@ const autoCompleteButton = createButton(
   "auto-complete-button",
   "I don't know",
 );
-const hintTranslation = createDiv("hint-translation");
+const hintTranslation = createImage(
+  "../public/img/translation.png",
+  "Translation",
+  "image-translation",
+);
+const hintContainer = createDiv("hint-container");
+const hintTranslationSentence = createDiv("hint-translation-sentence");
+hintTranslationSentence.classList.add("hint-translation-sentence_hidden");
 
 let currentLevel = 0;
 let currentRound = 0;
@@ -36,6 +43,24 @@ let sourceSentence: string;
 let sourceRandomWords: string[];
 let resultSentence: HTMLDivElement;
 let draggedWord: HTMLSpanElement | undefined;
+
+function showHintTranslation() {
+  hintTranslation.addEventListener("click", () => {
+    hintTranslationSentence.classList.toggle(
+      "hint-translation-sentence_showed",
+    );
+    if (
+      hintTranslationSentence.classList.contains(
+        "hint-translation-sentence_showed",
+      )
+    ) {
+      hintTranslation.classList.add("image-translation-chosen");
+    } else {
+      hintTranslation.classList.remove("image-translation-chosen");
+    }
+  });
+}
+showHintTranslation();
 
 function checkResultSentenceLength() {
   const properWords = sourceSentence.split(" ");
@@ -92,7 +117,7 @@ function getNextSentence() {
   const round = levels[currentLevel].rounds[currentRound];
   const sentence = round.words[currentSentence].textExample;
   const translation = round.words[currentSentence].textExampleTranslate;
-  hintTranslation.append(translation);
+  hintTranslationSentence.append(translation);
   return sentence;
 }
 
@@ -201,6 +226,7 @@ checkButton.addEventListener("click", () => {
     checkButton.classList.add("not-available");
     resultSentence.classList.add("result-sentence_done");
     autoCompleteButton.classList.add("disabled");
+    hintTranslationSentence.classList.add("hint-translation-sentence_showed");
   }
   highlightMistakes();
 });
@@ -210,7 +236,12 @@ continueButton.addEventListener("click", () => {
   checkButton.classList.remove("not-available");
   continueButton.classList.add("not-available");
   autoCompleteButton.classList.remove("disabled");
-  hintTranslation.textContent = "";
+  hintTranslationSentence.textContent = "";
+  if (!hintTranslation.classList.contains("image-translation-chosen")) {
+    hintTranslationSentence.classList.remove(
+      "hint-translation-sentence_showed",
+    );
+  }
   resetHighlights();
   createNextSentence();
   createResultSentence();
@@ -234,7 +265,13 @@ autoCompleteButton.addEventListener("click", () => {
 
 const buttonContainer = createDiv("button-container");
 buttonContainer.append(checkButton, continueButton, autoCompleteButton);
-
-gameArea.append(hintTranslation, resultArea, sourceArea, buttonContainer);
+hintContainer.append(hintTranslation);
+gameArea.append(
+  hintContainer,
+  hintTranslationSentence,
+  resultArea,
+  sourceArea,
+  buttonContainer,
+);
 
 export default gameArea;

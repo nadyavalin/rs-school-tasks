@@ -181,7 +181,6 @@ button.disabled,
   align-items: center;
   flex-direction: column;
   height: calc(100% - 50px);
-  margin-top: 90px;
   gap: 20px;
 }
 
@@ -252,7 +251,16 @@ button.disabled,
   background-color: #e88888;
 }
 
-.hint-translation {
+.hint-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 50%;
+  padding: 5px;
+}
+
+.hint-translation-sentence {
   color: #80ff84;
   padding: 5px;
   border-radius: 5px;
@@ -262,6 +270,26 @@ button.disabled,
     rgba(0, 196, 7, 0.7)
   );
   font-size: 18px;
+}
+
+.hint-translation-sentence_hidden {
+  visibility: hidden;
+}
+
+.hint-translation-sentence_showed {
+  visibility: visible;
+}
+
+.image-translation {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-translation-chosen {
+  border: 1px solid #00ff08;
+  border-radius: 5px;
+  opacity: 1;
 }
 
 @keyframes appear {
@@ -293,5 +321,9 @@ button.disabled,
 
   .puzzle-item:hover {
     border: 1px solid #ff0000;
+  }
+
+  .image-translation:hover {
+    opacity: 1;
   }
 }
