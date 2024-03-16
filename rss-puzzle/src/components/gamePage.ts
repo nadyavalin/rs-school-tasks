@@ -32,9 +32,9 @@ const hintTranslation = createImage(
   "Translation",
   "image-translation",
 );
+hintTranslation.classList.add("image-translation-chosen");
 const hintContainer = createDiv("hint-container");
 const hintTranslationSentence = createDiv("hint-translation-sentence");
-hintTranslationSentence.classList.add("hint-translation-sentence_hidden");
 
 let currentLevel = 0;
 let currentRound = 0;
@@ -47,16 +47,16 @@ let draggedWord: HTMLSpanElement | undefined;
 function showHintTranslation() {
   hintTranslation.addEventListener("click", () => {
     hintTranslationSentence.classList.toggle(
-      "hint-translation-sentence_showed",
+      "hint-translation-sentence_hidden",
     );
     if (
       hintTranslationSentence.classList.contains(
-        "hint-translation-sentence_showed",
+        "hint-translation-sentence_hidden",
       )
     ) {
-      hintTranslation.classList.add("image-translation-chosen");
-    } else {
       hintTranslation.classList.remove("image-translation-chosen");
+    } else {
+      hintTranslation.classList.add("image-translation-chosen");
     }
   });
 }
@@ -226,7 +226,9 @@ checkButton.addEventListener("click", () => {
     checkButton.classList.add("not-available");
     resultSentence.classList.add("result-sentence_done");
     autoCompleteButton.classList.add("disabled");
-    hintTranslationSentence.classList.add("hint-translation-sentence_showed");
+    hintTranslationSentence.classList.remove(
+      "hint-translation-sentence_hidden",
+    );
   }
   highlightMistakes();
 });
@@ -238,9 +240,7 @@ continueButton.addEventListener("click", () => {
   autoCompleteButton.classList.remove("disabled");
   hintTranslationSentence.textContent = "";
   if (!hintTranslation.classList.contains("image-translation-chosen")) {
-    hintTranslationSentence.classList.remove(
-      "hint-translation-sentence_showed",
-    );
+    hintTranslationSentence.classList.add("hint-translation-sentence_hidden");
   }
   resetHighlights();
   createNextSentence();
@@ -254,6 +254,7 @@ autoCompleteButton.addEventListener("click", () => {
   resultSentence.classList.add("result-sentence_done");
   resultSentence.innerHTML = "";
   sourceArea.innerHTML = "";
+  hintTranslationSentence.classList.remove("hint-translation-sentence_hidden");
   setCorrectWidthForCards(
     guessedWords.map((word) => {
       const span = createSpan("puzzle-item", word);

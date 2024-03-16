@@ -276,10 +276,6 @@ button.disabled,
   visibility: hidden;
 }
 
-.hint-translation-sentence_showed {
-  visibility: visible;
-}
-
 .image-translation {
   opacity: 0.8;
   cursor: pointer;
