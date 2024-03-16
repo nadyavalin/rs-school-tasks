@@ -252,6 +252,18 @@ button.disabled,
   background-color: #e88888;
 }
 
+.hint-translation {
+  color: #80ff84;
+  padding: 5px;
+  border-radius: 5px;
+  background: linear-gradient(
+    to right,
+    rgba(128, 255, 132, 0.1),
+    rgba(0, 196, 7, 0.7)
+  );
+  font-size: 18px;
+}
+
 @keyframes appear {
   0% {
     opacity: 0;

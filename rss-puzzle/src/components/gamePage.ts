@@ -27,6 +27,7 @@ const autoCompleteButton = createButton(
   "auto-complete-button",
   "I don't know",
 );
+const hintTranslation = createDiv("hint-translation");
 
 let currentLevel = 0;
 let currentRound = 0;
@@ -90,8 +91,11 @@ function getNextSentence() {
 
   const round = levels[currentLevel].rounds[currentRound];
   const sentence = round.words[currentSentence].textExample;
+  const translation = round.words[currentSentence].textExampleTranslate;
+  hintTranslation.append(translation);
   return sentence;
 }
+
 function createResultSentence() {
   resultSentence = createDiv("result-sentence");
   resultSentence.setAttribute(
@@ -206,6 +210,7 @@ continueButton.addEventListener("click", () => {
   checkButton.classList.remove("not-available");
   continueButton.classList.add("not-available");
   autoCompleteButton.classList.remove("disabled");
+  hintTranslation.textContent = "";
   resetHighlights();
   createNextSentence();
   createResultSentence();
@@ -230,6 +235,6 @@ autoCompleteButton.addEventListener("click", () => {
 const buttonContainer = createDiv("button-container");
 buttonContainer.append(checkButton, continueButton, autoCompleteButton);
 
-gameArea.append(resultArea, sourceArea, buttonContainer);
+gameArea.append(hintTranslation, resultArea, sourceArea, buttonContainer);
 
 export default gameArea;
