@@ -1,10 +1,10 @@
 import { createButton, createImage, createDiv, createSpan } from "./elements";
-import { wordsLevelOne } from "../data/words/wordsLevelOne";
-import { wordsLevelTwo } from "../data/words/wordsLevelTwo";
-import { wordsLevelThree } from "../data/words/wordsLevelThree";
-import { wordsLevelFour } from "../data/words/wordsLevelFour";
-import { wordsLevelFive } from "../data/words/wordsLevelFive";
-import { wordsLevelSix } from "../data/words/wordsLevelSix";
+import { wordsLevelOne } from "../data/wordsLevelOne";
+import { wordsLevelTwo } from "../data/wordsLevelTwo";
+import { wordsLevelThree } from "../data/wordsLevelThree";
+import { wordsLevelFour } from "../data/wordsLevelFour";
+import { wordsLevelFive } from "../data/wordsLevelFive";
+import { wordsLevelSix } from "../data/wordsLevelSix";
 
 const levels = [
   wordsLevelOne,
@@ -32,7 +32,12 @@ const hintTranslation = createImage(
   "Translation",
   "image-translation",
 );
-hintTranslation.classList.add("image-translation-chosen");
+const hintSound = createImage(
+  "../public/img/pronunciation.png",
+  "Pronunciation",
+  "image-pronunciation",
+);
+hintTranslation.classList.add("image-translation_chosen");
 const hintContainer = createDiv("hint-container");
 const hintTranslationSentence = createDiv("hint-translation-sentence");
 
@@ -54,9 +59,9 @@ function showHintTranslation() {
         "hint-translation-sentence_hidden",
       )
     ) {
-      hintTranslation.classList.remove("image-translation-chosen");
+      hintTranslation.classList.remove("image-translation_chosen");
     } else {
-      hintTranslation.classList.add("image-translation-chosen");
+      hintTranslation.classList.add("image-translation_chosen");
     }
   });
 }
@@ -120,6 +125,23 @@ function getNextSentence() {
   hintTranslationSentence.append(translation);
   return sentence;
 }
+
+function playAudio() {
+  const round = levels[currentLevel].rounds[currentRound];
+  const audio = new Audio(
+    `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${round.words[currentSentence].audioExample}`,
+  );
+  audio.play();
+
+  audio.addEventListener("ended", () => {
+    hintSound.classList.remove("image-pronunciation_chosen");
+  });
+}
+
+hintSound.addEventListener("click", () => {
+  hintSound.classList.add("image-pronunciation_chosen");
+  playAudio();
+});
 
 function createResultSentence() {
   resultSentence = createDiv("result-sentence");
@@ -239,7 +261,7 @@ continueButton.addEventListener("click", () => {
   continueButton.classList.add("not-available");
   autoCompleteButton.classList.remove("disabled");
   hintTranslationSentence.textContent = "";
-  if (!hintTranslation.classList.contains("image-translation-chosen")) {
+  if (!hintTranslation.classList.contains("image-translation_chosen")) {
     hintTranslationSentence.classList.add("hint-translation-sentence_hidden");
   }
   resetHighlights();
@@ -266,7 +288,7 @@ autoCompleteButton.addEventListener("click", () => {
 
 const buttonContainer = createDiv("button-container");
 buttonContainer.append(checkButton, continueButton, autoCompleteButton);
-hintContainer.append(hintTranslation);
+hintContainer.append(hintTranslation, hintSound);
 gameArea.append(
   hintContainer,
   hintTranslationSentence,
