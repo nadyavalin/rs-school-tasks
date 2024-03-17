@@ -33,10 +33,12 @@ const hintTranslation = createImage(
   "image-translation",
 );
 const hintSound = createImage(
-  "../public/img/pronunciation.png",
-  "Pronunciation",
-  "image-pronunciation",
+  "../public/img/pronunciation-off.png",
+  "Pronunciation off",
+  "image-pronunciation-off",
 );
+hintSound.setAttribute("data-status", "off");
+
 hintTranslation.classList.add("image-translation_chosen");
 const hintContainer = createDiv("hint-container");
 const hintTranslationSentence = createDiv("hint-translation-sentence");
@@ -134,12 +136,16 @@ function playAudio() {
   audio.play();
 
   audio.addEventListener("ended", () => {
-    hintSound.classList.remove("image-pronunciation_chosen");
+    hintSound.classList.add("image-pronunciation-off");
+    hintSound.setAttribute("src", "../public/img/pronunciation-off.png");
+    hintSound.classList.remove("image-pronunciation-on_chosen");
   });
 }
 
 hintSound.addEventListener("click", () => {
-  hintSound.classList.add("image-pronunciation_chosen");
+  hintSound.setAttribute("data-status", "on");
+  hintSound.setAttribute("src", "../public/img/pronunciation-on.png");
+  hintSound.classList.add("image-pronunciation-on_chosen");
   playAudio();
 });
 
