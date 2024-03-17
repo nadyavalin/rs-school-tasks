@@ -272,27 +272,74 @@ button.disabled,
     rgba(0, 196, 7, 0.7)
   );
   font-size: 18px;
-}
-
-.hint-translation-sentence_hidden {
+  text-shadow: 2px 2px 2px #000000;
   visibility: hidden;
 }
 
-.image-translation,
-.image-pronunciation-off {
+.hint-translation-sentence_show,
+.hint-translation-sentence_always-show {
+  visibility: visible;
+}
+
+.hint-translation-button,
+.hint-sound-button {
   opacity: 0.8;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
+  border: 1px solid transparent;
   width: 50px;
   height: 50px;
-  padding: 5px;
+  background-color: transparent;
+  background-position: 5px 5px;
+  background-repeat: no-repeat;
+  background-size: 83%;
 }
 
-.image-translation_chosen,
-.image-pronunciation-off_chosen,
-.image-pronunciation-on_chosen {
+.hint-translation-button {
+  background-image: url("../public/img/translation.png");
+}
+
+.hint-sound-button {
+  background-image: url("../public/img/pronunciation-off.png");
+}
+
+.hint-translation-button_on,
+.hint-sound-button_on {
   border: 1px solid #00ff08;
   border-radius: 5px;
+  opacity: 1;
+}
+
+.hint-sound-button_on {
+  background-image: url("../public/img/pronunciation-on.png");
+}
+
+.sentence-container {
+  display: flex;
+  gap: 10px;
+}
+
+.sound-button {
+  width: 30px;
+  height: 30px;
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
+  background-color: transparent;
+  background-image: url("../public/img/sound.png");
+  background-size: cover;
+  visibility: hidden;
+  cursor: auto;
+  pointer-events: none;
+}
+
+.sound-button_show,
+.sound-button_always-show {
+  visibility: visible;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.sound-button_play {
   opacity: 1;
 }
 
@@ -327,11 +374,10 @@ button.disabled,
     border: 1px solid #ff0000;
   }
 
-  .image-translation:hover {
-    opacity: 1;
-  }
-
-  .image-pronunciation-off:hover {
+  .hint-translation-button:hover,
+  .hint-sound-button:hover,
+  .sound-button:hover {
+    background-color: transparent;
     opacity: 1;
   }
 }

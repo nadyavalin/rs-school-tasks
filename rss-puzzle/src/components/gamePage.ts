@@ -1,4 +1,4 @@
-import { createButton, createImage, createDiv, createSpan } from "./elements";
+import { createButton, createDiv, createSpan } from "./elements";
 import { wordsLevelOne } from "../data/wordsLevelOne";
 import { wordsLevelTwo } from "../data/wordsLevelTwo";
 import { wordsLevelThree } from "../data/wordsLevelThree";
@@ -27,21 +27,22 @@ const autoCompleteButton = createButton(
   "auto-complete-button",
   "I don't know",
 );
-const hintTranslation = createImage(
-  "../public/img/translation.png",
-  "Translation",
-  "image-translation",
+const hintTranslationButton = createButton(
+  "translation",
+  "hint-translation-button",
 );
-const hintSound = createImage(
-  "../public/img/pronunciation-off.png",
-  "Pronunciation off",
-  "image-pronunciation-off",
-);
-hintSound.setAttribute("data-status", "off");
+hintTranslationButton.classList.add("hint-translation-button_on");
 
-hintTranslation.classList.add("image-translation_chosen");
 const hintContainer = createDiv("hint-container");
+
 const hintTranslationSentence = createDiv("hint-translation-sentence");
+hintTranslationSentence.classList.add("hint-translation-sentence_show");
+
+const hintSoundButton = createButton("hint-sound", "hint-sound-button");
+hintSoundButton.classList.add("hint-sound-button_on");
+
+const soundButton = createButton("sound", "sound-button");
+soundButton.classList.add("sound-button_show");
 
 let currentLevel = 0;
 let currentRound = 0;
@@ -51,23 +52,15 @@ let sourceRandomWords: string[];
 let resultSentence: HTMLDivElement;
 let draggedWord: HTMLSpanElement | undefined;
 
-function showHintTranslation() {
-  hintTranslation.addEventListener("click", () => {
-    hintTranslationSentence.classList.toggle(
-      "hint-translation-sentence_hidden",
-    );
-    if (
-      hintTranslationSentence.classList.contains(
-        "hint-translation-sentence_hidden",
-      )
-    ) {
-      hintTranslation.classList.remove("image-translation_chosen");
-    } else {
-      hintTranslation.classList.add("image-translation_chosen");
-    }
-  });
-}
-showHintTranslation();
+hintTranslationButton.addEventListener("click", () => {
+  hintTranslationButton.classList.toggle("hint-translation-button_on");
+  hintTranslationSentence.classList.toggle("hint-translation-sentence_show");
+});
+
+hintSoundButton.addEventListener("click", () => {
+  hintSoundButton.classList.toggle("hint-sound-button_on");
+  soundButton.classList.toggle("sound-button_show");
+});
 
 function checkResultSentenceLength() {
   const properWords = sourceSentence.split(" ");
@@ -123,8 +116,8 @@ function getNextSentence() {
 
   const round = levels[currentLevel].rounds[currentRound];
   const sentence = round.words[currentSentence].textExample;
-  const translation = round.words[currentSentence].textExampleTranslate;
-  hintTranslationSentence.append(translation);
+  hintTranslationSentence.textContent =
+    round.words[currentSentence].textExampleTranslate;
   return sentence;
 }
 
@@ -133,21 +126,15 @@ function playAudio() {
   const audio = new Audio(
     `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${round.words[currentSentence].audioExample}`,
   );
+  soundButton.classList.add("sound-button_play");
   audio.play();
 
   audio.addEventListener("ended", () => {
-    hintSound.classList.add("image-pronunciation-off");
-    hintSound.setAttribute("src", "../public/img/pronunciation-off.png");
-    hintSound.classList.remove("image-pronunciation-on_chosen");
+    soundButton.classList.remove("sound-button_play");
   });
 }
 
-hintSound.addEventListener("click", () => {
-  hintSound.setAttribute("data-status", "on");
-  hintSound.setAttribute("src", "../public/img/pronunciation-on.png");
-  hintSound.classList.add("image-pronunciation-on_chosen");
-  playAudio();
-});
+soundButton.addEventListener("click", playAudio);
 
 function createResultSentence() {
   resultSentence = createDiv("result-sentence");
@@ -253,9 +240,10 @@ checkButton.addEventListener("click", () => {
     continueButton.classList.remove("not-available");
     checkButton.classList.add("not-available");
     resultSentence.classList.add("result-sentence_done");
+    soundButton.classList.add("sound-button_always-show");
     autoCompleteButton.classList.add("disabled");
-    hintTranslationSentence.classList.remove(
-      "hint-translation-sentence_hidden",
+    hintTranslationSentence.classList.add(
+      "hint-translation-sentence_always-show",
     );
   }
   highlightMistakes();
@@ -266,10 +254,10 @@ continueButton.addEventListener("click", () => {
   checkButton.classList.remove("not-available");
   continueButton.classList.add("not-available");
   autoCompleteButton.classList.remove("disabled");
-  hintTranslationSentence.textContent = "";
-  if (!hintTranslation.classList.contains("image-translation_chosen")) {
-    hintTranslationSentence.classList.add("hint-translation-sentence_hidden");
-  }
+  hintTranslationSentence.classList.remove(
+    "hint-translation-sentence_always-show",
+  );
+  soundButton.classList.remove("sound-button_always-show");
   resetHighlights();
   createNextSentence();
   createResultSentence();
@@ -282,7 +270,10 @@ autoCompleteButton.addEventListener("click", () => {
   resultSentence.classList.add("result-sentence_done");
   resultSentence.innerHTML = "";
   sourceArea.innerHTML = "";
-  hintTranslationSentence.classList.remove("hint-translation-sentence_hidden");
+  hintTranslationSentence.classList.add(
+    "hint-translation-sentence_always-show",
+  );
+  soundButton.classList.add("sound-button_always-show");
   setCorrectWidthForCards(
     guessedWords.map((word) => {
       const span = createSpan("puzzle-item", word);
@@ -293,11 +284,13 @@ autoCompleteButton.addEventListener("click", () => {
 });
 
 const buttonContainer = createDiv("button-container");
+const sentenceConainer = createDiv("sentence-container");
 buttonContainer.append(checkButton, continueButton, autoCompleteButton);
-hintContainer.append(hintTranslation, hintSound);
+sentenceConainer.append(hintTranslationSentence, soundButton);
+hintContainer.append(hintTranslationButton, hintSoundButton);
 gameArea.append(
   hintContainer,
-  hintTranslationSentence,
+  sentenceConainer,
   resultArea,
   sourceArea,
   buttonContainer,

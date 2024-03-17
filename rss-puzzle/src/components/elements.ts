@@ -24,7 +24,7 @@ export function createSubmitButton(text: string) {
   return button;
 }
 
-export function createButton(id: string, className: string, text: string) {
+export function createButton(id: string, className: string, text = "") {
   const button = document.createElement("button");
   button.id = id;
   button.name = id;
