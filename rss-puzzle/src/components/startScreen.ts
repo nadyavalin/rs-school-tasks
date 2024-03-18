@@ -14,7 +14,7 @@ const greetText = userData
 const greet = createText("greet-text", greetText);
 const title = createText("title", "English puzzle");
 const imagePuzzle = createImage(
-  "../public/img/puzzle.png",
+  "../public/img/puzzles.png",
   "Puzzle",
   "image-puzzle",
 );
