@@ -1,4 +1,12 @@
-import { createButton, createDiv, createSpan } from "./elements";
+import { GameData } from "src/type/interfacesAndTypes";
+import {
+  createButton,
+  createDiv,
+  createSpan,
+  createLabel,
+  createSelect,
+  createOption,
+} from "./elements";
 import { wordsLevelOne } from "../data/wordsLevelOne";
 import { wordsLevelTwo } from "../data/wordsLevelTwo";
 import { wordsLevelThree } from "../data/wordsLevelThree";
@@ -18,10 +26,18 @@ const levels = [
 const gameArea = createDiv("game-area");
 const resultArea = createDiv("result-area");
 const sourceArea = createDiv("source-area");
+
+const buttonContainer = createDiv("button-container");
+const sentenceConainer = createDiv("sentence-container");
+const hintContainer = createDiv("hint-container");
+const optionsContainer = createDiv("option-container");
+
 const checkButton = createButton("check", "check-button", "Check");
 checkButton.classList.add("disabled");
+
 const continueButton = createButton("continue", "continue-button", "Continue");
 continueButton.classList.add("not-available");
+
 const autoCompleteButton = createButton(
   "auto-complete",
   "auto-complete-button",
@@ -33,8 +49,6 @@ const hintTranslationButton = createButton(
 );
 hintTranslationButton.classList.add("hint-translation-button_on");
 
-const hintContainer = createDiv("hint-container");
-
 const hintTranslationSentence = createDiv("hint-translation-sentence");
 hintTranslationSentence.classList.add("hint-translation-sentence_show");
 
@@ -43,6 +57,12 @@ hintSoundButton.classList.add("hint-sound-button_on");
 
 const soundButton = createButton("sound", "sound-button");
 soundButton.classList.add("sound-button_show");
+
+const levelLabel = createLabel("level", "level-label", "Level:");
+const roundLabel = createLabel("round", "round-label", "Round:");
+
+const levelsSelect = createSelect("levels", "levels-select", "levels-select");
+const roundsSelect = createSelect("rounds", "rounds-select", "rounds-select");
 
 let currentLevel = 0;
 let currentRound = 0;
@@ -77,15 +97,15 @@ function resetHighlights() {
   });
 }
 
-function dragStart(event: DragEvent) {
+function dragStart(event: DragEvent | TouchEvent) {
   draggedWord = event.target as HTMLSpanElement;
 }
 
-function dragOver(event: DragEvent) {
+function dragOver(event: DragEvent | TouchEvent) {
   event.preventDefault();
 }
 
-function drop(event: DragEvent) {
+function drop(event: DragEvent | TouchEvent) {
   event.preventDefault();
   const dropArea = event.target as HTMLDivElement;
   if (
@@ -100,9 +120,7 @@ function drop(event: DragEvent) {
 }
 
 function getNextSentence() {
-  const sentenceIndex = currentSentence % 10;
-
-  if (sentenceIndex === 9) {
+  if (currentSentence % 10 === 9) {
     currentRound += 1;
     currentSentence = 0;
     resultArea.innerHTML = "";
@@ -120,33 +138,6 @@ function getNextSentence() {
     round.words[currentSentence].textExampleTranslate;
   return sentence;
 }
-
-function playAudio() {
-  const round = levels[currentLevel].rounds[currentRound];
-  const audio = new Audio(
-    `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${round.words[currentSentence].audioExample}`,
-  );
-  soundButton.classList.add("sound-button_play");
-  audio.play();
-
-  audio.addEventListener("ended", () => {
-    soundButton.classList.remove("sound-button_play");
-  });
-}
-
-soundButton.addEventListener("click", playAudio);
-
-function createResultSentence() {
-  resultSentence = createDiv("result-sentence");
-  resultSentence.setAttribute(
-    "data-current-sentence",
-    `${currentSentence === -1 ? 0 : currentSentence}`,
-  );
-  resultSentence.addEventListener("dragover", dragOver);
-  resultSentence.addEventListener("drop", drop);
-  resultArea.append(resultSentence);
-}
-createResultSentence();
 
 function setCorrectWidthForCards(spannedWords: HTMLSpanElement[]) {
   const wordWidth = 7;
@@ -172,11 +163,99 @@ function createNextSentence() {
     sourceArea.append(span);
     span.setAttribute("draggable", "true");
     span.addEventListener("dragstart", dragStart);
+    span.addEventListener("touchstart", dragStart);
   });
   setCorrectWidthForCards(spannedSourceWords);
   sourceArea.append(...spannedSourceWords);
 }
 createNextSentence();
+
+function levelSelectChangeHandler() {
+  currentSentence = -1;
+  resultArea.innerHTML = "";
+  resultArea.append(resultSentence);
+  checkButton.classList.add("disabled");
+  checkButton.classList.remove("not-available");
+  continueButton.classList.add("not-available");
+  sourceArea.innerHTML = "";
+  currentLevel = parseInt(levelsSelect.value, 10) - 1;
+  getNextSentence();
+  createNextSentence();
+}
+
+levelsSelect.addEventListener("change", levelSelectChangeHandler);
+
+function roundSelectChangeHandler() {
+  currentSentence = -1;
+  resultArea.innerHTML = "";
+  resultArea.append(resultSentence);
+  checkButton.classList.add("disabled");
+  checkButton.classList.remove("not-available");
+  continueButton.classList.add("not-available");
+  sourceArea.innerHTML = "";
+  currentRound = parseInt(roundsSelect.value, 10) - 1;
+  getNextSentence();
+  createNextSentence();
+}
+roundsSelect.addEventListener("change", roundSelectChangeHandler);
+
+function createLevelOptions(levelOptions: GameData[]): HTMLOptionElement[] {
+  return levelOptions.map((level, index) =>
+    createOption((index + 1).toString(), (index + 1).toString()),
+  );
+}
+const levelOptions = createLevelOptions(levels);
+levelOptions.forEach((option) => levelsSelect.append(option));
+
+function createAllRoundOptions(numOfRounds: number): HTMLOptionElement[] {
+  const roundOptions = [];
+  for (let i = 1; i <= numOfRounds; i += 1) {
+    const option = createOption(i.toString(), i.toString());
+    roundOptions.push(option);
+  }
+  return roundOptions;
+}
+
+createAllRoundOptions(45).forEach((option) => roundsSelect.append(option));
+
+levelsSelect.addEventListener("change", () => {
+  const numOfRounds = levels[currentLevel].roundsCount;
+  const roundOptions = createAllRoundOptions(numOfRounds);
+  roundsSelect.innerHTML = "";
+  roundOptions.forEach((option) => roundsSelect.append(option));
+  if (numOfRounds === undefined) {
+    roundsSelect.selectedIndex = 0;
+  }
+});
+
+function playAudio() {
+  const round = levels[currentLevel].rounds[currentRound];
+  const audio = new Audio(
+    `https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/${round.words[currentSentence].audioExample}`,
+  );
+  soundButton.classList.add("sound-button_play");
+  audio.play();
+
+  audio.addEventListener("ended", () => {
+    soundButton.classList.remove("sound-button_play");
+  });
+}
+
+soundButton.addEventListener("click", playAudio);
+
+function createResultSentence() {
+  resultSentence = createDiv("result-sentence");
+  resultSentence.setAttribute(
+    "data-current-sentence",
+    `${currentSentence === -1 ? 0 : currentSentence}`,
+  );
+  resultSentence.addEventListener("dragover", dragOver);
+  resultSentence.addEventListener("drop", drop);
+  resultSentence.addEventListener("touchmove", dragOver);
+  resultSentence.addEventListener("touchend", drop);
+  resultArea.append(resultSentence);
+}
+createResultSentence();
 
 function highlightMistakes() {
   const properWords = sourceSentence.split(" ");
@@ -283,12 +362,12 @@ autoCompleteButton.addEventListener("click", () => {
   );
 });
 
-const buttonContainer = createDiv("button-container");
-const sentenceConainer = createDiv("sentence-container");
+optionsContainer.append(levelLabel, levelsSelect, roundLabel, roundsSelect);
 buttonContainer.append(checkButton, continueButton, autoCompleteButton);
 sentenceConainer.append(hintTranslationSentence, soundButton);
 hintContainer.append(hintTranslationButton, hintSoundButton);
 gameArea.append(
+  optionsContainer,
   hintContainer,
   sentenceConainer,
   resultArea,

@@ -67,3 +67,26 @@ export function createSpan(className: string, text: string) {
   span.textContent = text;
   return span;
 }
+
+export function createLabel(htmlFor: string, className: string, text: string) {
+  const label = document.createElement("label");
+  label.htmlFor = htmlFor;
+  label.classList.add(className);
+  label.textContent = text;
+  return label;
+}
+
+export function createSelect(name: string, className: string, id: string) {
+  const select = document.createElement("select");
+  select.name = name;
+  select.classList.add(className);
+  select.id = id;
+  return select;
+}
+
+export function createOption(value: string, text: string) {
+  const option = document.createElement("option");
+  option.value = value;
+  option.textContent = text;
+  return option;
+}
