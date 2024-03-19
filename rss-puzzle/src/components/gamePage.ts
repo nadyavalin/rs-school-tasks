@@ -131,7 +131,6 @@ function getNextSentence() {
   } else {
     currentSentence += 1;
   }
-
   const round = levels[currentLevel].rounds[currentRound];
   const sentence = round.words[currentSentence].textExample;
   hintTranslationSentence.textContent =
@@ -170,35 +169,6 @@ function createNextSentence() {
 }
 createNextSentence();
 
-function levelSelectChangeHandler() {
-  currentSentence = -1;
-  resultArea.innerHTML = "";
-  resultArea.append(resultSentence);
-  checkButton.classList.add("disabled");
-  checkButton.classList.remove("not-available");
-  continueButton.classList.add("not-available");
-  sourceArea.innerHTML = "";
-  currentLevel = parseInt(levelsSelect.value, 10) - 1;
-  getNextSentence();
-  createNextSentence();
-}
-
-levelsSelect.addEventListener("change", levelSelectChangeHandler);
-
-function roundSelectChangeHandler() {
-  currentSentence = -1;
-  resultArea.innerHTML = "";
-  resultArea.append(resultSentence);
-  checkButton.classList.add("disabled");
-  checkButton.classList.remove("not-available");
-  continueButton.classList.add("not-available");
-  sourceArea.innerHTML = "";
-  currentRound = parseInt(roundsSelect.value, 10) - 1;
-  getNextSentence();
-  createNextSentence();
-}
-roundsSelect.addEventListener("change", roundSelectChangeHandler);
-
 function createLevelOptions(levelOptions: GameData[]): HTMLOptionElement[] {
   return levelOptions.map((level, index) =>
     createOption((index + 1).toString(), (index + 1).toString()),
@@ -216,17 +186,39 @@ function createAllRoundOptions(numOfRounds: number): HTMLOptionElement[] {
   return roundOptions;
 }
 
-createAllRoundOptions(45).forEach((option) => roundsSelect.append(option));
-
-levelsSelect.addEventListener("change", () => {
+function levelSelectChangeHandler() {
+  currentLevel = parseInt(levelsSelect.value, 10) - 1;
   const numOfRounds = levels[currentLevel].roundsCount;
   const roundOptions = createAllRoundOptions(numOfRounds);
   roundsSelect.innerHTML = "";
-  roundOptions.forEach((option) => roundsSelect.append(option));
-  if (numOfRounds === undefined) {
-    roundsSelect.selectedIndex = 0;
-  }
-});
+  roundsSelect.append(...roundOptions);
+  roundsSelect.selectedIndex = 0;
+  currentRound = 0;
+  sourceArea.innerHTML = "";
+  resultArea.innerHTML = "";
+  currentSentence = -1;
+  createNextSentence();
+  resultArea.append(resultSentence);
+  checkButton.classList.add("disabled");
+  checkButton.classList.remove("not-available");
+  continueButton.classList.add("not-available");
+}
+
+createAllRoundOptions(45).forEach((option) => roundsSelect.append(option));
+function roundSelectChangeHandler() {
+  currentSentence = -1;
+  resultArea.innerHTML = "";
+  resultArea.append(resultSentence);
+  checkButton.classList.add("disabled");
+  checkButton.classList.remove("not-available");
+  continueButton.classList.add("not-available");
+  sourceArea.innerHTML = "";
+  currentRound = parseInt(roundsSelect.value, 10) - 1;
+  createNextSentence();
+}
+
+levelsSelect.addEventListener("change", levelSelectChangeHandler);
+roundsSelect.addEventListener("change", roundSelectChangeHandler);
 
 function playAudio() {
   const round = levels[currentLevel].rounds[currentRound];
