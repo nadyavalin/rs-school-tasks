@@ -122,11 +122,14 @@ function drop(event: DragEvent | TouchEvent) {
 function getNextSentence() {
   if (currentSentence % 10 === 9) {
     currentRound += 1;
+    roundsSelect.selectedIndex += 1;
     currentSentence = 0;
     resultArea.innerHTML = "";
     if (currentRound >= levels[currentLevel].rounds.length) {
       currentLevel += 1;
+      levelsSelect.selectedIndex += 1;
       currentRound = 0;
+      roundsSelect.selectedIndex = 0;
     }
   } else {
     currentSentence += 1;
@@ -186,6 +189,20 @@ function createAllRoundOptions(numOfRounds: number): HTMLOptionElement[] {
   return roundOptions;
 }
 
+function createResultSentence() {
+  resultSentence = createDiv("result-sentence");
+  resultSentence.setAttribute(
+    "data-current-sentence",
+    `${currentSentence === -1 ? 0 : currentSentence}`,
+  );
+  resultSentence.addEventListener("dragover", dragOver);
+  resultSentence.addEventListener("drop", drop);
+  resultSentence.addEventListener("touchmove", dragOver);
+  resultSentence.addEventListener("touchend", drop);
+  resultArea.append(resultSentence);
+}
+createResultSentence();
+
 function levelSelectChangeHandler() {
   currentLevel = parseInt(levelsSelect.value, 10) - 1;
   const numOfRounds = levels[currentLevel].roundsCount;
@@ -198,7 +215,7 @@ function levelSelectChangeHandler() {
   resultArea.innerHTML = "";
   currentSentence = -1;
   createNextSentence();
-  resultArea.append(resultSentence);
+  createResultSentence();
   checkButton.classList.add("disabled");
   checkButton.classList.remove("not-available");
   continueButton.classList.add("not-available");
@@ -208,7 +225,7 @@ createAllRoundOptions(45).forEach((option) => roundsSelect.append(option));
 function roundSelectChangeHandler() {
   currentSentence = -1;
   resultArea.innerHTML = "";
-  resultArea.append(resultSentence);
+  createResultSentence();
   checkButton.classList.add("disabled");
   checkButton.classList.remove("not-available");
   continueButton.classList.add("not-available");
@@ -234,20 +251,6 @@ function playAudio() {
 }
 
 soundButton.addEventListener("click", playAudio);
-
-function createResultSentence() {
-  resultSentence = createDiv("result-sentence");
-  resultSentence.setAttribute(
-    "data-current-sentence",
-    `${currentSentence === -1 ? 0 : currentSentence}`,
-  );
-  resultSentence.addEventListener("dragover", dragOver);
-  resultSentence.addEventListener("drop", drop);
-  resultSentence.addEventListener("touchmove", dragOver);
-  resultSentence.addEventListener("touchend", drop);
-  resultArea.append(resultSentence);
-}
-createResultSentence();
 
 function highlightMistakes() {
   const properWords = sourceSentence.split(" ");
