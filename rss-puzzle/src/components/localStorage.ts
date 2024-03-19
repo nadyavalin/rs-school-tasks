@@ -8,7 +8,7 @@ export function saveUserDatas(user: object): void {
     Object.prototype.hasOwnProperty.call(user, "firstName") &&
     Object.prototype.hasOwnProperty.call(user, "surname")
   ) {
-    setItemToLocalStorage("user", user);
+    setItemToLocalStorage("puzzle-user", user);
   }
 }
 
@@ -17,10 +17,10 @@ function removeItemFromLocalStorage(key: string) {
 }
 
 export function logoutUser() {
-  removeItemFromLocalStorage("user");
+  removeItemFromLocalStorage("puzzle-user");
 }
 
 export function showDataUser() {
-  const userData = localStorage.getItem("user");
+  const userData = localStorage.getItem("puzzle-user");
   return userData ? JSON.parse(userData) : null;
 }

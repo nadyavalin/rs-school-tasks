@@ -7,7 +7,7 @@ import {
 
 import { saveUserDatas, logoutUser } from "./localStorage";
 import container from "./container";
-import startScreenPage from "./startScreen";
+import createStartScreen from "./startScreen";
 
 const firstNamePattern: RegExp = /^[A-Z][-a-z]{2,}$/;
 const surnamePattern: RegExp = /^[A-Z][-a-z]{3,}$/;
@@ -77,7 +77,7 @@ form.addEventListener("submit", (event) => {
 
   saveUserDatas(user);
   container.innerHTML = "";
-  container.append(startScreenPage);
+  container.append(createStartScreen());
   container.append(logoutButton);
 });
 

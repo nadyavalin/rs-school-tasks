@@ -4,10 +4,10 @@ import startScreenPage from "./components/startScreen";
 import form, { logoutButton } from "./components/loginForm";
 
 document.addEventListener("DOMContentLoaded", (): void => {
-  const userName = localStorage.getItem("user");
+  const userName = localStorage.getItem("puzzle-user");
   container.innerHTML = "";
   if (userName) {
-    container.append(startScreenPage);
+    container.append(startScreenPage());
     container.append(logoutButton);
   } else {
     container.append(form);
