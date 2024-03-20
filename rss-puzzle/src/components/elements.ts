@@ -13,23 +13,19 @@ export function createInput(
   return input;
 }
 
-export function createSubmitButton(text: string) {
-  const button = document.createElement("button");
-  button.type = "submit";
-  button.id = "submit";
-  button.name = "submit";
-  button.disabled = true;
-  button.classList.add("disabled");
-  button.textContent = text;
-  return button;
-}
-
 export function createButton(id: string, className: string, text = "") {
   const button = document.createElement("button");
   button.id = id;
   button.name = id;
   button.classList.add(className);
   button.textContent = text;
+  return button;
+}
+
+export function createSubmitButton(text: string) {
+  const button = createButton("submit", "disabled", text);
+  button.type = "submit";
+  button.disabled = true;
   return button;
 }
 

@@ -1,17 +1,15 @@
 import "../index.css";
 import container from "./container";
 import { createText, createButton, createDiv } from "./elements";
-import { showDataUser } from "./localStorage";
+import { getUserInfo } from "./localStorage";
 import gameArea from "./gamePage";
 
 export default function createStartScreen() {
   const startScreenPage = document.createElement("div");
   startScreenPage.classList.add("start-screen-page");
 
-  const userData = showDataUser();
-  const greetText = userData
-    ? `Hello, ${userData.firstName} ${userData.surname}!`
-    : "";
+  const userData = getUserInfo();
+  const greetText = `Hello, ${userData.firstName} ${userData.surname}!`;
   const greet = createText("greet-text", greetText);
   const title = createText("title", "English puzzle");
   const imagePuzzle = createDiv("image-puzzle");

@@ -31,10 +31,8 @@ form.append(
   buttonLogin,
 );
 
-function isLoginInputsEmpty(): boolean {
-  const firstNameValue = inputFirstName.value.trim();
-  const surnameValue = inputSurname.value.trim();
-  return firstNameValue !== "" && surnameValue !== "";
+function isLoginInputsNotEmpty(): boolean {
+  return !!inputFirstName.value.trim() && !!inputSurname.value.trim();
 }
 
 function isValidInput(inputValue: string, pattern: RegExp): boolean {
@@ -42,7 +40,7 @@ function isValidInput(inputValue: string, pattern: RegExp): boolean {
 }
 
 function updateButtonLoginState(): void {
-  const isValid = isLoginInputsEmpty();
+  const isValid = isLoginInputsNotEmpty();
   if (
     isValidInput(inputFirstName.value, firstNamePattern) &&
     isValidInput(inputSurname.value, surnamePattern)
@@ -81,30 +79,52 @@ form.addEventListener("submit", (event) => {
   container.append(logoutButton);
 });
 
-inputFirstName.addEventListener("blur", () => {
-  if (!isValidInput(inputFirstName.value, firstNamePattern)) {
-    inputFirstName.classList.add("invalid");
+// inputFirstName.addEventListener("blur", () => {
+//   if (!isValidInput(inputFirstName.value, firstNamePattern)) {
+//     inputFirstName.classList.add("invalid");
+//   } else {
+//     inputFirstName.classList.remove("invalid");
+//   }
+//   updateButtonLoginState();
+// });
+
+// inputSurname.addEventListener("blur", () => {
+//   if (!isValidInput(inputSurname.value, surnamePattern)) {
+//     inputSurname.classList.add("invalid");
+//   } else {
+//     inputSurname.classList.remove("invalid");
+//   }
+//   updateButtonLoginState();
+// });
+
+const validateInput = (input: HTMLInputElement, pattern: string) => {
+  return new RegExp(pattern).test(input.value);
+};
+
+const onBlur = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const pattern = input.getAttribute("data-pattern");
+
+  if (pattern && input.value && validateInput(input, pattern)) {
+    input.classList.remove("invalid");
   } else {
-    inputFirstName.classList.remove("invalid");
+    input.classList.add("invalid");
   }
   updateButtonLoginState();
-});
+};
 
-inputSurname.addEventListener("blur", () => {
-  if (!isValidInput(inputSurname.value, surnamePattern)) {
-    inputSurname.classList.add("invalid");
-  } else {
-    inputSurname.classList.remove("invalid");
+inputFirstName.addEventListener("blur", onBlur);
+inputSurname.addEventListener("blur", onBlur);
+
+const onFocus = (event: Event) => {
+  const target = event.target as HTMLElement;
+  if (target !== null) {
+    target.classList.remove("invalid");
   }
-  updateButtonLoginState();
-});
+};
 
-inputFirstName.addEventListener("focus", () => {
-  inputFirstName.classList.remove("invalid");
-});
+inputFirstName.addEventListener("focus", onFocus);
 
-inputSurname.addEventListener("focus", () => {
-  inputSurname.classList.remove("invalid");
-});
+inputSurname.addEventListener("focus", onFocus);
 
 export default form;
