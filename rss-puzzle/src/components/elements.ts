@@ -29,13 +29,6 @@ export function createSubmitButton(text: string) {
   return button;
 }
 
-export function createErrorMessage(text: string) {
-  const errorMessage = document.createElement("p");
-  errorMessage.classList.add("error-message");
-  errorMessage.textContent = text;
-  return errorMessage;
-}
-
 export function createText(className: string, text: string) {
   const textP = document.createElement("p");
   textP.classList.add(className);

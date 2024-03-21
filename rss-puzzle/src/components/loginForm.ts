@@ -1,11 +1,11 @@
 import {
   createInput,
   createSubmitButton,
-  createErrorMessage,
+  createText,
   createButton,
 } from "./elements";
 
-import { saveUserDatas, logoutUser } from "./localStorage";
+import { saveUserToLocalStorage, logoutUser } from "./localStorage";
 import container from "./container";
 import createStartScreen from "./startScreen";
 
@@ -14,11 +14,13 @@ const surnamePattern: RegExp = /^[A-Z][-a-z]{3,}$/;
 
 const form = document.createElement("form");
 const inputFirstName = createInput("fname", "input", "First Name");
-const errorMsgForFirstName = createErrorMessage(
+const errorMsgForFirstName = createText(
+  "error-message",
   "❌ Your first name must be more than 3 characters in English with a capital letter.",
 );
 const inputSurname = createInput("sname", "input", "Surname");
-const errorMsgForSurname = createErrorMessage(
+const errorMsgForSurname = createText(
+  "error-message",
   "❌ Your surname must be more than 4 characters in English with a capital letter.",
 );
 const buttonLogin = createSubmitButton("Login");
@@ -40,14 +42,12 @@ function isValidInput(inputValue: string, pattern: RegExp): boolean {
 }
 
 function updateButtonLoginState(): void {
-  const isValid = isLoginInputsNotEmpty();
-  if (
+  const isValid =
+    isLoginInputsNotEmpty() &&
     isValidInput(inputFirstName.value, firstNamePattern) &&
-    isValidInput(inputSurname.value, surnamePattern)
-  ) {
-    buttonLogin.disabled = !isValid;
-    buttonLogin.classList.toggle("disabled", !isValid);
-  }
+    isValidInput(inputSurname.value, surnamePattern);
+  buttonLogin.disabled = !isValid;
+  buttonLogin.classList.toggle("disabled", !isValid);
 }
 
 form.addEventListener("change", updateButtonLoginState);
@@ -73,39 +73,24 @@ form.addEventListener("submit", (event) => {
     surname: inputSurname.value,
   };
 
-  saveUserDatas(user);
+  saveUserToLocalStorage(user);
   container.innerHTML = "";
   container.append(createStartScreen());
   container.append(logoutButton);
 });
 
-// inputFirstName.addEventListener("blur", () => {
-//   if (!isValidInput(inputFirstName.value, firstNamePattern)) {
-//     inputFirstName.classList.add("invalid");
-//   } else {
-//     inputFirstName.classList.remove("invalid");
-//   }
-//   updateButtonLoginState();
-// });
-
-// inputSurname.addEventListener("blur", () => {
-//   if (!isValidInput(inputSurname.value, surnamePattern)) {
-//     inputSurname.classList.add("invalid");
-//   } else {
-//     inputSurname.classList.remove("invalid");
-//   }
-//   updateButtonLoginState();
-// });
-
-const validateInput = (input: HTMLInputElement, pattern: string) => {
-  return new RegExp(pattern).test(input.value);
-};
+inputFirstName.setAttribute("data-pattern", firstNamePattern.source);
+inputSurname.setAttribute("data-pattern", surnamePattern.source);
 
 const onBlur = (event: Event) => {
   const input = event.target as HTMLInputElement;
-  const pattern = input.getAttribute("data-pattern");
+  const { pattern } = input.dataset;
 
-  if (pattern && input.value && validateInput(input, pattern)) {
+  if (
+    pattern &&
+    input.value &&
+    isValidInput(input.value, new RegExp(pattern))
+  ) {
     input.classList.remove("invalid");
   } else {
     input.classList.add("invalid");
@@ -117,10 +102,7 @@ inputFirstName.addEventListener("blur", onBlur);
 inputSurname.addEventListener("blur", onBlur);
 
 const onFocus = (event: Event) => {
-  const target = event.target as HTMLElement;
-  if (target !== null) {
-    target.classList.remove("invalid");
-  }
+  (event.target as HTMLElement).classList.remove("invalid");
 };
 
 inputFirstName.addEventListener("focus", onFocus);

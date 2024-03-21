@@ -1,11 +1,11 @@
 import { User } from "src/type/interfacesAndTypes";
 
-function saveUserToLocalStorage(key: string, value: User) {
+function setItemToLocalStorage(key: string, value: User) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
-export function saveUserDatas(user: User): void {
-  saveUserToLocalStorage("puzzle-user", user);
+export function saveUserToLocalStorage(user: User): void {
+  setItemToLocalStorage("puzzle-user", user);
 }
 
 function removeItemFromLocalStorage(key: string) {
