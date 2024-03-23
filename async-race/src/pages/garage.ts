@@ -1,6 +1,15 @@
-import { createText } from "../components/elements";
+import { createDiv, createText, createButton } from "../components/elements";
+import carArea from "../components/carArea";
 
-const garageText = createText("garage-text", "Garage");
-document.body.append(garageText);
+const garageContent = createDiv("garage-content");
+const garageText = createText("garage-text", `Garage ()`);
+const pagesText = createText("pages", `Page #`);
+const carAreaButtons = createDiv("car-area-buttons");
+const selectButton = createButton("select", "select-button", "select");
+const removeButton = createButton("remove", "remove-button", "remove");
+const modelText = createText("model-text", `Cherry`);
 
-export default garageText;
+carAreaButtons.append(selectButton, removeButton, modelText);
+garageContent.append(garageText, pagesText, carArea);
+
+export default garageContent;

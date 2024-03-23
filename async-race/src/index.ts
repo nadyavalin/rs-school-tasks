@@ -1,8 +1,8 @@
 import "./index.css";
 import { createButton, createDiv } from "./components/elements";
 import chooseModesContainer from "./components/chooseModes";
-import garageText from "./pages/garage";
-import winnersText from "./pages/winners";
+import garageContent from "./pages/garage";
+import winnersContent from "./pages/winners";
 
 const chooseRoomContainer = createDiv("choose-room-container");
 const toGarage = createButton("garage", "garage-button", "To garage");
@@ -12,8 +12,8 @@ const winnersArea = createDiv("winners-area");
 
 chooseRoomContainer.append(toGarage, toWinners);
 document.body.append(chooseRoomContainer, chooseModesContainer, garageArea);
-garageArea.append(garageText);
-winnersArea.append(winnersText);
+garageArea.append(garageContent);
+winnersArea.append(winnersContent);
 
 toWinners.addEventListener("click", () => {
   if (document.contains(winnersArea)) {

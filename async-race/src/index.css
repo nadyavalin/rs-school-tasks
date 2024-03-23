@@ -17,6 +17,7 @@ body {
   display: flex;
   gap: 10px;
   padding-bottom: 20px;
+  margin-top: 20px;
 }
 
 button {
@@ -27,6 +28,7 @@ button {
   border: none;
   border-radius: 5px;
   background-color: #004fbd;
+  box-shadow: 4px 4px 4px rgba(92, 89, 233, 0.45);
   color: #d3d3d3;
   text-transform: uppercase;
   cursor: pointer;
@@ -36,11 +38,13 @@ button {
 .create-button,
 .update-button {
   background-color: #09b400;
+  box-shadow: 4px 4px 4px rgba(0, 200, 57, 0.45);
 }
 
 .generate-button {
   width: 200px;
   background-color: #09b400;
+  box-shadow: 4px 4px 4px rgba(0, 200, 57, 0.45);
 }
 
 input {
@@ -50,7 +54,7 @@ input {
 }
 
 .input-car-model {
-  width: 31IE0px;
+  width: 310px;
 }
 
 .input-color {
@@ -61,6 +65,7 @@ input {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding-bottom: 50px;
 }
 
 .choose-container,
@@ -69,6 +74,40 @@ input {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.garage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.garage-text {
+  font-weight: 700;
+}
+
+.car-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.car-area-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.a-button,
+.b-button {
+  width: 30px;
+  background-color: transparent;
+  border: 1px solid #3079df;
 }
 
 @media (hover: hover) {
