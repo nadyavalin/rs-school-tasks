@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #d3d3d3;
+  background-color: #0e003d;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  min-height: 100vh;
+  margin: 20px;
+}
+
+.choose-room-container {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 20px;
+}
+
+button {
+  font-size: 16px;
+  padding: 10px;
+  width: 150px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  background-color: #004fbd;
+  color: #d3d3d3;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.create-button,
+.update-button {
+  background-color: #09b400;
+}
+
+.generate-button {
+  width: 200px;
+  background-color: #09b400;
+}
+
+input {
+  height: 35px;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.input-car-model {
+  width: 31IE0px;
+}
+
+.input-color {
+  width: 40px;
+}
+
+.choose-modes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choose-container,
+.update-container,
+.race-buttons-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (hover: hover) {
+  button:hover {
+    background-color: #3079df;
+  }
+}
