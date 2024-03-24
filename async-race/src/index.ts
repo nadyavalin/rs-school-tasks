@@ -7,25 +7,23 @@ import winnersContent from "./pages/winners";
 const chooseRoomContainer = createDiv("choose-room-container");
 const toGarage = createButton("garage", "garage-button", "To garage");
 const toWinners = createButton("winners", "winners-button", "To winners");
-const garageArea = createDiv("garage-area");
-const winnersArea = createDiv("winners-area");
 
 toWinners.addEventListener("click", () => {
-  if (document.contains(winnersArea)) {
+  if (document.contains(winnersContent)) {
     return;
   }
-  document.body.removeChild(garageArea);
+  document.body.removeChild(garageContent);
   document.body.removeChild(chooseModesContainer);
-  document.body.appendChild(winnersArea);
+  document.body.append(winnersContent);
 });
 
 toGarage.addEventListener("click", () => {
-  if (document.contains(garageArea)) {
+  if (document.contains(garageContent)) {
     return;
   }
-  document.body.removeChild(winnersArea);
-  document.body.appendChild(chooseModesContainer);
-  document.body.appendChild(garageArea);
+  document.body.removeChild(winnersContent);
+  document.body.append(chooseModesContainer);
+  document.body.append(garageContent);
 });
 
 const prevNextButtons = createDiv("prev-next-buttons");
@@ -37,10 +35,10 @@ prevNextButtons.append(prevButton, nextButton);
 document.body.append(
   chooseRoomContainer,
   chooseModesContainer,
-  garageArea,
   prevNextButtons,
 );
-garageArea.append(garageContent);
-winnersArea.append(winnersContent);
+
+document.body.append(garageContent);
+document.body.removeChild(winnersContent);
 
 export default chooseRoomContainer;
