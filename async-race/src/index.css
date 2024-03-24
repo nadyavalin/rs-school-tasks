@@ -9,7 +9,7 @@ body {
   background-color: #0e003d;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
-  min-height: 100vh;
+  min-height: calc(100vh - 40px);
   margin: 20px;
 }
 
@@ -76,13 +76,15 @@ input {
   align-items: center;
 }
 
-.garage-content {
+.garage-content,
+.winners-content {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.garage-text {
+.garage-text,
+.winners-text {
   font-weight: 700;
 }
 
@@ -107,7 +109,56 @@ input {
 .b-button {
   width: 30px;
   background-color: transparent;
+  border: 1px solid #004fbd;
+}
+
+.car svg {
+  position: relative;
+  bottom: 61px;
+  left: 90px;
+}
+
+.car svg {
+  fill: var(--svg-fill-color);
+}
+
+.road {
+  position: relative;
+  bottom: 100px;
+  width: 100%;
+  border-bottom: 3px dashed #ffffff;  
+}
+
+.finish-flag {
+  position: relative;
+  bottom: 166px;
+  left: 90%;
+  width: 50px;
+  height: 50px;
+}
+
+.prev-next-buttons {
+  display: flex;
+  gap: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.winners-table {
+  font-size: 16px;
   border: 1px solid #3079df;
+  background-color: #002962;
+  width: 60%;
+}
+
+.head-row-table {
+  background-color: #3079df;
+}
+
+.cell-table {
+  border: 1px solid #0337a6;
 }
 
 @media (hover: hover) {

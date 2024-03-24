@@ -30,14 +30,6 @@ export function createText(className: string, text: string) {
   return textP;
 }
 
-export function createImage(src: string, alt: string, className: string) {
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = alt;
-  img.classList.add(className);
-  return img;
-}
-
 export function createDiv(className: string) {
   const div = document.createElement("div");
   div.classList.add(className);

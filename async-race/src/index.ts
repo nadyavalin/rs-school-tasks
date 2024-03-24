@@ -10,16 +10,12 @@ const toWinners = createButton("winners", "winners-button", "To winners");
 const garageArea = createDiv("garage-area");
 const winnersArea = createDiv("winners-area");
 
-chooseRoomContainer.append(toGarage, toWinners);
-document.body.append(chooseRoomContainer, chooseModesContainer, garageArea);
-garageArea.append(garageContent);
-winnersArea.append(winnersContent);
-
 toWinners.addEventListener("click", () => {
   if (document.contains(winnersArea)) {
     return;
   }
   document.body.removeChild(garageArea);
+  document.body.removeChild(chooseModesContainer);
   document.body.appendChild(winnersArea);
 });
 
@@ -28,7 +24,23 @@ toGarage.addEventListener("click", () => {
     return;
   }
   document.body.removeChild(winnersArea);
+  document.body.appendChild(chooseModesContainer);
   document.body.appendChild(garageArea);
 });
+
+const prevNextButtons = createDiv("prev-next-buttons");
+const prevButton = createButton("prev", "prev-button", "prev");
+const nextButton = createButton("next", "next-button", "next");
+
+chooseRoomContainer.append(toGarage, toWinners);
+prevNextButtons.append(prevButton, nextButton);
+document.body.append(
+  chooseRoomContainer,
+  chooseModesContainer,
+  garageArea,
+  prevNextButtons,
+);
+garageArea.append(garageContent);
+winnersArea.append(winnersContent);
 
 export default chooseRoomContainer;

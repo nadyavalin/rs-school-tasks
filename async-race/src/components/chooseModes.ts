@@ -2,14 +2,20 @@ import { createButton, createDiv, createInput } from "./elements";
 
 const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
-const inputChooseCarModel = createInput(
+export const inputChooseCarModel = createInput(
   "text",
   "model",
   "input-car-model",
   "Choose the model",
 );
-const inputChooseCarColor = createInput("color", "color", "input-color", "");
-const createColoredCarButton = createButton(
+export const inputChooseCarColor = createInput(
+  "color",
+  "color",
+  "input-color",
+  "",
+) as HTMLInputElement;
+
+export const createCarButton = createButton(
   "color-button",
   "create-button",
   "create",
@@ -18,7 +24,7 @@ const createColoredCarButton = createButton(
 chooseContainer.append(
   inputChooseCarModel,
   inputChooseCarColor,
-  createColoredCarButton,
+  createCarButton,
 );
 
 const updateContainer = createDiv("update-container");
@@ -58,4 +64,4 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
-export default chooseModesContainer;
+export default chooseModesContainer as HTMLInputElement;
