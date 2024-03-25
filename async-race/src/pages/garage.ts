@@ -1,16 +1,17 @@
 import { createDiv, createText, createButton } from "../components/elements";
-import fetchAndDisplayCars from "../api/api";
+import { getCars } from "../api/api";
 import { Car } from "../types/interfaces";
 
+export const garageArea = createDiv("garage-area");
 export const garageContent = createDiv("garage-content");
 const garageText = createText("garage-text", `Garage ()`);
 const pagesGarageText = createText("pages", `Page #`);
 
-garageContent.append(garageText, pagesGarageText);
+garageArea.append(garageText, pagesGarageText);
 
-async function getGarage() {
-  const data = await fetchAndDisplayCars();
-  data.forEach((car: Car) => {
+export async function getGarage() {
+  const cars = await getCars();
+  cars.forEach((car: Car) => {
     const carAreaButtons = createDiv("car-area-buttons");
     const selectButton = createButton("select", "select-button", "select");
     const removeButton = createButton("remove", "remove-button", "remove");
@@ -63,8 +64,9 @@ async function getGarage() {
     garageContent.append(carArea);
     carArea.append(carAreaButtons, actionButtons, svgCar, road, finishFlag);
   });
-  document.body.append(garageContent);
+  garageArea.append(garageContent);
 }
+document.body.append(garageArea);
 getGarage();
 
 export default garageContent;

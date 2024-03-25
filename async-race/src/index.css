@@ -21,7 +21,7 @@ body {
 }
 
 button {
-  font-size: 16px;
+  font-size: 14px;
   padding: 10px;
   width: 150px;
   height: 35px;
@@ -76,6 +76,12 @@ input {
   align-items: center;
 }
 
+.garage-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .garage-content,
 .winners-content {
   display: flex;
@@ -121,6 +127,13 @@ input {
   fill: var(--svg-fill-color);
 }
 
+.car_small svg {
+  position: static;
+  bottom: 0;
+  left: 0;
+  fill: var(--svg-fill-color);
+}
+
 .road {
   position: relative;
   top: -100px;
@@ -137,12 +150,13 @@ input {
 }
 
 .prev-next-buttons {
+  position: relative;
   display: flex;
   gap: 10px;
-  position: fixed;
-  bottom: 0;
   width: 100%;
-  padding-bottom: 20px;
+  bottom: 0;
+  margin-bottom: 20px;
+  z-index: 10;
 }
 
 .winners-table {
@@ -150,6 +164,7 @@ input {
   border: 1px solid #3079df;
   background-color: #002962;
   width: 60%;
+  margin-bottom: 100px;
 }
 
 .head-row-table {
@@ -158,6 +173,8 @@ input {
 
 .cell-table {
   border: 1px solid #0337a6;
+  padding: 5px;
+  text-align: center;
 }
 
 @media (hover: hover) {

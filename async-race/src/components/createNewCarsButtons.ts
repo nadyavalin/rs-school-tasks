@@ -1,41 +1,73 @@
+import { createText, createButton, createDiv, createInput } from "./elements";
 import { garageContent } from "../pages/garage";
-import { createText, createDiv, createButton } from "./elements";
-import {
+
+const chooseModesContainer = createDiv("choose-modes-container");
+const chooseContainer = createDiv("choose-container");
+export const inputChooseCarModel = createInput(
+  "text",
+  "model",
+  "input-car-model",
+  "Choose the model",
+);
+
+const inputChooseCarColor = createInput("color", "color", "input-color", "");
+const createCarButton = createButton("color-button", "create-button", "create");
+
+chooseContainer.append(
   inputChooseCarModel,
   inputChooseCarColor,
   createCarButton,
-} from "./chooseModes";
+);
 
-// function createCarName() {
-//   const inputCarName = inputChooseCarModel.value;
-//   if (modalText) {
-//     modalText.textContent = inputCarName;
-//   }
-//   if (carAreaButtons) {
-//     if (modalText && !carAreaButtons.contains(modalText)) {
-//       carAreaButtons.append(modalText);
-//     }
-//   }
-// }
+const updateContainer = createDiv("update-container");
+const inputUpdateCarModel = createInput(
+  "text",
+  "model",
+  "input-car-model",
+  "Choose the model",
+);
+const inputUpdateCarColor = createInput("color", "color", "input-color", "");
+const updateColoredCarButton = createButton(
+  "color-button",
+  "update-button",
+  "update",
+);
 
-// function newColor() {
-//   const svgCar = document.querySelector("#car") as HTMLElement;
-//   if (svgCar) {
-//     svgCar.style.setProperty("--svg-fill-color", inputChooseCarColor.value);
-//   }
-// }
+updateContainer.append(
+  inputUpdateCarModel,
+  inputUpdateCarColor,
+  updateColoredCarButton,
+);
+
+const raceButtonsContainer = createDiv("race-buttons-container");
+const raceButton = createButton("race", "race-button", "race");
+const resetButton = createButton("reset", "reset-button", "reset");
+const generateCarsButton = createButton(
+  "generate",
+  "generate-button",
+  "generate cars",
+);
+raceButtonsContainer.append(raceButton, resetButton, generateCarsButton);
+
+document.body.append(chooseModesContainer);
+chooseModesContainer.append(
+  chooseContainer,
+  updateContainer,
+  raceButtonsContainer,
+);
 
 function createNewCar() {
   const carAreaButtons = createDiv("car-area-buttons");
   const selectButton = createButton("select", "select-button", "select");
   const removeButton = createButton("remove", "remove-button", "remove");
-  const carArea = createDiv("car-area");
   const modalText = createText("model-text", "");
+  const carArea = createDiv("car-area");
   const actionButtons = createDiv("action-buttons");
   const aButton = createButton("a", "a-button", "A");
   const bButton = createButton("b", "b-button", "B");
   const road = createDiv("road");
   const svgCar = createDiv("car");
+  const finishFlag = createDiv("finish-flag");
   svgCar.innerHTML = `
   <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
   	 width="100px" height="100px" viewBox="0 0 492.626 492.626"
@@ -67,28 +99,38 @@ function createNewCar() {
   	</g>
   </g>
   </svg>`;
-  const finishFlag = createDiv("finish-flag");
+
   finishFlag.innerHTML = `<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 496 496"
                           style="enable-background:new 0 0 496 496;" xml:space="preserve"><g><g><g><path d="M428,24H100V8c0-4.418-3.582-8-8-8H68c-4.418,0-8,3.582-8,8v480c0,4.418,3.582,8,8,8h24c4.418,0,8-3.582,8-8V296h328 c4.418,0,8-3.582,8-8V32C436,27.582,432.418,24,428,24z M84,480h-8V16h8V480z M420,120h-80v80h80v80h-80v-80h-80v80h-80v-80h-80 v-80h80V40h80v80h80V40h80V120z" fill="#000000" style="fill: rgb(201, 94, 94);"></path><rect x="180" y="120" width="80" height="80" fill="#000000" style="fill: rgb(201, 94, 94);"></rect></g></g></g></svg>`;
-  if (modalText instanceof HTMLElement) {
-    modalText.textContent = inputChooseCarModel.value;
-  }
+
+  modalText.textContent = inputChooseCarModel.value;
   svgCar.style.setProperty("--svg-fill-color", inputChooseCarColor.value);
   actionButtons.append(aButton, bButton);
-  if (carAreaButtons) {
-    carAreaButtons.append(selectButton, removeButton, modalText);
-  }
+  carAreaButtons.append(selectButton, removeButton, modalText);
   carArea.append(carAreaButtons, actionButtons, svgCar, road, finishFlag);
+  garageContent.prepend(carArea);
 }
-if (garageContent instanceof HTMLElement) {
-  document.body.append(garageContent);
-}
+createCarButton.addEventListener("click", createNewCar);
 
-createCarButton.addEventListener("click", () => {
-  createNewCar();
-  // createCarName();
-  // newColor();
-});
-document.addEventListener("DOMContentLoaded", () => {
-  createNewCar();
-});
+// function changeCarName() {
+//   const modalText = createText("model-text", "");
+//   const carAreaButtons = createDiv("car-area-buttons");
+//   const inputCarName = inputChooseCarModel.value;
+//   if (modalText) {
+//     modalText.textContent = inputCarName;
+//   }
+//   if (carAreaButtons) {
+//     if (modalText && !carAreaButtons.contains(modalText)) {
+//       carAreaButtons.append(modalText);
+//     }
+//   }
+// }
+
+// function changeColor() {
+//   const svgCar = document.querySelector("#car") as HTMLElement;
+//   if (svgCar) {
+//     svgCar.style.setProperty("--svg-fill-color", inputChooseCarColor.value);
+//   }
+// }
+
+export default chooseModesContainer;
