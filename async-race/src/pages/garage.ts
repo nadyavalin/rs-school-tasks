@@ -1,11 +1,13 @@
 import { createDiv, createText, createButton } from "../components/elements";
-import { getCars } from "../api/api";
+import { getCars, getCarsPerPage } from "../api/api";
 import { Car } from "../types/interfaces";
 
 export const garageArea = createDiv("garage-area");
 export const garageContent = createDiv("garage-content");
-const garageText = createText("garage-text", `Garage ()`);
-const pagesGarageText = createText("pages", `Page #`);
+
+const carsPerPage = await getCarsPerPage("1");
+const garageText = createText("garage-text", `Garage (${carsPerPage.total})`);
+const pagesGarageText = createText("pages", `Page #1`);
 
 garageArea.append(garageText, pagesGarageText);
 

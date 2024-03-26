@@ -1,9 +1,14 @@
 import { createText, createDiv } from "../components/elements";
-import { getWinners, getCars } from "../api/api";
+import { getWinners, getCars, getWinnersPerPage } from "../api/api";
 
 const winnersContent = createDiv("winners-content");
-const winnersText = createText("winners-text", `Winners ()`);
-const pagesWinnersText = createText("pages", `Page #`);
+const winnersPerPage = await getWinnersPerPage(1);
+const winnersText = createText(
+  "winners-text",
+  `Winners (${winnersPerPage.id})`,
+);
+const pagesWinnersText = createText("pages", `Page #1`);
+
 winnersContent.append(winnersText, pagesWinnersText);
 
 const svgCar = createDiv("car");
