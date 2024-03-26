@@ -1,27 +1,17 @@
-import { CarsResponse, WinnerCars } from "../types/interfaces";
+import { CarsResponse, WinnerCars, NewCar } from "../types/interfaces";
 
 export async function getCars() {
   const apiURLGarage = "http://127.0.0.1:3000/garage";
-  try {
-    const response = await fetch(apiURLGarage);
-    const cars = await response.json();
-    return cars;
-  } catch (error) {
-    console.error("Error:", error);
-    return error;
-  }
+  const response = await fetch(apiURLGarage);
+  const cars = await response.json();
+  return cars;
 }
 
 export async function getWinners() {
   const apiURLGarage = "http://127.0.0.1:3000/winners";
-  try {
-    const response = await fetch(apiURLGarage);
-    const winners = await response.json();
-    return winners;
-  } catch (error) {
-    console.error("Error:", error);
-    return error;
-  }
+  const response = await fetch(apiURLGarage);
+  const winners = await response.json();
+  return winners;
 }
 
 export async function getCarsPerPage(page: string): Promise<CarsResponse> {
@@ -59,4 +49,16 @@ export async function getWinnersPerPage(id: number): Promise<WinnerCars> {
     time: winner.time,
   };
 }
+
+export async function createNewCarInGarage(carData: NewCar): Promise<NewCar> {
+  const response = await fetch("http://127.0.0.1:3000/garage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(carData),
+  });
+  return response.json();
+}
+
 export default getCars;

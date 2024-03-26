@@ -1,5 +1,6 @@
 import { createText, createButton, createDiv, createInput } from "./elements";
 import { garageContent } from "../pages/garage";
+import { createNewCarInGarage } from "../api/api";
 
 const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -56,7 +57,7 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
-function createNewCar() {
+async function createNewCar() {
   const carAreaButtons = createDiv("car-area-buttons");
   const selectButton = createButton("select", "select-button", "select");
   const removeButton = createButton("remove", "remove-button", "remove");
@@ -108,8 +109,13 @@ function createNewCar() {
   actionButtons.append(aButton, bButton);
   carAreaButtons.append(selectButton, removeButton, modalText);
   carArea.append(carAreaButtons, actionButtons, svgCar, road, finishFlag);
+  await createNewCarInGarage({
+    name: inputChooseCarModel.value,
+    color: inputChooseCarColor.value,
+  });
   garageContent.prepend(carArea);
 }
+
 createCarButton.addEventListener("click", createNewCar);
 
 // function changeCarName() {

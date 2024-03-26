@@ -14,3 +14,8 @@ export interface WinnerCars {
   wins: number;
   time: number;
 }
+
+export interface NewCar {
+  name: string;
+  color: string;
+}
