@@ -28,17 +28,17 @@ const inputUpdateCarModel = createInput(
   "Choose the model",
 );
 const inputUpdateCarColor = createInput("color", "color", "input-color", "");
-const updateColoredCarButton = createButton(
-  "color-button",
-  "update-button",
-  "update",
-);
+const updateCarButton = createButton("color-button", "update-button", "update");
 
 updateContainer.append(
   inputUpdateCarModel,
   inputUpdateCarColor,
-  updateColoredCarButton,
+  updateCarButton,
 );
+
+// updateCarButton.addEventListener("click", async () => {
+//   await updateCarAttributes(id);
+// });
 
 const raceButtonsContainer = createDiv("race-buttons-container");
 const raceButton = createButton("race", "race-button", "race");
@@ -114,6 +114,10 @@ async function createNewCar() {
     color: inputChooseCarColor.value,
   });
   garageContent.prepend(carArea);
+
+  // aButton.addEventListener("click", async () => {
+  //   await controlCarEngine(id, status);
+  // });
 }
 
 createCarButton.addEventListener("click", createNewCar);

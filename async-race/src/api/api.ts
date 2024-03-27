@@ -1,4 +1,10 @@
-import { Car, CarsResponse, WinnerCars, NewCar } from "../types/interfaces";
+import {
+  Car,
+  CarsResponse,
+  WinnerCars,
+  NewCar,
+  CarsStatus,
+} from "../types/interfaces";
 
 export async function getCars() {
   const apiURLGarage = "http://127.0.0.1:3000/garage";
@@ -61,14 +67,38 @@ export async function createNewCarInGarage(carData: NewCar): Promise<NewCar> {
   return response.json();
 }
 
-export async function deleteCarFromGarage(id: Car): Promise<Car> {
+export async function updateCarAttributes(carData: Car): Promise<Car> {
+  const response = await fetch(`http://127.0.0.1:3000//garage/:id`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(carData),
+  });
+  return response.json();
+}
+
+export async function deleteCarFromGarage(id: number): Promise<Car> {
   const response = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(id),
+    body: JSON.stringify({ id }),
   });
+  return response.json();
+}
+
+export async function controlCarEngine(
+  id: number,
+  status: boolean,
+): Promise<CarsStatus> {
+  const response = await fetch(
+    `http://127.0.0.1:3000/engine?id=${id}&status=${status}`,
+    {
+      method: "PATCH",
+    },
+  );
   return response.json();
 }
 

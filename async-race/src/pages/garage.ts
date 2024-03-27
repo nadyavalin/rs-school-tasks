@@ -1,5 +1,5 @@
 import { createDiv, createText, createButton } from "../components/elements";
-import { getCars, getCarsPerPage } from "../api/api";
+import { getCars, getCarsPerPage, deleteCarFromGarage } from "../api/api";
 import { Car } from "../types/interfaces";
 
 export const garageArea = createDiv("garage-area");
@@ -11,17 +11,12 @@ const pagesGarageText = createText("pages", `Page #1`);
 
 garageArea.append(garageText, pagesGarageText);
 
-// async function deleteCar(): Promise<Car> {
-//   return await deleteCarFromGarage(id);
-// }
-
 export async function getGaragePage(): Promise<HTMLDivElement> {
   const cars = await getCars();
   cars.forEach((car: Car) => {
     const carAreaButtons = createDiv("car-area-buttons");
     const selectButton = createButton("select", "select-button", "select");
     const removeButton = createButton("remove", "remove-button", "remove");
-    // removeButton.addEventListener("click", deleteCar());
     const carArea = createDiv("car-area");
     const modalText = createText("model-text", "");
     const actionButtons = createDiv("action-buttons");
@@ -70,6 +65,11 @@ export async function getGaragePage(): Promise<HTMLDivElement> {
     actionButtons.append(aButton, bButton);
     garageContent.append(carArea);
     carArea.append(carAreaButtons, actionButtons, svgCar, road, finishFlag);
+
+    removeButton.addEventListener("click", async () => {
+      await deleteCarFromGarage(car.id);
+      carArea.remove();
+    });
   });
   garageArea.append(garageContent);
   return garageArea;

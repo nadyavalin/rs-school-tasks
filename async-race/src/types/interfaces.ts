@@ -1,12 +1,17 @@
 export interface Car {
+  name: string;
   color: string;
   id: number;
-  name: string;
 }
 
 export interface CarsResponse {
   cars: Car[];
   total: string | null;
+}
+
+export interface CarsStatus {
+  id: number;
+  status: true | false;
 }
 
 export interface WinnerCars {
