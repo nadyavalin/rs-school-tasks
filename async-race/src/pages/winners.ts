@@ -1,7 +1,7 @@
 import { createText, createDiv } from "../components/elements";
 import { getWinners, getCars, getWinnersPerPage } from "../api/api";
 
-const winnersContent = createDiv("winners-content");
+export const winnersContent = createDiv("winners-content");
 const winnersPerPage = await getWinnersPerPage(1);
 const winnersText = createText(
   "winners-text",
@@ -44,7 +44,7 @@ svgCar.innerHTML = `
 	</g>
 </g>
 </svg>`;
-async function createWinnersTable() {
+export async function createWinnersTable(): Promise<HTMLDivElement> {
   const winners = await getWinners();
   const cars = await getCars();
   const table = document.createElement("table");
@@ -89,9 +89,5 @@ async function createWinnersTable() {
   }
   table.append(tbody);
   winnersContent.append(table);
+  return winnersContent;
 }
-createWinnersTable();
-
-document.body.append(winnersContent);
-
-export default winnersContent;

@@ -11,12 +11,17 @@ const pagesGarageText = createText("pages", `Page #1`);
 
 garageArea.append(garageText, pagesGarageText);
 
-export async function getGarage() {
+// async function deleteCar(): Promise<Car> {
+//   return await deleteCarFromGarage(id);
+// }
+
+export async function getGaragePage(): Promise<HTMLDivElement> {
   const cars = await getCars();
   cars.forEach((car: Car) => {
     const carAreaButtons = createDiv("car-area-buttons");
     const selectButton = createButton("select", "select-button", "select");
     const removeButton = createButton("remove", "remove-button", "remove");
+    // removeButton.addEventListener("click", deleteCar());
     const carArea = createDiv("car-area");
     const modalText = createText("model-text", "");
     const actionButtons = createDiv("action-buttons");
@@ -67,8 +72,5 @@ export async function getGarage() {
     carArea.append(carAreaButtons, actionButtons, svgCar, road, finishFlag);
   });
   garageArea.append(garageContent);
+  return garageArea;
 }
-document.body.append(garageArea);
-getGarage();
-
-export default garageContent;
