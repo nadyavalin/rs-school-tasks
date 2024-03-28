@@ -14,12 +14,16 @@ const prevButton = createButton("prev", "prev-button", "prev");
 const nextButton = createButton("next", "next-button", "next");
 prevNextButtons.append(prevButton, nextButton);
 
+let winnersTable: HTMLDivElement;
+let garagePage: HTMLDivElement;
+
 async function loadGaragePage() {
-  const garagePage = await getGaragePage();
+  garagePage = await getGaragePage();
+  garageArea.append(garagePage);
   document.body.append(
     chooseRoomContainer,
     chooseModesContainer,
-    garagePage,
+    garageArea,
     prevNextButtons,
   );
 }
@@ -34,19 +38,24 @@ toWinners.addEventListener("click", async () => {
   if (document.contains(winnersContent)) {
     return;
   }
-  const winnersPage = await createWinnersTable();
-  document.body.removeChild(garageArea);
+  if (!winnersTable) {
+    winnersTable = await createWinnersTable();
+  }
   document.body.removeChild(chooseModesContainer);
-  document.body.append(winnersPage, prevNextButtons);
+  document.body.removeChild(garageArea);
+  document.body.append(winnersTable, prevNextButtons);
 });
 
 toGarage.addEventListener("click", async () => {
   if (document.contains(garageArea)) {
     return;
   }
-  const garagePage = await getGaragePage();
+  if (!garagePage) {
+    garagePage = await getGaragePage();
+  }
+  garageArea.append(garagePage);
   document.body.removeChild(winnersContent);
-  document.body.append(chooseModesContainer, garagePage, prevNextButtons);
+  document.body.append(chooseModesContainer, garageArea, prevNextButtons);
 });
 
 export default chooseRoomContainer;

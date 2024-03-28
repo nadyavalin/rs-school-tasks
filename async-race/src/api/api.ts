@@ -56,7 +56,7 @@ export async function getWinnersPerPage(id: number): Promise<WinnerCars> {
   };
 }
 
-export async function createNewCarInGarage(carData: NewCar): Promise<NewCar> {
+export async function createNewCarInGarage(carData: NewCar): Promise<Car> {
   const response = await fetch("http://127.0.0.1:3000/garage", {
     method: "POST",
     headers: {
