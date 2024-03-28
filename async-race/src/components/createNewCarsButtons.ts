@@ -1,6 +1,7 @@
 import { createText, createButton, createDiv, createInput } from "./elements";
 import { garageContent } from "../pages/garage";
 import { createNewCarInGarage } from "../api/api";
+import { Car } from "../types/interfaces";
 
 const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -36,10 +37,6 @@ updateContainer.append(
   updateCarButton,
 );
 
-// updateCarButton.addEventListener("click", async () => {
-//   await updateCarAttributes(id);
-// });
-
 const raceButtonsContainer = createDiv("race-buttons-container");
 const raceButton = createButton("race", "race-button", "race");
 const resetButton = createButton("reset", "reset-button", "reset");
@@ -57,12 +54,13 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
-async function createNewCar() {
+async function createNewCar(car: Car) {
   const carAreaButtons = createDiv("car-area-buttons");
   const selectButton = createButton("select", "select-button", "select");
   const removeButton = createButton("remove", "remove-button", "remove");
   const modalText = createText("model-text", "");
   const carArea = createDiv("car-area");
+  carArea.setAttribute("data-id", `${car.id}`);
   const actionButtons = createDiv("action-buttons");
   const aButton = createButton("a", "a-button", "A");
   const bButton = createButton("b", "b-button", "B");
@@ -113,6 +111,15 @@ async function createNewCar() {
     name: inputChooseCarModel.value,
     color: inputChooseCarColor.value,
   });
+
+  // updateCarButton.addEventListener("click", async () => {
+  //   await updateCarAttributes({
+  //     name: inputUpdateCarModel.value,
+  //     color: inputUpdateCarColor.value,
+  //     id:
+  //   });
+  // });
+
   garageContent.prepend(carArea);
 
   // aButton.addEventListener("click", async () => {
@@ -121,6 +128,23 @@ async function createNewCar() {
 }
 
 createCarButton.addEventListener("click", createNewCar);
+
+garageContent.addEventListener("click", (event) => {
+  console.log(event);
+  const eventTarget = event.target as HTMLDivElement;
+  if (eventTarget) {
+    if (eventTarget.classList.contains("select-button")) {
+      console.log(eventTarget);
+      const carElement = eventTarget.closest(".car-area");
+      if (carElement) {
+        const svgCarElement = carElement.querySelector(".car svg");
+        if (svgCarElement && svgCarElement.id) {
+          console.log("ID:", svgCarElement.id);
+        }
+      }
+    }
+  }
+});
 
 // function changeCarName() {
 //   const modalText = createText("model-text", "");

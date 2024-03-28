@@ -68,7 +68,8 @@ export async function createNewCarInGarage(carData: NewCar): Promise<NewCar> {
 }
 
 export async function updateCarAttributes(carData: Car): Promise<Car> {
-  const response = await fetch(`http://127.0.0.1:3000//garage/:id`, {
+  const { id } = carData;
+  const response = await fetch(`http://127.0.0.1:3000/garage/:${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -78,15 +79,13 @@ export async function updateCarAttributes(carData: Car): Promise<Car> {
   return response.json();
 }
 
-export async function deleteCarFromGarage(id: number): Promise<Car> {
-  const response = await fetch(`http://127.0.0.1:3000/garage/${id}`, {
+export async function deleteCarFromGarage(id: number): Promise<void> {
+  await fetch(`http://127.0.0.1:3000/garage/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ id }),
   });
-  return response.json();
 }
 
 export async function controlCarEngine(
