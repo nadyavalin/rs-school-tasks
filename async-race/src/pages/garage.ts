@@ -2,6 +2,7 @@ import { createDiv, createText } from "../components/elements";
 import { getCars, getCarsPerPage, deleteCarFromGarage } from "../api/api";
 import { Car } from "../types/interfaces";
 import { garageContent, createNewCar } from "../components/createNewCar";
+import { state } from "../store/state";
 
 export const garageArea = createDiv("garage-area");
 garageArea.append(garageContent);
@@ -17,8 +18,9 @@ garageArea.append(garageText, pagesGarageText);
 
 export async function getGaragePage(): Promise<HTMLDivElement> {
   const cars = await getCars();
+  state.cars = cars;
   cars.forEach((car: Car) => {
-    createNewCar(`${car.name}`, `${car.color}`);
+    createNewCar(car);
   });
 
   garageContent.addEventListener("click", async (event) => {

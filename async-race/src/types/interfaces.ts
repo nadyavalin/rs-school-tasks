@@ -24,3 +24,8 @@ export interface NewCar {
   name: string;
   color: string;
 }
+
+export interface State {
+  cars: Car[];
+  selectedCar?: Car;
+}

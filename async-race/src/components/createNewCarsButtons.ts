@@ -1,7 +1,8 @@
 import { createButton, createDiv, createInput } from "./elements";
-import { createNewCarInGarage } from "../api/api";
+import { createNewCarInGarage, updateCarAttributes } from "../api/api";
 import { garageContent, createNewCar } from "./createNewCar";
 import { garageArea } from "../pages/garage";
+import { state } from "../store/state";
 
 const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -54,29 +55,39 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
-let selectedCar;
-
 async function createNewCarItem() {
-  createNewCar(inputChooseCarModel.value, inputChooseCarColor.value);
   const newCar = await createNewCarInGarage({
     name: inputChooseCarModel.value,
     color: inputChooseCarColor.value,
   });
-
-  garageContent.addEventListener("click", async (event) => {
-    const eventTarget = event.target as HTMLDivElement;
-    if (eventTarget) {
-      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
-      carElement.setAttribute("data-id", `${newCar.id}`);
-      if (carElement) {
-        garageContent.prepend(carElement);
-      }
-    }
-  });
+  createNewCar(newCar);
   garageArea.append(garageContent);
 }
 
 createCarButton.addEventListener("click", createNewCarItem);
+
+garageContent.addEventListener("click", (event) => {
+  const eventTarget = event.target as HTMLDivElement;
+  if (eventTarget) {
+    if (eventTarget.classList.contains("select-button")) {
+      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
+      if (carElement && carElement.dataset.id) {
+        const carId = carElement.dataset.id;
+        state.selectedCar = state.cars.find((car) => String(car.id) === carId);
+        console.log("Selected Car:", state.selectedCar);
+      }
+    }
+  }
+});
+
+// updateCarButton.addEventListener("click", async () => {
+//   await updateCarAttributes({
+//     name: inputUpdateCarModel.value,
+//     color: inputUpdateCarColor.value,
+//     id: state.selectedCar.id,
+//   });
+//   console.log();
+// });
 
 // function changeCarName() {
 //   const inputCarName = inputChooseCarModel.value;
@@ -95,31 +106,5 @@ createCarButton.addEventListener("click", createNewCarItem);
 //     svgCar.style.setProperty("--svg-fill-color", inputChooseCarColor.value);
 //   }
 // }
-
-garageContent.addEventListener("click", (event) => {
-  const eventTarget = event.target as HTMLDivElement;
-  if (eventTarget) {
-    if (eventTarget.classList.contains("select-button")) {
-      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
-      console.log(carElement);
-      if (carElement && carElement.dataset.id) {
-        const carId = carElement.dataset.id;
-        selectedCar = carId;
-        console.log("Selected Car ID:", selectedCar);
-      }
-    }
-  }
-});
-
-// updateCarButton.addEventListener("click", async () => {
-//   await updateCarAttributes({
-//     name: inputUpdateCarModel.value,
-//     color: inputUpdateCarColor.value,
-//     id: newCar.id,
-//   });
-//   console.log(newCar.id);
-//   changeCarName();
-//   changeColor();
-// });
 
 export default chooseModesContainer;
