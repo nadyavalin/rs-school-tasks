@@ -26,6 +26,7 @@ export interface NewCar {
 }
 
 export interface State {
+  state: CarsResponse;
   cars: Car[];
   selectedCar?: Car;
 }

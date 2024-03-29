@@ -75,19 +75,26 @@ garageContent.addEventListener("click", (event) => {
         const carId = carElement.dataset.id;
         state.selectedCar = state.cars.find((car) => String(car.id) === carId);
         console.log("Selected Car:", state.selectedCar);
+        inputUpdateCarModel.value = state.selectedCar?.name ?? "";
+        inputUpdateCarColor.value = state.selectedCar?.color ?? "";
       }
     }
   }
 });
 
-// updateCarButton.addEventListener("click", async () => {
-//   await updateCarAttributes({
-//     name: inputUpdateCarModel.value,
-//     color: inputUpdateCarColor.value,
-//     id: state.selectedCar.id,
-//   });
-//   console.log();
-// });
+updateCarButton.addEventListener("click", async () => {
+  if (state.selectedCar) {
+    await updateCarAttributes({
+      name: inputUpdateCarModel.value,
+      color: inputUpdateCarColor.value,
+      id: state.selectedCar.id,
+    });
+    const cars = await getGaragePage();
+    state.selectedCar.name = cars.name;
+    state.selectedCar.color = cars.color;
+    state.selectedCar.id = cars.id;
+  }
+});
 
 // function changeCarName() {
 //   const inputCarName = inputChooseCarModel.value;
