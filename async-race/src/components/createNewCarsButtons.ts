@@ -84,34 +84,13 @@ garageContent.addEventListener("click", (event) => {
 
 updateCarButton.addEventListener("click", async () => {
   if (state.selectedCar) {
-    await updateCarAttributes({
+    const updatedCarData = {
       name: inputUpdateCarModel.value,
       color: inputUpdateCarColor.value,
       id: state.selectedCar.id,
-    });
-    const cars = await getGaragePage();
-    state.selectedCar.name = cars.name;
-    state.selectedCar.color = cars.color;
-    state.selectedCar.id = cars.id;
+    };
+    await updateCarAttributes(updatedCarData);
   }
 });
-
-// function changeCarName() {
-//   const inputCarName = inputChooseCarModel.value;
-//   if (modalText) {
-//     modalText.textContent = inputCarName;
-//   }
-//   if (carAreaButtons) {
-//     if (modalText && !carAreaButtons.contains(modalText)) {
-//       carAreaButtons.append(modalText);
-//     }
-//   }
-// }
-
-// function changeColor() {
-//   if (svgCar) {
-//     svgCar.style.setProperty("--svg-fill-color", inputChooseCarColor.value);
-//   }
-// }
 
 export default chooseModesContainer;

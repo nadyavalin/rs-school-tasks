@@ -30,8 +30,14 @@ garageContent.addEventListener("click", async (event) => {
   if (eventTarget) {
     if (eventTarget.classList.contains("remove-button")) {
       const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
-      await deleteCarFromGarage(cars.id);
-      carElement.remove();
+      const carId = carElement?.dataset.id;
+      if (carElement && carId) {
+        state.selectedCar = state.cars.find((car) => String(car.id) === carId);
+        if (state.selectedCar) {
+          await deleteCarFromGarage(state.selectedCar.id);
+          carElement.remove();
+        }
+      }
     }
   }
 });

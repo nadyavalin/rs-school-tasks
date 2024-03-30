@@ -6,6 +6,13 @@ import {
   CarsStatus,
 } from "../types/interfaces";
 
+export async function getCars() {
+  const apiURLGarage = "http://127.0.0.1:3000/garage";
+  const response = await fetch(apiURLGarage);
+  const cars = await response.json();
+  return cars;
+}
+
 export async function getWinners() {
   const apiURLGarage = "http://127.0.0.1:3000/winners";
   const response = await fetch(apiURLGarage);
