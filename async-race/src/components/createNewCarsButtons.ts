@@ -75,6 +75,7 @@ garageContent.addEventListener("click", (event) => {
         const carId = carElement.dataset.id;
         state.selectedCar = state.cars.find((car) => String(car.id) === carId);
         console.log("Selected Car:", state.selectedCar);
+        state.selectedCarArea = carElement;
         inputUpdateCarModel.value = state.selectedCar?.name ?? "";
         inputUpdateCarColor.value = state.selectedCar?.color ?? "";
       }
@@ -82,14 +83,39 @@ garageContent.addEventListener("click", (event) => {
   }
 });
 
+async function updateCar() {
+  console.log(state.selectedCar);
+  console.log(state.selectedCarArea);
+  if (state.selectedCar && state.selectedCarArea) {
+    const updatedCarData = await updateCarAttributes(state.selectedCar);
+    console.log(updatedCarData);
+
+    if (updatedCarData) {
+      const newName = state.selectedCarArea.querySelector(
+        ".model-text",
+      ) as HTMLElement | null;
+      const newColor = state.selectedCarArea.querySelector(
+        ".car",
+      ) as HTMLElement | null;
+
+      if (newName) {
+        console.log(newName);
+        newName.innerText = updatedCarData.name;
+        console.log(newName);
+      }
+      if (newColor) {
+        console.log(newColor);
+        newColor.removeAttribute("style");
+        newColor.style.fill = updatedCarData.color;
+        console.log(newColor);
+      }
+    }
+  }
+}
+
 updateCarButton.addEventListener("click", async () => {
   if (state.selectedCar) {
-    const updatedCarData = {
-      name: inputUpdateCarModel.value,
-      color: inputUpdateCarColor.value,
-      id: state.selectedCar.id,
-    };
-    await updateCarAttributes(updatedCarData);
+    updateCar();
   }
 });
 

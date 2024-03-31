@@ -120,6 +120,10 @@ input {
   border: 1px solid #004fbd;
 }
 
+.model-text {
+  display: block;
+}
+
 .car svg {
   position: relative;
   bottom: 61px;
