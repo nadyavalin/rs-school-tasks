@@ -69,6 +69,7 @@ toGarage.addEventListener("click", async () => {
   document.body.append(chooseModesContainer, garageArea, prevNextButtons);
 });
 
+prevButton.classList.add("prev-button_disabled");
 prevButton.addEventListener("click", () => {
   if (state.page > 1) {
     state.page -= 1;
@@ -90,13 +91,12 @@ nextButton.addEventListener("click", async () => {
 
   if (state.page < totalPages) {
     state.page += 1;
-    await renderGarageContent();
     prevButton.classList.remove("prev-button_disabled");
-  } else {
-    state.page = totalPages;
-    await renderGarageContent();
+  }
+  if (state.page === totalPages) {
     nextButton.classList.add("next-button_disabled");
   }
+  await renderGarageContent();
 });
 
 export default chooseRoomContainer;
