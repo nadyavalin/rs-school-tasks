@@ -7,6 +7,7 @@ import {
 import { garageContent, createNewCar } from "./createNewCar";
 import { garageArea, getGaragePage } from "../pages/garage";
 import { state } from "../store/state";
+import { carNames, carModels } from "./nameAndModelCarArrays";
 
 const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -59,7 +60,7 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
-async function clearCarArea() {
+async function renderGarageContent() {
   garageContent.innerHTML = "";
   garageArea.innerHTML = "";
   await getGaragePage();
@@ -74,7 +75,7 @@ async function createNewCarItem() {
   createNewCar(newCar);
   inputChooseCarModel.value = "";
   inputChooseCarColor.value = "#000000";
-  clearCarArea();
+  renderGarageContent();
 }
 
 createCarButton.addEventListener("click", createNewCarItem);
@@ -127,7 +128,7 @@ async function updateCar() {
       }
     }
   }
-  clearCarArea();
+  renderGarageContent();
 }
 
 updateCarButton.addEventListener("click", updateCar);
@@ -147,9 +148,45 @@ async function deleteCar(event: Event) {
       }
     }
   }
-  clearCarArea();
+  renderGarageContent();
 }
 
 garageContent.addEventListener("click", deleteCar);
+
+function getRandomColor() {
+  const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+    Math.random() * 256,
+  )}, ${Math.floor(Math.random() * 256)})`;
+  return randomColor;
+}
+
+function generateRandomCarData() {
+  const randomCarIndex = Math.floor(Math.random() * carNames.length);
+  const randomCarName = carNames[randomCarIndex];
+
+  const randomCarModelIndex = Math.floor(
+    Math.random() * carModels[randomCarIndex].length,
+  );
+  const randomCarModel = carModels[randomCarIndex][randomCarModelIndex];
+
+  return {
+    name: `${randomCarName} ${randomCarModel}`,
+    color: getRandomColor(),
+  };
+}
+
+async function generateCars() {
+  const carPromises = [];
+
+  for (let i = 0; i < 100; i += 1) {
+    const randomCar = generateRandomCarData();
+    carPromises.push(createNewCarInGarage(randomCar));
+  }
+
+  await Promise.all(carPromises);
+  renderGarageContent();
+}
+
+generateCarsButton.addEventListener("click", generateCars);
 
 export default chooseModesContainer;

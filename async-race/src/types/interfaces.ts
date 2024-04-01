@@ -30,3 +30,9 @@ export interface State {
   selectedCar?: Car;
   selectedCarArea: HTMLDivElement | null;
 }
+
+// it doesn't use yet
+export interface CarEngine {
+  velocity: number;
+  distance: number;
+}

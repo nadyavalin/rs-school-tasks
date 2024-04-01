@@ -88,6 +88,7 @@ export async function deleteCarFromGarage(id: number): Promise<void> {
   });
 }
 
+// it doesn't use yet
 export async function controlCarEngine(
   id: number,
   status: boolean,
