@@ -6,16 +6,17 @@ import { state } from "../store/state";
 export const garageArea = createDiv("garage-area");
 garageArea.append(garageContent);
 
-export async function getGaragePage(): Promise<HTMLDivElement> {
+export async function showGaragePage(): Promise<HTMLDivElement> {
   const carsResponse = await getCarsPerPage(String(state.page));
+  garageArea.innerHTML = "";
   const garageText = createText(
     "garage-text",
     `Garage (${carsResponse.total})`,
   );
+  state.totalCars = Number(carsResponse.total);
   const pagesGarageText = createText("pages", `Page #${state.page}`);
   garageArea.append(garageText, pagesGarageText);
   state.cars = carsResponse.cars;
-
   carsResponse.cars.forEach((car) => {
     createNewCar(car);
   });
@@ -23,4 +24,4 @@ export async function getGaragePage(): Promise<HTMLDivElement> {
   return garageContent;
 }
 
-export default getGaragePage;
+export default showGaragePage;

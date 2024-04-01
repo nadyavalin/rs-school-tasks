@@ -1,24 +1,28 @@
 import "./index.css";
 import { createButton, createDiv } from "./components/elements";
-import chooseModesContainer from "./components/carButtons";
-import { getGaragePage, garageArea } from "./pages/garage";
+import {
+  chooseModesContainer,
+  renderGarageContent,
+} from "./components/carButtons";
+import { showGaragePage, garageArea } from "./pages/garage";
 import { winnersContent, createWinnersTable } from "./pages/winners";
+import { state } from "./store/state";
+import {
+  prevNextButtons,
+  prevButton,
+  nextButton,
+} from "./components/areaButtons";
 
 const chooseRoomContainer = createDiv("choose-room-container");
 const toGarage = createButton("garage", "garage-button", "To garage");
 const toWinners = createButton("winners", "winners-button", "To winners");
 chooseRoomContainer.append(toGarage, toWinners);
 
-const prevNextButtons = createDiv("prev-next-buttons");
-const prevButton = createButton("prev", "prev-button", "prev");
-const nextButton = createButton("next", "next-button", "next");
-prevNextButtons.append(prevButton, nextButton);
-
 let winnersTable: HTMLDivElement;
 let garagePage: HTMLDivElement;
 
 async function loadGaragePage() {
-  garagePage = await getGaragePage();
+  garagePage = await showGaragePage();
   garageArea.append(garagePage);
   document.body.append(
     chooseRoomContainer,
@@ -50,12 +54,48 @@ toGarage.addEventListener("click", async () => {
   if (document.contains(garageArea)) {
     return;
   }
+
+  state.page = 1;
+  await renderGarageContent();
+
   if (!garagePage) {
-    garagePage = await getGaragePage();
+    garagePage = await showGaragePage();
   }
   garageArea.append(garagePage);
   document.body.removeChild(winnersContent);
   document.body.append(chooseModesContainer, garageArea, prevNextButtons);
+});
+
+prevButton.classList.add("prev-button_disabled");
+if (state.totalCars <= 7) {
+  nextButton.classList.add("next-button_disabled");
+}
+prevButton.addEventListener("click", () => {
+  if (state.page > 1) {
+    state.page -= 1;
+    prevButton.classList.remove("prev-button_disabled");
+    nextButton.classList.remove("next-button_disabled");
+  }
+  if (state.page === 1) {
+    prevButton.classList.add("prev-button_disabled");
+  }
+  renderGarageContent();
+});
+
+nextButton.addEventListener("click", async () => {
+  prevButton.classList.remove("prev-button_disabled");
+  const nextPageStartIndex = state.page * state.carsPerPage;
+  if (nextPageStartIndex < state.totalCars) {
+    state.page += 1;
+    await renderGarageContent();
+
+    const updatedNextPageStartIndex = state.page * state.carsPerPage;
+    if (state.totalCars - updatedNextPageStartIndex <= state.carsPerPage) {
+      nextButton.classList.add("next-button_disabled");
+    }
+  } else {
+    nextButton.classList.add("next-button_disabled");
+  }
 });
 
 export default chooseRoomContainer;

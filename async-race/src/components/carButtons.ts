@@ -5,11 +5,12 @@ import {
   deleteCarFromGarage,
 } from "../api/api";
 import { garageContent, createNewCar } from "./createNewCar";
-import { garageArea, getGaragePage } from "../pages/garage";
+import { garageArea, showGaragePage } from "../pages/garage";
 import { state } from "../store/state";
 import { carNames, carModels } from "./nameAndModelCarArrays";
+import { nextButton } from "./areaButtons";
 
-const chooseModesContainer = createDiv("choose-modes-container");
+export const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
 export const inputChooseCarModel = createInput(
   "text",
@@ -60,10 +61,10 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
-async function renderGarageContent() {
+export async function renderGarageContent() {
   garageContent.innerHTML = "";
   garageArea.innerHTML = "";
-  await getGaragePage();
+  await showGaragePage();
   garageArea.append(garageContent);
 }
 
@@ -154,9 +155,7 @@ async function deleteCar(event: Event) {
 garageContent.addEventListener("click", deleteCar);
 
 function getRandomColor() {
-  const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-    Math.random() * 256,
-  )}, ${Math.floor(Math.random() * 256)})`;
+  const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   return randomColor;
 }
 
@@ -180,13 +179,16 @@ async function generateCars() {
 
   for (let i = 0; i < 100; i += 1) {
     const randomCar = generateRandomCarData();
-    carPromises.push(createNewCarInGarage(randomCar));
+    carPromises.unshift(createNewCarInGarage(randomCar));
   }
 
   await Promise.all(carPromises);
   renderGarageContent();
 }
 
-generateCarsButton.addEventListener("click", generateCars);
+generateCarsButton.addEventListener("click", () => {
+  nextButton.classList.remove("next-button_disabled");
+  generateCars();
+});
 
 export default chooseModesContainer;

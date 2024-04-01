@@ -28,6 +28,8 @@ export interface NewCar {
 export interface State {
   page: number;
   cars: Car[];
+  carsPerPage: number;
+  totalCars: number;
   selectedCar?: Car;
   selectedCarArea: HTMLDivElement | null;
 }

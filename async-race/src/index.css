@@ -164,6 +164,14 @@ input {
   z-index: 10;
 }
 
+.prev-button_disabled,
+.next-button_disabled {
+  background-color: #488be9;
+  color: #adadad;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .winners-table {
   font-size: 16px;
   border: 1px solid #3079df;
