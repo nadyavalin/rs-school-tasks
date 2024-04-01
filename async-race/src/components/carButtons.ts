@@ -1,7 +1,11 @@
 import { createButton, createDiv, createInput } from "./elements";
-import { createNewCarInGarage, updateCarAttributes } from "../api/api";
+import {
+  createNewCarInGarage,
+  updateCarAttributes,
+  deleteCarFromGarage,
+} from "../api/api";
 import { garageContent, createNewCar } from "./createNewCar";
-import { garageArea } from "../pages/garage";
+import { garageArea, getGaragePage } from "../pages/garage";
 import { state } from "../store/state";
 
 const chooseModesContainer = createDiv("choose-modes-container");
@@ -55,6 +59,13 @@ chooseModesContainer.append(
   raceButtonsContainer,
 );
 
+async function clearCarArea() {
+  garageContent.innerHTML = "";
+  garageArea.innerHTML = "";
+  await getGaragePage();
+  garageArea.append(garageContent);
+}
+
 async function createNewCarItem() {
   const newCar = await createNewCarInGarage({
     name: inputChooseCarModel.value,
@@ -63,12 +74,12 @@ async function createNewCarItem() {
   createNewCar(newCar);
   inputChooseCarModel.value = "";
   inputChooseCarColor.value = "#000000";
-  garageArea.append(garageContent);
+  clearCarArea();
 }
 
 createCarButton.addEventListener("click", createNewCarItem);
 
-garageContent.addEventListener("click", (event) => {
+function selectCar(event: Event) {
   const eventTarget = event.target as HTMLDivElement;
   if (eventTarget) {
     if (eventTarget.classList.contains("select-button")) {
@@ -82,7 +93,9 @@ garageContent.addEventListener("click", (event) => {
       }
     }
   }
-});
+}
+
+garageContent.addEventListener("click", selectCar);
 
 async function updateCar() {
   if (state.selectedCar && state.selectedCarArea) {
@@ -114,8 +127,29 @@ async function updateCar() {
       }
     }
   }
+  clearCarArea();
 }
 
 updateCarButton.addEventListener("click", updateCar);
+
+async function deleteCar(event: Event) {
+  const eventTarget = event.target as HTMLDivElement;
+  if (eventTarget) {
+    if (eventTarget.classList.contains("remove-button")) {
+      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
+      const carId = carElement?.dataset.id;
+      if (carElement && carId) {
+        state.selectedCar = state.cars.find((car) => String(car.id) === carId);
+        if (state.selectedCar) {
+          await deleteCarFromGarage(state.selectedCar.id);
+          carElement.remove();
+        }
+      }
+    }
+  }
+  clearCarArea();
+}
+
+garageContent.addEventListener("click", deleteCar);
 
 export default chooseModesContainer;

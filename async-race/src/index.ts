@@ -1,6 +1,6 @@
 import "./index.css";
 import { createButton, createDiv } from "./components/elements";
-import chooseModesContainer from "./components/createNewCarsButtons";
+import chooseModesContainer from "./components/carButtons";
 import { getGaragePage, garageArea } from "./pages/garage";
 import { winnersContent, createWinnersTable } from "./pages/winners";
 

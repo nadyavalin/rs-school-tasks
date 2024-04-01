@@ -1,5 +1,5 @@
 import { createDiv, createText } from "../components/elements";
-import { getCarsPerPage, deleteCarFromGarage } from "../api/api";
+import { getCarsPerPage } from "../api/api";
 import { garageContent, createNewCar } from "../components/createNewCar";
 import { state } from "../store/state";
 
@@ -24,20 +24,3 @@ export async function getGaragePage(): Promise<HTMLDivElement> {
 }
 
 export default getGaragePage;
-
-garageContent.addEventListener("click", async (event) => {
-  const eventTarget = event.target as HTMLDivElement;
-  if (eventTarget) {
-    if (eventTarget.classList.contains("remove-button")) {
-      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
-      const carId = carElement?.dataset.id;
-      if (carElement && carId) {
-        state.selectedCar = state.cars.find((car) => String(car.id) === carId);
-        if (state.selectedCar) {
-          await deleteCarFromGarage(state.selectedCar.id);
-          carElement.remove();
-        }
-      }
-    }
-  }
-});
