@@ -8,7 +8,7 @@ import { garageContent, createNewCar } from "./createNewCar";
 import { garageArea, showGaragePage } from "../pages/garage";
 import { state } from "../store/state";
 import { carNames, carModels } from "./nameAndModelCarArrays";
-import { nextButton } from "./areaButtons";
+import { nextButton } from "./contentButtons";
 
 export const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -76,11 +76,11 @@ async function createNewCarItem() {
   createNewCar(newCar);
   inputChooseCarModel.value = "";
   inputChooseCarColor.value = "#000000";
-  renderGarageContent();
+  await renderGarageContent();
 }
 
-createCarButton.addEventListener("click", () => {
-  createNewCarItem();
+createCarButton.addEventListener("click", async () => {
+  await createNewCarItem();
   if (state.totalCars > 6) {
     nextButton.classList.remove("next-button_disabled");
   }
@@ -134,7 +134,7 @@ async function updateCar() {
       }
     }
   }
-  renderGarageContent();
+  await renderGarageContent();
 }
 
 updateCarButton.addEventListener("click", updateCar);
@@ -154,7 +154,7 @@ async function deleteCar(event: Event) {
       }
     }
   }
-  renderGarageContent();
+  await renderGarageContent();
 }
 
 garageContent.addEventListener("click", deleteCar);
@@ -188,12 +188,12 @@ async function generateCars() {
   }
 
   await Promise.all(carPromises);
-  renderGarageContent();
+  await renderGarageContent();
 }
 
-generateCarsButton.addEventListener("click", () => {
+generateCarsButton.addEventListener("click", async () => {
   nextButton.classList.remove("next-button_disabled");
-  generateCars();
+  await generateCars();
 });
 
 export default chooseModesContainer;

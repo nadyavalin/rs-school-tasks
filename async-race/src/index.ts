@@ -1,5 +1,4 @@
 import "./index.css";
-import { createButton, createDiv } from "./components/elements";
 import {
   chooseModesContainer,
   renderGarageContent,
@@ -8,15 +7,13 @@ import { showGaragePage, garageArea } from "./pages/garage";
 import { winnersContent, createWinnersTable } from "./pages/winners";
 import { state } from "./store/state";
 import {
+  chooseRoomContainer,
+  toGarage,
+  toWinners,
   prevNextButtons,
   prevButton,
   nextButton,
-} from "./components/areaButtons";
-
-const chooseRoomContainer = createDiv("choose-room-container");
-const toGarage = createButton("garage", "garage-button", "To garage");
-const toWinners = createButton("winners", "winners-button", "To winners");
-chooseRoomContainer.append(toGarage, toWinners);
+} from "./components/contentButtons";
 
 let winnersTable: HTMLDivElement;
 let garagePage: HTMLDivElement;
@@ -70,7 +67,12 @@ toGarage.addEventListener("click", async () => {
 });
 
 prevButton.classList.add("prev-button_disabled");
-prevButton.addEventListener("click", () => {
+
+if (state.totalCars <= 7) {
+  nextButton.classList.add("next-button_disabled");
+}
+
+prevButton.addEventListener("click", async () => {
   if (state.page > 1) {
     state.page -= 1;
     prevButton.classList.remove("prev-button_disabled");
@@ -79,12 +81,8 @@ prevButton.addEventListener("click", () => {
   if (state.page === 1) {
     prevButton.classList.add("prev-button_disabled");
   }
-  renderGarageContent();
+  await renderGarageContent();
 });
-
-if (state.totalCars <= 7) {
-  nextButton.classList.add("next-button_disabled");
-}
 
 nextButton.addEventListener("click", async () => {
   const totalPages = Math.ceil(state.totalCars / state.carsPerPage);
