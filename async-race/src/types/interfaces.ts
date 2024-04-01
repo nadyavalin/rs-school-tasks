@@ -26,6 +26,7 @@ export interface NewCar {
 }
 
 export interface State {
+  page: number;
   cars: Car[];
   selectedCar?: Car;
   selectedCarArea: HTMLDivElement | null;
