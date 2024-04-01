@@ -61,6 +61,8 @@ async function createNewCarItem() {
     color: inputChooseCarColor.value,
   });
   createNewCar(newCar);
+  inputChooseCarModel.value = "";
+  inputChooseCarColor.value = "#000000";
   garageArea.append(garageContent);
 }
 
@@ -74,7 +76,6 @@ garageContent.addEventListener("click", (event) => {
       if (carElement && carElement.dataset.id) {
         const carId = carElement.dataset.id;
         state.selectedCar = state.cars.find((car) => String(car.id) === carId);
-        console.log("Selected Car:", state.selectedCar);
         state.selectedCarArea = carElement;
         inputUpdateCarModel.value = state.selectedCar?.name ?? "";
         inputUpdateCarColor.value = state.selectedCar?.color ?? "";
@@ -84,11 +85,13 @@ garageContent.addEventListener("click", (event) => {
 });
 
 async function updateCar() {
-  console.log(state.selectedCar);
-  console.log(state.selectedCarArea);
   if (state.selectedCar && state.selectedCarArea) {
-    const updatedCarData = await updateCarAttributes(state.selectedCar);
-    console.log(updatedCarData);
+    const updatedCarData = {
+      name: inputUpdateCarModel.value,
+      color: inputUpdateCarColor.value,
+      id: state.selectedCar.id,
+    };
+    await updateCarAttributes(updatedCarData);
 
     if (updatedCarData) {
       const newName = state.selectedCarArea.querySelector(
@@ -99,24 +102,18 @@ async function updateCar() {
       ) as HTMLElement | null;
 
       if (newName) {
-        console.log(newName);
         newName.innerText = updatedCarData.name;
-        console.log(newName);
+        state.selectedCar.name = updatedCarData.name;
       }
       if (newColor) {
-        console.log(newColor);
         newColor.removeAttribute("style");
         newColor.style.fill = updatedCarData.color;
-        console.log(newColor);
+        state.selectedCar.color = updatedCarData.color;
       }
     }
   }
 }
 
-updateCarButton.addEventListener("click", async () => {
-  if (state.selectedCar) {
-    updateCar();
-  }
-});
+updateCarButton.addEventListener("click", updateCar);
 
 export default chooseModesContainer;

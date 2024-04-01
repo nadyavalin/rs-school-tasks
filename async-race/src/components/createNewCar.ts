@@ -24,7 +24,7 @@ export function createNewCar(car: Car) {
   actionButtons.append(aButton, bButton);
   carAreaButtons.append(selectButton, removeButton, modalText);
   carArea.append(carAreaButtons, actionButtons, svgCar, road, finishFlag);
-  garageContent.append(carArea);
+  garageContent.prepend(carArea);
 }
 
 export default createNewCar;
