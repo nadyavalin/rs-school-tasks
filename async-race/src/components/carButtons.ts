@@ -79,7 +79,12 @@ async function createNewCarItem() {
   renderGarageContent();
 }
 
-createCarButton.addEventListener("click", createNewCarItem);
+createCarButton.addEventListener("click", () => {
+  createNewCarItem();
+  if (state.totalCars > 6) {
+    nextButton.classList.remove("next-button_disabled");
+  }
+});
 
 function selectCar(event: Event) {
   const eventTarget = event.target as HTMLDivElement;

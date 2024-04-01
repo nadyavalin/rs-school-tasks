@@ -48,9 +48,12 @@ toWinners.addEventListener("click", async () => {
   document.body.removeChild(chooseModesContainer);
   document.body.removeChild(garageArea);
   document.body.append(winnersTable, prevNextButtons);
+  prevButton.classList.add("prev-button_disabled");
+  nextButton.classList.add("next-button_disabled");
 });
 
 toGarage.addEventListener("click", async () => {
+  nextButton.classList.remove("next-button_disabled");
   if (document.contains(garageArea)) {
     return;
   }
@@ -66,10 +69,6 @@ toGarage.addEventListener("click", async () => {
   document.body.append(chooseModesContainer, garageArea, prevNextButtons);
 });
 
-prevButton.classList.add("prev-button_disabled");
-if (state.totalCars <= 7) {
-  nextButton.classList.add("next-button_disabled");
-}
 prevButton.addEventListener("click", () => {
   if (state.page > 1) {
     state.page -= 1;
@@ -82,18 +81,20 @@ prevButton.addEventListener("click", () => {
   renderGarageContent();
 });
 
+if (state.totalCars <= 7) {
+  nextButton.classList.add("next-button_disabled");
+}
+
 nextButton.addEventListener("click", async () => {
-  prevButton.classList.remove("prev-button_disabled");
-  const nextPageStartIndex = state.page * state.carsPerPage;
-  if (nextPageStartIndex < state.totalCars) {
+  const totalPages = Math.ceil(state.totalCars / state.carsPerPage);
+
+  if (state.page < totalPages) {
     state.page += 1;
     await renderGarageContent();
-
-    const updatedNextPageStartIndex = state.page * state.carsPerPage;
-    if (state.totalCars - updatedNextPageStartIndex <= state.carsPerPage) {
-      nextButton.classList.add("next-button_disabled");
-    }
+    prevButton.classList.remove("prev-button_disabled");
   } else {
+    state.page = totalPages;
+    await renderGarageContent();
     nextButton.classList.add("next-button_disabled");
   }
 });
