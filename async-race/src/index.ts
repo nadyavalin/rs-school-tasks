@@ -68,7 +68,7 @@ toGarage.addEventListener("click", async () => {
 
 prevButton.classList.add("prev-button_disabled");
 
-if (state.totalCars <= 7) {
+if (state.totalCars < 7) {
   nextButton.classList.add("next-button_disabled");
 }
 
