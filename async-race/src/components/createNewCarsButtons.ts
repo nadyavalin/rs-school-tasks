@@ -104,11 +104,13 @@ async function updateCar() {
       if (newName) {
         newName.innerText = updatedCarData.name;
         state.selectedCar.name = updatedCarData.name;
+        inputUpdateCarModel.value = "";
       }
       if (newColor) {
         newColor.removeAttribute("style");
         newColor.style.fill = updatedCarData.color;
         state.selectedCar.color = updatedCarData.color;
+        inputUpdateCarColor.value = "#000000";
       }
     }
   }
