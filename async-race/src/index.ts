@@ -19,6 +19,7 @@ let winnersTable: HTMLDivElement;
 let garagePage: HTMLDivElement;
 
 async function loadGaragePage() {
+  const totalPages = Math.ceil(state.totalCars / state.carsPerPage);
   garagePage = await showGaragePage();
   garageArea.append(garagePage);
   document.body.append(
@@ -27,6 +28,14 @@ async function loadGaragePage() {
     garageArea,
     prevNextButtons,
   );
+
+  if (state.page === 1) {
+    prevButton.classList.add("prev-button_disabled");
+  }
+
+  if (state.page === totalPages || state.totalCars <= 7) {
+    nextButton.classList.add("next-button_disabled");
+  }
 }
 
 if (document.readyState === "loading") {
@@ -45,18 +54,16 @@ toWinners.addEventListener("click", async () => {
   document.body.removeChild(chooseModesContainer);
   document.body.removeChild(garageArea);
   document.body.append(winnersTable, prevNextButtons);
-  prevButton.classList.add("prev-button_disabled");
-  nextButton.classList.add("next-button_disabled");
 });
 
 toGarage.addEventListener("click", async () => {
-  nextButton.classList.remove("next-button_disabled");
   if (document.contains(garageArea)) {
     return;
   }
 
-  state.page = 1;
-  await renderGarageContent();
+  // If you will need to return to the first page
+  // state.page = 1;
+  // await renderGarageContent();
 
   if (!garagePage) {
     garagePage = await showGaragePage();
@@ -66,35 +73,31 @@ toGarage.addEventListener("click", async () => {
   document.body.append(chooseModesContainer, garageArea, prevNextButtons);
 });
 
-prevButton.classList.add("prev-button_disabled");
-
-if (state.totalCars < 7) {
-  nextButton.classList.add("next-button_disabled");
-}
-
 prevButton.addEventListener("click", async () => {
   if (state.page > 1) {
-    state.page -= 1;
-    prevButton.classList.remove("prev-button_disabled");
-    nextButton.classList.remove("next-button_disabled");
-  }
-  if (state.page === 1) {
     prevButton.classList.add("prev-button_disabled");
+    nextButton.classList.add("next-button_disabled");
+    state.page -= 1;
+    nextButton.classList.remove("next-button_disabled");
+    await renderGarageContent();
+    if (state.page !== 1) {
+      prevButton.classList.remove("prev-button_disabled");
+    }
   }
-  await renderGarageContent();
 });
 
 nextButton.addEventListener("click", async () => {
   const totalPages = Math.ceil(state.totalCars / state.carsPerPage);
-
   if (state.page < totalPages) {
+    prevButton.classList.add("prev-button_disabled");
+    nextButton.classList.add("next-button_disabled");
     state.page += 1;
     prevButton.classList.remove("prev-button_disabled");
+    await renderGarageContent();
+    if (state.page !== totalPages) {
+      nextButton.classList.remove("next-button_disabled");
+    }
   }
-  if (state.page === totalPages) {
-    nextButton.classList.add("next-button_disabled");
-  }
-  await renderGarageContent();
 });
 
 export default chooseRoomContainer;
