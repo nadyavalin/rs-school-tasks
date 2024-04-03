@@ -1,9 +1,10 @@
 import "./index.css";
+import { chooseModesContainer } from "./components/carButtons";
 import {
-  chooseModesContainer,
+  showGaragePage,
   renderGarageContent,
-} from "./components/carButtons";
-import { showGaragePage, garageArea } from "./pages/garage";
+  garageArea,
+} from "./pages/garage";
 import { winnersContent, createWinnersTable } from "./pages/winners";
 import { state } from "./store/state";
 import {

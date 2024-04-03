@@ -24,4 +24,11 @@ export async function showGaragePage(): Promise<HTMLDivElement> {
   return garageContent;
 }
 
+export async function renderGarageContent() {
+  garageContent.innerHTML = "";
+  garageArea.innerHTML = "";
+  await showGaragePage();
+  garageArea.append(garageContent);
+}
+
 export default showGaragePage;

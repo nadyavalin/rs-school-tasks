@@ -5,10 +5,10 @@ import {
   deleteCarFromGarage,
 } from "../api/api";
 import { garageContent, createNewCar } from "./createNewCar";
-import { garageArea, showGaragePage } from "../pages/garage";
 import { state } from "../store/state";
 import { carNames, carModels } from "./nameAndModelCarArrays";
 import { nextButton } from "./contentButtons";
+import { renderGarageContent } from "../pages/garage";
 
 export const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -60,13 +60,6 @@ chooseModesContainer.append(
   updateContainer,
   raceButtonsContainer,
 );
-
-export async function renderGarageContent() {
-  garageContent.innerHTML = "";
-  garageArea.innerHTML = "";
-  await showGaragePage();
-  garageArea.append(garageContent);
-}
 
 async function createNewCarItem() {
   const newCar = await createNewCarInGarage({

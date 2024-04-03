@@ -1,7 +1,7 @@
 import {
   Car,
   CarsResponse,
-  WinnerCars,
+  CarWinner,
   NewCar,
   CarsStatus,
 } from "../types/interfaces";
@@ -43,7 +43,7 @@ export async function getCarsPerPage(page: string): Promise<CarsResponse> {
   };
 }
 
-export async function getWinnersPerPage(id: number): Promise<WinnerCars> {
+export async function getWinnersPerPage(id: number): Promise<CarWinner> {
   const response = await fetch(`${BASE_URL}/winners/${id}`);
 
   if (!response.ok) {

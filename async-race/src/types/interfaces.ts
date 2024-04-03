@@ -1,7 +1,10 @@
-export interface Car {
+export interface Car extends NewCar {
+  id: number;
+}
+
+export interface NewCar {
   name: string;
   color: string;
-  id: number;
 }
 
 export interface CarsResponse {
@@ -11,18 +14,13 @@ export interface CarsResponse {
 
 export interface CarsStatus {
   id: number;
-  status: true | false;
+  status: boolean;
 }
 
-export interface WinnerCars {
+export interface CarWinner {
   id: number;
   wins: number;
   time: number;
-}
-
-export interface NewCar {
-  name: string;
-  color: string;
 }
 
 export interface State {
