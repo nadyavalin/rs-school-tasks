@@ -1,5 +1,5 @@
 import { createButton, createDiv } from "./elements";
-import { renderGarageContent } from "../pages/garage";
+import { renderGarageContent } from "./functions";
 import { state } from "../store/state";
 
 export const chooseRoomContainer = createDiv("choose-room-container");

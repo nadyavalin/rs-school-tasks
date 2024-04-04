@@ -1,7 +1,11 @@
 import "./index.css";
 import { chooseModesContainer } from "./components/carButtons";
-import { showGaragePage, garageArea } from "./pages/garage";
-import { winnersContent, createWinnersTable } from "./pages/winners";
+import {
+  showGaragePage,
+  garageArea,
+  winnersContent,
+  createWinnersTable,
+} from "./components/functions";
 import { state } from "./store/state";
 import {
   chooseRoomContainer,
