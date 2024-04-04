@@ -1,10 +1,6 @@
 import "./index.css";
 import { chooseModesContainer } from "./components/carButtons";
-import {
-  showGaragePage,
-  renderGarageContent,
-  garageArea,
-} from "./pages/garage";
+import { showGaragePage, garageArea } from "./pages/garage";
 import { winnersContent, createWinnersTable } from "./pages/winners";
 import { state } from "./store/state";
 import {
@@ -72,33 +68,6 @@ toGarage.addEventListener("click", async () => {
   garageArea.append(garagePage);
   document.body.removeChild(winnersContent);
   document.body.append(chooseModesContainer, garageArea, prevNextButtons);
-});
-
-prevButton.addEventListener("click", async () => {
-  if (state.page > 1) {
-    prevButton.classList.add("prev-button_disabled");
-    nextButton.classList.add("next-button_disabled");
-    state.page -= 1;
-    nextButton.classList.remove("next-button_disabled");
-    await renderGarageContent();
-    if (state.page !== 1) {
-      prevButton.classList.remove("prev-button_disabled");
-    }
-  }
-});
-
-nextButton.addEventListener("click", async () => {
-  const totalPages = Math.ceil(state.totalCars / state.carsPerPage);
-  if (state.page < totalPages) {
-    prevButton.classList.add("prev-button_disabled");
-    nextButton.classList.add("next-button_disabled");
-    state.page += 1;
-    prevButton.classList.remove("prev-button_disabled");
-    await renderGarageContent();
-    if (state.page !== totalPages) {
-      nextButton.classList.remove("next-button_disabled");
-    }
-  }
 });
 
 export default chooseRoomContainer;
