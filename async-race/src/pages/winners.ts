@@ -1,23 +1,26 @@
 import { createText, createDiv } from "../components/elements";
-import { getWinners, getCars, getWinnersPerPage } from "../api/api";
+import { getWinners, getCarsPerPage, getWinner } from "../api/api";
 import { svgCarElement } from "../components/svgElements";
 
 export const winnersContent = createDiv("winners-content");
-const winnersPerPage = await getWinnersPerPage(1);
-const winnersText = createText(
-  "winners-text",
-  `Winners (${winnersPerPage.id})`,
-);
-const pagesWinnersText = createText("pages", `Page #1`);
 
-winnersContent.append(winnersText, pagesWinnersText);
+async function getWinnersTable() {
+  const winnersPerPage = await getWinner(1);
+  const winnersText = createText(
+    "winners-text",
+    `Winners (${winnersPerPage.id})`,
+  );
+  const pagesWinnersText = createText("pages", `Page #1`);
+  winnersContent.append(winnersText, pagesWinnersText);
+}
+getWinnersTable();
 
 const svgCar = createDiv("car");
 svgCar.classList.add("car_small");
 svgCar.innerHTML = svgCarElement;
 export async function createWinnersTable(): Promise<HTMLDivElement> {
   const winners = await getWinners();
-  const cars = await getCars();
+  const { cars } = await getCarsPerPage();
   const table = document.createElement("table");
   table.classList.add("winners-table");
 

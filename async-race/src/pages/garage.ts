@@ -7,7 +7,7 @@ export const garageArea = createDiv("garage-area");
 garageArea.append(garageContent);
 
 export async function showGaragePage(): Promise<HTMLDivElement> {
-  const carsResponse = await getCarsPerPage(String(state.page));
+  const carsResponse = await getCarsPerPage(state.page);
   garageArea.innerHTML = "";
   const garageText = createText(
     "garage-text",

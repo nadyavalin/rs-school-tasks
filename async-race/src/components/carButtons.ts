@@ -9,6 +9,7 @@ import { state } from "../store/state";
 import { carNames, carModels } from "./nameAndModelCarArrays";
 import { nextButton } from "./contentButtons";
 import { renderGarageContent } from "../pages/garage";
+import { getRandomColor } from "../utils";
 
 export const chooseModesContainer = createDiv("choose-modes-container");
 const chooseContainer = createDiv("choose-container");
@@ -81,16 +82,14 @@ createCarButton.addEventListener("click", async () => {
 
 function selectCar(event: Event) {
   const eventTarget = event.target as HTMLDivElement;
-  if (eventTarget) {
-    if (eventTarget.classList.contains("select-button")) {
-      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
-      if (carElement && carElement.dataset.id) {
-        const carId = carElement.dataset.id;
-        state.selectedCar = state.cars.find((car) => String(car.id) === carId);
-        state.selectedCarArea = carElement;
-        inputUpdateCarModel.value = state.selectedCar?.name ?? "";
-        inputUpdateCarColor.value = state.selectedCar?.color ?? "";
-      }
+  if (eventTarget?.classList.contains("select-button")) {
+    const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
+    if (carElement && carElement.dataset.id) {
+      const carId = carElement.dataset.id;
+      state.selectedCar = state.cars.find((car) => String(car.id) === carId);
+      state.selectedCarArea = carElement;
+      inputUpdateCarModel.value = state.selectedCar?.name ?? "";
+      inputUpdateCarColor.value = state.selectedCar?.color ?? "";
     }
   }
 }
@@ -134,16 +133,16 @@ updateCarButton.addEventListener("click", updateCar);
 
 async function deleteCar(event: Event) {
   const eventTarget = event.target as HTMLDivElement;
-  if (eventTarget) {
-    if (eventTarget.classList.contains("remove-button")) {
-      const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
-      const carId = carElement?.dataset.id;
-      if (carElement && carId) {
-        state.selectedCar = state.cars.find((car) => String(car.id) === carId);
-        if (state.selectedCar) {
-          await deleteCarFromGarage(state.selectedCar.id);
-          carElement.remove();
-        }
+  if (eventTarget?.classList.contains("remove-button")) {
+    const carElement = eventTarget.closest(".car-area") as HTMLDivElement;
+    const carId = carElement?.dataset.id;
+    if (carElement && carId) {
+      state.selectedCar = state.cars.find((car) => String(car.id) === carId);
+      if (state.selectedCar) {
+        await deleteCarFromGarage(state.selectedCar.id);
+        state.selectedCar = undefined;
+        state.selectedCarArea = null;
+        carElement.remove();
       }
     }
   }
@@ -151,11 +150,6 @@ async function deleteCar(event: Event) {
 }
 
 garageContent.addEventListener("click", deleteCar);
-
-function getRandomColor() {
-  const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  return randomColor;
-}
 
 function generateRandomCarData() {
   const randomCarIndex = Math.floor(Math.random() * carNames.length);

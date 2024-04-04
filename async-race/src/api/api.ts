@@ -8,13 +8,6 @@ import {
 
 const BASE_URL = "http://127.0.0.1:3000";
 
-export async function getCars() {
-  const apiURLGarage = `${BASE_URL}/garage`;
-  const response = await fetch(apiURLGarage);
-  const cars = await response.json();
-  return cars;
-}
-
 export async function getWinners() {
   const apiURLGarage = `${BASE_URL}/winners`;
   const response = await fetch(apiURLGarage);
@@ -22,12 +15,10 @@ export async function getWinners() {
   return winners;
 }
 
-export async function getCarsPerPage(page: string): Promise<CarsResponse> {
+export async function getCarsPerPage(page?: number): Promise<CarsResponse> {
+  const apiURLGarage = `${BASE_URL}/garage`;
   const response = await fetch(
-    `${BASE_URL}/garage?${new URLSearchParams({
-      _page: page,
-      _limit: "7",
-    })}`,
+    page ? `${apiURLGarage}?_page=${page}&_limit=7` : apiURLGarage,
   );
 
   if (!response.ok) {
@@ -43,19 +34,14 @@ export async function getCarsPerPage(page: string): Promise<CarsResponse> {
   };
 }
 
-export async function getWinnersPerPage(id: number): Promise<CarWinner> {
+export async function getWinner(id: number): Promise<CarWinner> {
   const response = await fetch(`${BASE_URL}/winners/${id}`);
 
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
 
-  const winner = await response.json();
-  return {
-    id: winner.id,
-    wins: winner.wins,
-    time: winner.time,
-  };
+  return response.json();
 }
 
 export async function createNewCarInGarage(carData: NewCar): Promise<Car> {
