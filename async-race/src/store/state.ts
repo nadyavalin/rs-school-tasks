@@ -1,12 +1,17 @@
 import { State } from "../types/interfaces";
 
 export const state: State = {
-  page: 1,
   cars: [],
   carsPerPage: 7,
-  totalCars: 0,
+  components: {
+    inputUpdateCarColor: null,
+    inputUpdateCarModel: null,
+    nextButton: null,
+  },
+  page: 1,
   selectedCar: undefined,
   selectedCarArea: null,
+  totalCars: 0,
 };
 
 export default state;

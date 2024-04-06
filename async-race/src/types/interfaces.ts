@@ -30,6 +30,13 @@ export interface State {
   totalCars: number;
   selectedCar?: Car;
   selectedCarArea: HTMLDivElement | null;
+  components: Components;
+}
+
+interface Components {
+  nextButton: HTMLButtonElement | null;
+  inputUpdateCarModel: HTMLInputElement | null;
+  inputUpdateCarColor: HTMLInputElement | null;
 }
 
 // it doesn't use yet

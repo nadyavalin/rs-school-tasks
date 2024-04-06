@@ -165,10 +165,12 @@ input {
 }
 
 .prev-button_disabled,
-.next-button_disabled {
+.next-button_disabled,
+.garage-button_disabled,
+.winners-button_disabled {
   background-color: #488be9;
   color: #adadad;
-  cursor: not-allowed;
+  cursor: default;
   pointer-events: none;
 }
 
