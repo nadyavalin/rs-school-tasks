@@ -25,7 +25,7 @@ const baseConfig = {
       },
       {
         test: /\.svg$/,
-        loader: "svg-inline-loader"
+        loader: "svg-inline-loader",
       },
     ],
   },
@@ -57,9 +57,7 @@ const baseConfig = {
 
 module.exports = ({ mode }) => {
   const isProductionMode = mode === "prod";
-  const envConfig = isProductionMode
-    ? require("./webpack.prod.config")
-    : require("./webpack.dev.config");
+  const envConfig = isProductionMode ? require("./webpack.prod.config") : require("./webpack.dev.config");
 
   return merge(baseConfig, envConfig);
 };
