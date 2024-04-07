@@ -39,7 +39,6 @@ export function createNewCar(car: Car) {
 
 export async function showGaragePage(): Promise<HTMLDivElement> {
   const carsResponse = await getCarsPerPage(state.page);
-  garageArea.innerHTML = "";
   const garageText = createText("garage-text", `Garage (${carsResponse.total})`);
   state.totalCars = Number(carsResponse.total);
   const pagesGarageText = createText("pages", `Page #${state.page}`);
@@ -56,6 +55,12 @@ export async function renderGarageContent() {
   garageContent.innerHTML = "";
   garageArea.innerHTML = "";
   await showGaragePage();
+
+  const totalPages = Math.ceil(state.totalCars / state.carsPerPage);
+  if (state.totalCars <= 7 || state.page === totalPages) {
+    state.components.nextButton?.classList.add("next-button_disabled");
+  }
+  
   garageArea.append(garageContent);
 }
 
