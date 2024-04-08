@@ -22,7 +22,7 @@ body {
 }
 
 a {
-  color: #FFFFFF;
+  color: #ffffff;
   text-decoration: none;
   cursor: pointer;
   color: inherit;
@@ -145,8 +145,8 @@ form {
 
 @media (hover: hover) {
   a:hover {
-    color: #0084ff
-}
+    color: #0084ff;
+  }
 
   button:hover {
     background-color: #39ff56;
