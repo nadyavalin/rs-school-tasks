@@ -1,4 +1,4 @@
-import { createButton, createInput, createSubmitButton, createText } from "src/components/elements";
+import { createButton, createDiv, createInput, createSubmitButton, createText } from "src/components/elements";
 
 const loginPattern: RegExp = /[-a-z]{2,}$/;
 const passwordPattern: RegExp = /[-a-z]{3,}$/;
@@ -8,10 +8,12 @@ const inputLogin = createInput("login", ["input"], "Login");
 const errorMsgForFirstName = createText(["error-message"], "❌ Your login must be more than 3 characters in English with a capital letter.");
 const inputPassword = createInput("password", ["input"], "Password");
 const errorMsgForSurname = createText(["error-message"], "❌ Your password must be more than 4 characters in English.");
-const buttonLogin = createSubmitButton("Enter Chat");
-const buttonInfo = createButton("info", ["button"], "Info");
+const formButtons = createDiv(["form-buttons"]);
+const buttonLogin = createSubmitButton("enter сhat");
+const buttonInfo = createButton("info", ["button"], "info");
+formButtons.append(buttonLogin, buttonInfo);
 
-form.append(inputLogin, errorMsgForFirstName, inputPassword, errorMsgForSurname, buttonLogin, buttonInfo);
+form.append(inputLogin, errorMsgForFirstName, inputPassword, errorMsgForSurname, formButtons);
 
 function isLoginInputsNotEmpty(): boolean {
   return !!inputLogin.value.trim() && !!inputPassword.value.trim();

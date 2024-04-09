@@ -35,6 +35,7 @@ export function createText(className: string[], text: string) {
 export function createLink(link: string, className: string[], text: string) {
   const linkA = document.createElement("a");
   linkA.href = link;
+  linkA.target = "_blank";
   linkA.classList.add(...className);
   linkA.textContent = text;
   return linkA;

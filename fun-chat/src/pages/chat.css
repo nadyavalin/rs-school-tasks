@@ -1,0 +1,152 @@
+.header {
+  width: 100%;
+  height: 70px;
+  border: 1px solid #b6b6b6;
+  background: linear-gradient(90deg, #cfecd0, #7ea0df);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 180px);
+  border: 1px solid #282828;
+  margin: 10px;
+}
+
+.left-side {
+  width: 30%;
+  border: 1px solid #b6b6b6;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  margin-right: 5px;
+}
+
+.left-side__search {
+  border: 1px solid #282828;
+  margin: 5px;
+  margin-bottom: 0;
+  background-color: rgb(57, 255, 86, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
+  border: none;
+  padding: 5px;
+  height: 40px;
+  width: 100%;
+}
+
+.search-button {
+  width: 100px;
+}
+
+.left-side__member-list {
+  height: 92%;
+  border: 1px solid #282828;
+  margin: 5px;
+  background-color: rgb(57, 255, 86, 0.2);
+}
+
+.right-side {
+  width: 70%;
+  border: 1px solid #b6b6b6;
+  margin: 10px;
+  margin-left: 5px;
+}
+
+.right-side__status-area {
+  border: 1px solid #282828;
+  margin: 5px;
+  background-color: rgb(57, 255, 86, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.right-side__chat-area {
+  height: 82%;
+  border: 1px solid #282828;
+  margin: 5px;
+  background-color: rgb(57, 255, 86, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-side__send-message-area {
+  border: 1px solid #282828;
+  margin: 5px;
+  background-color: rgb(57, 255, 86, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-message-input {
+  border: none;
+  padding: 5px;
+  height: 40px;
+  width: 100%;
+}
+
+.send-button {
+  width: 100px;
+}
+
+.footer {
+  width: 100%;
+  height: 70px;
+  border: 1px solid #b6b6b6;
+  background: linear-gradient(90deg, #cfecd0, #7ea0df);
+  display: flex;
+}
+
+.header-text,
+.footer-text {
+  width: 98%;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-buttons {
+  display: flex;
+  width: 200px;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .left-side {
+    width: 98%;
+    height: 30%;
+    margin: 5px;
+  }
+
+  .right-side {
+    width: 98%;
+    height: 70%;
+    margin: 5px;
+  }
+
+  .right-side__chat-area {
+    height: 70%;
+  }
+}
