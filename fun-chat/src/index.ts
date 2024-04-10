@@ -11,26 +11,16 @@ document.body.append(form);
 document.body.classList.add("body-chat");
 
 buttonLogin.addEventListener("click", () => {
-  document.body.removeChild(form);
+  form.classList.add("form_hide");
   document.body.append(header, main, footer);
 });
 
 buttonInfo.addEventListener("click", () => {
-  document.body.removeChild(form);
+  form.classList.add("form_hide");
   document.body.append(infoArea);
 });
 
 backButton.addEventListener("click", () => {
   document.body.removeChild(infoArea);
-  document.body.append(form);
+  form.classList.remove("form_hide");
 });
-
-// document.addEventListener("DOMContentLoaded", (): void => {
-//   const login = localStorage.getItem("user");
-//   document.body.innerHTML = "";
-//   if (login && password) {
-//     main.append(startScreenPage());
-//   } else {
-//     main.append(form);
-//   }
-// });

@@ -1,3 +1,4 @@
+import state from "src/store/state";
 import { createButton, createDiv, createElement, createInput, createLink, createText } from "src/components/elements";
 import { infoArea } from "./info";
 
@@ -19,7 +20,8 @@ rightSide.append(statusArea, chatArea, sendMessageArea);
 main.append(leftSide, rightSide);
 
 const headerText = createDiv(["header-text"]);
-const userName = createText(["user-name"], `User: __`);
+// TODO доделать вывод имени
+const userName = createText(["user-name"], `User: ${state.login}`);
 const chatName = createText(["chat-name"], "Fun Chat");
 const headerButtons = createDiv(["header-buttons"]);
 export const logoutButton = createButton("logout", ["logout-button"], "logout");
@@ -28,7 +30,7 @@ headerButtons.append(logoutButton, infoButton);
 headerText.append(userName, chatName, headerButtons);
 header.append(headerText);
 
-const searchInput = createInput("search-input", ["search-input"], "Search...");
+const searchInput = createInput("search-input", "text", ["search-input"], "Search...");
 const searchButton = createButton("search-button", ["search-button"], "Search");
 search.append(searchInput, searchButton);
 
@@ -38,7 +40,7 @@ statusArea.append(userStatus);
 const chatAreaText = createText(["chat-area__text"], "Write your first message...");
 chatArea.append(chatAreaText);
 
-const messageText = createInput("send-message-input", ["send-message-input"], "Message...");
+const messageText = createInput("send-message-input", "text", ["send-message-input"], "Message...");
 const sendButton = createButton("send-button", ["send-button"], "send");
 sendMessageArea.append(messageText, sendButton);
 

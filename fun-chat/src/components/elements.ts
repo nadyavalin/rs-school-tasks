@@ -1,6 +1,6 @@
-export function createInput(id: string, className: string[], placeholder: string) {
+export function createInput(id: string, type: string, className: string[], placeholder: string) {
   const input = document.createElement("input");
-  input.type = "text";
+  input.type = type;
   input.id = id;
   input.name = id;
   input.classList.add(...className);
