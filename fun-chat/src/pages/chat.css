@@ -39,12 +39,14 @@
 .search-input {
   border: none;
   padding: 5px;
-  height: 40px;
+  height: 34px;
   width: 100%;
 }
 
 .search-button {
   width: 100px;
+  height: 34px;
+  box-shadow: none;
 }
 
 .left-side__member-list {
@@ -62,6 +64,7 @@
 }
 
 .right-side__status-area {
+  height: 5%;
   border: 1px solid #282828;
   margin: 5px;
   background-color: rgb(57, 255, 86, 0.2);
@@ -72,7 +75,7 @@
 }
 
 .right-side__chat-area {
-  height: 82%;
+  height: 87%;
   border: 1px solid #282828;
   margin: 5px;
   background-color: rgb(57, 255, 86, 0.2);
@@ -82,6 +85,7 @@
 }
 
 .right-side__send-message-area {
+  height: 5%;
   border: 1px solid #282828;
   margin: 5px;
   background-color: rgb(57, 255, 86, 0.2);
@@ -93,12 +97,14 @@
 .send-message-input {
   border: none;
   padding: 5px;
-  height: 40px;
+  height: 34px;
   width: 100%;
 }
 
 .send-button {
   width: 100px;
+  height: 34px;
+  box-shadow: none;
 }
 
 .footer {

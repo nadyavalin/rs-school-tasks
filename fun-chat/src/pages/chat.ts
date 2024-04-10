@@ -1,4 +1,5 @@
 import { createButton, createDiv, createElement, createInput, createLink, createText } from "src/components/elements";
+import { infoArea } from "./info";
 
 export const header = createElement("header", ["header"]);
 export const main = createElement("main", ["main"]);
@@ -21,7 +22,7 @@ const headerText = createDiv(["header-text"]);
 const userName = createText(["user-name"], `User: __`);
 const chatName = createText(["chat-name"], "Fun Chat");
 const headerButtons = createDiv(["header-buttons"]);
-const logoutButton = createButton("logout", ["logout-button"], "logout");
+export const logoutButton = createButton("logout", ["logout-button"], "logout");
 const infoButton = createButton("info", ["info-button"], "info");
 headerButtons.append(logoutButton, infoButton);
 headerText.append(userName, chatName, headerButtons);
@@ -47,3 +48,10 @@ const githubName = createLink("https://github.com/nadyavalin", ["github-text"], 
 const year = createText(["year-text"], "2024");
 footerText.append(rsschool, githubName, year);
 footer.append(footerText);
+
+infoButton.addEventListener("click", () => {
+  document.body.removeChild(header);
+  document.body.removeChild(main);
+  document.body.removeChild(footer);
+  document.body.append(infoArea);
+});

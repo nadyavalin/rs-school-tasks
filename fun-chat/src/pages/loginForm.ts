@@ -1,4 +1,5 @@
 import { createButton, createDiv, createInput, createSubmitButton, createText } from "src/components/elements";
+import { main, footer, header, logoutButton } from "./chat";
 
 const loginPattern: RegExp = /[-a-z]{2,}$/;
 const passwordPattern: RegExp = /[-a-z]{3,}$/;
@@ -9,8 +10,8 @@ const errorMsgForFirstName = createText(["error-message"], "❌ Your login must 
 const inputPassword = createInput("password", ["input"], "Password");
 const errorMsgForSurname = createText(["error-message"], "❌ Your password must be more than 4 characters in English.");
 const formButtons = createDiv(["form-buttons"]);
-const buttonLogin = createSubmitButton("enter сhat");
-const buttonInfo = createButton("info", ["button"], "info");
+export const buttonLogin = createSubmitButton("enter сhat");
+export const buttonInfo = createButton("info", ["button"], "info");
 formButtons.append(buttonLogin, buttonInfo);
 
 form.append(inputLogin, errorMsgForFirstName, inputPassword, errorMsgForSurname, formButtons);
@@ -31,13 +32,11 @@ function updateButtonLoginState(): void {
 
 form.addEventListener("change", updateButtonLoginState);
 
-export const logoutButton = createButton("log-out", ["log-out-button"], "Log out");
-
 logoutButton.addEventListener("click", () => {
-  // logoutUser();
-  // container.innerHTML = "";
-  // container.append(form);
-  logoutButton.remove();
+  document.body.removeChild(header);
+  document.body.removeChild(main);
+  document.body.removeChild(footer);
+  document.body.append(form);
 });
 
 form.addEventListener("submit", (event) => {

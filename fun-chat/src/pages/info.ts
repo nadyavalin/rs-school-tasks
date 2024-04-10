@@ -7,7 +7,5 @@ const infoText = createText(
   "The application is designed to demonstrate the Fun Chat task as part of the RSSchool JS/FE 2023Q3 course!",
 );
 const githubName = createLink("https://github.com/nadyavalin", ["github-text"], "nadyavalin");
-const backButton = createButton("back-button", ["back-button"], "Come back");
+export const backButton = createButton("back-button", ["back-button"], "Come back");
 infoArea.append(chatName, infoText, githubName, backButton);
-
-export default infoArea;
