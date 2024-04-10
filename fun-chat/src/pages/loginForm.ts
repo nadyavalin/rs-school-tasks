@@ -35,9 +35,7 @@ function updateButtonLoginState(): void {
 
 form.addEventListener("change", updateButtonLoginState);
 
-socket.addEventListener("open", () => {
-
-});
+socket.addEventListener("open", () => {});
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -45,12 +43,11 @@ form.addEventListener("submit", (event) => {
   state.password = inputPassword.value;
 
   loginUser("", state.login, state.password);
-  
 });
 
 logoutButton.addEventListener("click", () => {
-  state.login = '';
-  state.password = '';
+  state.login = "";
+  state.password = "";
 
   document.body.removeChild(header);
   document.body.removeChild(main);
