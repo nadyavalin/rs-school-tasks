@@ -7,7 +7,7 @@ export const footer = createElement("footer", ["footer"]);
 
 const leftSide = createDiv(["left-side"]);
 const search = createDiv(["left-side__search"]);
-const membersList = createDiv(["left-side__member-list"]);
+export const membersList = createDiv(["left-side__member-list"]);
 
 const rightSide = createDiv(["right-side"]);
 const statusArea = createDiv(["right-side__status-area"]);
@@ -56,3 +56,11 @@ infoButton.addEventListener("click", () => {
   document.body.removeChild(footer);
   document.body.append(infoArea);
 });
+
+export function userActive(payload: { users: string[] }) {
+  if (payload && payload.users.length > 0) {
+    console.log("Активные пользователи:", payload.users);
+  } else {
+    console.log("Нет активных пользователей.");
+  }
+}

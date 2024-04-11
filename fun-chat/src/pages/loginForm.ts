@@ -1,6 +1,6 @@
-import { UserLoginPayloadResponse, UserLogoutPayloadResponse } from "src/types/types";
+import { UserLoginPayloadResponse, UserLogoutPayloadResponse, UserResponse } from "src/types/types";
 import { createButton, createDiv, createInput, createSubmitButton, createText } from "src/components/elements";
-import { main, footer, header, logoutButton, userName } from "./chat";
+import { main, footer, header, logoutButton, userName, membersList } from "./chat";
 import { socket, loginFunc, logoutFunc } from "../api/api";
 import { state } from "../store/state";
 
@@ -38,10 +38,21 @@ form.addEventListener("change", updateButtonLoginState);
 
 socket.addEventListener("open", () => {});
 
+function updateMembersList(users: UserResponse[]) {
+  membersList.innerHTML = "";
+  users.forEach((user) => {
+    const userItem = document.createElement("li");
+    userItem.textContent = user.login;
+    membersList.append(userItem);
+  });
+}
+
 export function userLogin(payload: UserLoginPayloadResponse) {
   if (payload.user.isLogined) {
     console.log("Пользователь успешно авторизован");
     userName.textContent = `User: ${state.login}`;
+    state.authorizedUsers.push(payload.user);
+    updateMembersList(state.authorizedUsers);
   }
 }
 

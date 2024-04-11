@@ -2,6 +2,7 @@ export interface State {
   id: string;
   login: string;
   password: string;
+  authorizedUsers: UserResponse[];
 }
 
 export interface UserRequest {
@@ -28,6 +29,15 @@ export interface UserLogoutPayloadRequest {
 
 export interface UserLogoutPayloadResponse {
   user: UserResponse;
+}
+
+export interface ActivePayloadRequest {
+  id: string;
+  payload: ActivePayloadResponse | null;
+}
+
+export interface ActivePayloadResponse {
+  users: UserResponse[];
 }
 
 export enum MessageType {

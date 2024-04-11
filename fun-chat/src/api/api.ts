@@ -1,3 +1,4 @@
+import { userActive } from "src/pages/chat";
 import { userLogin, userLogout } from "src/pages/loginForm";
 import { MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest } from "src/types/types";
 
@@ -11,6 +12,9 @@ socket.addEventListener("message", (event) => {
       break;
     case MessageType.USER_LOGOUT:
       userLogout(response.payload);
+      break;
+    case MessageType.USER_ACTIVE:
+      userActive(response.payload);
       break;
     default:
       break;
@@ -33,6 +37,17 @@ export function logoutFunc(id: string, payload: UserLogoutPayloadRequest) {
     id,
     type: MessageType.USER_LOGOUT,
     payload,
+  };
+
+  const requestDataString = JSON.stringify(requestData);
+  socket.send(requestDataString);
+}
+
+export function activeUserFunc(id: string) {
+  const requestData = {
+    id,
+    type: MessageType.USER_ACTIVE,
+    payload: null,
   };
 
   const requestDataString = JSON.stringify(requestData);

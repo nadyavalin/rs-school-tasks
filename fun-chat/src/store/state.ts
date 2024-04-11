@@ -4,6 +4,7 @@ export const state: State = {
   id: "",
   login: "",
   password: "",
+  authorizedUsers: [],
 };
 
 export default state;
