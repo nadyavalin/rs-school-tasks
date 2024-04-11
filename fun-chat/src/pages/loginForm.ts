@@ -52,7 +52,7 @@ export function userLogout(payload: UserLogoutPayloadResponse) {
     state.login = "";
     state.password = "";
     userName.textContent = "";
-  
+
     document.body.removeChild(header);
     document.body.removeChild(main);
     document.body.removeChild(footer);

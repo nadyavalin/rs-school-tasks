@@ -5,29 +5,29 @@ export interface State {
 }
 
 export interface UserRequest {
-  login: string,
-  password: string,
+  login: string;
+  password: string;
 }
 
 export interface UserResponse {
-  login: string,
-  isLogined: boolean,
+  login: string;
+  isLogined: boolean;
 }
 
 export interface UserLoginPayloadRequest {
-  user: UserRequest,
+  user: UserRequest;
 }
 
 export interface UserLoginPayloadResponse {
-  user: UserResponse,
+  user: UserResponse;
 }
 
 export interface UserLogoutPayloadRequest {
-  user: UserRequest,
+  user: UserRequest;
 }
 
 export interface UserLogoutPayloadResponse {
-  user: UserResponse,
+  user: UserResponse;
 }
 
 export enum MessageType {
