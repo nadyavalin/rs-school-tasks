@@ -1,6 +1,7 @@
+import { UserLoginPayloadResponse, UserLogoutPayloadResponse } from "src/types/types";
 import { createButton, createDiv, createInput, createSubmitButton, createText } from "src/components/elements";
-import { main, footer, header, logoutButton } from "./chat";
-import { socket, loginUser, logoutUser } from "../api/api";
+import { main, footer, header, logoutButton, userName } from "./chat";
+import { socket, loginFunc, logoutFunc } from "../api/api";
 import { state } from "../store/state";
 
 const loginPattern: RegExp = /[-a-z]{2,}$/;
@@ -37,23 +38,38 @@ form.addEventListener("change", updateButtonLoginState);
 
 socket.addEventListener("open", () => {});
 
+export function userLogin(payload: UserLoginPayloadResponse) {
+  if (payload.user.isLogined) {
+    console.log("Пользователь успешно авторизован");
+    userName.textContent = `User: ${state.login}`;
+  }
+}
+
+export function userLogout(payload: UserLogoutPayloadResponse) {
+  if (!payload.user.isLogined) {
+    console.log("Пользователь успешно вышел из системы");
+    state.id = "";
+    state.login = "";
+    state.password = "";
+    userName.textContent = "";
+  
+    document.body.removeChild(header);
+    document.body.removeChild(main);
+    document.body.removeChild(footer);
+    form.classList.remove("form_hide");
+  }
+}
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   state.login = inputLogin.value;
   state.password = inputPassword.value;
 
-  loginUser("", state.login, state.password);
+  loginFunc("", { user: { login: state.login, password: state.password } });
 });
 
 logoutButton.addEventListener("click", () => {
-  state.login = "";
-  state.password = "";
-
-  document.body.removeChild(header);
-  document.body.removeChild(main);
-  document.body.removeChild(footer);
-  form.classList.remove("form_hide");
-  logoutUser("", state.login, state.password);
+  logoutFunc("", { user: { login: state.login, password: state.password } });
 });
 
 inputLogin.setAttribute("data-pattern", loginPattern.source);

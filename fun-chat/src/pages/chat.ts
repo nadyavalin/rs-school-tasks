@@ -1,4 +1,3 @@
-import state from "src/store/state";
 import { createButton, createDiv, createElement, createInput, createLink, createText } from "src/components/elements";
 import { infoArea } from "./info";
 
@@ -20,8 +19,8 @@ rightSide.append(statusArea, chatArea, sendMessageArea);
 main.append(leftSide, rightSide);
 
 const headerText = createDiv(["header-text"]);
-// TODO доделать вывод имени
-const userName = createText(["user-name"], `User: ${state.login}`);
+
+export const userName = createText(["user-name"], ``);
 const chatName = createText(["chat-name"], "Fun Chat");
 const headerButtons = createDiv(["header-buttons"]);
 export const logoutButton = createButton("logout", ["logout-button"], "logout");

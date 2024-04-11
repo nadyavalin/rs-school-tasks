@@ -1,43 +1,38 @@
+import { userLogin, userLogout } from "src/pages/loginForm";
+import { MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest } from "src/types/types";
+
 export const socket = new WebSocket("ws://localhost:4000");
 
 socket.addEventListener("message", (event) => {
-  console.log("Message from server ", event);
-});
-
-// TODO в этой функции надо писать реакции на то, что бэк присылает
-socket.addEventListener("message", (event) => {
   const response = JSON.parse(event.data);
-  if (response.type === "USER_LOGIN" && response.payload.user.isLogined) {
-    console.log("Пользователь успешно авторизован");
+  switch (response.type) {
+    case MessageType.USER_LOGIN:
+      userLogin(response.payload);
+      break;
+    case MessageType.USER_LOGOUT:
+      userLogout(response.payload);
+      break;
+    default:
+      break;
   }
 });
 
-export function loginUser(id: string, login: string, password: string) {
+export function loginFunc(id: string, payload: UserLoginPayloadRequest) {
   const requestData = {
     id,
-    type: "USER_LOGIN",
-    payload: {
-      user: {
-        login,
-        password,
-      },
-    },
+    type: MessageType.USER_LOGIN,
+    payload,
   };
 
   const requestDataString = JSON.stringify(requestData);
   socket.send(requestDataString);
 }
 
-export function logoutUser(id: string, login: string, password: string) {
+export function logoutFunc(id: string, payload: UserLogoutPayloadRequest) {
   const requestData = {
     id,
-    type: "USER_LOGOUT",
-    payload: {
-      user: {
-        login,
-        password,
-      },
-    },
+    type: MessageType.USER_LOGOUT,
+    payload,
   };
 
   const requestDataString = JSON.stringify(requestData);

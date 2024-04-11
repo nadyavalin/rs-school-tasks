@@ -1,4 +1,4 @@
-import { State } from "../types/interfaces";
+import { State } from "../types/types";
 
 export const state: State = {
   id: "",
