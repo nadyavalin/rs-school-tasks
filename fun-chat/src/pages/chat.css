@@ -135,6 +135,20 @@
   margin-bottom: 0;
 }
 
+.li {
+  margin: 10px;
+  list-style-type: disc;
+}
+
+.li_user-online {
+  color: #00d300;
+}
+
+.li_user-offline {
+  list-style-type: disc;
+  color: #ee3b3b;
+}
+
 @media (max-width: 768px) {
   main {
     flex-direction: column;

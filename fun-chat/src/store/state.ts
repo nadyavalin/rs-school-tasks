@@ -5,6 +5,7 @@ export const state: State = {
   login: "",
   password: "",
   authorizedUsers: [],
+  unauthorizedUsers: [],
 };
 
 export default state;

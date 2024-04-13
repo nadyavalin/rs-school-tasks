@@ -3,6 +3,7 @@ export interface State {
   login: string;
   password: string;
   authorizedUsers: UserResponse[];
+  unauthorizedUsers: UserResponse[];
 }
 
 export interface UserRequest {
@@ -31,12 +32,20 @@ export interface UserLogoutPayloadResponse {
   user: UserResponse;
 }
 
-export interface ActivePayloadRequest {
-  id: string;
-  payload: ActivePayloadResponse | null;
+export interface ExternalUser {
+  login: string;
+  isLogined: boolean;
 }
 
-export interface ActivePayloadResponse {
+export interface UserExternalRequestFromtServer {
+  user: ExternalUser;
+}
+
+export interface ActivePayloadRequest {
+  users: UserResponse[];
+}
+
+export interface InactivePayloadRequest {
   users: UserResponse[];
 }
 

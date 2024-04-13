@@ -1,5 +1,12 @@
-import { UserLoginPayloadResponse, UserLogoutPayloadResponse, UserResponse } from "src/types/types";
-import { createButton, createDiv, createInput, createSubmitButton, createText } from "src/components/elements";
+import {
+  ActivePayloadRequest,
+  InactivePayloadRequest,
+  UserExternalRequestFromtServer,
+  UserLoginPayloadResponse,
+  UserLogoutPayloadResponse,
+  UserResponse,
+} from "src/types/types";
+import { createButton, createDiv, createElement, createInput, createSubmitButton, createText } from "src/components/elements";
 import { main, footer, header, logoutButton, userName, membersList } from "./chat";
 import { socket, loginFunc, logoutFunc } from "../api/api";
 import { state } from "../store/state";
@@ -38,36 +45,76 @@ form.addEventListener("change", updateButtonLoginState);
 
 socket.addEventListener("open", () => {});
 
-function updateMembersList(users: UserResponse[]) {
+export function displayActiveUsers(payload: ActivePayloadRequest) {
+  state.authorizedUsers = payload.users;
+}
+
+export function displayInactiveUsers(payload: InactivePayloadRequest) {
+  state.unauthorizedUsers = payload.users;
+}
+
+export function updateMembersList(users: UserResponse[]) {
   membersList.innerHTML = "";
   users.forEach((user) => {
-    const userItem = document.createElement("li");
+    const userItem = createElement("li", ["li"]);
     userItem.textContent = user.login;
+    if (user.isLogined) {
+      displayActiveUsers({ users });
+      userItem.classList.add("li_user-online");
+    } else {
+      displayInactiveUsers({ users });
+      userItem.classList.add("li_user-offline");
+    }
     membersList.append(userItem);
+  });
+}
+
+function isSameUser(users: UserResponse[]) {
+  users.forEach((user) => {
+    if (user.login === state.login) {
+      console.log("Пользователь с таким логином уже существует");
+    }
   });
 }
 
 export function userLogin(payload: UserLoginPayloadResponse) {
   if (payload.user.isLogined) {
     console.log("Пользователь успешно авторизован");
+    state.login = payload.user.login;
     userName.textContent = `User: ${state.login}`;
     state.authorizedUsers.push(payload.user);
     updateMembersList(state.authorizedUsers);
+    isSameUser(state.authorizedUsers);
   }
 }
 
 export function userLogout(payload: UserLogoutPayloadResponse) {
   if (!payload.user.isLogined) {
-    console.log("Пользователь успешно вышел из системы");
+    console.log("Пользователь успешно вышел из чата");
     state.id = "";
     state.login = "";
     state.password = "";
     userName.textContent = "";
-
+    form.classList.remove("form_hide");
     document.body.removeChild(header);
     document.body.removeChild(main);
     document.body.removeChild(footer);
-    form.classList.remove("form_hide");
+    updateMembersList(state.authorizedUsers);
+  }
+}
+
+export function externalUserLogin(payload: UserExternalRequestFromtServer) {
+  if (payload.user.isLogined) {
+    console.log("Еще один пользователь успешно авторизован");
+    state.authorizedUsers.push(payload.user);
+    updateMembersList(state.authorizedUsers);
+  }
+}
+
+export function externalUserLogout(payload: UserExternalRequestFromtServer) {
+  if (!payload.user.isLogined) {
+    console.log("Другой пользователь успешно вышел из чата");
+    updateMembersList(state.authorizedUsers);
   }
 }
 

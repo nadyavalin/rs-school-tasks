@@ -1,3 +1,4 @@
+// import { activeUserFunc, inactiveUserFunc } from "src/api/api";
 import { createButton, createDiv, createElement, createInput, createLink, createText } from "src/components/elements";
 import { infoArea } from "./info";
 
@@ -8,6 +9,12 @@ export const footer = createElement("footer", ["footer"]);
 const leftSide = createDiv(["left-side"]);
 const search = createDiv(["left-side__search"]);
 export const membersList = createDiv(["left-side__member-list"]);
+
+// export function displayUsers(payload: ) {
+//   const activeUsers = activeUserFunc("", payload.users);
+//   const inactiveUsers = inactiveUserFunc("", payload.users);
+//   membersList.append(activeUsers, inactiveUsers);
+// }
 
 const rightSide = createDiv(["right-side"]);
 const statusArea = createDiv(["right-side__status-area"]);
@@ -56,11 +63,3 @@ infoButton.addEventListener("click", () => {
   document.body.removeChild(footer);
   document.body.append(infoArea);
 });
-
-export function userActive(payload: { users: string[] }) {
-  if (payload && payload.users.length > 0) {
-    console.log("Активные пользователи:", payload.users);
-  } else {
-    console.log("Нет активных пользователей.");
-  }
-}
