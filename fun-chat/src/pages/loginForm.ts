@@ -125,6 +125,8 @@ form.addEventListener("submit", (event) => {
   activeUserFunc("");
   inactiveUserFunc("");
   loginFunc("", { user: { login: state.login, password: state.password } });
+  form.classList.add("form_hide");
+  document.body.append(header, main, footer);
 });
 
 logoutButton.addEventListener("click", () => {
