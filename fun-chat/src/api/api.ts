@@ -1,10 +1,5 @@
 import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
-import {
-  TResponse,
-  MessageType,
-  UserLoginPayloadRequest,
-  UserLogoutPayloadRequest,
-} from "src/types/types";
+import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest } from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
 
