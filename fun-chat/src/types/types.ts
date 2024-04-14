@@ -37,17 +37,60 @@ export interface ExternalUser {
   isLogined: boolean;
 }
 
-export interface UserExternalRequestFromtServer {
+export interface UserExternalRequestFromServer {
   user: ExternalUser;
 }
 
-export interface ActivePayloadRequest {
+export interface ActivePayloadResponse {
   users: UserResponse[];
 }
 
-export interface InactivePayloadRequest {
+export interface InactivePayloadResponse {
   users: UserResponse[];
 }
+
+interface Response {
+  id: string;
+  type: MessageType;
+}
+
+interface UserLoginResponse extends Response {
+  type: MessageType.USER_LOGIN;
+  payload: UserLoginPayloadResponse;
+}
+
+interface UserLogoutResponse extends Response {
+  type: MessageType.USER_LOGOUT;
+  payload: UserLogoutPayloadResponse;
+}
+
+interface UserExternalLoginResponse extends Response {
+  type: MessageType.USER_EXTERNAL_LOGIN;
+  payload: UserExternalRequestFromServer;
+}
+
+interface UserExternalLogoutResponse extends Response {
+  type: MessageType.USER_EXTERNAL_LOGOUT;
+  payload: UserExternalRequestFromServer;
+}
+
+export interface UserActivePayloadResponse extends Response {
+  type: MessageType.USER_ACTIVE;
+  payload: ActivePayloadResponse;
+}
+
+export interface UserInactivePayloadResponse extends Response {
+  type: MessageType.USER_INACTIVE;
+  payload: InactivePayloadResponse;
+}
+
+export type TResponse =
+  | UserLoginResponse
+  | UserLogoutResponse
+  | UserExternalLoginResponse
+  | UserExternalLogoutResponse
+  | UserActivePayloadResponse
+  | UserInactivePayloadResponse;
 
 export enum MessageType {
   USER_LOGIN = "USER_LOGIN",

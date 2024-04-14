@@ -1,14 +1,14 @@
 import {
-  ActivePayloadRequest,
-  InactivePayloadRequest,
-  UserExternalRequestFromtServer,
+  ActivePayloadResponse,
+  InactivePayloadResponse,
+  UserExternalRequestFromServer,
   UserLoginPayloadResponse,
   UserLogoutPayloadResponse,
   UserResponse,
 } from "src/types/types";
 import { createButton, createDiv, createElement, createInput, createSubmitButton, createText } from "src/components/elements";
 import { main, footer, header, logoutButton, userName, membersList } from "./chat";
-import { socket, loginFunc, logoutFunc } from "../api/api";
+import { socket, loginFunc, logoutFunc, activeUserFunc, inactiveUserFunc } from "../api/api";
 import { state } from "../store/state";
 
 const loginPattern: RegExp = /[-a-z]{2,}$/;
@@ -20,9 +20,9 @@ const errorMsgForFirstName = createText(["error-message"], "❌ Your login must 
 const inputPassword = createInput("password", "password", ["input"], "Password");
 const errorMsgForSurname = createText(["error-message"], "❌ Your password must be more than 4 characters or/and numbers.");
 const formButtons = createDiv(["form-buttons"]);
-export const buttonLogin = createSubmitButton("enter сhat");
-export const buttonInfo = createButton("info", ["button"], "info");
-formButtons.append(buttonLogin, buttonInfo);
+export const loginButton = createSubmitButton("enter сhat");
+export const infoButton = createButton("info", ["button"], "info");
+formButtons.append(loginButton, infoButton);
 
 form.append(inputLogin, errorMsgForFirstName, inputPassword, errorMsgForSurname, formButtons);
 
@@ -34,35 +34,34 @@ function isValidInput(inputValue: string, pattern: RegExp): boolean {
   return pattern.test(inputValue);
 }
 
-buttonLogin.classList.add("disabled");
+loginButton.classList.add("disabled");
 function updateButtonLoginState(): void {
   const isValid = isLoginInputsNotEmpty() && isValidInput(inputLogin.value, loginPattern) && isValidInput(inputPassword.value, passwordPattern);
-  buttonLogin.disabled = !isValid;
-  buttonLogin.classList.toggle("disabled", !isValid);
+  loginButton.disabled = !isValid;
+  loginButton.classList.toggle("disabled", !isValid);
 }
 
 form.addEventListener("change", updateButtonLoginState);
 
 socket.addEventListener("open", () => {});
 
-export function displayActiveUsers(payload: ActivePayloadRequest) {
+export function displayActiveUsers(payload: ActivePayloadResponse) {
   state.authorizedUsers = payload.users;
 }
 
-export function displayInactiveUsers(payload: InactivePayloadRequest) {
+export function displayInactiveUsers(payload: InactivePayloadResponse) {
   state.unauthorizedUsers = payload.users;
 }
-
 export function updateMembersList(users: UserResponse[]) {
   membersList.innerHTML = "";
   users.forEach((user) => {
     const userItem = createElement("li", ["li"]);
     userItem.textContent = user.login;
     if (user.isLogined) {
-      displayActiveUsers({ users });
+      // displayActiveUsers({ users });
       userItem.classList.add("li_user-online");
     } else {
-      displayInactiveUsers({ users });
+      // displayInactiveUsers({ users });
       userItem.classList.add("li_user-offline");
     }
     membersList.append(userItem);
@@ -70,11 +69,10 @@ export function updateMembersList(users: UserResponse[]) {
 }
 
 function isSameUser(users: UserResponse[]) {
-  users.forEach((user) => {
-    if (user.login === state.login) {
-      console.log("Пользователь с таким логином уже существует");
-    }
-  });
+  const userExists = users.find((user) => user.login === state.login);
+  if (userExists) {
+    console.log("Пользователь с таким логином уже существует");
+  }
 }
 
 export function userLogin(payload: UserLoginPayloadResponse) {
@@ -83,8 +81,8 @@ export function userLogin(payload: UserLoginPayloadResponse) {
     state.login = payload.user.login;
     userName.textContent = `User: ${state.login}`;
     state.authorizedUsers.push(payload.user);
-    updateMembersList(state.authorizedUsers);
     isSameUser(state.authorizedUsers);
+    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
 }
 
@@ -99,22 +97,23 @@ export function userLogout(payload: UserLogoutPayloadResponse) {
     document.body.removeChild(header);
     document.body.removeChild(main);
     document.body.removeChild(footer);
-    updateMembersList(state.authorizedUsers);
+    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
 }
 
-export function externalUserLogin(payload: UserExternalRequestFromtServer) {
+export function externalUserLogin(payload: UserExternalRequestFromServer) {
   if (payload.user.isLogined) {
     console.log("Еще один пользователь успешно авторизован");
     state.authorizedUsers.push(payload.user);
-    updateMembersList(state.authorizedUsers);
+    isSameUser(state.authorizedUsers);
+    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
 }
 
-export function externalUserLogout(payload: UserExternalRequestFromtServer) {
+export function externalUserLogout(payload: UserExternalRequestFromServer) {
   if (!payload.user.isLogined) {
     console.log("Другой пользователь успешно вышел из чата");
-    updateMembersList(state.authorizedUsers);
+    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
 }
 
@@ -123,6 +122,8 @@ form.addEventListener("submit", (event) => {
   state.login = inputLogin.value;
   state.password = inputPassword.value;
 
+  activeUserFunc("");
+  inactiveUserFunc("");
   loginFunc("", { user: { login: state.login, password: state.password } });
 });
 
