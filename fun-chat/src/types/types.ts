@@ -4,6 +4,7 @@ export interface State {
   password: string;
   authorizedUsers: UserResponse[];
   unauthorizedUsers: UserResponse[];
+  selectedUser?: ExternalUserResponse | null;
 }
 
 export enum MessageType {
@@ -48,13 +49,13 @@ export interface UserLogoutPayloadResponse {
   user: UserResponse;
 }
 
-export interface ExternalUser {
+export interface ExternalUserResponse {
   login: string;
   isLogined: boolean;
 }
 
 export interface UserExternalPayloadResponse {
-  user: ExternalUser;
+  user: ExternalUserResponse;
 }
 
 export interface ActivePayloadResponse {
@@ -129,7 +130,7 @@ export type TResponse =
   | UserInactiveResponse
   | UserSendMessageResponse;
 
-export interface Message {
+export interface MessageRequest {
   to: string;
   text: string;
 }

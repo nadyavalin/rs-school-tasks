@@ -1,6 +1,5 @@
-import { sendMessageToUser } from "src/pages/chat";
 import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
-import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest, Message } from "src/types/types";
+import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest, MessageRequest } from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
 
@@ -27,7 +26,7 @@ socket.addEventListener("message", (event) => {
       displayInactiveUsers(response.payload);
       break;
     case MessageType.MSG_SEND:
-      sendMessageToUser(response.payload);
+      // sendMessageToUser(response.payload);
       break;
     default:
       break;
@@ -78,7 +77,7 @@ export function inactiveUserFunc(id: string) {
   socket.send(requestDataString);
 }
 
-export function sendMessageFunc(id: string, payload: Message) {
+export function sendMessageFunc(id: string, payload: MessageRequest) {
   const requestData = {
     id,
     type: MessageType.MSG_SEND,
