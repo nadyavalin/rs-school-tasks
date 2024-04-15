@@ -76,7 +76,7 @@ export function sendMessageToUser(payload: SendMessagePayloadResponse) {
 
 membersList.addEventListener("change", (event) => {
   const userItem = event.target as HTMLLIElement;
-  if (membersList.classList.contains('left-side__member-list') && userItem.nodeName === "li") {
+  if (membersList.classList.contains("left-side__member-list") && userItem.nodeName === "li") {
     userItem.append(choosedUserFromList);
   }
 });
