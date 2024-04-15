@@ -1,7 +1,7 @@
 import {
   ActivePayloadResponse,
   InactivePayloadResponse,
-  UserExternalRequestFromServer,
+  UserExternalPayloadResponse,
   UserLoginPayloadResponse,
   UserLogoutPayloadResponse,
   UserResponse,
@@ -93,14 +93,14 @@ export function userLogout(payload: UserLogoutPayloadResponse) {
   }
 }
 
-export function externalUserLogin(payload: UserExternalRequestFromServer) {
+export function externalUserLogin(payload: UserExternalPayloadResponse) {
   if (payload.user.isLogined) {
     state.authorizedUsers.push(payload.user);
     updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
 }
 
-export function externalUserLogout(payload: UserExternalRequestFromServer) {
+export function externalUserLogout(payload: UserExternalPayloadResponse) {
   if (!payload.user.isLogined) {
     updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }

@@ -1,4 +1,5 @@
-import { createButton, createDiv, createElement, createInput, createLink, createText } from "src/components/elements";
+import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
+import { SendMessagePayloadResponse } from "src/types/types";
 import { infoArea } from "./info";
 
 export const header = createElement("header", ["header"]);
@@ -7,7 +8,7 @@ export const footer = createElement("footer", ["footer"]);
 
 const leftSide = createDiv(["left-side"]);
 const search = createDiv(["left-side__search"]);
-export const membersList = createDiv(["left-side__member-list"]);
+export const membersList = createElement("ul", ["left-side__member-list"]);
 
 const rightSide = createDiv(["right-side"]);
 const statusArea = createDiv(["right-side__status-area"]);
@@ -33,15 +34,16 @@ const searchInput = createInput("search-input", "text", ["search-input"], "Searc
 const searchButton = createButton("search-button", ["search-button"], "Search");
 search.append(searchInput, searchButton);
 
+const choosedUserFromList = createText(["choosed-user"], ``);
 const userStatus = createText(["user-status"], `on line`);
-statusArea.append(userStatus);
+statusArea.append(choosedUserFromList, userStatus);
 
 const chatAreaText = createText(["chat-area__text"], "Write your first message...");
 chatArea.append(chatAreaText);
 
-const messageText = createInput("send-message-input", "text", ["send-message-input"], "Message...");
+const messageInput = createInput("send-message-input", "text", ["send-message-input"], "Message...");
 const sendButton = createButton("send-button", ["send-button"], "send");
-sendMessageArea.append(messageText, sendButton);
+sendMessageArea.append(messageInput, sendButton);
 
 const footerText = createDiv(["footer-text"]);
 const rsschool = createLink("https://rs.school/courses", ["rsschool-text"], "RSSchool");
@@ -55,4 +57,43 @@ infoButton.addEventListener("click", () => {
   document.body.removeChild(main);
   document.body.removeChild(footer);
   document.body.append(infoArea);
+});
+
+export function sendMessageToUser(payload: SendMessagePayloadResponse) {
+  if (messageInput.value.trim() !== "") {
+    messageInput.value = payload.text;
+  }
+  const messageArea = createDiv(["message-area"]);
+  const messageTopArea = createDiv(["message-top-area"]);
+  const messageFrom = createSpan(["message-from"], `${payload.from}`);
+  const messageDate = createSpan(["message-date"], `${payload.datetime}`);
+  const messageText = createText(["message-text"], `${messageInput.value}`);
+  const messageStatus = createSpan(["message-status"], `${payload.status}`);
+  messageTopArea.append(messageFrom, messageDate);
+  messageArea.append(messageTopArea, messageText, messageStatus);
+  chatAreaText.append(messageArea);
+}
+
+membersList.addEventListener("change", (event) => {
+  const userItem = event.target as HTMLLIElement;
+  if (membersList.classList.contains('left-side__member-list') && userItem.nodeName === "li") {
+    userItem.append(choosedUserFromList);
+  }
+});
+
+sendButton.addEventListener("click", () => {
+  const payload: SendMessagePayloadResponse = {
+    id: "",
+    from: "",
+    to: "smb",
+    text: "text",
+    datetime: Date.now(),
+    status: {
+      isDelivered: false,
+      isReaded: false,
+      isEdited: false,
+    },
+  };
+
+  sendMessageToUser(payload);
 });

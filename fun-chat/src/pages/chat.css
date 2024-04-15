@@ -135,9 +135,13 @@
   margin-bottom: 0;
 }
 
-.li {
-  margin: 10px;
+li {
+  margin: 5px;
+  padding: 5px;
   list-style-type: disc;
+  margin-left: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .li_user-online {
@@ -147,6 +151,21 @@
 .li_user-offline {
   list-style-type: disc;
   color: #ee3b3b;
+}
+
+.message-area {
+  width: 200px;
+  height: 50px;
+  border: 1px solid #000000;
+}
+
+@media (hover:hover) {
+  li:hover {
+    background-color: #000000;
+    border-radius: 5px;
+    color: #ffffff;
+    opacity: 0.4;
+  }
 }
 
 @media (max-width: 768px) {
