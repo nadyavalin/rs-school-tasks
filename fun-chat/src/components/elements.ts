@@ -59,3 +59,30 @@ export function createElement(elem: string, className: string[]) {
   element.classList.add(...className);
   return element;
 }
+
+export function createSnackbar(text: string) {
+  let opacity = 1;
+  const snackbar = document.createElement("div");
+  const vertical = "top";
+  const horizontal = "right";
+  const open = true;
+
+  const fadeOutInterval = setInterval(() => {
+    opacity -= 0.1;
+    snackbar.style.opacity = opacity.toString();
+    if (opacity <= 0) {
+      clearInterval(fadeOutInterval);
+      document.body.removeChild(snackbar);
+    }
+  }, 300);
+
+  if (open) {
+    snackbar.style.position = "fixed";
+    snackbar.style.top = vertical === "top" ? "20px" : "auto";
+    snackbar.style.right = horizontal === "right" ? "20px" : "auto";
+  }
+
+  snackbar.classList.add("snackbar");
+  snackbar.textContent = text;
+  return snackbar;
+}

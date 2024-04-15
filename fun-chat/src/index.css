@@ -49,6 +49,13 @@ button.disabled {
   pointer-events: none;
 }
 
+.snackbar {
+  background-color: #000000;
+  color: #ffffff;;
+  padding: 10px;
+  border-radius: 5px;
+}
+
 @media (hover: hover) {
   a:hover {
     color: #0084ff;

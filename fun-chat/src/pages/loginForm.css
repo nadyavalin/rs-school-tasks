@@ -1,4 +1,4 @@
-form {
+.form-area {
   width: 250px;
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.2);
@@ -10,12 +10,6 @@ form {
 
 .form_hide {
   display: none;
-}
-
-.form-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }
 
 .input {
@@ -42,4 +36,8 @@ form {
 
 .input.invalid + .error-message {
   height: 27px;
+}
+
+.form-info-button {
+  margin-top: 10px;
 }

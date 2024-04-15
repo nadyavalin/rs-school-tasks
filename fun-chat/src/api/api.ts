@@ -4,6 +4,7 @@ import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadReque
 export const socket = new WebSocket("ws://localhost:4000");
 
 socket.addEventListener("message", (event) => {
+  console.log("Message from server ", event.data);
   const response: TResponse = JSON.parse(event.data);
   switch (response.type) {
     case MessageType.USER_LOGIN:
