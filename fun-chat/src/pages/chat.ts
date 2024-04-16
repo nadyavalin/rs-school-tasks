@@ -1,5 +1,5 @@
 import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
-import { SendMessagePayloadResponse } from "src/types/types";
+import { MessageRequest, SendMessagePayloadResponse } from "src/types/types";
 import state from "src/store/state";
 import { infoArea } from "./info";
 
@@ -56,10 +56,6 @@ infoButton.addEventListener("click", () => {
   document.body.append(infoArea);
 });
 
-export function sendMessageToUser() {
-  // TODO
-}
-
 membersList.addEventListener("click", (event) => {
   statusArea.textContent = "";
   const eventTarget = event.target as HTMLLIElement;
@@ -74,18 +70,33 @@ membersList.addEventListener("click", (event) => {
   }
 });
 
-// sendButton.addEventListener("click", () => {
-//   const payload: MessageRequest = {
-//     to: "smb",
-//     text: "text",
-//   };
-// });
-
-// TODO - haven't done yet
-export function getMessage(payload: SendMessagePayloadResponse) {
+export function sendMessage(payload: MessageRequest) {
+  state.selectedUser = { login: payload.to, isLogined: true || false };
   if (messageInput.value.trim() !== "") {
     messageInput.value = payload.text;
   }
+  messageInput.value = "";
+}
+
+sendButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  chatArea.classList.add("right-side__chat-area_talk");
+  chatAreaText.textContent = "";
+  const messageText = messageInput.value.trim();
+  let login: string | undefined;
+  if (state.selectedUser && state.selectedUser.login) {
+    login = state.selectedUser.login;
+  }
+  if (messageText !== "" && login) {
+    const payload: MessageRequest = {
+      to: login,
+      text: messageText,
+    };
+    sendMessage(payload);
+  }
+});
+
+export function receiveMessage(payload: SendMessagePayloadResponse) {
   const messageArea = createDiv(["message-area"]);
   const messageTopArea = createDiv(["message-top-area"]);
   const messageFrom = createSpan(["message-from"], `${payload.from}`);

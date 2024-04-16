@@ -1,10 +1,10 @@
+import { receiveMessage } from "src/pages/chat";
 import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
 import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest, MessageRequest } from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
 
 socket.addEventListener("message", (event) => {
-  console.log("Message from server ", event.data);
   const response: TResponse = JSON.parse(event.data);
   switch (response.type) {
     case MessageType.USER_LOGIN:
@@ -26,7 +26,7 @@ socket.addEventListener("message", (event) => {
       displayInactiveUsers(response.payload);
       break;
     case MessageType.MSG_SEND:
-      // sendMessageToUser(response.payload);
+      receiveMessage(response.payload);
       break;
     default:
       break;

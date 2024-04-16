@@ -77,7 +77,7 @@ export interface SendMessagePayloadResponse {
   from: string;
   to: string;
   text: string;
-  datetime: number;
+  datetime: string;
   status: Status;
 }
 

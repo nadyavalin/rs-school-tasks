@@ -85,6 +85,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  align-content: center;
+  padding: 5px;
+}
+
+.right-side__chat-area_talk {
+  display: flex;
+  justify-content: right;
+  align-content: end;
+  flex-wrap: wrap;
 }
 
 .right-side__send-message-area {
@@ -154,9 +163,28 @@ li {
 }
 
 .message-area {
-  width: 200px;
-  height: 50px;
-  border: 1px solid #000000;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-top-area,
+.message-status {
+  background-color: #282828;
+  color: #ffffff;
+  opacity: 0.2;
+  font-size: 12px;
+  padding: 2px;
+  text-align: right;
+}
+
+.message-text {
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 5px;
+  padding: 2px;
+  font-size: 14px;
 }
 
 @media (hover: hover) {
