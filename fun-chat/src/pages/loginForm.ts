@@ -52,6 +52,7 @@ export function displayActiveUsers(payload: ActivePayloadResponse) {
 export function displayInactiveUsers(payload: InactivePayloadResponse) {
   state.unauthorizedUsers = payload.users;
 }
+
 export function updateMembersList(users: UserResponse[]) {
   membersList.innerHTML = "";
   users.forEach((user) => {
@@ -59,9 +60,22 @@ export function updateMembersList(users: UserResponse[]) {
     userItem.textContent = user.login;
     if (user.isLogined) {
       userItem.classList.add("li_user-online");
+      userItem.dataset.status = "online";
     } else {
       userItem.classList.add("li_user-offline");
+      userItem.dataset.status = "offline";
     }
+    userItem.dataset.login = user.login;
+
+    userItem.addEventListener("click", () => {
+      const { login } = userItem.dataset;
+      const { status } = userItem.dataset;
+      if (login && status) {
+        const selectedUser: UserResponse = { login, isLogined: status === "online" };
+        state.selectedUser = selectedUser;
+      }
+    });
+
     membersList.append(userItem);
   });
 }

@@ -60,17 +60,17 @@ export function sendMessageToUser() {
   // TODO
 }
 
-// TODO
 membersList.addEventListener("click", (event) => {
   statusArea.textContent = "";
   const eventTarget = event.target as HTMLLIElement;
   if (eventTarget?.classList.contains("li")) {
-    if (state.selectedUser !== null && state.selectedUser !== undefined) {
-      eventTarget.textContent = state.selectedUser.login;
+    if (state.selectedUser) {
+      const { login, isLogined } = state.selectedUser;
+      eventTarget.textContent = login;
+      const choosedUserFromList = createText(["choosed-user"], `${login}`);
+      const userStatus = createText(["user-status"], `${isLogined ? "online" : "offline"}`);
+      statusArea.append(choosedUserFromList, userStatus);
     }
-    const choosedUserFromList = createText(["choosed-user"], `${state.selectedUser?.login}`);
-    const userStatus = createText(["user-status"], `${state.selectedUser?.isLogined}`);
-    statusArea.append(choosedUserFromList, userStatus);
   }
 });
 
