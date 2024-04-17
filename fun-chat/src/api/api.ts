@@ -7,7 +7,7 @@ export const socket = new WebSocket("ws://localhost:4000");
 
 socket.addEventListener("message", (event) => {
   const response: TResponse = JSON.parse(event.data);
-  console.log("Сообщение с сервера: ", event.data);
+  // console.log("Сообщение с сервера: ", event.data);
   switch (response.type) {
     case MessageType.USER_LOGIN:
       userLogin(response.payload);
@@ -84,7 +84,7 @@ export function inactiveUserFunc(id: string) {
   socket.send(requestDataString);
 }
 
-export function sendMessageFunc(id: string, payload: MessageRequest) {
+export function sendMessageToUserFunc(id: string, payload: MessageRequest) {
   const requestData = {
     id,
     type: MessageType.MSG_SEND,
@@ -92,11 +92,10 @@ export function sendMessageFunc(id: string, payload: MessageRequest) {
   };
 
   const requestDataString = JSON.stringify(requestData);
-  console.log(requestDataString);
   socket.send(requestDataString);
 }
 
-export function receiveMessageFunc(id: string, payload: MessageFromUserRequest) {
+export function getMessageHistoryWithUserFunc(id: string, payload: MessageFromUserRequest) {
   const requestData = {
     id,
     type: MessageType.MSG_FROM_USER,
@@ -104,6 +103,6 @@ export function receiveMessageFunc(id: string, payload: MessageFromUserRequest) 
   };
 
   const requestDataString = JSON.stringify(requestData);
-  console.log(requestDataString);
+  // console.log(requestDataString);
   socket.send(requestDataString);
 }

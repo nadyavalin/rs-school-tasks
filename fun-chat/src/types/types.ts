@@ -67,8 +67,10 @@ export interface InactivePayloadResponse {
 }
 
 export interface MessageRequest {
-  to: string;
-  text: string;
+  message: {
+    to: string;
+    text: string;
+  };
 }
 
 export interface Status {
@@ -78,12 +80,14 @@ export interface Status {
 }
 
 export interface SendMessagePayloadResponse {
-  id: string;
-  from: string;
-  to: string;
-  text: string;
-  datetime: string;
-  status: Status;
+  message: {
+    id: string;
+    from: string;
+    to: string;
+    text: string;
+    datetime: string;
+    status: Status;
+  };
 }
 
 export interface MessageFromUserRequest {

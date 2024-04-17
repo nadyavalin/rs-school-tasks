@@ -1,6 +1,7 @@
 import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
 import { SendMessagePayloadResponse } from "src/types/types";
-import { sendMessageFunc } from "src/api/api";
+import { sendMessageToUserFunc } from "src/api/api";
+import addZero from "src/utils/utils";
 import state from "src/store/state";
 import { infoArea } from "./info";
 
@@ -15,10 +16,10 @@ export const membersList = createElement("ul", ["left-side__member-list"]);
 const rightSide = createDiv(["right-side"]);
 const statusArea = createDiv(["right-side__status-area"]);
 const chatArea = createDiv(["right-side__chat-area"]);
-const sendMessageArea = createElement("form", ["right-side__send-message-area"]);
+const sendMessageFormArea = createElement("form", ["right-side__send-message-area"]);
 
 leftSide.append(search, membersList);
-rightSide.append(statusArea, chatArea, sendMessageArea);
+rightSide.append(statusArea, chatArea, sendMessageFormArea);
 main.append(leftSide, rightSide);
 
 const headerText = createDiv(["header-text"]);
@@ -41,7 +42,7 @@ chatArea.append(chatAreaText);
 
 const messageInput = createInput("send-message-input", "text", ["send-message-input"], "Message...");
 const sendButton = createButton("send-button", ["send-button"], "send");
-sendMessageArea.append(messageInput, sendButton);
+sendMessageFormArea.append(messageInput, sendButton);
 
 const footerText = createDiv(["footer-text"]);
 const rsschool = createLink("https://rs.school/courses", ["rsschool-text"], "RSSchool");
@@ -71,40 +72,40 @@ membersList.addEventListener("click", (event) => {
   }
 });
 
-function sendMessage() {
+function sendMessage(event: Event) {
+  event.preventDefault();
   chatArea.classList.add("right-side__chat-area_talk");
   chatAreaText.textContent = "";
   const messageText = messageInput.value.trim();
   if (messageText !== "" && state.selectedUser && state.selectedUser.login) {
-    sendMessageFunc("", {
-      to: state.selectedUser.login,
-      text: messageText,
+    sendMessageToUserFunc("", {
+      message: {
+        to: state.selectedUser.login,
+        text: messageText,
+      },
     });
     messageInput.value = "";
   }
 }
 
-sendButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  sendMessage();
-});
-
-messageInput.addEventListener("keyup", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    sendMessage();
-  }
-});
+sendMessageFormArea.addEventListener("submit", sendMessage);
 
 export function receiveMessage(payload: SendMessagePayloadResponse) {
-  const messageArea = createDiv(["message-area"]);
-  const messageTopArea = createDiv(["message-top-area"]);
-  const messageFrom = createSpan(["message-from"], `${payload.from}`);
-  const messageDate = createSpan(["message-date"], `${payload.datetime}`);
-  const messageText = createText(["message-text"], `${payload.text}`);
-  const messageStatus = createSpan(["message-status"], `${payload.status}`);
-  // receiveMessageFunc("");
-  messageTopArea.append(messageFrom, messageDate);
-  messageArea.append(messageTopArea, messageText, messageStatus);
-  chatAreaText.append(messageArea);
+  if (state.selectedUser?.login && payload.message.from) {
+    const messageArea = createDiv(["message-area"]);
+    const messageTopArea = createDiv(["message-top-area"]);
+    const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
+
+    const messageDateTime = new Date(payload.message.datetime);
+    const formattedDateTime = `${addZero(messageDateTime.getDate())}.${addZero(messageDateTime.getMonth() + 1)}.${messageDateTime.getFullYear()},
+    ${addZero(messageDateTime.getHours())}:${addZero(messageDateTime.getMinutes())}:${addZero(messageDateTime.getSeconds())}`;
+
+    const messageDate = createSpan(["message-date"], formattedDateTime);
+    const messageText = createText(["message-text"], `${payload.message.text}`);
+    const messageStatus = createSpan(["message-status"], `${payload.message.status}`);
+
+    messageTopArea.append(messageFrom, messageDate);
+    messageArea.append(messageTopArea, messageText, messageStatus);
+    chatAreaText.append(messageArea);
+  }
 }
