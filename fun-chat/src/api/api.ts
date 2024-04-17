@@ -1,11 +1,13 @@
+import { showError } from "src/components/elements";
 import { receiveMessage } from "src/pages/chat";
 import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
-import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest, MessageRequest } from "src/types/types";
+import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest, MessageRequest, MessageFromUserRequest } from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
 
 socket.addEventListener("message", (event) => {
   const response: TResponse = JSON.parse(event.data);
+  console.log("Сообщение с сервера: ", event.data);
   switch (response.type) {
     case MessageType.USER_LOGIN:
       userLogin(response.payload);
@@ -27,6 +29,11 @@ socket.addEventListener("message", (event) => {
       break;
     case MessageType.MSG_SEND:
       receiveMessage(response.payload);
+      break;
+    case MessageType.MSG_FROM_USER:
+      break;
+    case MessageType.ERROR:
+      showError(response);
       break;
     default:
       break;
@@ -85,5 +92,18 @@ export function sendMessageFunc(id: string, payload: MessageRequest) {
   };
 
   const requestDataString = JSON.stringify(requestData);
+  console.log(requestDataString);
+  socket.send(requestDataString);
+}
+
+export function receiveMessageFunc(id: string, payload: MessageFromUserRequest) {
+  const requestData = {
+    id,
+    type: MessageType.MSG_FROM_USER,
+    payload,
+  };
+
+  const requestDataString = JSON.stringify(requestData);
+  console.log(requestDataString);
   socket.send(requestDataString);
 }

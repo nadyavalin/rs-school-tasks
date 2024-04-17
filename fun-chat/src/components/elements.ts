@@ -1,3 +1,5 @@
+import { ErrorResponse, MessageType, TResponse } from "src/types/types";
+
 export function createInput(id: string, type: string, className: string[], placeholder: string) {
   const input = document.createElement("input");
   input.type = type;
@@ -85,4 +87,12 @@ export function createSnackbar(text: string) {
   snackbar.classList.add("snackbar");
   snackbar.textContent = text;
   return snackbar;
+}
+
+export function showError(payload: TResponse) {
+  if (payload.type === MessageType.ERROR) {
+    const errorData = (payload as ErrorResponse).payload.error;
+    const snackbar = createSnackbar(errorData);
+    document.body.append(snackbar);
+  }
 }

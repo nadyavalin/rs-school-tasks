@@ -1,5 +1,6 @@
 import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
-import { MessageRequest, SendMessagePayloadResponse } from "src/types/types";
+import { SendMessagePayloadResponse } from "src/types/types";
+import { sendMessageFunc } from "src/api/api";
 import state from "src/store/state";
 import { infoArea } from "./info";
 
@@ -70,29 +71,28 @@ membersList.addEventListener("click", (event) => {
   }
 });
 
-export function sendMessage(payload: MessageRequest) {
-  state.selectedUser = { login: payload.to, isLogined: true || false };
-  if (messageInput.value.trim() !== "") {
-    messageInput.value = payload.text;
+function sendMessage() {
+  chatArea.classList.add("right-side__chat-area_talk");
+  chatAreaText.textContent = "";
+  const messageText = messageInput.value.trim();
+  if (messageText !== "" && state.selectedUser && state.selectedUser.login) {
+    sendMessageFunc("", {
+      to: state.selectedUser.login,
+      text: messageText,
+    });
+    messageInput.value = "";
   }
-  messageInput.value = "";
 }
 
 sendButton.addEventListener("click", (event) => {
   event.preventDefault();
-  chatArea.classList.add("right-side__chat-area_talk");
-  chatAreaText.textContent = "";
-  const messageText = messageInput.value.trim();
-  let login: string | undefined;
-  if (state.selectedUser && state.selectedUser.login) {
-    login = state.selectedUser.login;
-  }
-  if (messageText !== "" && login) {
-    const payload: MessageRequest = {
-      to: login,
-      text: messageText,
-    };
-    sendMessage(payload);
+  sendMessage();
+});
+
+messageInput.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    sendMessage();
   }
 });
 
@@ -101,8 +101,9 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
   const messageTopArea = createDiv(["message-top-area"]);
   const messageFrom = createSpan(["message-from"], `${payload.from}`);
   const messageDate = createSpan(["message-date"], `${payload.datetime}`);
-  const messageText = createText(["message-text"], `${messageInput.value}`);
+  const messageText = createText(["message-text"], `${payload.text}`);
   const messageStatus = createSpan(["message-status"], `${payload.status}`);
+  // receiveMessageFunc("");
   messageTopArea.append(messageFrom, messageDate);
   messageArea.append(messageTopArea, messageText, messageStatus);
   chatAreaText.append(messageArea);

@@ -66,6 +66,11 @@ export interface InactivePayloadResponse {
   users: UserResponse[];
 }
 
+export interface MessageRequest {
+  to: string;
+  text: string;
+}
+
 export interface Status {
   isDelivered: boolean;
   isReaded: boolean;
@@ -79,6 +84,12 @@ export interface SendMessagePayloadResponse {
   text: string;
   datetime: string;
   status: Status;
+}
+
+export interface MessageFromUserRequest {
+  user: {
+    login: string;
+  };
 }
 
 interface Response {
@@ -121,6 +132,20 @@ export interface UserSendMessageResponse extends Response {
   payload: SendMessagePayloadResponse;
 }
 
+export interface MessageFromUserResponse extends Response {
+  type: MessageType.MSG_FROM_USER;
+  payload: {
+    messages: [];
+  };
+}
+
+export interface ErrorResponse extends Response {
+  type: MessageType.ERROR;
+  payload: {
+    error: string;
+  };
+}
+
 export type TResponse =
   | UserLoginResponse
   | UserLogoutResponse
@@ -128,9 +153,6 @@ export type TResponse =
   | UserExternalLogoutResponse
   | UserActiveResponse
   | UserInactiveResponse
-  | UserSendMessageResponse;
-
-export interface MessageRequest {
-  to: string;
-  text: string;
-}
+  | UserSendMessageResponse
+  | MessageFromUserResponse
+  | ErrorResponse;

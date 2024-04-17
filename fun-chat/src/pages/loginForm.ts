@@ -97,7 +97,7 @@ export function userLogout(payload: UserLogoutPayloadResponse) {
     state.login = "";
     state.password = "";
     userName.textContent = "";
-    const snackbarUserLogout = createSnackbar("Пользователь успешно вышел из чата");
+    const snackbarUserLogout = "Пользователь успешно вышел из чата";
     document.body.append(snackbarUserLogout);
     form.classList.remove("form_hide");
     document.body.removeChild(header);
