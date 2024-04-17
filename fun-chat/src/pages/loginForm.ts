@@ -54,18 +54,30 @@ export function displayInactiveUsers(payload: InactivePayloadResponse) {
 }
 
 export function updateMembersList(users: UserResponse[]) {
-  membersList.innerHTML = "";
+  membersList.textContent = "";
+  state.authorizedUsers = [];
+  state.unauthorizedUsers = [];
   users.forEach((user) => {
+    if (
+      state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
+      state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login)
+    ) {
+      return;
+    }
+
     const userItem = createElement("li", ["li"]);
     userItem.textContent = user.login;
+    userItem.dataset.login = user.login;
     if (user.isLogined) {
       userItem.classList.add("li_user-online");
       userItem.dataset.status = "online";
+      state.authorizedUsers.push(user);
     } else {
       userItem.classList.add("li_user-offline");
       userItem.dataset.status = "offline";
+      state.unauthorizedUsers.push(user);
     }
-    userItem.dataset.login = user.login;
+    membersList.append(userItem);
 
     userItem.addEventListener("click", () => {
       const { login } = userItem.dataset;
@@ -75,8 +87,6 @@ export function updateMembersList(users: UserResponse[]) {
         state.selectedUser = selectedUser;
       }
     });
-
-    membersList.append(userItem);
   });
 }
 
@@ -97,6 +107,8 @@ export function userLogout(payload: UserLogoutPayloadResponse) {
     state.login = "";
     state.password = "";
     userName.textContent = "";
+    state.authorizedUsers = [];
+    state.unauthorizedUsers = [];
     const snackbarUserLogout = createSnackbar("Пользователь успешно вышел из чата");
     document.body.append(snackbarUserLogout);
     form.classList.remove("form_hide");

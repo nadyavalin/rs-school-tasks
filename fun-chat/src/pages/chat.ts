@@ -74,8 +74,8 @@ membersList.addEventListener("click", (event) => {
 
 function sendMessage(event: Event) {
   event.preventDefault();
-  chatArea.classList.add("right-side__chat-area_talk");
   chatAreaText.textContent = "";
+  chatArea.classList.add("right-side__chat-area_talk");
   const messageText = messageInput.value.trim();
   if (messageText !== "" && state.selectedUser && state.selectedUser.login) {
     sendMessageToUserFunc("", {
@@ -92,6 +92,8 @@ sendMessageFormArea.addEventListener("submit", sendMessage);
 
 export function receiveMessage(payload: SendMessagePayloadResponse) {
   if (state.selectedUser?.login && payload.message.from) {
+    chatAreaText.textContent = "";
+    chatArea.classList.add("right-side__chat-area_talk");
     const messageArea = createDiv(["message-area"]);
     const messageTopArea = createDiv(["message-top-area"]);
     const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
