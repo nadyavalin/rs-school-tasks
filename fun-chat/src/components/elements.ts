@@ -56,9 +56,12 @@ export function createSpan(className: string[], text: string) {
   return span;
 }
 
-export function createElement(elem: string, className: string[]) {
+export function createElement(elem: string, className: string[], text?: string) {
   const element = document.createElement(elem);
   element.classList.add(...className);
+  if (text) {
+    element.textContent = text;
+  }
   return element;
 }
 

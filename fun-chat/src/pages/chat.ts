@@ -1,5 +1,5 @@
 import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
-import { SendMessagePayloadResponse } from "src/types/types";
+import { MessagesFromUserResponse, SendMessagePayloadResponse } from "src/types/types";
 import { sendMessageToUserFunc } from "src/api/api";
 import addZero from "src/utils/utils";
 import state from "src/store/state";
@@ -61,6 +61,7 @@ infoButton.addEventListener("click", () => {
 membersList.addEventListener("click", (event) => {
   statusArea.textContent = "";
   const eventTarget = event.target as HTMLLIElement;
+
   if (eventTarget?.classList.contains("li")) {
     if (state.selectedUser) {
       const { login, isLogined } = state.selectedUser;
@@ -70,11 +71,21 @@ membersList.addEventListener("click", (event) => {
       statusArea.append(choosedUserFromList, userStatus);
     }
   }
+
+  // if (state.selectedUser && state.selectedUser.login) {
+  //   const selectedUserLogin = state.selectedUser.login;
+  //   chatArea.textContent = "";
+  //   getMessageHistoryWithUserFunc(selectedUserLogin, {
+  //     user: {
+  //       login: selectedUserLogin
+  //     }
+  //   });
+  // }
 });
 
 function sendMessage(event: Event) {
   event.preventDefault();
-  chatAreaText.textContent = "";
+  // chatArea.textContent = "";
   chatArea.classList.add("right-side__chat-area_talk");
   const messageText = messageInput.value.trim();
   if (messageText !== "" && state.selectedUser && state.selectedUser.login) {
@@ -91,11 +102,11 @@ function sendMessage(event: Event) {
 sendMessageFormArea.addEventListener("submit", sendMessage);
 
 export function receiveMessage(payload: SendMessagePayloadResponse) {
-  if (state.selectedUser?.login && payload.message.from) {
-    chatAreaText.textContent = "";
+  if (payload.message.from && state.selectedUser?.login) {
     chatArea.classList.add("right-side__chat-area_talk");
     const messageArea = createDiv(["message-area"]);
     const messageTopArea = createDiv(["message-top-area"]);
+
     const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
 
     const messageDateTime = new Date(payload.message.datetime);
@@ -109,5 +120,16 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     messageTopArea.append(messageFrom, messageDate);
     messageArea.append(messageTopArea, messageText, messageStatus);
     chatAreaText.append(messageArea);
+  }
+}
+
+export function showChatHistory(user: MessagesFromUserResponse) {
+  if (user.payload.messages.length > 0) {
+    const chatHistory = user.payload.messages;
+    if (state.selectedUser?.login) {
+      chatHistory.forEach((message) => {
+        receiveMessage({ message });
+      });
+    }
   }
 }

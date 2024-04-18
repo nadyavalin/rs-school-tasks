@@ -1,7 +1,14 @@
 import { showError } from "src/components/elements";
-import { receiveMessage } from "src/pages/chat";
+import { receiveMessage, showChatHistory } from "src/pages/chat";
 import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
-import { TResponse, MessageType, UserLoginPayloadRequest, UserLogoutPayloadRequest, MessageRequest, MessageFromUserRequest } from "src/types/types";
+import {
+  TResponse,
+  MessageType,
+  UserLoginPayloadRequest,
+  UserLogoutPayloadRequest,
+  MessageRequest,
+  MessageHistoryWithUsersRequest,
+} from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
 
@@ -31,6 +38,7 @@ socket.addEventListener("message", (event) => {
       receiveMessage(response.payload);
       break;
     case MessageType.MSG_FROM_USER:
+      showChatHistory(response);
       break;
     case MessageType.ERROR:
       showError(response);
@@ -95,7 +103,7 @@ export function sendMessageToUserFunc(id: string, payload: MessageRequest) {
   socket.send(requestDataString);
 }
 
-export function getMessageHistoryWithUserFunc(id: string, payload: MessageFromUserRequest) {
+export function getMessageHistoryWithUserFunc(id: string, payload: MessageHistoryWithUsersRequest) {
   const requestData = {
     id,
     type: MessageType.MSG_FROM_USER,

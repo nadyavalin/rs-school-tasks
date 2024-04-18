@@ -94,6 +94,13 @@
   justify-content: right;
   align-content: end;
   flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+.chat-area__text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .right-side__send-message-area {

@@ -90,7 +90,7 @@ export interface SendMessagePayloadResponse {
   };
 }
 
-export interface MessageFromUserRequest {
+export interface MessageHistoryWithUsersRequest {
   user: {
     login: string;
   };
@@ -136,7 +136,7 @@ export interface UserSendMessageResponse extends Response {
   payload: SendMessagePayloadResponse;
 }
 
-export interface MessageFromUserResponse extends Response {
+export interface MessagesFromUserResponse extends Response {
   type: MessageType.MSG_FROM_USER;
   payload: {
     messages: [];
@@ -158,5 +158,5 @@ export type TResponse =
   | UserActiveResponse
   | UserInactiveResponse
   | UserSendMessageResponse
-  | MessageFromUserResponse
+  | MessagesFromUserResponse
   | ErrorResponse;
