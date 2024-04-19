@@ -61,26 +61,18 @@ infoButton.addEventListener("click", () => {
 membersList.addEventListener("click", (event) => {
   statusArea.textContent = "";
   const eventTarget = event.target as HTMLLIElement;
+  if (eventTarget?.classList.contains("user-item")) {
+    const { login } = eventTarget.dataset;
+    const status = eventTarget.classList.contains("user-item_online") ? "online" : "offline";
+    if (login) {
+      const selectedUser = { login, isLogined: status === "online" };
+      state.selectedUser = selectedUser;
 
-  if (eventTarget?.classList.contains("li")) {
-    if (state.selectedUser) {
-      const { login, isLogined } = state.selectedUser;
-      eventTarget.textContent = login;
-      const choosedUserFromList = createText(["choosed-user"], `${login}`);
-      const userStatus = createText(["user-status"], `${isLogined ? "online" : "offline"}`);
+      const choosedUserFromList = createText(["choosed-user"], login);
+      const userStatus = createText(["user-status"], status);
       statusArea.append(choosedUserFromList, userStatus);
     }
   }
-
-  // if (state.selectedUser && state.selectedUser.login) {
-  //   const selectedUserLogin = state.selectedUser.login;
-  //   chatArea.textContent = "";
-  //   getMessageHistoryWithUserFunc(selectedUserLogin, {
-  //     user: {
-  //       login: selectedUserLogin
-  //     }
-  //   });
-  // }
 });
 
 function sendMessage(event: Event) {

@@ -65,28 +65,16 @@ export function updateMembersList(users: UserResponse[]) {
       return;
     }
 
-    const userItem = createElement("li", ["li"]);
+    const userItem = createElement("li", ["user-item"]);
     userItem.textContent = user.login;
     userItem.dataset.login = user.login;
     if (user.isLogined) {
-      userItem.classList.add("li_user-online");
-      userItem.dataset.status = "online";
+      userItem.classList.add("user-item_online");
       state.authorizedUsers.push(user);
     } else {
-      userItem.classList.add("li_user-offline");
-      userItem.dataset.status = "offline";
       state.unauthorizedUsers.push(user);
     }
     membersList.append(userItem);
-
-    userItem.addEventListener("click", () => {
-      const { login } = userItem.dataset;
-      const { status } = userItem.dataset;
-      if (login && status) {
-        const selectedUser: UserResponse = { login, isLogined: status === "online" };
-        state.selectedUser = selectedUser;
-      }
-    });
   });
 }
 
