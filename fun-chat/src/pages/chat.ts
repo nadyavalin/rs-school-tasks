@@ -1,6 +1,13 @@
 import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
-import { MessagesFromUserResponse, SendMessagePayloadResponse } from "src/types/types";
-import { getMessageHistoryWithUserFunc, sendMessageToUserFunc } from "src/api/api";
+import {
+  MessageDeletedResponse,
+  MessageDeliveredStatusResponse,
+  MessageEditResponse,
+  MessageReadStatusResponse,
+  MessagesFromUserResponse,
+  SendMessagePayloadResponse,
+} from "src/types/types";
+import { getMessageDeleteFunc, getMessageEditFunc, getMessageHistoryWithUserFunc, sendMessageToUserFunc } from "src/api/api";
 import addZero from "src/utils/utils";
 import state from "src/store/state";
 import { infoArea } from "./info";
@@ -12,6 +19,7 @@ export const footer = createElement("footer", ["footer"]);
 const leftSide = createDiv(["left-side"]);
 const search = createDiv(["left-side__search"]);
 export const membersList = createElement("ul", ["left-side__member-list"]);
+export const unreadMessage = createSpan(["unread-measage"], ``);
 
 const rightSide = createDiv(["right-side"]);
 const statusArea = createDiv(["right-side__status-area"]);
@@ -94,6 +102,34 @@ function sendMessage(event: Event) {
 
 sendMessageFormArea.addEventListener("submit", sendMessage);
 
+export function showDeliveredMessageStatus(user: MessageDeliveredStatusResponse) {
+  const deliveryStatus = user.payload.message.status.isDelivered ? "Delivered" : "Not Delivered";
+  const messageArea = document.querySelector(".message-area");
+  if (messageArea) {
+    const messageStatus = createSpan(["message-status"], deliveryStatus);
+    messageArea.append(messageStatus);
+  }
+}
+
+export function showReadMessageStatus(user: MessageReadStatusResponse) {
+  const readStatus = user.payload.message.status.isReaded ? "Read" : "Not Read";
+  const messageArea = document.querySelector(".message-area");
+  if (messageArea) {
+    const messageStatus = createSpan(["message-status"], readStatus);
+    messageArea.append(messageStatus);
+  }
+}
+
+export function deleteMessage(user: MessageDeletedResponse) {
+  getMessageDeleteFunc("", user.payload);
+  // user.payload.message.status.isDeleted
+}
+
+export function editMessage(user: MessageEditResponse) {
+  getMessageEditFunc("", user.payload);
+  // user.payload.message.status.isEdited
+}
+
 export function receiveMessage(payload: SendMessagePayloadResponse) {
   if (payload.message.from && state.selectedUser?.login) {
     chatArea.classList.add("right-side__chat-area_talk");
@@ -108,11 +144,54 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
 
     const messageDate = createSpan(["message-date"], formattedDateTime);
     const messageText = createText(["message-text"], `${payload.message.text}`);
-    const messageStatus = createSpan(["message-status"], `${payload.message.status}`);
+
+    // TODO it's temporary
+    const messageStatus = createSpan(["message-status"], `${payload.message.status.isDelivered ? "Delivered" : "Not Delivered"}`);
 
     messageTopArea.append(messageFrom, messageDate);
     messageArea.append(messageTopArea, messageText, messageStatus);
-    chatAreaText.append(messageArea);
+
+    // if (payload.message.status) {
+    //   if (payload.message.status.isDelivered) {
+    //     showDeliveredMessageStatus({ payload: { message: { status: { isDelivered: payload.message.status.isDelivered } } } });
+    //   }
+    //   if (payload.message.status.isReaded) {
+    //     showReadMessageStatus({ payload: { message: { status: { isReaded: payload.message.status.isReaded } } } });
+    //   }
+    // }
+
+    const menu = createElement("ul", ["right-click-menu"]);
+    const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
+    const menuItemEdit = createElement("li", ["right-click-menu_item"], "Edit");
+    chatAreaText.append(messageArea, menu);
+
+    messageArea.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+      menu.style.top = `${event.clientY}px`;
+      menu.style.left = `${event.clientX}px`;
+      menu.classList.add("right-click-menu_active");
+      menu.append(menuItemDelete, menuItemEdit);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.button !== 2) {
+        menu.classList.remove("right-click-menu_active");
+      }
+    });
+
+    menu.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+
+    menuItemDelete.addEventListener("click", () => {
+      console.log("удалить сообщение");
+      menu.classList.remove("right-click-menu_active");
+    });
+
+    menuItemEdit.addEventListener("click", () => {
+      console.log("изменить сообщение");
+      menu.classList.remove("right-click-menu_active");
+    });
   }
 }
 

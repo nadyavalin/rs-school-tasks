@@ -1,5 +1,5 @@
 import { showError } from "src/components/elements";
-import { receiveMessage, showChatHistory } from "src/pages/chat";
+import { deleteMessage, editMessage, receiveMessage, showChatHistory, showDeliveredMessageStatus, showReadMessageStatus } from "src/pages/chat";
 import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
 import {
   TResponse,
@@ -8,13 +8,14 @@ import {
   UserLogoutPayloadRequest,
   MessageRequest,
   MessageHistoryWithUsersRequest,
+  MessageReadRequest,
+  MessageDeleteRequest,
 } from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
 
 socket.addEventListener("message", (event) => {
   const response: TResponse = JSON.parse(event.data);
-  // console.log("Сообщение с сервера: ", event.data);
   switch (response.type) {
     case MessageType.USER_LOGIN:
       userLogin(response.payload);
@@ -39,6 +40,18 @@ socket.addEventListener("message", (event) => {
       break;
     case MessageType.MSG_FROM_USER:
       showChatHistory(response);
+      break;
+    case MessageType.MSG_DELIVER:
+      showDeliveredMessageStatus(response);
+      break;
+    case MessageType.MSG_READ:
+      showReadMessageStatus(response);
+      break;
+    case MessageType.MSG_DELETE:
+      deleteMessage(response);
+      break;
+    case MessageType.MSG_EDIT:
+      editMessage(response);
       break;
     case MessageType.ERROR:
       showError(response);
@@ -111,6 +124,38 @@ export function getMessageHistoryWithUserFunc(id: string, payload: MessageHistor
   };
 
   const requestDataString = JSON.stringify(requestData);
-  // console.log(requestDataString);
+  socket.send(requestDataString);
+}
+
+export function getMessageReadStatusChangeFunc(id: string, payload: MessageReadRequest) {
+  const requestData = {
+    id,
+    type: MessageType.MSG_READ,
+    payload,
+  };
+
+  const requestDataString = JSON.stringify(requestData);
+  socket.send(requestDataString);
+}
+
+export function getMessageDeleteFunc(id: string, payload: MessageDeleteRequest) {
+  const requestData = {
+    id,
+    type: MessageType.MSG_DELETE,
+    payload,
+  };
+
+  const requestDataString = JSON.stringify(requestData);
+  socket.send(requestDataString);
+}
+
+export function getMessageEditFunc(id: string, payload: MessageDeleteRequest) {
+  const requestData = {
+    id,
+    type: MessageType.MSG_EDIT,
+    payload,
+  };
+
+  const requestDataString = JSON.stringify(requestData);
   socket.send(requestDataString);
 }

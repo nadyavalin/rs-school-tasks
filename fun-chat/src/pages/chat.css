@@ -161,6 +161,16 @@
   color: #ee3b3b;
 }
 
+.unread-measage {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  background-color: #ee3b3b;
+  color: #212121;
+  padding: 2px;
+  margin-left: 2px;
+}
+
 .user-item_online {
   color: #00d300;
 }
@@ -170,6 +180,9 @@
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
+  margin: auto;
+  position: relative;
 }
 
 .message-top-area,
@@ -191,6 +204,33 @@
   opacity: 0.9;
   padding: 2px;
   font-size: 14px;
+}
+
+.right-click-menu {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  list-style: none;
+  background-color: #ffffff;
+  border-radius: 5px;
+  opacity: 0.9;
+  z-index: 100;
+  display: none;
+}
+
+.right-click-menu_active {
+  display: block;
+}
+
+.right-click-menu_item {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.right-click-menu_item:hover {
+  background-color: #333333;
 }
 
 @media (hover: hover) {

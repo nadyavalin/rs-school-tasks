@@ -96,6 +96,54 @@ export interface MessageHistoryWithUsersRequest {
   };
 }
 
+export interface MessageDeliveredStatusPayloadResponse {
+  id: string;
+  status: {
+    isDelivered: boolean;
+  };
+}
+
+export interface MessageReadRequest {
+  message: {
+    id: string;
+  };
+}
+
+export interface MessageReadStatusPayloadResponse {
+  id: string;
+  status: {
+    isReaded: boolean;
+  };
+}
+
+export interface MessageDeleteRequest {
+  message: {
+    id: string;
+  };
+}
+
+export interface MessageDeletePayloadResponse {
+  id: string;
+  status: {
+    isDeleted: boolean;
+  };
+}
+
+export interface MessageEditRequest {
+  message: {
+    id: string;
+    text: string;
+  };
+}
+
+export interface MessageEditPayloadResponse {
+  id: string;
+  text: string;
+  status: {
+    isEdited: boolean;
+  };
+}
+
 interface Response {
   id: string;
   type: MessageType;
@@ -143,6 +191,34 @@ export interface MessagesFromUserResponse extends Response {
   };
 }
 
+export interface MessageDeliveredStatusResponse extends Response {
+  type: MessageType.MSG_DELIVER;
+  payload: {
+    message: MessageDeliveredStatusPayloadResponse;
+  };
+}
+
+export interface MessageReadStatusResponse extends Response {
+  type: MessageType.MSG_READ;
+  payload: {
+    message: MessageReadStatusPayloadResponse;
+  };
+}
+
+export interface MessageDeletedResponse extends Response {
+  type: MessageType.MSG_DELETE;
+  payload: {
+    message: MessageDeletePayloadResponse;
+  };
+}
+
+export interface MessageEditResponse extends Response {
+  type: MessageType.MSG_EDIT;
+  payload: {
+    message: MessageEditPayloadResponse;
+  };
+}
+
 export interface ErrorResponse extends Response {
   type: MessageType.ERROR;
   payload: {
@@ -159,4 +235,8 @@ export type TResponse =
   | UserInactiveResponse
   | UserSendMessageResponse
   | MessagesFromUserResponse
+  | MessageDeliveredStatusResponse
+  | MessageReadStatusResponse
+  | MessageDeletedResponse
+  | MessageEditResponse
   | ErrorResponse;
