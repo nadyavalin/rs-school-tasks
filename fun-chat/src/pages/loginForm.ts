@@ -58,6 +58,9 @@ export function updateMembersList(users: UserResponse[]) {
   state.authorizedUsers = [];
   state.unauthorizedUsers = [];
   users.forEach((user) => {
+    if (user.login === state.login) {
+      return;
+    }
     if (
       state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
       state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login)
