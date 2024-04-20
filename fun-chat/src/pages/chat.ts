@@ -1,6 +1,6 @@
 import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
 import { MessagesFromUserResponse, SendMessagePayloadResponse } from "src/types/types";
-import { sendMessageToUserFunc } from "src/api/api";
+import { getMessageHistoryWithUserFunc, sendMessageToUserFunc } from "src/api/api";
 import addZero from "src/utils/utils";
 import state from "src/store/state";
 import { infoArea } from "./info";
@@ -61,23 +61,24 @@ infoButton.addEventListener("click", () => {
 membersList.addEventListener("click", (event) => {
   statusArea.textContent = "";
   const eventTarget = event.target as HTMLLIElement;
-  if (eventTarget?.classList.contains("user-item")) {
+  if (eventTarget && eventTarget.classList.contains("user-item")) {
     const { login } = eventTarget.dataset;
-    const status = eventTarget.classList.contains("user-item_online") ? "online" : "offline";
-    if (login) {
-      const selectedUser = { login, isLogined: status === "online" };
-      state.selectedUser = selectedUser;
 
+    if (login) {
+      const isLogined = eventTarget.classList.contains("user-item_online");
+      const status = isLogined ? "online" : "offline";
+      state.selectedUser = { login, isLogined };
       const choosedUserFromList = createText(["choosed-user"], login);
       const userStatus = createText(["user-status"], status);
       statusArea.append(choosedUserFromList, userStatus);
+      chatAreaText.textContent = "";
+      getMessageHistoryWithUserFunc("", { user: { login: state.selectedUser.login } });
     }
   }
 });
 
 function sendMessage(event: Event) {
   event.preventDefault();
-  // chatArea.textContent = "";
   chatArea.classList.add("right-side__chat-area_talk");
   const messageText = messageInput.value.trim();
   if (messageText !== "" && state.selectedUser && state.selectedUser.login) {
