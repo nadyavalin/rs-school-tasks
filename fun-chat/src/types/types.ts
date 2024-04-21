@@ -5,6 +5,8 @@ export interface State {
   authorizedUsers: UserResponse[];
   unauthorizedUsers: UserResponse[];
   selectedUser?: ExternalUserResponse | null;
+  messages: [];
+  selectedMessage: HTMLDivElement | null;
 }
 
 export enum MessageType {

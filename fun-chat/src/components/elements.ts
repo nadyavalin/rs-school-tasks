@@ -28,7 +28,7 @@ export function createSubmitButton(text: string) {
 }
 
 export function createText(className: string[], text: string) {
-  const textP = document.createElement("p");
+  const textP = document.createElement("div");
   textP.classList.add(...className);
   textP.textContent = text;
   return textP;

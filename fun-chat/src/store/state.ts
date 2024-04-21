@@ -7,6 +7,8 @@ export const state: State = {
   authorizedUsers: [],
   unauthorizedUsers: [],
   selectedUser: null,
+  messages: [],
+  selectedMessage: null,
 };
 
 export default state;

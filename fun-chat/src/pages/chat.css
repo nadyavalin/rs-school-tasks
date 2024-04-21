@@ -186,7 +186,7 @@
 }
 
 .message-top-area,
-.message-status {
+.message-bottom-area {
   display: flex;
   justify-content: space-between;
   gap: 10px;

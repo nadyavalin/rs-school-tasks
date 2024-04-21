@@ -3,11 +3,18 @@ import {
   MessageDeletedResponse,
   MessageDeliveredStatusResponse,
   MessageEditResponse,
+  MessageReadRequest,
   MessageReadStatusResponse,
   MessagesFromUserResponse,
   SendMessagePayloadResponse,
 } from "src/types/types";
-import { getMessageDeleteFunc, getMessageEditFunc, getMessageHistoryWithUserFunc, sendMessageToUserFunc } from "src/api/api";
+import {
+  getMessageDeleteFunc,
+  getMessageEditFunc,
+  getMessageHistoryWithUserFunc,
+  getMessageReadStatusChangeFunc,
+  sendMessageToUserFunc,
+} from "src/api/api";
 import addZero from "src/utils/utils";
 import state from "src/store/state";
 import { infoArea } from "./info";
@@ -102,32 +109,32 @@ function sendMessage(event: Event) {
 
 sendMessageFormArea.addEventListener("submit", sendMessage);
 
-export function showDeliveredMessageStatus(user: MessageDeliveredStatusResponse) {
-  const deliveryStatus = user.payload.message.status.isDelivered ? "Delivered" : "Not Delivered";
-  const messageArea = document.querySelector(".message-area");
-  if (messageArea) {
-    const messageStatus = createSpan(["message-status"], deliveryStatus);
-    messageArea.append(messageStatus);
-  }
-}
-
-export function showReadMessageStatus(user: MessageReadStatusResponse) {
-  const readStatus = user.payload.message.status.isReaded ? "Read" : "Not Read";
-  const messageArea = document.querySelector(".message-area");
-  if (messageArea) {
-    const messageStatus = createSpan(["message-status"], readStatus);
-    messageArea.append(messageStatus);
-  }
-}
-
 export function deleteMessage(user: MessageDeletedResponse) {
   getMessageDeleteFunc("", user.payload);
-  // user.payload.message.status.isDeleted
 }
 
 export function editMessage(user: MessageEditResponse) {
   getMessageEditFunc("", user.payload);
-  // user.payload.message.status.isEdited
+}
+
+export function showDeliveredMessageStatus(user: MessageDeliveredStatusResponse) {
+  return user.payload.message.status.isDelivered;
+}
+
+export function showReadMessageStatus(user: MessageReadStatusResponse) {
+  return user.payload.message.status.isReaded;
+}
+
+// TODO
+export function selectMessage(eventTarget: HTMLDivElement) {
+  const messageElement = eventTarget.closest(".message-area") as HTMLDivElement;
+
+  if (messageElement && messageElement.dataset.id) {
+    // const messageId = messageElement.dataset.id;
+    // state.selectedMessage = state.messages.find((message) => String(message.id) === messageId);
+
+    messageInput.value = state.selectedMessage?.textContent ?? "";
+  }
 }
 
 export function receiveMessage(payload: SendMessagePayloadResponse) {
@@ -135,6 +142,7 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     chatArea.classList.add("right-side__chat-area_talk");
     const messageArea = createDiv(["message-area"]);
     const messageTopArea = createDiv(["message-top-area"]);
+    const messageBottomArea = createDiv(["message-bottom-area"]);
 
     const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
 
@@ -145,20 +153,21 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     const messageDate = createSpan(["message-date"], formattedDateTime);
     const messageText = createText(["message-text"], `${payload.message.text}`);
 
-    // TODO it's temporary
-    const messageStatus = createSpan(["message-status"], `${payload.message.status.isDelivered ? "Delivered" : "Not Delivered"}`);
+    const messageDeliveredStatus = createSpan(["message-status"], `${payload.message.status.isDelivered ? "✅ Delivered" : "❌ Not Delivered"}`);
+    const messageReadRequest: MessageReadRequest = {
+      message: {
+        id: payload.message.id,
+      },
+    };
+    const messageReadStatus = createSpan(["message-status"], `${payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
+
+    if (state.selectedUser) {
+      getMessageReadStatusChangeFunc("", messageReadRequest);
+    }
 
     messageTopArea.append(messageFrom, messageDate);
-    messageArea.append(messageTopArea, messageText, messageStatus);
-
-    // if (payload.message.status) {
-    //   if (payload.message.status.isDelivered) {
-    //     showDeliveredMessageStatus({ payload: { message: { status: { isDelivered: payload.message.status.isDelivered } } } });
-    //   }
-    //   if (payload.message.status.isReaded) {
-    //     showReadMessageStatus({ payload: { message: { status: { isReaded: payload.message.status.isReaded } } } });
-    //   }
-    // }
+    messageBottomArea.append(messageDeliveredStatus, messageReadStatus);
+    messageArea.append(messageTopArea, messageText, messageBottomArea);
 
     const menu = createElement("ul", ["right-click-menu"]);
     const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
@@ -184,12 +193,17 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     });
 
     menuItemDelete.addEventListener("click", () => {
-      console.log("удалить сообщение");
+      Array.from(messageArea.children).forEach((message) => {
+        if (message instanceof HTMLDivElement) {
+          message.remove();
+          getMessageDeleteFunc("", payload);
+        }
+      });
       menu.classList.remove("right-click-menu_active");
     });
 
     menuItemEdit.addEventListener("click", () => {
-      console.log("изменить сообщение");
+      console.log("edit message");
       menu.classList.remove("right-click-menu_active");
     });
   }
