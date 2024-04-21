@@ -90,6 +90,11 @@ export function userLogin(payload: UserLoginPayloadResponse) {
     state.authorizedUsers.push(payload.user);
     updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
+
+  if (state.login && state.password) {
+    formArea.classList.add("form_hide");
+    document.body.append(header, main, footer);
+  }
 }
 
 export function userLogout(payload: UserLogoutPayloadResponse) {
@@ -131,11 +136,6 @@ form.addEventListener("submit", (event) => {
   activeUserFunc("");
   inactiveUserFunc("");
   loginFunc("", { user: { login: state.login, password: state.password } });
-
-  if (state.login && state.password) {
-    formArea.classList.add("form_hide");
-    document.body.append(header, main, footer);
-  }
 });
 
 logoutButton.addEventListener("click", () => {
