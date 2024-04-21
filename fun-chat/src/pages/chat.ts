@@ -1,4 +1,4 @@
-import { createButton, createDiv, createElement, createInput, createLink, createSpan, createText } from "src/components/elements";
+import { createButton, createDiv, createElement, createImage, createInput, createLink, createSpan, createText } from "src/components/elements";
 import {
   MessageDeletedResponse,
   MessageDeliveredStatusResponse,
@@ -60,9 +60,11 @@ const sendButton = createButton("send-button", ["send-button"], "send");
 sendMessageFormArea.append(messageInput, sendButton);
 
 const footerText = createDiv(["footer-text"]);
-const rsschool = createLink("https://rs.school/courses", ["rsschool-text"], "RSSchool");
+const logorsschool = createImage(["logo"], "public/img/logo.png", "RSSchool");
+const rsschool = createLink("https://rs.school/courses", ["rsschool-text"]);
 const githubName = createLink("https://github.com/nadyavalin", ["github-text"], "nadyavalin");
 const year = createText(["year-text"], "2024");
+rsschool.append(logorsschool);
 footerText.append(rsschool, githubName, year);
 footer.append(footerText);
 

@@ -7,6 +7,8 @@ export const state: State = {
   authorizedUsers: [],
   unauthorizedUsers: [],
   selectedUser: null,
+
+  // TODO
   messages: [],
   selectedMessage: null,
 };

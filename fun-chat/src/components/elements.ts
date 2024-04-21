@@ -34,12 +34,14 @@ export function createText(className: string[], text: string) {
   return textP;
 }
 
-export function createLink(link: string, className: string[], text: string) {
+export function createLink(link: string, className: string[], text?: string) {
   const linkA = document.createElement("a");
   linkA.href = link;
   linkA.target = "_blank";
   linkA.classList.add(...className);
-  linkA.textContent = text;
+  if (text) {
+    linkA.textContent = text;
+  }
   return linkA;
 }
 
@@ -63,6 +65,15 @@ export function createElement(elem: string, className: string[], text?: string) 
     element.textContent = text;
   }
   return element;
+}
+
+export function createImage(className: string[], src: string, alt: string) {
+  const image = document.createElement("img");
+  image.classList.add(...className);
+  image.src = src;
+  image.alt = alt;
+  image.title = alt;
+  return image;
 }
 
 export function createSnackbar(text: string) {
