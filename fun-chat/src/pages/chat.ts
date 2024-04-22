@@ -1,11 +1,10 @@
 import { createButton, createDiv, createElement, createImage, createInput, createLink, createSpan, createText } from "src/components/elements";
 import {
-  MessageDeletedResponse,
+  MessageDeleteRequest,
   MessageDeliveredStatusResponse,
-  MessageEditResponse,
+  MessageEditRequest,
   MessageReadRequest,
-  MessageReadStatusResponse,
-  MessagesFromUserResponse,
+  MessagesHistoryResponse,
   SendMessagePayloadResponse,
 } from "src/types/types";
 import {
@@ -15,7 +14,6 @@ import {
   getMessageReadStatusChangeFunc,
   sendMessageToUserFunc,
 } from "src/api/api";
-import addZero from "src/utils/utils";
 import state from "src/store/state";
 import { infoArea } from "./info";
 
@@ -116,32 +114,20 @@ function handleButtonClick() {
 }
 sendButton.addEventListener("click", handleButtonClick);
 
-export function deleteMessage(user: MessageDeletedResponse) {
-  getMessageDeleteFunc("", user.payload);
-}
-
-export function editMessage(user: MessageEditResponse) {
-  getMessageEditFunc("", user.payload);
-}
-
 export function showDeliveredMessageStatus(user: MessageDeliveredStatusResponse) {
   return user.payload.message.status.isDelivered;
 }
 
-export function showReadMessageStatus(user: MessageReadStatusResponse) {
-  return user.payload.message.status.isReaded;
+export function showReadMessageStatus(user: MessageReadRequest) {
+  return user.message.id;
 }
 
-// TODO
-export function selectMessage(eventTarget: HTMLDivElement) {
-  const messageElement = eventTarget.closest(".message-area") as HTMLDivElement;
+export function deleteMessage(message: MessageDeleteRequest) {
+  getMessageDeleteFunc("", message);
+}
 
-  if (messageElement && messageElement.dataset.id) {
-    // const messageId = messageElement.dataset.id;
-    // state.selectedMessage = state.messages.find((message) => String(message.id) === messageId);
-
-    messageInput.value = state.selectedMessage?.textContent ?? "";
-  }
+export function editMessage(message: MessageEditRequest) {
+  getMessageEditFunc("", message);
 }
 
 export function receiveMessage(payload: SendMessagePayloadResponse) {
@@ -154,23 +140,32 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
 
     const messageDateTime = new Date(payload.message.datetime);
-    const formattedDateTime = `${addZero(messageDateTime.getDate())}.${addZero(messageDateTime.getMonth() + 1)}.${messageDateTime.getFullYear()},
-    ${addZero(messageDateTime.getHours())}:${addZero(messageDateTime.getMinutes())}:${addZero(messageDateTime.getSeconds())}`;
+    const formatter = new Intl.DateTimeFormat("ru", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+    const formattedDateTime = formatter.format(messageDateTime);
 
     const messageDate = createSpan(["message-date"], formattedDateTime);
     const messageText = createText(["message-text"], `${payload.message.text}`);
 
     const messageDeliveredStatus = createSpan(["message-status"], `${payload.message.status.isDelivered ? "✅ Delivered" : "❌ Not Delivered"}`);
+
     const messageReadRequest: MessageReadRequest = {
       message: {
         id: payload.message.id,
       },
     };
-    const messageReadStatus = createSpan(["message-status"], `${payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
 
-    if (state.selectedUser) {
+    if (payload.message.from) {
       getMessageReadStatusChangeFunc("", messageReadRequest);
     }
+
+    const messageReadStatus = createSpan(["message-status"], `${payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
 
     messageTopArea.append(messageFrom, messageDate);
     messageBottomArea.append(messageDeliveredStatus, messageReadStatus);
@@ -210,13 +205,12 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     });
 
     menuItemEdit.addEventListener("click", () => {
-      console.log("edit message");
       menu.classList.remove("right-click-menu_active");
     });
   }
 }
 
-export function showChatHistory(user: MessagesFromUserResponse) {
+export function showChatHistory(user: MessagesHistoryResponse) {
   if (user.payload.messages.length > 0) {
     const chatHistory = user.payload.messages;
     if (state.selectedUser?.login) {

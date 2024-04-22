@@ -188,7 +188,7 @@ export interface UserSendMessageResponse extends Response {
   payload: SendMessagePayloadResponse;
 }
 
-export interface MessagesFromUserResponse extends Response {
+export interface MessagesHistoryResponse extends Response {
   type: MessageType.MSG_FROM_USER;
   payload: {
     messages: [];
@@ -238,7 +238,7 @@ export type TResponse =
   | UserActiveResponse
   | UserInactiveResponse
   | UserSendMessageResponse
-  | MessagesFromUserResponse
+  | MessagesHistoryResponse
   | MessageDeliveredStatusResponse
   | MessageReadStatusResponse
   | MessageDeletedResponse

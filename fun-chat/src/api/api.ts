@@ -45,13 +45,13 @@ socket.addEventListener("message", (event) => {
       showDeliveredMessageStatus(response);
       break;
     case MessageType.MSG_READ:
-      showReadMessageStatus(response);
+      showReadMessageStatus(response.payload);
       break;
     case MessageType.MSG_DELETE:
-      deleteMessage(response);
+      deleteMessage(response.payload);
       break;
     case MessageType.MSG_EDIT:
-      editMessage(response);
+      editMessage(response.payload);
       break;
     case MessageType.ERROR:
       showError(response);
