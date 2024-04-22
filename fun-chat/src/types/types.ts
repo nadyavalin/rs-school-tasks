@@ -70,7 +70,7 @@ export interface InactivePayloadResponse {
   users: UserResponse[];
 }
 
-export interface MessageRequest {
+export interface SendMessageRequest {
   message: {
     to: string;
     text: string;

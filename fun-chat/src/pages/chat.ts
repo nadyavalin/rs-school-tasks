@@ -111,6 +111,11 @@ function sendMessage(event: Event) {
 
 sendMessageFormArea.addEventListener("submit", sendMessage);
 
+function handleButtonClick() {
+  chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
+}
+sendButton.addEventListener("click", handleButtonClick);
+
 export function deleteMessage(user: MessageDeletedResponse) {
   getMessageDeleteFunc("", user.payload);
 }

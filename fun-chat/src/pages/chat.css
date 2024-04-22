@@ -63,7 +63,6 @@
   margin-left: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .right-side__status-area {
@@ -78,28 +77,28 @@
 }
 
 .right-side__chat-area {
-  height: calc(100vh - 282px);
+  height: 100%;
   border: 1px solid #282828;
   margin: 5px;
   background-color: rgb(57, 255, 86, 0.2);
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  align-content: center;
-  padding: 5px;
 }
 
 .right-side__chat-area_talk {
-  display: flex;
-  justify-content: right;
-  align-content: end;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: end;
+  gap: 5px;
   overflow-y: scroll;
 }
 
 .chat-area__text {
   display: flex;
   flex-direction: column;
+  align-items: end;
   gap: 5px;
 }
 
@@ -176,12 +175,9 @@
 }
 
 .message-area {
-  min-width: 100%;
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  margin: auto;
   position: relative;
 }
 
@@ -264,9 +260,5 @@
     width: 98%;
     height: 70%;
     margin: 5px;
-  }
-
-  .right-side__chat-area {
-    height: 70%;
   }
 }

@@ -6,7 +6,7 @@ import {
   MessageType,
   UserLoginPayloadRequest,
   UserLogoutPayloadRequest,
-  MessageRequest,
+  SendMessageRequest,
   MessageHistoryWithUsersRequest,
   MessageReadRequest,
   MessageDeleteRequest,
@@ -105,7 +105,7 @@ export function inactiveUserFunc(id: string) {
   socket.send(requestDataString);
 }
 
-export function sendMessageToUserFunc(id: string, payload: MessageRequest) {
+export function sendMessageToUserFunc(id: string, payload: SendMessageRequest) {
   const requestData = {
     id,
     type: MessageType.MSG_SEND,
