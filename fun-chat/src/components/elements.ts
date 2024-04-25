@@ -21,7 +21,7 @@ export function createButton(id: string, className: string[], text = "") {
 }
 
 export function createSubmitButton(text: string) {
-  const button = createButton("submit", ["submit"], text);
+  const button = createButton("submit", ["submit", "disabled"], text);
   button.type = "submit";
   button.disabled = true;
   return button;

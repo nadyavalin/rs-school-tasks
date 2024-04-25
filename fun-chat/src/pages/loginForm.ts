@@ -34,7 +34,6 @@ function isValidInput(inputValue: string, pattern: RegExp): boolean {
   return pattern.test(inputValue);
 }
 
-loginButton.classList.add("disabled");
 function updateButtonLoginState(): void {
   const isValid = isLoginInputsNotEmpty() && isValidInput(inputLogin.value, loginPattern) && isValidInput(inputPassword.value, passwordPattern);
   loginButton.disabled = !isValid;
@@ -58,12 +57,10 @@ export function updateMembersList(users: UserResponse[]) {
   state.authorizedUsers = [];
   state.unauthorizedUsers = [];
   users.forEach((user) => {
-    if (user.login === state.login) {
-      return;
-    }
     if (
-      state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
-      state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login)
+      user.login === state.login &&
+      (state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
+        state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login))
     ) {
       return;
     }
@@ -124,6 +121,7 @@ export function externalUserLogin(payload: UserExternalPayloadResponse) {
 
 export function externalUserLogout(payload: UserExternalPayloadResponse) {
   if (!payload.user.isLogined) {
+    state.unauthorizedUsers.push(payload.user);
     updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
   }
 }

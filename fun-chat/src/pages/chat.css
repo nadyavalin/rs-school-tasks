@@ -225,10 +225,6 @@
   cursor: pointer;
 }
 
-.right-click-menu_item:hover {
-  background-color: #333333;
-}
-
 .logo {
   width: 80px;
 }
@@ -239,6 +235,10 @@
     border-radius: 5px;
     color: #ffffff;
     opacity: 0.4;
+  }
+
+  .right-click-menu_item:hover {
+    background-color: #333333;
   }
 }
 

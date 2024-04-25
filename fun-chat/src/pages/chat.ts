@@ -96,7 +96,7 @@ function sendMessage(event: Event) {
   event.preventDefault();
   chatArea.classList.add("right-side__chat-area_talk");
   const messageText = messageInput.value.trim();
-  if (messageText !== "" && state.selectedUser && state.selectedUser.login) {
+  if (messageText !== "" && state.selectedUser?.login) {
     sendMessageToUserFunc("", {
       message: {
         to: state.selectedUser.login,
@@ -107,12 +107,10 @@ function sendMessage(event: Event) {
   }
 }
 
-sendMessageFormArea.addEventListener("submit", sendMessage);
-
-function handleButtonClick() {
+sendMessageFormArea.addEventListener("submit", (event) => {
+  sendMessage(event);
   chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
-}
-sendButton.addEventListener("click", handleButtonClick);
+});
 
 export function showDeliveredMessageStatus(user: MessageDeliveredStatusResponse) {
   return user.payload.message.status.isDelivered;
@@ -210,9 +208,9 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
   }
 }
 
-export function showChatHistory(user: MessagesHistoryResponse) {
-  if (user.payload.messages.length > 0) {
-    const chatHistory = user.payload.messages;
+export function showChatHistory(messages: MessagesHistoryResponse) {
+  if (messages.payload.messages.length > 0) {
+    const chatHistory = messages.payload.messages;
     if (state.selectedUser?.login) {
       chatHistory.forEach((message) => {
         receiveMessage({ message });
