@@ -45,7 +45,7 @@ socket.addEventListener("message", (event) => {
       showDeliveredMessageStatus(response);
       break;
     case MessageType.MSG_READ:
-      showReadMessageStatus(response.payload);
+      showReadMessageStatus(response);
       break;
     case MessageType.MSG_DELETE:
       deleteMessage(response.payload);

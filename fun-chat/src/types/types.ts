@@ -100,7 +100,7 @@ export interface MessageHistoryWithUsersRequest {
   };
 }
 
-export interface MessageDeliveredStatusPayloadResponse {
+export interface MessageDeliveredStatusPayloadRequestFromServer {
   id: string;
   status: {
     isDelivered: boolean;
@@ -195,10 +195,11 @@ export interface MessagesHistoryResponse extends Response {
   };
 }
 
-export interface MessageDeliveredStatusResponse extends Response {
+export interface MessageDeliveredStatusRequestFromServer {
+  id: null;
   type: MessageType.MSG_DELIVER;
   payload: {
-    message: MessageDeliveredStatusPayloadResponse;
+    message: MessageDeliveredStatusPayloadRequestFromServer;
   };
 }
 
@@ -239,7 +240,7 @@ export type TResponse =
   | UserInactiveResponse
   | UserSendMessageResponse
   | MessagesHistoryResponse
-  | MessageDeliveredStatusResponse
+  | MessageDeliveredStatusRequestFromServer
   | MessageReadStatusResponse
   | MessageDeletedResponse
   | MessageEditResponse

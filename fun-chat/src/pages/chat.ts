@@ -1,9 +1,9 @@
 import { createButton, createDiv, createElement, createImage, createInput, createLink, createSpan, createText } from "src/components/elements";
 import {
   MessageDeleteRequest,
-  MessageDeliveredStatusResponse,
+  MessageDeliveredStatusRequestFromServer,
   MessageEditRequest,
-  MessageReadRequest,
+  MessageReadStatusResponse,
   MessagesHistoryResponse,
   SendMessagePayloadResponse,
 } from "src/types/types";
@@ -112,14 +112,6 @@ sendMessageFormArea.addEventListener("submit", (event) => {
   chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
 });
 
-export function showDeliveredMessageStatus(user: MessageDeliveredStatusResponse) {
-  return user.payload.message.status.isDelivered;
-}
-
-export function showReadMessageStatus(user: MessageReadRequest) {
-  return user.message.id;
-}
-
 export function deleteMessage(message: MessageDeleteRequest) {
   getMessageDeleteFunc("", message);
 }
@@ -134,9 +126,7 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
     const messageArea = createDiv(["message-area"]);
     const messageTopArea = createDiv(["message-top-area"]);
     const messageBottomArea = createDiv(["message-bottom-area"]);
-
     const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
-
     const messageDateTime = new Date(payload.message.datetime);
     const formatter = new Intl.DateTimeFormat("ru", {
       year: "numeric",
@@ -147,64 +137,39 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
       second: "2-digit",
     });
     const formattedDateTime = formatter.format(messageDateTime);
-
     const messageDate = createSpan(["message-date"], formattedDateTime);
     const messageText = createText(["message-text"], `${payload.message.text}`);
 
-    const messageDeliveredStatus = createSpan(["message-status"], `${payload.message.status.isDelivered ? "✅ Delivered" : "❌ Not Delivered"}`);
-
-    const messageReadRequest: MessageReadRequest = {
-      message: {
-        id: payload.message.id,
-      },
-    };
-
-    if (payload.message.from) {
-      getMessageReadStatusChangeFunc("", messageReadRequest);
-    }
-
-    const messageReadStatus = createSpan(["message-status"], `${payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
-
     messageTopArea.append(messageFrom, messageDate);
-    messageBottomArea.append(messageDeliveredStatus, messageReadStatus);
     messageArea.append(messageTopArea, messageText, messageBottomArea);
+  }
+}
 
-    const menu = createElement("ul", ["right-click-menu"]);
-    const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
-    const menuItemEdit = createElement("li", ["right-click-menu_item"], "Edit");
-    chatAreaText.append(messageArea, menu);
+export function showDeliveredMessageStatus(status: MessageDeliveredStatusRequestFromServer) {
+  const messageDeliveredStatus = createSpan(["message-status"], `${status.payload.message.status.isDelivered ? "✅ Delivered" : "❌ Not Delivered"}`);
+  const messageBottomArea = document.querySelector("message-bottom-area");
+  const messageArea = document.querySelector("message-area");
+  if (messageBottomArea && messageArea) {
+    messageBottomArea.append(messageDeliveredStatus);
+    messageArea.append(messageBottomArea);
+  }
+}
 
-    messageArea.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-      menu.style.top = `${event.clientY}px`;
-      menu.style.left = `${event.clientX}px`;
-      menu.classList.add("right-click-menu_active");
-      menu.append(menuItemDelete, menuItemEdit);
+export function showReadMessageStatus(status: MessageReadStatusResponse) {
+  if (status.payload.message.id) {
+    getMessageReadStatusChangeFunc(status.payload.message.id, {
+      message: {
+        id: status.payload.message.id,
+      },
     });
+  }
 
-    document.addEventListener("click", (event) => {
-      if (event.button !== 2) {
-        menu.classList.remove("right-click-menu_active");
-      }
-    });
-
-    menu.addEventListener("click", (event) => {
-      event.stopPropagation();
-    });
-
-    menuItemDelete.addEventListener("click", () => {
-      Array.from(messageArea.children).forEach((message) => {
-        if (message instanceof HTMLDivElement) {
-          message.remove();
-          getMessageDeleteFunc("", payload);
-        }
-      });
-      menu.classList.remove("right-click-menu_active");
-    });
-
-    menuItemEdit.addEventListener("click", () => {
-      menu.classList.remove("right-click-menu_active");
-    });
+  const messageReadStatus = createSpan(["message-status"], `${status.payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
+  const messageBottomArea = document.querySelector("message-bottom-area");
+  const messageArea = document.querySelector("message-area");
+  if (messageBottomArea && messageArea) {
+    messageBottomArea.append(messageReadStatus);
+    messageArea.append(messageBottomArea);
   }
 }
 
@@ -218,3 +183,48 @@ export function showChatHistory(messages: MessagesHistoryResponse) {
     }
   }
 }
+
+chatArea.addEventListener("contextmenu", (event) => {
+  event.preventDefault();
+  const messageArea = document.querySelector("message-area");
+  if (chatArea.classList.contains("message-area")) {
+    const menu = createElement("ul", ["right-click-menu"]);
+    const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
+    const menuItemEdit = createElement("li", ["right-click-menu_item"], "Edit");
+
+    menu.style.top = `${event.clientY}px`;
+    menu.style.left = `${event.clientX}px`;
+    menu.classList.add("right-click-menu_active");
+    menu.append(menuItemDelete, menuItemEdit);
+
+    document.addEventListener("click", (e) => {
+      if (e.button !== 2) {
+        menu.classList.remove("right-click-menu_active");
+      }
+    });
+
+    menu.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    menuItemDelete.addEventListener("click", () => {
+      if (messageArea) {
+        Array.from(messageArea.children).forEach((message) => {
+          if (message instanceof HTMLDivElement) {
+            message.remove();
+            getMessageDeleteFunc("", payload);
+          }
+        });
+      }
+
+      menu.classList.remove("right-click-menu_active");
+    });
+
+    menuItemEdit.addEventListener("click", () => {
+      menu.classList.remove("right-click-menu_active");
+    });
+    if (messageArea) {
+      chatAreaText.append(messageArea, menu);
+    }
+  }
+});
