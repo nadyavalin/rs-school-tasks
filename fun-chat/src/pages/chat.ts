@@ -121,9 +121,9 @@ export function editMessage(message: MessageEditRequest) {
 }
 
 export function receiveMessage(payload: SendMessagePayloadResponse) {
-  if (payload.message.from && state.selectedUser?.login) {
+  if (payload.message.from === state.selectedUser?.login || payload.message.to === state.selectedUser?.login) {
     chatArea.classList.add("right-side__chat-area_talk");
-    const messageArea = createDiv(["message-area"]);
+    const messageArea = createDiv(["message-area"], { key: "id", value: payload.message.id });
     const messageTopArea = createDiv(["message-top-area"]);
     const messageBottomArea = createDiv(["message-bottom-area"]);
     const messageFrom = createSpan(["message-from"], `${payload.message.from}`);
@@ -142,34 +142,41 @@ export function receiveMessage(payload: SendMessagePayloadResponse) {
 
     messageTopArea.append(messageFrom, messageDate);
     messageArea.append(messageTopArea, messageText, messageBottomArea);
+    chatAreaText.append(messageArea);
   }
 }
 
-export function showDeliveredMessageStatus(status: MessageDeliveredStatusRequestFromServer) {
-  const messageDeliveredStatus = createSpan(["message-status"], `${status.payload.message.status.isDelivered ? "✅ Delivered" : "❌ Not Delivered"}`);
-  const messageBottomArea = document.querySelector("message-bottom-area");
-  const messageArea = document.querySelector("message-area");
-  if (messageBottomArea && messageArea) {
-    messageBottomArea.append(messageDeliveredStatus);
-    messageArea.append(messageBottomArea);
+// TODO
+export function showDeliveredMessageStatus(response: MessageDeliveredStatusRequestFromServer) {
+  const messageId = response.payload.message.id;
+  const messageArea = chatArea.querySelector(`.message-area[data-id="${messageId}"]`);
+  const messageDeliveredStatus = createSpan(
+    ["message-status"],
+    `${response.payload.message.status.isDelivered ? "✅ Delivered" : "❌ Not Delivered"}`,
+  );
+
+  if (messageArea) {
+    const messageBottomArea = messageArea.querySelector(".message-bottom-area");
+    if (messageBottomArea) {
+      messageBottomArea.append(messageDeliveredStatus);
+    }
   }
 }
 
-export function showReadMessageStatus(status: MessageReadStatusResponse) {
-  if (status.payload.message.id) {
-    getMessageReadStatusChangeFunc(status.payload.message.id, {
+// TODO
+export function showReadMessageStatus(response: MessageReadStatusResponse) {
+  if (response.payload.message.id) {
+    getMessageReadStatusChangeFunc(response.payload.message.id, {
       message: {
-        id: status.payload.message.id,
+        id: response.payload.message.id,
       },
     });
   }
 
-  const messageReadStatus = createSpan(["message-status"], `${status.payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
-  const messageBottomArea = document.querySelector("message-bottom-area");
-  const messageArea = document.querySelector("message-area");
-  if (messageBottomArea && messageArea) {
+  const messageReadStatus = createSpan(["message-status"], `${response.payload.message.status.isReaded ? "❇️ Read" : "⭕️ Not Read"}`);
+  const messageBottomArea = document.querySelector(".message-bottom-area");
+  if (chatArea && messageBottomArea) {
     messageBottomArea.append(messageReadStatus);
-    messageArea.append(messageBottomArea);
   }
 }
 
@@ -186,8 +193,8 @@ export function showChatHistory(messages: MessagesHistoryResponse) {
 
 chatArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
-  const messageArea = document.querySelector("message-area");
-  if (chatArea.classList.contains("message-area")) {
+  const messageArea = document.querySelector(".message-area");
+  if (messageArea) {
     const menu = createElement("ul", ["right-click-menu"]);
     const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
     const menuItemEdit = createElement("li", ["right-click-menu_item"], "Edit");
@@ -197,6 +204,9 @@ chatArea.addEventListener("contextmenu", (event) => {
     menu.classList.add("right-click-menu_active");
     menu.append(menuItemDelete, menuItemEdit);
 
+    if (messageArea) {
+      chatArea.append(menu);
+    }
     document.addEventListener("click", (e) => {
       if (e.button !== 2) {
         menu.classList.remove("right-click-menu_active");
@@ -207,24 +217,25 @@ chatArea.addEventListener("contextmenu", (event) => {
       e.stopPropagation();
     });
 
+    // TODO
     menuItemDelete.addEventListener("click", () => {
-      if (messageArea) {
-        Array.from(messageArea.children).forEach((message) => {
-          if (message instanceof HTMLDivElement) {
-            message.remove();
-            getMessageDeleteFunc("", payload);
-          }
-        });
-      }
+      Array.from(messageArea.children).forEach((message) => {
+        if (message instanceof HTMLDivElement) {
+          message.remove();
+          getMessageDeleteFunc("", {
+            message: {
+              id: message.id,
+            },
+          });
+        }
+      });
 
       menu.classList.remove("right-click-menu_active");
     });
 
+    // TODO
     menuItemEdit.addEventListener("click", () => {
       menu.classList.remove("right-click-menu_active");
     });
-    if (messageArea) {
-      chatAreaText.append(messageArea, menu);
-    }
   }
 });

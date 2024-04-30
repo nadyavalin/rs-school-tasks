@@ -10,6 +10,7 @@ import {
   MessageHistoryWithUsersRequest,
   MessageReadRequest,
   MessageDeleteRequest,
+  MessageEditRequest,
 } from "src/types/types";
 
 export const socket = new WebSocket("ws://localhost:4000");
@@ -149,7 +150,7 @@ export function getMessageDeleteFunc(id: string, payload: MessageDeleteRequest) 
   socket.send(requestDataString);
 }
 
-export function getMessageEditFunc(id: string, payload: MessageDeleteRequest) {
+export function getMessageEditFunc(id: string, payload: MessageEditRequest) {
   const requestData = {
     id,
     type: MessageType.MSG_EDIT,

@@ -45,9 +45,12 @@ export function createLink(link: string, className: string[], text?: string) {
   return linkA;
 }
 
-export function createDiv(className: string[]) {
+export function createDiv(className: string[], data?: { key: string; value: string }) {
   const div = document.createElement("div");
   div.classList.add(...className);
+  if (data && data.key && data.value) {
+    div.setAttribute(`data-${data.key}`, data.value);
+  }
   return div;
 }
 

@@ -58,9 +58,9 @@ export function updateMembersList(users: UserResponse[]) {
   state.unauthorizedUsers = [];
   users.forEach((user) => {
     if (
-      user.login === state.login &&
-      (state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
-        state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login))
+      user.login === state.login ||
+      state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
+      state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login)
     ) {
       return;
     }
@@ -115,14 +115,18 @@ export function userLogout(payload: UserLogoutPayloadResponse) {
 export function externalUserLogin(payload: UserExternalPayloadResponse) {
   if (payload.user.isLogined) {
     state.authorizedUsers.push(payload.user);
-    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
+    const filteredAuthorizedUsers = state.authorizedUsers.filter((user) => user.login === payload.user.login);
+    const filteredUnauthorizedUsers = state.unauthorizedUsers.filter((user) => user.login === payload.user.login);
+    updateMembersList(filteredAuthorizedUsers.concat(filteredUnauthorizedUsers));
   }
 }
 
 export function externalUserLogout(payload: UserExternalPayloadResponse) {
   if (!payload.user.isLogined) {
     state.unauthorizedUsers.push(payload.user);
-    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
+    const filteredAuthorizedUsers = state.authorizedUsers.filter((user) => user.login === payload.user.login);
+    const filteredUnauthorizedUsers = state.unauthorizedUsers.filter((user) => user.login === payload.user.login);
+    updateMembersList(filteredAuthorizedUsers.concat(filteredUnauthorizedUsers));
   }
 }
 
