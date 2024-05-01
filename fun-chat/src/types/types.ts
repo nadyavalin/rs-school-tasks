@@ -5,10 +5,7 @@ export interface State {
   authorizedUsers: UserResponse[];
   unauthorizedUsers: UserResponse[];
   selectedUser?: ExternalUserResponse | null;
-
-  // TODO
-  messages: [];
-  selectedMessage: HTMLDivElement | null;
+  selectedMessageId?: string | null;
 }
 
 export enum MessageType {

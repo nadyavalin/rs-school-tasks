@@ -105,8 +105,8 @@ function sendMessage(event: Event) {
       },
     });
     messageInput.value = "";
+    chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
   }
-  chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
 }
 
 sendMessageFormArea.addEventListener("submit", sendMessage);
@@ -190,51 +190,44 @@ export function showChatHistory(messages: MessagesHistoryResponse) {
   }
 }
 
+const menu = createElement("ul", ["right-click-menu"]);
+const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
+const menuItemEdit = createElement("li", ["right-click-menu_item"], "Edit");
+menu.classList.add("right-click-menu");
+menu.append(menuItemDelete, menuItemEdit);
+chatArea.append(menu);
+
+menu.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
+
 chatArea.addEventListener("contextmenu", (event) => {
   event.preventDefault();
-  const messageArea = document.querySelector(".message-area");
-  if (messageArea) {
-    const menu = createElement("ul", ["right-click-menu"]);
-    const menuItemDelete = createElement("li", ["right-click-menu_item"], "Delete");
-    const menuItemEdit = createElement("li", ["right-click-menu_item"], "Edit");
-
+  const selectedMessageArea = (event.target as HTMLDivElement).closest(".message-area");
+  if (selectedMessageArea) {
+    const selectedMessageElement = selectedMessageArea as HTMLDivElement;
     menu.style.top = `${event.clientY}px`;
     menu.style.left = `${event.clientX}px`;
     menu.classList.add("right-click-menu_active");
-    menu.append(menuItemDelete, menuItemEdit);
+    state.selectedMessageId = selectedMessageElement.getAttribute("data-id");
+  }
+});
 
-    if (messageArea) {
-      chatArea.append(menu);
-    }
-    document.addEventListener("click", (e) => {
-      if (e.button !== 2) {
-        menu.classList.remove("right-click-menu_active");
-      }
-    });
-
-    menu.addEventListener("click", (e) => {
-      e.stopPropagation();
-    });
-
-    // TODO
-    menuItemDelete.addEventListener("click", () => {
-      Array.from(messageArea.children).forEach((message) => {
-        if (message instanceof HTMLDivElement) {
-          message.remove();
-          getMessageDeleteFunc("", {
-            message: {
-              id: message.id,
-            },
-          });
-        }
-      });
-
-      menu.classList.remove("right-click-menu_active");
-    });
-
-    // TODO
-    menuItemEdit.addEventListener("click", () => {
-      menu.classList.remove("right-click-menu_active");
+menuItemDelete.addEventListener("click", () => {
+  const selectedMessageArea = chatArea.querySelector(".message-area");
+  const messageId = state.selectedMessageId;
+  if (selectedMessageArea && messageId) {
+    selectedMessageArea.remove();
+    getMessageDeleteFunc("", {
+      message: {
+        id: messageId,
+      },
     });
   }
+  menu.classList.remove("right-click-menu_active");
+});
+
+// TODO
+menuItemEdit.addEventListener("click", () => {
+  menu.classList.remove("right-click-menu_active");
 });
