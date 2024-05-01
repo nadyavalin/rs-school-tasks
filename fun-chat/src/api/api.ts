@@ -1,6 +1,6 @@
 import { showError } from "src/components/elements";
 import { deleteMessage, editMessage, receiveMessage, showChatHistory, showDeliveredMessageStatus, showReadMessageStatus } from "src/pages/chat";
-import { displayActiveUsers, displayInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
+import { setActiveUsers, setInactiveUsers, externalUserLogin, externalUserLogout, userLogin, userLogout } from "src/pages/loginForm";
 import {
   TResponse,
   MessageType,
@@ -22,7 +22,7 @@ socket.addEventListener("message", (event) => {
       userLogin(response.payload);
       break;
     case MessageType.USER_LOGOUT:
-      userLogout(response.payload);
+      userLogout();
       break;
     case MessageType.USER_EXTERNAL_LOGIN:
       externalUserLogin(response.payload);
@@ -31,10 +31,10 @@ socket.addEventListener("message", (event) => {
       externalUserLogout(response.payload);
       break;
     case MessageType.USER_ACTIVE:
-      displayActiveUsers(response.payload);
+      setActiveUsers(response.payload);
       break;
     case MessageType.USER_INACTIVE:
-      displayInactiveUsers(response.payload);
+      setInactiveUsers(response.payload);
       break;
     case MessageType.MSG_SEND:
       receiveMessage(response.payload);

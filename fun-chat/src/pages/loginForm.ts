@@ -1,11 +1,4 @@
-import {
-  ActivePayloadResponse,
-  InactivePayloadResponse,
-  UserExternalPayloadResponse,
-  UserLoginPayloadResponse,
-  UserLogoutPayloadResponse,
-  UserResponse,
-} from "src/types/types";
+import { ActivePayloadResponse, InactivePayloadResponse, UserExternalPayloadResponse, UserLoginPayloadResponse } from "src/types/types";
 import { createButton, createDiv, createElement, createInput, createSubmitButton, createText, createSnackbar } from "src/components/elements";
 import { main, footer, header, logoutButton, userName, membersList } from "./chat";
 import { socket, loginFunc, logoutFunc, activeUserFunc, inactiveUserFunc } from "../api/api";
@@ -44,24 +37,19 @@ form.addEventListener("change", updateButtonLoginState);
 
 socket.addEventListener("open", () => {});
 
-export function displayActiveUsers(payload: ActivePayloadResponse) {
+export function setActiveUsers(payload: ActivePayloadResponse) {
   state.authorizedUsers = payload.users;
 }
 
-export function displayInactiveUsers(payload: InactivePayloadResponse) {
+export function setInactiveUsers(payload: InactivePayloadResponse) {
   state.unauthorizedUsers = payload.users;
 }
 
-export function updateMembersList(users: UserResponse[]) {
+export function updateMembersList() {
   membersList.textContent = "";
-  state.authorizedUsers = [];
-  state.unauthorizedUsers = [];
+  const users = state.authorizedUsers.concat(state.unauthorizedUsers);
   users.forEach((user) => {
-    if (
-      user.login === state.login ||
-      state.authorizedUsers.some((authUser) => authUser.login === user.login) ||
-      state.unauthorizedUsers.some((unauthUser) => unauthUser.login === user.login)
-    ) {
+    if (user.login === state.login) {
       return;
     }
 
@@ -70,23 +58,18 @@ export function updateMembersList(users: UserResponse[]) {
     userItem.dataset.login = user.login;
     if (user.isLogined) {
       userItem.classList.add("user-item_online");
-      state.authorizedUsers.push(user);
-    } else {
-      state.unauthorizedUsers.push(user);
     }
     membersList.append(userItem);
   });
 }
 
 export function userLogin(payload: UserLoginPayloadResponse) {
-  if (payload.user.isLogined) {
-    const snackbarUserLogin = createSnackbar("Пользователь успешно авторизован");
-    document.body.append(snackbarUserLogin);
-    state.login = payload.user.login;
-    userName.textContent = `User: ${state.login}`;
-    state.authorizedUsers.push(payload.user);
-    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
-  }
+  const snackbarUserLogin = createSnackbar("Пользователь успешно авторизован");
+  document.body.append(snackbarUserLogin);
+  state.login = payload.user.login;
+  userName.textContent = `User: ${state.login}`;
+  state.authorizedUsers.push(payload.user);
+  updateMembersList();
 
   if (state.login && state.password) {
     formArea.classList.add("form_hide");
@@ -94,40 +77,32 @@ export function userLogin(payload: UserLoginPayloadResponse) {
   }
 }
 
-export function userLogout(payload: UserLogoutPayloadResponse) {
-  if (!payload.user.isLogined) {
-    state.id = "";
-    state.login = "";
-    state.password = "";
-    userName.textContent = "";
-    state.authorizedUsers = [];
-    state.unauthorizedUsers = [];
-    const snackbarUserLogout = createSnackbar("Пользователь успешно вышел из чата");
-    document.body.append(snackbarUserLogout);
-    form.classList.remove("form_hide");
-    document.body.removeChild(header);
-    document.body.removeChild(main);
-    document.body.removeChild(footer);
-    updateMembersList(state.authorizedUsers.concat(state.unauthorizedUsers));
-  }
+export function userLogout() {
+  state.id = "";
+  state.login = "";
+  state.password = "";
+  userName.textContent = "";
+  state.authorizedUsers = [];
+  state.unauthorizedUsers = [];
+  const snackbarUserLogout = createSnackbar("Пользователь успешно вышел из чата");
+  document.body.append(snackbarUserLogout);
+  form.classList.remove("form_hide");
+  document.body.removeChild(header);
+  document.body.removeChild(main);
+  document.body.removeChild(footer);
+  updateMembersList();
 }
 
 export function externalUserLogin(payload: UserExternalPayloadResponse) {
-  if (payload.user.isLogined) {
-    state.authorizedUsers.push(payload.user);
-    const filteredAuthorizedUsers = state.authorizedUsers.filter((user) => user.login === payload.user.login);
-    const filteredUnauthorizedUsers = state.unauthorizedUsers.filter((user) => user.login === payload.user.login);
-    updateMembersList(filteredAuthorizedUsers.concat(filteredUnauthorizedUsers));
-  }
+  state.authorizedUsers.push(payload.user);
+  state.unauthorizedUsers = state.unauthorizedUsers.filter((user) => user.login !== payload.user.login);
+  updateMembersList();
 }
 
 export function externalUserLogout(payload: UserExternalPayloadResponse) {
-  if (!payload.user.isLogined) {
-    state.unauthorizedUsers.push(payload.user);
-    const filteredAuthorizedUsers = state.authorizedUsers.filter((user) => user.login === payload.user.login);
-    const filteredUnauthorizedUsers = state.unauthorizedUsers.filter((user) => user.login === payload.user.login);
-    updateMembersList(filteredAuthorizedUsers.concat(filteredUnauthorizedUsers));
-  }
+  state.unauthorizedUsers.push(payload.user);
+  state.unauthorizedUsers = state.unauthorizedUsers.filter((user) => user.login !== payload.user.login);
+  updateMembersList();
 }
 
 form.addEventListener("submit", (event) => {

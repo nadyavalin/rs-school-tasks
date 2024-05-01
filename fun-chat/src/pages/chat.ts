@@ -76,6 +76,7 @@ infoButton.addEventListener("click", () => {
 membersList.addEventListener("click", (event) => {
   statusArea.textContent = "";
   const eventTarget = event.target as HTMLLIElement;
+  chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
   if (eventTarget && eventTarget.classList.contains("user-item")) {
     const { login } = eventTarget.dataset;
 
@@ -105,12 +106,10 @@ function sendMessage(event: Event) {
     });
     messageInput.value = "";
   }
+  chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
 }
 
-sendMessageFormArea.addEventListener("submit", (event) => {
-  sendMessage(event);
-  chatAreaText.scrollIntoView({ block: "end", behavior: "smooth" });
-});
+sendMessageFormArea.addEventListener("submit", sendMessage);
 
 export function deleteMessage(message: MessageDeleteRequest) {
   getMessageDeleteFunc("", message);
